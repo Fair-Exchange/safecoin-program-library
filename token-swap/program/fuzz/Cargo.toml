@@ -1,0 +1,23 @@
+[package]
+name = "safe-token-swap-fuzz"
+version = "0.0.1"
+description = "Safecoin Program Library Token Swap Fuzzer"
+authors = ["Solana Maintainers <maintainers@solana.foundation>"]
+repository = "https://github.com/fair-exchange/safecoin-program-library"
+license = "Apache-2.0"
+edition = "2018"
+publish = false
+
+[dependencies]
+honggfuzz = { version = "0.5.52" }
+arbitrary = { version = "0.4", features = ["derive"] }
+safecoin-program = "1.7.7"
+spl-math = { version = "0.1", path = "../../../libraries/math", features = [ "no-entrypoint" ] }
+safe-token = { version = "3.2", path = "../../../token/program", features = [ "no-entrypoint" ] }
+safe-token-swap = { path = "..", features = ["fuzz", "no-entrypoint"] }
+
+[[bin]]
+name = "token-swap-instructions"
+path = "src/instructions.rs"
+test = false
+doc = false

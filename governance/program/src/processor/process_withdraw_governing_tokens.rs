@@ -1,0 +1,83 @@
+//! Program state processor
+
+use borsh::BorshSerialize;
+use safecoin_program::{
+    account_info::{next_account_info, AccountInfo},
+    entrypoint::ProgramResult,
+    pubkey::Pubkey,
+};
+
+use crate::{
+    error::GovernanceError,
+    state::{
+        realm::{get_realm_address_seeds, get_realm_data},
+        token_owner_record::{
+            get_token_owner_record_address_seeds, get_token_owner_record_data_for_seeds,
+        },
+    },
+    tools::safe_token::{get_safe_token_mint, transfer_safe_tokens_signed},
+};
+
+/// Processes WithdrawGoverningTokens instruction
+pub fn process_withdraw_governing_tokens(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+) -> ProgramResult {
+    let account_info_iter = &mut accounts.iter();
+
+    let realm_info = next_account_info(account_info_iter)?; // 0
+    let governing_token_holding_info = next_account_info(account_info_iter)?; // 1
+    let governing_token_destination_info = next_account_info(account_info_iter)?; // 2
+    let governing_token_owner_info = next_account_info(account_info_iter)?; // 3
+    let token_owner_record_info = next_account_info(account_info_iter)?; // 4
+    let safe_token_info = next_account_info(account_info_iter)?; // 5
+
+    if !governing_token_owner_info.is_signer {
+        return Err(GovernanceError::GoverningTokenOwnerMustSign.into());
+    }
+
+    let realm_data = get_realm_data(program_id, realm_info)?;
+    let governing_token_mint = get_safe_token_mint(governing_token_holding_info)?;
+
+    realm_data.assert_is_valid_governing_token_mint_and_holding(
+        program_id,
+        realm_info.key,
+        &governing_token_mint,
+        governing_token_holding_info.key,
+    )?;
+
+    let token_owner_record_address_seeds = get_token_owner_record_address_seeds(
+        realm_info.key,
+        &governing_token_mint,
+        governing_token_owner_info.key,
+    );
+
+    let mut token_owner_record_data = get_token_owner_record_data_for_seeds(
+        program_id,
+        token_owner_record_info,
+        &token_owner_record_address_seeds,
+    )?;
+
+    if token_owner_record_data.unrelinquished_votes_count > 0 {
+        return Err(GovernanceError::AllVotesMustBeRelinquishedToWithdrawGoverningTokens.into());
+    }
+
+    if token_owner_record_data.outstanding_proposal_count > 0 {
+        return Err(GovernanceError::AllProposalsMustBeFinalisedToWithdrawGoverningTokens.into());
+    }
+
+    transfer_safe_tokens_signed(
+        governing_token_holding_info,
+        governing_token_destination_info,
+        realm_info,
+        &get_realm_address_seeds(&realm_data.name),
+        program_id,
+        token_owner_record_data.governing_token_deposit_amount,
+        safe_token_info,
+    )?;
+
+    token_owner_record_data.governing_token_deposit_amount = 0;
+    token_owner_record_data.serialize(&mut *token_owner_record_info.data.borrow_mut())?;
+
+    Ok(())
+}
