@@ -10,11 +10,11 @@ edition = "2018"
 [dependencies]
 chrono = "0.4.19"
 clap = "2.33.3"
-safecoin-clap-utils = "1.7.7"
-safecoin-cli-config = "1.7.7"
-safecoin-client = "1.7.7"
-safecoin-logger = "1.7.7"
-safecoin-sdk = "1.7.7"
+safecoin-clap-utils = "1.7.17"
+safecoin-cli-config = "1.7.17"
+safecoin-client = "1.7.17"
+safecoin-logger = "1.7.17"
+safecoin-sdk = "1.7.17"
 safe-feature-proposal = { version = "1.0", path = "../program", features = ["no-entrypoint"] }
 
 [[bin]]

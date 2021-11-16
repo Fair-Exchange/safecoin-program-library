@@ -9,7 +9,7 @@ no-entrypoint = []
 test-bpf = []
 
 [dependencies]
-safecoin-program = "1.7.17"
+safecoin-program = "1.7.4"
 thiserror = "1.0"
 safe-token = {version = "3.1.1", path = "../../token/program", features = ["no-entrypoint"]}
 arrayref = "0.3.6"
