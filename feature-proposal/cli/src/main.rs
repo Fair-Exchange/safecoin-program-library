@@ -17,7 +17,7 @@ use {
         signature::{read_keypair_file, Keypair, Signer},
         transaction::Transaction,
     },
-    spl_feature_proposal::state::{AcceptanceCriteria, FeatureProposal},
+    safe_feature_proposal::state::{AcceptanceCriteria, FeatureProposal},
     std::{
         collections::HashMap,
         fs::File,
@@ -170,15 +170,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             println!(
                 "Feature Id: {}",
-                spl_feature_proposal::get_feature_id_address(&feature_proposal_address)
+                safe_feature_proposal::get_feature_id_address(&feature_proposal_address)
             );
             println!(
                 "Token Mint Address: {}",
-                spl_feature_proposal::get_mint_address(&feature_proposal_address)
+                safe_feature_proposal::get_mint_address(&feature_proposal_address)
             );
             println!(
                 "Acceptance Token Address: {}",
-                spl_feature_proposal::get_acceptance_token_address(&feature_proposal_address)
+                safe_feature_proposal::get_acceptance_token_address(&feature_proposal_address)
             );
 
             Ok(())
@@ -267,12 +267,12 @@ fn process_propose(
     confirm: bool,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let distributor_token_address =
-        spl_feature_proposal::get_distributor_token_address(&feature_proposal_keypair.pubkey());
+        safe_feature_proposal::get_distributor_token_address(&feature_proposal_keypair.pubkey());
     let feature_id_address =
-        spl_feature_proposal::get_feature_id_address(&feature_proposal_keypair.pubkey());
+        safe_feature_proposal::get_feature_id_address(&feature_proposal_keypair.pubkey());
     let acceptance_token_address =
-        spl_feature_proposal::get_acceptance_token_address(&feature_proposal_keypair.pubkey());
-    let mint_address = spl_feature_proposal::get_mint_address(&feature_proposal_keypair.pubkey());
+        safe_feature_proposal::get_acceptance_token_address(&feature_proposal_keypair.pubkey());
+    let mint_address = safe_feature_proposal::get_mint_address(&feature_proposal_keypair.pubkey());
 
     println!("Feature Id: {}", feature_id_address);
     println!("Token Mint Address: {}", mint_address);
@@ -299,11 +299,11 @@ fn process_propose(
     println!("Number of validators: {}", distribution.len());
     println!(
         "Tokens to be minted: {}",
-        spl_feature_proposal::amount_to_ui_amount(tokens_to_mint)
+        safe_feature_proposal::amount_to_ui_amount(tokens_to_mint)
     );
     println!(
         "Tokens required for acceptance: {} ({}%)",
-        spl_feature_proposal::amount_to_ui_amount(tokens_required),
+        safe_feature_proposal::amount_to_ui_amount(tokens_required),
         percent_stake_required
     );
 
@@ -317,7 +317,7 @@ fn process_propose(
     }
 
     let mut transaction = Transaction::new_with_payer(
-        &[spl_feature_proposal::instruction::propose(
+        &[safe_feature_proposal::instruction::propose(
             &config.keypair.pubkey(),
             &feature_proposal_keypair.pubkey(),
             tokens_to_mint,
@@ -399,9 +399,9 @@ fn process_tally(
 ) -> Result<(), Box<dyn std::error::Error>> {
     let feature_proposal = get_feature_proposal(rpc_client, feature_proposal_address)?;
 
-    let feature_id_address = spl_feature_proposal::get_feature_id_address(feature_proposal_address);
+    let feature_id_address = safe_feature_proposal::get_feature_id_address(feature_proposal_address);
     let acceptance_token_address =
-        spl_feature_proposal::get_acceptance_token_address(feature_proposal_address);
+        safe_feature_proposal::get_acceptance_token_address(feature_proposal_address);
 
     println!("Feature Id: {}", feature_id_address);
     println!("Acceptance Token Address: {}", acceptance_token_address);
@@ -412,7 +412,7 @@ fn process_tally(
         }
         FeatureProposal::Pending(acceptance_criteria) => {
             let acceptance_token_address =
-                spl_feature_proposal::get_acceptance_token_address(feature_proposal_address);
+                safe_feature_proposal::get_acceptance_token_address(feature_proposal_address);
             let acceptance_token_balance = rpc_client
                 .get_token_account_balance(&acceptance_token_address)?
                 .amount
@@ -422,11 +422,11 @@ fn process_tally(
             println!();
             println!(
                 "{} tokens required to accept the proposal",
-                spl_feature_proposal::amount_to_ui_amount(acceptance_criteria.tokens_required)
+                safe_feature_proposal::amount_to_ui_amount(acceptance_criteria.tokens_required)
             );
             println!(
                 "{} tokens have been received",
-                spl_feature_proposal::amount_to_ui_amount(acceptance_token_balance)
+                safe_feature_proposal::amount_to_ui_amount(acceptance_token_balance)
             );
             println!(
                 "Proposal will expire at {}",
@@ -457,7 +457,7 @@ fn process_tally(
     }
 
     let mut transaction = Transaction::new_with_payer(
-        &[spl_feature_proposal::instruction::tally(
+        &[safe_feature_proposal::instruction::tally(
             feature_proposal_address,
         )],
         Some(&config.keypair.pubkey()),

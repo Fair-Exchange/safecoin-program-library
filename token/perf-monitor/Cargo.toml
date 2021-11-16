@@ -11,7 +11,7 @@ edition = "2018"
 rand = { version = "0.7.0"}
 safe-token = { path = "../program", features = [ "no-entrypoint" ] }
 safecoin-runtime = "1.7.17"
-safecoin-sdk = "1.7.17"
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.7.17"}
 safecoin-bpf-loader-program = "1.7.17"
 solana_rbpf = "0.2"
 

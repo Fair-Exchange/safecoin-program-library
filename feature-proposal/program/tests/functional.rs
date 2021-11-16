@@ -13,12 +13,12 @@ use {
         signature::{Keypair, Signer},
         transaction::Transaction,
     },
-    spl_feature_proposal::{instruction::*, state::*, *},
+    safe_feature_proposal::{instruction::*, state::*, *},
 };
 
 fn program_test() -> ProgramTest {
     ProgramTest::new(
-        "spl_feature_proposal",
+        "safe_feature_proposal",
         id(),
         processor!(processor::process_instruction),
     )

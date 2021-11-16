@@ -14,14 +14,14 @@ console = "0.14.0"
 serde = "1.0.127"
 serde_derive = "1.0.103"
 serde_json = "1.0.66"
-safecoin-account-decoder = "=1.7.17"
-safecoin-clap-utils = "=1.7.17"
-safecoin-cli-config = "=1.7.17"
-safecoin-cli-output = "=1.7.17"
-safecoin-client = "=1.7.17"
-safecoin-logger = "=1.7.17"
-safecoin-remote-wallet = "=1.7.17"
-safecoin-sdk = "=1.7.17"
+safecoin-account-decoder = {path = "../../../Safecoin/account-decoder", version = "=1.7.17"}
+safecoin-clap-utils = {path = "../../../Safecoin/clap-utils", version = "=1.7.17"}
+safecoin-cli-config = {path = "../../../Safecoin/cli-config", version = "=1.7.17"}
+safecoin-cli-output = {path = "../../../Safecoin/cli-output", version = "=1.7.17"}
+safecoin-client = {path = "../../../Safecoin/client", version = "=1.7.17"}
+safecoin-logger = {path = "../../../Safecoin/logger", version = "=1.7.17"}
+safecoin-remote-wallet = {path = "../../../Safecoin/remote-wallet", version = "=1.7.17"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.7.17"}
 safe-token = { version = "3.2", path="../program", features = [ "no-entrypoint" ] }
 safe-associated-token-account = { version = "1.0", path="../../associated-token-account/program", features = [ "no-entrypoint" ] }
 safe-memo = { version = "3.0.4", path="../../memo/program", features = ["no-entrypoint"] }
