@@ -23,8 +23,8 @@ safecoin-logger = {path = "../../../Safecoin/logger", version = "=1.7.17"}
 safecoin-remote-wallet = {path = "../../../Safecoin/remote-wallet", version = "=1.7.17"}
 safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.7.17"}
 safe-token = { version = "3.2", path="../program", features = [ "no-entrypoint" ] }
-safe-associated-token-account = { version = "1.0", path="../../associated-token-account/program", features = [ "no-entrypoint" ] }
-safe-memo = { version = "3.0.4", path="../../memo/program", features = ["no-entrypoint"] }
+safe-associated-token-account = { version = "1.0.8", path="../../associated-token-account/program", features = [ "no-entrypoint" ] }
+safe-memo = { version = "3.0.5", path="../../memo/program", features = ["no-entrypoint"] }
 
 [[bin]]
 name = "safe-token"
