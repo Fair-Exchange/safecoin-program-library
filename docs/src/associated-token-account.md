@@ -61,7 +61,7 @@ import { PublicKey } from '@safecoin/web3.js';
 import { TOKEN_PROGRAM_ID } from '@safecoin/safe-token';
 
 const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID: PublicKey = new PublicKey(
-  'CWyEp7dp1Cv3334j6gCci2UrrjA8Q98bYa7AwGBpZ6iJ',
+  'AToD9iqHSc2fhEP9Jp7UYA6mRjHQ4CTWyzCsw8X3tH7K',
 );
 
 async function findAssociatedTokenAddress(

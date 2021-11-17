@@ -1,7 +1,7 @@
 # Token Swap Program
 
 A Uniswap-like exchange for the Token program on the Safecoin blockchain, deployed
-to `6RWe1TGwvojnbAynyWrHzm3GgHf7AmX7kLQTJG7vHCfb` on all networks.
+to `SWPUnynS7FHA1koTbvmRktQgCDs7Tf4RkqwH19e2qSP` on all networks.
 
 Full documentation is available at https://spl.solana.com/token-swap
 

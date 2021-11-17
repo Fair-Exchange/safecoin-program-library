@@ -15,10 +15,10 @@ use safecoin_program::{
 
 /// Legacy symbols from Memo v1
 pub mod v1 {
-    safecoin_program::declare_id!("4DDUJ1rA8Vd7e6SFWanf4V8JnsfapjCGNutQYw8Vtt45");
+    safecoin_program::declare_id!("MEMDqRW2fYAU19mcFnoDVoqG4Br4t7TdyWjjv38P6Nc");
 }
 
-safecoin_program::declare_id!("9h7wfE8nxQ6YsRedqNHwroEZbA5bMAmNsh8GdxwBTtaV");
+safecoin_program::declare_id!("MEMWKbqsjEB8o972BvDHExZFSauzGZKvB4xHDVPFowh");
 
 /// Build a memo instruction, possibly signed
 ///

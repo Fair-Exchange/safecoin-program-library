@@ -16,7 +16,7 @@ import {sendAndConfirmTransaction} from './util/send-and-confirm-transaction';
 import {loadAccount} from './util/account';
 
 export const TOKEN_SWAP_PROGRAM_ID: PublicKey = new PublicKey(
-  '6RWe1TGwvojnbAynyWrHzm3GgHf7AmX7kLQTJG7vHCfb',
+  'SWPUnynS7FHA1koTbvmRktQgCDs7Tf4RkqwH19e2qSP',
 );
 
 /**

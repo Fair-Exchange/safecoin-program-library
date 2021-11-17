@@ -11,7 +11,7 @@ pub mod state;
 pub use safecoin_program;
 use safecoin_program::{program_pack::Pack, pubkey::Pubkey};
 
-safecoin_program::declare_id!("D5WhRrnh8AefVULhudnuLA1LCVzvEgdn49eDWE67wYNn");
+safecoin_program::declare_id!("FEAj1Fwb2c9Kx9uHLGB2WH4Qhp2vACsJoudMVYHfE3ek");
 
 pub(crate) fn get_mint_address_with_seed(feature_proposal_address: &Pubkey) -> (Pubkey, u8) {
     Pubkey::find_program_address(&[&feature_proposal_address.to_bytes(), br"mint"], &id())

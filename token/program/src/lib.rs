@@ -27,7 +27,7 @@ pub fn amount_to_ui_amount(amount: u64, decimals: u8) -> f64 {
     amount as f64 / 10_usize.pow(decimals as u32) as f64
 }
 
-safecoin_program::declare_id!("7v5TwK92hUSqduoL3R8NtzTNfNzMA48nJL4mzPYMdDrD");
+safecoin_program::declare_id!("ToKLx75MGim1d1jRusuVX8xvdvvbSDESVaNXpRA9PHN");
 
 /// Checks that the supplied program ID is the correct one for SPL-token
 pub fn check_program_account(safe_token_program_id: &Pubkey) -> ProgramResult {

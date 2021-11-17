@@ -10,7 +10,7 @@ testnet, and mainnet-beta:
 
 | Information | Account Address |
 | --- | --- |
-| Token Swap Program | `6RWe1TGwvojnbAynyWrHzm3GgHf7AmX7kLQTJG7vHCfb` |
+| Token Swap Program | `SWPUnynS7FHA1koTbvmRktQgCDs7Tf4RkqwH19e2qSP` |
 | Fee Owner | `HfoTxFR1Tm6kGmWgYWD6J7YHVy1UwqSULUGVLXkJqaKN` |
 
 Check out

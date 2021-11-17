@@ -15,4 +15,4 @@ mod entrypoint;
 // Export current sdk types for downstream users building with a different sdk version
 pub use safecoin_program;
 
-safecoin_program::declare_id!("6RWe1TGwvojnbAynyWrHzm3GgHf7AmX7kLQTJG7vHCfb");
+safecoin_program::declare_id!("SWPUnynS7FHA1koTbvmRktQgCDs7Tf4RkqwH19e2qSP");

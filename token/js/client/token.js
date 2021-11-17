@@ -25,11 +25,11 @@ import * as Layout from './layout';
 import {sendAndConfirmTransaction} from './util/send-and-confirm-transaction';
 
 export const TOKEN_PROGRAM_ID: PublicKey = new PublicKey(
-  '7v5TwK92hUSqduoL3R8NtzTNfNzMA48nJL4mzPYMdDrD',
+  'ToKLx75MGim1d1jRusuVX8xvdvvbSDESVaNXpRA9PHN',
 );
 
 export const ASSOCIATED_TOKEN_PROGRAM_ID: PublicKey = new PublicKey(
-  'CWyEp7dp1Cv3334j6gCci2UrrjA8Q98bYa7AwGBpZ6iJ',
+  'AToD9iqHSc2fhEP9Jp7UYA6mRjHQ4CTWyzCsw8X3tH7K',
 );
 
 const FAILED_TO_FIND_ACCOUNT = 'Failed to find account';
