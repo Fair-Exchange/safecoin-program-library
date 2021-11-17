@@ -170,8 +170,8 @@ version = "0.1.0"
 dependencies = [
  "arrayref",
  "borsh",
- "safe-token",
- "safecoin-program",
+ "safe-token 3.2.0",
+ "safecoin-program 1.7.17",
  "thiserror",
  "uint",
 ]
@@ -2629,10 +2629,20 @@ checksum = "71d301d4193d031abdd79ff7e3dd721168a9572ef3fe51a1517aba235bd8f86e"
 name = "safe-associated-token-account"
 version = "1.0.8"
 dependencies = [
- "safe-token",
- "safecoin-program",
+ "safe-token 3.2.0",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
+]
+
+[[package]]
+name = "safe-associated-token-account"
+version = "1.0.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c1d6bce3f87530fd09bae0491b07fdf86f542c842bca11c21e214c6f3667bff9"
+dependencies = [
+ "safe-token 3.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safecoin-program 1.7.17 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -2641,8 +2651,8 @@ version = "1.0.0"
 dependencies = [
  "borsh",
  "borsh-derive",
- "safe-token",
- "safecoin-program",
+ "safe-token 3.2.0",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
 ]
@@ -2657,15 +2667,24 @@ dependencies = [
  "safecoin-clap-utils",
  "safecoin-cli-config",
  "safecoin-client",
- "safecoin-logger",
+ "safecoin-logger 1.7.17",
  "safecoin-sdk",
 ]
 
 [[package]]
 name = "safe-memo"
 version = "3.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f021a1ad001925374fb3aa9c8c55d5de146959e986c29512a8eb7948b44a2c72"
 dependencies = [
- "safecoin-program",
+ "safecoin-program 1.7.17 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "safe-memo"
+version = "3.0.5"
+dependencies = [
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
 ]
@@ -2678,8 +2697,22 @@ dependencies = [
  "num-derive",
  "num-traits",
  "num_enum",
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-sdk",
+ "thiserror",
+]
+
+[[package]]
+name = "safe-token"
+version = "3.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d8a021cb80236e7a71e61dcbbfe0f550c048083273492117ed5b3cf3227bc277"
+dependencies = [
+ "arrayref",
+ "num-derive",
+ "num-traits",
+ "num_enum",
+ "safecoin-program 1.7.17 (registry+https://github.com/rust-lang/crates.io-index)",
  "thiserror",
 ]
 
@@ -2689,15 +2722,15 @@ version = "2.0.14"
 dependencies = [
  "clap",
  "console 0.14.1",
- "safe-associated-token-account",
- "safe-memo",
- "safe-token",
+ "safe-associated-token-account 1.0.8",
+ "safe-memo 3.0.5",
+ "safe-token 3.2.0",
  "safecoin-account-decoder",
  "safecoin-clap-utils",
  "safecoin-cli-config",
  "safecoin-cli-output",
  "safecoin-client",
- "safecoin-logger",
+ "safecoin-logger 1.7.17",
  "safecoin-remote-wallet",
  "safecoin-sdk",
  "serde",
@@ -2717,8 +2750,8 @@ dependencies = [
  "num-derive",
  "num-traits",
  "proptest",
- "safe-token",
- "safecoin-program",
+ "safe-token 3.2.0",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
  "serde",
@@ -2732,13 +2765,13 @@ name = "safe-token-lending-cli"
 version = "0.1.0"
 dependencies = [
  "clap",
- "safe-token",
+ "safe-token 3.2.0",
  "safe-token-lending",
  "safecoin-clap-utils",
  "safecoin-cli-config",
  "safecoin-client",
- "safecoin-logger",
- "safecoin-program",
+ "safecoin-logger 1.7.17",
+ "safecoin-program 1.7.17",
  "safecoin-sdk",
 ]
 
@@ -2753,8 +2786,8 @@ dependencies = [
  "num-traits",
  "proptest",
  "roots",
- "safe-token",
- "safecoin-program",
+ "safe-token 3.2.0",
+ "safecoin-program 1.7.17",
  "safecoin-sdk",
  "sim",
  "spl-math",
@@ -2767,9 +2800,9 @@ version = "0.0.1"
 dependencies = [
  "arbitrary",
  "honggfuzz",
- "safe-token",
+ "safe-token 3.2.0",
  "safe-token-swap",
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "spl-math",
 ]
 
@@ -2783,7 +2816,7 @@ dependencies = [
  "bs58 0.3.1",
  "bv",
  "lazy_static",
- "safe-token",
+ "safe-token 3.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "safecoin-config-program",
  "safecoin-sdk",
  "safecoin-vote-program",
@@ -2804,7 +2837,7 @@ dependencies = [
  "futures",
  "mio",
  "safecoin-banks-interface",
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-sdk",
  "tarpc",
  "tokio",
@@ -2896,7 +2929,7 @@ dependencies = [
  "console 0.14.1",
  "humantime",
  "indicatif",
- "safe-memo",
+ "safe-memo 3.0.4",
  "safecoin-account-decoder",
  "safecoin-clap-utils",
  "safecoin-client",
@@ -2983,10 +3016,10 @@ dependencies = [
  "byteorder",
  "clap",
  "log",
- "safe-memo",
+ "safe-memo 3.0.4",
  "safecoin-clap-utils",
  "safecoin-cli-config",
- "safecoin-logger",
+ "safecoin-logger 1.7.17",
  "safecoin-metrics",
  "safecoin-sdk",
  "safecoin-version",
@@ -3006,8 +3039,28 @@ dependencies = [
  "log",
  "memmap2",
  "rustc_version",
- "safecoin-frozen-abi-macro",
- "safecoin-logger",
+ "safecoin-frozen-abi-macro 1.7.17",
+ "safecoin-logger 1.7.17",
+ "serde",
+ "serde_derive",
+ "sha2",
+ "thiserror",
+]
+
+[[package]]
+name = "safecoin-frozen-abi"
+version = "1.7.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "53f8fcd70678519d0c4ada5f3508892bcfcc7c88d07f53243702603dce780f08"
+dependencies = [
+ "bs58 0.3.1",
+ "bv",
+ "generic-array 0.14.4",
+ "log",
+ "memmap2",
+ "rustc_version",
+ "safecoin-frozen-abi-macro 1.7.17 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safecoin-logger 1.7.17 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_derive",
  "sha2",
@@ -3025,8 +3078,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "safecoin-frozen-abi-macro"
+version = "1.7.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b3cf052462ad81dff64f0f3993204ccde13bc389cf63e7b82fb07932d2e23ef0"
+dependencies = [
+ "proc-macro2 1.0.32",
+ "quote 1.0.10",
+ "rustc_version",
+ "syn 1.0.81",
+]
+
+[[package]]
 name = "safecoin-logger"
 version = "1.7.17"
+dependencies = [
+ "env_logger",
+ "lazy_static",
+ "log",
+]
+
+[[package]]
+name = "safecoin-logger"
+version = "1.7.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f18b525936c12d66b4a3e3d1088d2a4340211298d8dc523d839969a2eb8f913"
 dependencies = [
  "env_logger",
  "lazy_static",
@@ -3064,7 +3140,7 @@ dependencies = [
  "nix",
  "rand 0.7.3",
  "safecoin-clap-utils",
- "safecoin-logger",
+ "safecoin-logger 1.7.17",
  "safecoin-sdk",
  "safecoin-version",
  "serde",
@@ -3096,10 +3172,46 @@ dependencies = [
  "rand 0.7.3",
  "rustc_version",
  "rustversion",
- "safecoin-frozen-abi",
- "safecoin-frozen-abi-macro",
- "safecoin-logger",
- "safecoin-sdk-macro",
+ "safecoin-frozen-abi 1.7.17",
+ "safecoin-frozen-abi-macro 1.7.17",
+ "safecoin-logger 1.7.17",
+ "safecoin-sdk-macro 1.7.17",
+ "serde",
+ "serde_bytes",
+ "serde_derive",
+ "sha2",
+ "sha3",
+ "thiserror",
+]
+
+[[package]]
+name = "safecoin-program"
+version = "1.7.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "da45680864906adefe0b9626c882b1b378f1af9ff1920ea82d9f81f9e340ab86"
+dependencies = [
+ "bincode",
+ "blake3",
+ "borsh",
+ "borsh-derive",
+ "bs58 0.3.1",
+ "bv",
+ "bytemuck",
+ "curve25519-dalek 2.1.3",
+ "hex",
+ "itertools",
+ "lazy_static",
+ "libsecp256k1",
+ "log",
+ "num-derive",
+ "num-traits",
+ "rand 0.7.3",
+ "rustc_version",
+ "rustversion",
+ "safecoin-frozen-abi 1.7.17 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safecoin-frozen-abi-macro 1.7.17 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safecoin-logger 1.7.17 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safecoin-sdk-macro 1.7.17 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_bytes",
  "serde_derive",
@@ -3122,7 +3234,7 @@ dependencies = [
  "safecoin-banks-client",
  "safecoin-banks-server",
  "safecoin-bpf-loader-program",
- "safecoin-logger",
+ "safecoin-logger 1.7.17",
  "safecoin-runtime",
  "safecoin-sdk",
  "safecoin-vote-program",
@@ -3189,9 +3301,9 @@ dependencies = [
  "regex",
  "rustc_version",
  "safecoin-config-program",
- "safecoin-frozen-abi",
- "safecoin-frozen-abi-macro",
- "safecoin-logger",
+ "safecoin-frozen-abi 1.7.17",
+ "safecoin-frozen-abi-macro 1.7.17",
+ "safecoin-logger 1.7.17",
  "safecoin-measure",
  "safecoin-metrics",
  "safecoin-rayon-threadlimit",
@@ -3240,11 +3352,11 @@ dependencies = [
  "rustc_version",
  "rustversion",
  "safecoin-crate-features",
- "safecoin-frozen-abi",
- "safecoin-frozen-abi-macro",
- "safecoin-logger",
- "safecoin-program",
- "safecoin-sdk-macro",
+ "safecoin-frozen-abi 1.7.17",
+ "safecoin-frozen-abi-macro 1.7.17",
+ "safecoin-logger 1.7.17",
+ "safecoin-program 1.7.17",
+ "safecoin-sdk-macro 1.7.17",
  "serde",
  "serde_bytes",
  "serde_derive",
@@ -3258,6 +3370,19 @@ dependencies = [
 [[package]]
 name = "safecoin-sdk-macro"
 version = "1.7.17"
+dependencies = [
+ "bs58 0.3.1",
+ "proc-macro2 1.0.32",
+ "quote 1.0.10",
+ "rustversion",
+ "syn 1.0.81",
+]
+
+[[package]]
+name = "safecoin-sdk-macro"
+version = "1.7.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e416bf5568377831c083e6da462b3f52959f4801ebaa6c21c6234533bfe3de10"
 dependencies = [
  "bs58 0.3.1",
  "proc-macro2 1.0.32",
@@ -3283,8 +3408,8 @@ dependencies = [
  "num-traits",
  "rustc_version",
  "safecoin-config-program",
- "safecoin-frozen-abi",
- "safecoin-frozen-abi-macro",
+ "safecoin-frozen-abi 1.7.17",
+ "safecoin-frozen-abi-macro 1.7.17",
  "safecoin-metrics",
  "safecoin-sdk",
  "safecoin-vote-program",
@@ -3303,9 +3428,9 @@ dependencies = [
  "bs58 0.3.1",
  "lazy_static",
  "log",
- "safe-associated-token-account",
- "safe-memo",
- "safe-token",
+ "safe-associated-token-account 1.0.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safe-memo 3.0.4",
+ "safe-token 3.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "safecoin-account-decoder",
  "safecoin-measure",
  "safecoin-metrics",
@@ -3324,9 +3449,9 @@ version = "1.7.17"
 dependencies = [
  "log",
  "rustc_version",
- "safecoin-frozen-abi",
- "safecoin-frozen-abi-macro",
- "safecoin-logger",
+ "safecoin-frozen-abi 1.7.17",
+ "safecoin-frozen-abi-macro 1.7.17",
+ "safecoin-logger 1.7.17",
  "safecoin-sdk",
  "serde",
  "serde_derive",
@@ -3341,9 +3466,9 @@ dependencies = [
  "num-derive",
  "num-traits",
  "rustc_version",
- "safecoin-frozen-abi",
- "safecoin-frozen-abi-macro",
- "safecoin-logger",
+ "safecoin-frozen-abi 1.7.17",
+ "safecoin-frozen-abi-macro 1.7.17",
+ "safecoin-logger 1.7.17",
  "safecoin-metrics",
  "safecoin-sdk",
  "serde",
@@ -3651,8 +3776,8 @@ dependencies = [
  "borsh",
  "num-derive",
  "num-traits",
- "safe-token",
- "safecoin-program",
+ "safe-token 3.2.0",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
  "thiserror",
@@ -3663,7 +3788,7 @@ dependencies = [
 name = "spl-example-cross-program-invocation"
 version = "1.0.0"
 dependencies = [
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
 ]
@@ -3672,7 +3797,7 @@ dependencies = [
 name = "spl-example-custom-heap"
 version = "1.0.0"
 dependencies = [
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
 ]
@@ -3681,7 +3806,7 @@ dependencies = [
 name = "spl-example-logging"
 version = "1.0.0"
 dependencies = [
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
 ]
@@ -3690,7 +3815,7 @@ dependencies = [
 name = "spl-example-sysvar"
 version = "1.0.0"
 dependencies = [
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
 ]
@@ -3699,7 +3824,7 @@ dependencies = [
 name = "spl-example-transfer-lamports"
 version = "1.0.0"
 dependencies = [
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
 ]
@@ -3716,8 +3841,8 @@ dependencies = [
  "num-derive",
  "num-traits",
  "proptest",
- "safe-token",
- "safecoin-program",
+ "safe-token 3.2.0",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
  "serde",
@@ -3734,7 +3859,7 @@ dependencies = [
  "num-derive",
  "num-traits",
  "proptest",
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
  "thiserror",
@@ -3748,7 +3873,7 @@ dependencies = [
  "borsh",
  "num-derive",
  "num-traits",
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
  "thiserror",
@@ -3762,7 +3887,7 @@ dependencies = [
  "borsh-derive",
  "num-derive",
  "num-traits",
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
  "thiserror",
@@ -3773,7 +3898,7 @@ name = "spl-shared-memory"
 version = "2.0.6"
 dependencies = [
  "arrayref",
- "safecoin-program",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
 ]
@@ -3789,8 +3914,8 @@ dependencies = [
  "num-traits",
  "num_enum",
  "proptest",
- "safe-token",
- "safecoin-program",
+ "safe-token 3.2.0",
+ "safecoin-program 1.7.17",
  "safecoin-program-test",
  "safecoin-sdk",
  "safecoin-vote-program",
@@ -3809,14 +3934,14 @@ dependencies = [
  "bs58 0.4.0",
  "clap",
  "lazy_static",
- "safe-associated-token-account",
- "safe-token",
+ "safe-associated-token-account 1.0.8",
+ "safe-token 3.2.0",
  "safecoin-account-decoder",
  "safecoin-clap-utils",
  "safecoin-cli-config",
  "safecoin-client",
- "safecoin-logger",
- "safecoin-program",
+ "safecoin-logger 1.7.17",
+ "safecoin-program 1.7.17",
  "safecoin-remote-wallet",
  "safecoin-sdk",
  "serde_json",
@@ -3976,8 +4101,8 @@ dependencies = [
 name = "test-client"
 version = "0.1.0"
 dependencies = [
- "safe-memo",
- "safe-token",
+ "safe-memo 3.0.5",
+ "safe-token 3.2.0",
  "safe-token-swap",
  "safecoin-sdk",
 ]
