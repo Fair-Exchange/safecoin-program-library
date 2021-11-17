@@ -11,8 +11,8 @@
 #   $ echo "$solana_version"
 #
 
-if [[ -n $SAFEANA_VERSION ]]; then
-  solana_version="$SAFEANA_VERSION"
+if [[ -n $SAFECOIN_VERSION ]]; then
+  solana_version="$SAFECOIN_VERSION"
 else
   solana_version=v1.7.7
 fi
