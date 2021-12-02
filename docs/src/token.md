@@ -837,7 +837,7 @@ hold a balance before allowing the transfer.
 At the moment there exist two solutions for Token Mint registries:
 
 * hard coded addresses in the wallet or dapp
-* [safe-token-registry](https://www.npmjs.com/package/@solana/safe-token-registry)
+* [safe-token-registry](https://www.npmjs.com/package/@safecoin/safe-token-registry)
 package, maintained at [https://github.com/solana-labs/token-list](https://github.com/solana-labs/token-list)
 
 **A decentralized solution is in progress.**

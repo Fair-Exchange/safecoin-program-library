@@ -1,4 +1,4 @@
-declare module '@solana/safe-token' {
+declare module '@safecoin/safe-token' {
   import {Buffer} from 'buffer';
   import {Layout} from 'buffer-layout';
   import {

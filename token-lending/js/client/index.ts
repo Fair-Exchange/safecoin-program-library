@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import {
-  Account,
+  Keypair,
   Connection,
   PublicKey,
   SystemProgram,
@@ -12,12 +12,12 @@ import {
   SYSVAR_RENT_PUBKEY,
   sendAndConfirmTransaction,
 } from "@safecoin/web3.js";
-import { TOKEN_PROGRAM_ID } from "@solana/safe-token";
+import { TOKEN_PROGRAM_ID } from "@safecoin/safe-token";
 import * as BufferLayout from "buffer-layout";
 import * as Layout from "./layout";
 
 export const LENDING_PROGRAM_ID = new PublicKey(
-  "LendZqTs7gn5CTSJU1jWKhKuVpjJGom45nnwPb2AMTi"
+  "LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ"
 );
 
 /**
@@ -39,20 +39,20 @@ export type CreateLendingMarketParams = {
   connection: Connection;
   tokenProgramId?: PublicKey;
   lendingProgramId: PublicKey;
-  lendingMarketAccount: Account;
+  lendingMarketAccount: Keypair;
   lendingMarketOwner: PublicKey;
   quoteTokenMint: PublicKey;
-  payer: Account;
+  payer: Keypair;
 };
 
 export class LendingMarket {
-  account: Account;
+  account: Keypair;
   connection: Connection;
   owner: PublicKey;
   quoteTokenMint: PublicKey;
   tokenProgramId: PublicKey;
   lendingProgramId: PublicKey;
-  payer: Account;
+  payer: Keypair;
 
   constructor(params: CreateLendingMarketParams) {
     this.account = params.lendingMarketAccount;
@@ -126,7 +126,7 @@ export class LendingMarket {
         isWritable: false,
       },
       {
-        pubkey: new Account().publicKey, // TODO use the oracle program id
+        pubkey: new Keypair().publicKey, // TODO use the oracle program id
         isSigner: false,
         isWritable: false,
       },

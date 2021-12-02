@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
-import { Account, Connection } from "@safecoin/web3.js";
-import { Token, TOKEN_PROGRAM_ID } from "@solana/safe-token";
+import { Keypair, Connection } from "@safecoin/web3.js";
+import { Token, TOKEN_PROGRAM_ID } from "@safecoin/safe-token";
 
 import { LENDING_PROGRAM_ID, LendingMarket } from "../client";
 import { newAccountWithLamports } from "../client/util/new-account-with-lamports";
@@ -28,7 +28,7 @@ export async function createLendingMarket(): Promise<void> {
   );
 
   console.log("creating quote token mint");
-  const quoteMintAuthority = new Account();
+  const quoteMintAuthority = new Keypair();
   const quoteTokenMint = await Token.createMint(
     connection,
     payer,
@@ -39,7 +39,7 @@ export async function createLendingMarket(): Promise<void> {
   );
 
   console.log("creating lending market");
-  const lendingMarketAccount = new Account();
+  const lendingMarketAccount = new Keypair();
   await LendingMarket.create({
     connection,
     tokenProgramId: TOKEN_PROGRAM_ID,

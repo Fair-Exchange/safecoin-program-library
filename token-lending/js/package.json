@@ -1,5 +1,5 @@
 {
-  "name": "@solana/safe-token-lending",
+  "name": "@safecoin/safe-token-lending",
   "version": "0.1.0",
   "description": "SPL Token Lending JavaScript API",
   "license": "MIT",
@@ -34,8 +34,8 @@
     "cluster:mainnet-beta": "cp cluster-mainnet-beta.env .env"
   },
   "dependencies": {
-    "@solana/safe-token": "0.1.5",
-    "@safecoin/web3.js": "^1.16.1",
+    "@safecoin/safe-token": "0.1.7",
+    "@safecoin/web3.js": "^1.29.3",
     "bn.js": "^5.2.0",
     "mkdirp": "^1.0.4"
   },

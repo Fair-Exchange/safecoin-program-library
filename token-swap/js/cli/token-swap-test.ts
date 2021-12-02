@@ -1,11 +1,11 @@
 import {
-  Account,
+  Keypair,
   Connection,
   PublicKey,
   SystemProgram,
   Transaction,
 } from '@safecoin/web3.js';
-import {AccountLayout, Token, TOKEN_PROGRAM_ID} from '@solana/safe-token';
+import {AccountLayout, Token, TOKEN_PROGRAM_ID} from '@safecoin/safe-token';
 
 import {TokenSwap, CurveType, TOKEN_SWAP_PROGRAM_ID} from '../src';
 import {sendAndConfirmTransaction} from '../src/util/send-and-confirm-transaction';
@@ -21,7 +21,7 @@ let authority: PublicKey;
 // nonce used to generate the authority public key
 let nonce: number;
 // owner of the user accounts
-let owner: Account;
+let owner: Keypair;
 // Token pool
 let tokenPool: Token;
 let tokenAccountPool: PublicKey;
@@ -92,7 +92,7 @@ export async function createTokenSwap(): Promise<void> {
   const connection = await getConnection();
   const payer = await newAccountWithLamports(connection, 1000000000);
   owner = await newAccountWithLamports(connection, 1000000000);
-  const tokenSwapAccount = new Account();
+  const tokenSwapAccount = new Keypair();
 
   [authority, nonce] = await PublicKey.findProgramAddress(
     [tokenSwapAccount.publicKey.toBuffer()],
@@ -228,7 +228,7 @@ export async function depositAllTokenTypes(): Promise<void> {
     (swapTokenB.amount.toNumber() * POOL_TOKEN_AMOUNT) / supply,
   );
 
-  const userTransferAuthority = new Account();
+  const userTransferAuthority = new Keypair();
   console.log('Creating depositor token a account');
   const userAccountA = await mintA.createAccount(owner.publicKey);
   await mintA.mintTo(userAccountA, owner, [], tokenA);
@@ -303,7 +303,7 @@ export async function withdrawAllTokenTypes(): Promise<void> {
   console.log('Creating withdraw token B account');
   let userAccountB = await mintB.createAccount(owner.publicKey);
 
-  const userTransferAuthority = new Account();
+  const userTransferAuthority = new Keypair();
   console.log('Approving withdrawal from pool account');
   await tokenPool.approve(
     tokenAccountPool,
@@ -354,7 +354,7 @@ export async function createAccountAndSwapAtomic(): Promise<void> {
   const balanceNeeded = await Token.getMinBalanceRentForExemptAccount(
     connection,
   );
-  const newAccount = new Account();
+  const newAccount = new Keypair();
   const transaction = new Transaction();
   transaction.add(
     SystemProgram.createAccount({
@@ -375,7 +375,7 @@ export async function createAccountAndSwapAtomic(): Promise<void> {
     ),
   );
 
-  const userTransferAuthority = new Account();
+  const userTransferAuthority = new Keypair();
   transaction.add(
     Token.createApproveInstruction(
       mintA.programId,
@@ -428,7 +428,7 @@ export async function swap(): Promise<void> {
   console.log('Creating swap token a account');
   let userAccountA = await mintA.createAccount(owner.publicKey);
   await mintA.mintTo(userAccountA, owner, [], SWAP_AMOUNT_IN);
-  const userTransferAuthority = new Account();
+  const userTransferAuthority = new Keypair();
   await mintA.approve(
     userAccountA,
     userTransferAuthority.publicKey,
@@ -516,7 +516,7 @@ export async function depositSingleTokenTypeExactAmountIn(): Promise<void> {
     supply,
   );
 
-  const userTransferAuthority = new Account();
+  const userTransferAuthority = new Keypair();
   console.log('Creating depositor token a account');
   const userAccountA = await mintA.createAccount(owner.publicKey);
   await mintA.mintTo(userAccountA, owner, [], depositAmount);
@@ -608,7 +608,7 @@ export async function withdrawSingleTokenTypeExactAmountOut(): Promise<void> {
       1 + OWNER_WITHDRAW_FEE_NUMERATOR / OWNER_WITHDRAW_FEE_DENOMINATOR;
   }
 
-  const userTransferAuthority = new Account();
+  const userTransferAuthority = new Keypair();
   console.log('Creating withdraw token a account');
   const userAccountA = await mintA.createAccount(owner.publicKey);
   console.log('Creating withdraw token b account');
