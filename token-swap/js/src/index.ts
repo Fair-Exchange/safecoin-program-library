@@ -4,7 +4,7 @@ import {Buffer} from 'buffer';
 import * as BufferLayout from 'buffer-layout';
 import type {Connection, TransactionSignature} from '@safecoin/web3.js';
 import {
-  Account,
+  Keypair,
   PublicKey,
   SystemProgram,
   Transaction,
@@ -132,7 +132,7 @@ export class TokenSwap {
     public hostFeeNumerator: Numberu64,
     public hostFeeDenominator: Numberu64,
     public curveType: number,
-    public payer: Account,
+    public payer: Keypair,
   ) {
     this.connection = connection;
     this.tokenSwap = tokenSwap;
@@ -171,7 +171,7 @@ export class TokenSwap {
   }
 
   static createInitSwapInstruction(
-    tokenSwapAccount: Account,
+    tokenSwapAccount: Keypair,
     authority: PublicKey,
     tokenAccountA: PublicKey,
     tokenAccountB: PublicKey,
@@ -255,7 +255,7 @@ export class TokenSwap {
     connection: Connection,
     address: PublicKey,
     programId: PublicKey,
-    payer: Account,
+    payer: Keypair,
   ): Promise<TokenSwap> {
     const data = await loadAccount(connection, address, programId);
     const tokenSwapData = TokenSwapLayout.decode(data);
@@ -347,8 +347,8 @@ export class TokenSwap {
    */
   static async createTokenSwap(
     connection: Connection,
-    payer: Account,
-    tokenSwapAccount: Account,
+    payer: Keypair,
+    tokenSwapAccount: Keypair,
     authority: PublicKey,
     tokenAccountA: PublicKey,
     tokenAccountB: PublicKey,
@@ -454,7 +454,7 @@ export class TokenSwap {
    * @param poolDestination Pool's destination token account
    * @param userDestination User's destination token account
    * @param hostFeeAccount Host account to gather fees
-   * @param userTransferAuthority Account delegated to transfer user's tokens
+   * @param userTransferAuthority Keypair delegated to transfer user's tokens
    * @param amountIn Amount to transfer from source account
    * @param minimumAmountOut Minimum amount of tokens the user will receive
    */
@@ -464,7 +464,7 @@ export class TokenSwap {
     poolDestination: PublicKey,
     userDestination: PublicKey,
     hostFeeAccount: PublicKey | null,
-    userTransferAuthority: Account,
+    userTransferAuthority: Keypair,
     amountIn: number | Numberu64,
     minimumAmountOut: number | Numberu64,
   ): Promise<TransactionSignature> {
@@ -553,7 +553,7 @@ export class TokenSwap {
    * @param userAccountA User account for token A
    * @param userAccountB User account for token B
    * @param poolAccount User account for pool token
-   * @param userTransferAuthority Account delegated to transfer user's tokens
+   * @param userTransferAuthority Keypair delegated to transfer user's tokens
    * @param poolTokenAmount Amount of pool tokens to mint
    * @param maximumTokenA The maximum amount of token A to deposit
    * @param maximumTokenB The maximum amount of token B to deposit
@@ -562,7 +562,7 @@ export class TokenSwap {
     userAccountA: PublicKey,
     userAccountB: PublicKey,
     poolAccount: PublicKey,
-    userTransferAuthority: Account,
+    userTransferAuthority: Keypair,
     poolTokenAmount: number | Numberu64,
     maximumTokenA: number | Numberu64,
     maximumTokenB: number | Numberu64,
@@ -652,7 +652,7 @@ export class TokenSwap {
    * @param userAccountA User account for token A
    * @param userAccountB User account for token B
    * @param poolAccount User account for pool token
-   * @param userTransferAuthority Account delegated to transfer user's tokens
+   * @param userTransferAuthority Keypair delegated to transfer user's tokens
    * @param poolTokenAmount Amount of pool tokens to burn
    * @param minimumTokenA The minimum amount of token A to withdraw
    * @param minimumTokenB The minimum amount of token B to withdraw
@@ -661,7 +661,7 @@ export class TokenSwap {
     userAccountA: PublicKey,
     userAccountB: PublicKey,
     poolAccount: PublicKey,
-    userTransferAuthority: Account,
+    userTransferAuthority: Keypair,
     poolTokenAmount: number | Numberu64,
     minimumTokenA: number | Numberu64,
     minimumTokenB: number | Numberu64,
@@ -752,14 +752,14 @@ export class TokenSwap {
    * Deposit one side of tokens into the pool
    * @param userAccount User account to deposit token A or B
    * @param poolAccount User account to receive pool tokens
-   * @param userTransferAuthority Account delegated to transfer user's tokens
+   * @param userTransferAuthority Keypair delegated to transfer user's tokens
    * @param sourceTokenAmount The amount of token A or B to deposit
    * @param minimumPoolTokenAmount Minimum amount of pool tokens to mint
    */
   async depositSingleTokenTypeExactAmountIn(
     userAccount: PublicKey,
     poolAccount: PublicKey,
-    userTransferAuthority: Account,
+    userTransferAuthority: Keypair,
     sourceTokenAmount: number | Numberu64,
     minimumPoolTokenAmount: number | Numberu64,
   ): Promise<TransactionSignature> {
@@ -842,14 +842,14 @@ export class TokenSwap {
    *
    * @param userAccount User account to receive token A or B
    * @param poolAccount User account to burn pool token
-   * @param userTransferAuthority Account delegated to transfer user's tokens
+   * @param userTransferAuthority Keypair delegated to transfer user's tokens
    * @param destinationTokenAmount The amount of token A or B to withdraw
    * @param maximumPoolTokenAmount Maximum amount of pool tokens to burn
    */
   async withdrawSingleTokenTypeExactAmountOut(
     userAccount: PublicKey,
     poolAccount: PublicKey,
-    userTransferAuthority: Account,
+    userTransferAuthority: Keypair,
     destinationTokenAmount: number | Numberu64,
     maximumPoolTokenAmount: number | Numberu64,
   ): Promise<TransactionSignature> {

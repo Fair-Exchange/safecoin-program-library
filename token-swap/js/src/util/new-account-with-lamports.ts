@@ -1,14 +1,14 @@
 // @flow
 
-import {Account, Connection} from '@safecoin/web3.js';
+import {Keypair, Connection} from '@safecoin/web3.js';
 
 import {sleep} from './sleep';
 
 export async function newAccountWithLamports(
   connection: Connection,
   lamports: number = 1000000,
-): Promise<Account> {
-  const account = new Account();
+): Promise<Keypair> {
+  const account = new Keypair();
 
   let retries = 30;
   await connection.requestAirdrop(account.publicKey, lamports);
