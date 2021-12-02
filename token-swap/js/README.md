@@ -35,7 +35,7 @@ $ npm run localnet:logs
 ```
 
 For more details on working with a local cluster, see the [full
-instructions](https://github.com/fair-exchange/safecoin-web3.js#local-network).
+instructions](https://github.com/solana-labs/solana-web3.js#local-network).
 
 ### Build the on-chain program
 
