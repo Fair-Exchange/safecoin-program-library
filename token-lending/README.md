@@ -12,9 +12,9 @@ Please note that only the lending program deployed to devnet is currently operat
 
 | Cluster | Program Address |
 | --- | --- |
-| Mainnet Beta | [`LendZqTs8gn5CTSJU1jWKhKuVpjJGom45nnwPb2AMTi`](https://explorer.solana.com/address/LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ) |
-| Testnet | [`6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH`](https://explorer.solana.com/address/6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH?cluster=testnet) |
-| Devnet | [`6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH`](https://explorer.solana.com/address/6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH?cluster=devnet) |
+| Mainnet Beta | [`LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ`](https://explorer.safecoin.org/address/LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ) |
+| Testnet | [`LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ`](https://explorer.solana.com/address/LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ?cluster=testnet) |
+| Devnet | [`LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ`](https://explorer.solana.com/address/LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ?cluster=devnet) |
 
 ### Documentation
 
@@ -32,7 +32,7 @@ This is optional! You can skip these steps and use the [Token Lending CLI](./cli
    cargo install safe-token-cli
    cargo install safe-token-lending-cli
    ```
-   
+
 1. Clone the SPL repo:
    ```shell
    git clone https://github.com/fair-exchange/safecoin-program-library.git
@@ -63,7 +63,7 @@ This is optional! You can skip these steps and use the [Token Lending CLI](./cli
 
    # Wrote new keypair to lending.json
    # ============================================================================
-   # pubkey: 6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH
+   # pubkey: LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ
    # ============================================================================
    # Save this seed phrase and your BIP39 passphrase to recover your new keypair:
    # your seed words here never share them not even with your mom
@@ -73,7 +73,7 @@ This is optional! You can skip these steps and use the [Token Lending CLI](./cli
 
 1. Open `./token-lending/program/src/lib.rs` in your editor. In the line
    ```rust
-   safecoin_program::declare_id!("6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH");
+   safecoin_program::declare_id!("LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ");
    ```
    replace the Program ID with yours.
 
@@ -103,7 +103,7 @@ This is optional! You can skip these steps and use the [Token Lending CLI](./cli
      --program-id lending.json \
      target/deploy/safe_token_lending.so
 
-   # Program Id: 6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH
+   # Program Id: LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ
    ```
    If the deployment doesn't succeed, follow [this guide](https://docs.solana.com/cli/deploy-a-program#resuming-a-failed-deploy) to resume it.
 

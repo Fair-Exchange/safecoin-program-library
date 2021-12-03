@@ -38,7 +38,7 @@ Run `safe-token-lending create-market --help` for more details and options.
 ### Example
 ```shell
 safe-token-lending \
-  --program      6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH \
+  --program      LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ \
   --fee-payer    owner.json \
   create-market \
   --market-owner JAgN4SZLNeCo9KTnr8EWt4FzEV1UDgHkcZwkVtWtfp6P
@@ -81,7 +81,7 @@ Run `safe-token-lending add-reserve --help` for more details and options.
 ### Example
 ```shell
 safe-token-lending \
-  --program      6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH \
+  --program      LENeX3L4CE1euBZp4zUNuicLP2SUZCbgXYZgBpZ9hWZ \
   --fee-payer    owner.json \
   add-reserve \
   --market-owner owner.json \
