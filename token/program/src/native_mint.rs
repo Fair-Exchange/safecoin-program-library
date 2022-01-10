@@ -4,7 +4,7 @@
 pub const DECIMALS: u8 = 9;
 
 // The Mint for native SAFE Token accounts
-safecoin_program::declare_id!("Safe111111111111111111111111111111111111112");
+safecoin_program::declare_id!("Safe111111111111111111111111111111111111111");
 
 #[cfg(test)]
 mod tests {

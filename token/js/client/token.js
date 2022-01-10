@@ -98,7 +98,7 @@ const AuthorityTypeCodes = {
 
 // The address of the special mint for wrapped native token.
 export const NATIVE_MINT: PublicKey = new PublicKey(
-  'Safe111111111111111111111111111111111111112',
+  'Safe111111111111111111111111111111111111111',
 );
 
 /**
