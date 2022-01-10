@@ -1,6 +1,6 @@
 [package]
 name = "safe-associated-token-account"
-version = "1.0.8"
+version = "1.0.9"
 description = "Safecoin Program Library Associated Token Account"
 authors = ["Solana Maintainers <maintainers@solana.foundation>"]
 repository = "https://github.com/fair-exchange/safecoin-program-library"
