@@ -170,7 +170,7 @@ version = "0.1.0"
 dependencies = [
  "arrayref",
  "borsh",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safecoin-program",
  "thiserror",
  "uint",
@@ -2628,21 +2628,21 @@ checksum = "71d301d4193d031abdd79ff7e3dd721168a9572ef3fe51a1517aba235bd8f86e"
 [[package]]
 name = "safe-associated-token-account"
 version = "1.0.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c1d6bce3f87530fd09bae0491b07fdf86f542c842bca11c21e214c6f3667bff9"
 dependencies = [
  "safe-token 3.2.0",
  "safecoin-program",
- "safecoin-program-test",
- "safecoin-sdk",
 ]
 
 [[package]]
 name = "safe-associated-token-account"
-version = "1.0.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c1d6bce3f87530fd09bae0491b07fdf86f542c842bca11c21e214c6f3667bff9"
+version = "1.0.9"
 dependencies = [
- "safe-token 3.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safe-token 3.2.1",
  "safecoin-program",
+ "safecoin-program-test",
+ "safecoin-sdk",
 ]
 
 [[package]]
@@ -2651,7 +2651,7 @@ version = "1.0.0"
 dependencies = [
  "borsh",
  "borsh-derive",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safecoin-program",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -2692,19 +2692,6 @@ dependencies = [
 [[package]]
 name = "safe-token"
 version = "3.2.0"
-dependencies = [
- "arrayref",
- "num-derive",
- "num-traits",
- "num_enum",
- "safecoin-program",
- "safecoin-sdk",
- "thiserror",
-]
-
-[[package]]
-name = "safe-token"
-version = "3.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d8a021cb80236e7a71e61dcbbfe0f550c048083273492117ed5b3cf3227bc277"
 dependencies = [
@@ -2717,14 +2704,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "safe-token"
+version = "3.2.1"
+dependencies = [
+ "arrayref",
+ "num-derive",
+ "num-traits",
+ "num_enum",
+ "safecoin-program",
+ "safecoin-sdk",
+ "thiserror",
+]
+
+[[package]]
 name = "safe-token-cli"
 version = "2.0.14"
 dependencies = [
  "clap",
  "console 0.14.1",
- "safe-associated-token-account 1.0.8",
+ "safe-associated-token-account 1.0.9",
  "safe-memo 3.0.5",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safecoin-account-decoder",
  "safecoin-clap-utils",
  "safecoin-cli-config",
@@ -2750,7 +2750,7 @@ dependencies = [
  "num-derive",
  "num-traits",
  "proptest",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safecoin-program",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -2765,7 +2765,7 @@ name = "safe-token-lending-cli"
 version = "0.1.0"
 dependencies = [
  "clap",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safe-token-lending",
  "safecoin-clap-utils",
  "safecoin-cli-config",
@@ -2786,7 +2786,7 @@ dependencies = [
  "num-traits",
  "proptest",
  "roots",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safecoin-program",
  "safecoin-sdk",
  "sim",
@@ -2800,7 +2800,7 @@ version = "0.0.1"
 dependencies = [
  "arbitrary",
  "honggfuzz",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safe-token-swap",
  "safecoin-program",
  "spl-math",
@@ -2818,7 +2818,7 @@ dependencies = [
  "bs58 0.3.1",
  "bv",
  "lazy_static",
- "safe-token 3.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safe-token 3.2.0",
  "safecoin-config-program",
  "safecoin-sdk",
  "safecoin-vote-program",
@@ -3392,9 +3392,9 @@ dependencies = [
  "bs58 0.3.1",
  "lazy_static",
  "log",
- "safe-associated-token-account 1.0.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safe-associated-token-account 1.0.8",
  "safe-memo 3.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
- "safe-token 3.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safe-token 3.2.0",
  "safecoin-account-decoder",
  "safecoin-measure",
  "safecoin-metrics",
@@ -3744,7 +3744,7 @@ dependencies = [
  "borsh",
  "num-derive",
  "num-traits",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safecoin-program",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -3809,7 +3809,7 @@ dependencies = [
  "num-derive",
  "num-traits",
  "proptest",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safecoin-program",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -3882,7 +3882,7 @@ dependencies = [
  "num-traits",
  "num_enum",
  "proptest",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safecoin-program",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -3902,8 +3902,8 @@ dependencies = [
  "bs58 0.4.0",
  "clap",
  "lazy_static",
- "safe-associated-token-account 1.0.8",
- "safe-token 3.2.0",
+ "safe-associated-token-account 1.0.9",
+ "safe-token 3.2.1",
  "safecoin-account-decoder",
  "safecoin-clap-utils",
  "safecoin-cli-config",
@@ -4070,7 +4070,7 @@ name = "test-client"
 version = "0.1.0"
 dependencies = [
  "safe-memo 3.0.5",
- "safe-token 3.2.0",
+ "safe-token 3.2.1",
  "safe-token-swap",
  "safecoin-sdk",
 ]

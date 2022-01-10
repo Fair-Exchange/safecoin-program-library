@@ -13,7 +13,7 @@ test-bpf = []
 
 [dependencies]
 safecoin-program = {version = "1.7.17"}
-safe-token = { version = "3.2", path = "../../token/program", features = ["no-entrypoint"] }
+safe-token = { version = "3.2.1", path = "../../token/program", features = ["no-entrypoint"] }
 
 [dev-dependencies]
 safecoin-program-test = {version = "1.7.17"}
