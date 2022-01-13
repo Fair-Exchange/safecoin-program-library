@@ -11,7 +11,7 @@ publish = false
 [dependencies]
 honggfuzz = { version = "0.5.52" }
 arbitrary = { version = "0.4", features = ["derive"] }
-safecoin-program = {version = "1.7.17"}
+safecoin-program = {version = "1.8.12", path = "../../../../Safecoin/sdk/program"}
 spl-math = { version = "0.1", path = "../../../libraries/math", features = [ "no-entrypoint" ] }
 safe-token = { version = "3.2.1", path = "../../../token/program", features = [ "no-entrypoint" ] }
 safe-token-swap = { path = "..", features = ["fuzz", "no-entrypoint"] }

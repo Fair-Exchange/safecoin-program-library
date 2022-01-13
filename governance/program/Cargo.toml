@@ -19,7 +19,7 @@ num-derive = "0.3"
 num-traits = "0.2"
 serde = "1.0.127"
 serde_derive = "1.0.103"
-safecoin-program = {version = "1.7.17"}
+safecoin-program = {version = "1.8.12", path = "../../../Safecoin/sdk/program"}
 safe-token = { version = "3.2.1", path = "../../token/program", features = [ "no-entrypoint" ] }
 thiserror = "1.0"
 
@@ -27,8 +27,8 @@ thiserror = "1.0"
 assert_matches = "1.5.0"
 base64 = "0.13"
 proptest = "1.0"
-safecoin-program-test = {version = "1.7.17"}
-safecoin-sdk = {version = "1.7.17"}
+safecoin-program-test = {version = "1.8.12", path = "../../../Safecoin/program-test"}
+safecoin-sdk = {version = "1.8.12", path = "../../../Safecoin/sdk"}
 
 [lib]
 crate-type = ["cdylib", "lib"]
