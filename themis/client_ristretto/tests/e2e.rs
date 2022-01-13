@@ -1,5 +1,5 @@
 use solana_banks_client::{start_tcp_client, BanksClient, BanksClientExt};
-use solana_core::test_validator::{TestValidator, TestValidatorOptions};
+use safecoin_core::test_validator::{TestValidator, TestValidatorOptions};
 use safecoin_sdk::{
     bpf_loader,
     commitment_config::CommitmentLevel,
