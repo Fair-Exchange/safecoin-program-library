@@ -15,7 +15,7 @@ test-bpf = []
 borsh = "0.9"
 borsh-derive = "0.9.0"
 safecoin-program = {version = "1.8.12", path = "../../../Safecoin/sdk/program"}
-safe-token = { version = "3.2.1", path = "../../token/program", features = ["no-entrypoint"] }
+safe-token = { version = "3.2.2", path = "../../token/program", features = ["no-entrypoint"] }
 
 [dev-dependencies]
 safecoin-program-test = {version = "1.8.12", path = "../../../Safecoin/program-test"}

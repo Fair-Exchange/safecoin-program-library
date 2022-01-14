@@ -22,7 +22,7 @@ safecoin-client = {version = "=1.8.12", path = "../../../Safecoin/client"}
 safecoin-logger = {version = "=1.8.12", path = "../../../Safecoin/logger"}
 safecoin-remote-wallet = {version = "=1.8.12", path = "../../../Safecoin/remote-wallet"}
 safecoin-sdk = {version = "=1.8.12", path = "../../../Safecoin/sdk"}
-safe-token = { version = "3.2.1", path="../program", features = [ "no-entrypoint" ] }
+safe-token = { version = "3.2.2", path="../program", features = [ "no-entrypoint" ] }
 safe-associated-token-account = { version = "1.0.9", path="../../associated-token-account/program", features = [ "no-entrypoint" ] }
 safe-memo = { version = "3.0.5", path="../../memo/program", features = ["no-entrypoint"] }
 

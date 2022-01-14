@@ -2746,7 +2746,7 @@ dependencies = [
 
 [[package]]
 name = "safe-token"
-version = "3.2.1"
+version = "3.2.2"
 dependencies = [
  "arrayref",
  "num-derive",
@@ -2759,7 +2759,7 @@ dependencies = [
 
 [[package]]
 name = "safe-token"
-version = "3.2.1"
+version = "3.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "30ae485160d30713ab9115d0ecf23ab56919a2d21300437b76efdc9f8ecb5b88"
 dependencies = [
