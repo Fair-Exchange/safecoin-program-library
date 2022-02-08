@@ -12,11 +12,11 @@ test-bpf = []
 
 [dependencies]
 arrayref = "0.3.6"
-safecoin-program = {version = "=1.8.12", path = "../../../Safecoin/sdk/program"}
+safecoin-program = {version = "=1.8.12"}
 
 [dev-dependencies]
-safecoin-program-test = {version = "=1.8.12", path = "../../../Safecoin/program-test"}
-safecoin-sdk = {version = "=1.8.12", path = "../../../Safecoin/sdk"}
+safecoin-program-test = {version = "=1.8.12"}
+safecoin-sdk = {version = "=1.8.12"}
 
 [lib]
 crate-type = ["cdylib", "lib"]
