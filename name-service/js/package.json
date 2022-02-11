@@ -1,5 +1,5 @@
 {
-  "name": "@solana/spl-name-service",
+  "name": "@safecoin/spl-name-service",
   "version": "0.1.2",
   "description": "SPL Name Service JavaScript API",
   "license": "MIT",
