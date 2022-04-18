@@ -19,7 +19,7 @@ num-traits = "0.2"
 num_enum = "0.5.3"
 serde = "1.0.127"
 serde_derive = "1.0.103"
-safecoin-program = {version = "1.8.12"}
+safecoin-program = {version = "1.8.12", path = "../../../Safecoin/sdk/program"}
 spl-math = { version = "0.1", path = "../../libraries/math", features = [ "no-entrypoint" ] }
 safe-token = { version = "3.2.2", path = "../../token/program", features = [ "no-entrypoint" ] }
 thiserror = "1.0"
@@ -27,9 +27,9 @@ bincode = "1.3.1"
 
 [dev-dependencies]
 proptest = "1.0"
-safecoin-program-test = {version = "1.8.12"}
-safecoin-sdk = {version = "1.8.12"}
-safecoin-vote-program = {version = "1.8.12"}
+safecoin-program-test = {version = "1.8.12", path = "../../../Safecoin/program-test"}
+safecoin-sdk = {version = "1.8.12", path = "../../../Safecoin/sdk"}
+safecoin-vote-program = {version = "1.8.12", path = "../../../Safecoin/programs/vote"}
 
 [lib]
 crate-type = ["cdylib", "lib"]
