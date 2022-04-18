@@ -16,11 +16,11 @@ arrayref = "0.3.6"
 num-derive = "0.3"
 num-traits = "0.2"
 num_enum = "0.5.3"
-safecoin-program = {version = "1.8.12", path = "../../../Safecoin/sdk/program"}
+safecoin-program = {version = "1.7.17", path = "../../../Safecoin/sdk/program"}
 thiserror = "1.0"
 
 [dev-dependencies]
-safecoin-sdk = {version = "1.8.12", path = "../../../Safecoin/sdk"}
+safecoin-sdk = {version = "1.7.17", path = "../../../Safecoin/sdk"}
 
 [lib]
 crate-type = ["cdylib", "lib"]

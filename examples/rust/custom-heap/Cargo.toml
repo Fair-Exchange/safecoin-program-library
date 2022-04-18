@@ -15,11 +15,11 @@ no-entrypoint = []
 test-bpf = []
 
 [dependencies]
-safecoin-program = {version = "1.8.12", path = "../../../../Safecoin/sdk/program"}
+safecoin-program = {version = "1.7.17", path = "../../../../Safecoin/sdk/program"}
 
 [dev-dependencies]
-safecoin-program-test = {version = "1.8.12", path = "../../../../Safecoin/program-test"}
-safecoin-sdk = {version = "1.8.12", path = "../../../../Safecoin/sdk"}
+safecoin-program-test = {version = "1.7.17", path = "../../../../Safecoin/program-test"}
+safecoin-sdk = {version = "1.7.17", path = "../../../../Safecoin/sdk"}
 
 [lib]
 crate-type = ["cdylib", "lib"]

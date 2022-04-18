@@ -10,11 +10,11 @@ edition = "2018"
 [dependencies]
 chrono = "0.4.19"
 clap = "2.33.3"
-safecoin-clap-utils = {version = "1.8.12", path = "../../../Safecoin/clap-utils"}
-safecoin-cli-config = {version = "1.8.12", path = "../../../Safecoin/cli-config"}
-safecoin-client = {version = "1.8.12", path = "../../../Safecoin/client"}
-safecoin-logger = {version = "1.8.12", path = "../../../Safecoin/logger"}
-safecoin-sdk = {version = "1.8.12", path = "../../../Safecoin/sdk"}
+safecoin-clap-utils = {version = "1.7.17", path = "../../../Safecoin/clap-utils"}
+safecoin-cli-config = {version = "1.7.17", path = "../../../Safecoin/cli-config"}
+safecoin-client = {version = "1.7.17", path = "../../../Safecoin/client"}
+safecoin-logger = {version = "1.7.17", path = "../../../Safecoin/logger"}
+safecoin-sdk = {version = "1.7.17", path = "../../../Safecoin/sdk"}
 safe-feature-proposal = { version = "1.0", path = "../program", features = ["no-entrypoint"] }
 
 [[bin]]
