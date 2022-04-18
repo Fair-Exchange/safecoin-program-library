@@ -736,7 +736,7 @@ called from other programs that interact with the Token Program's interface.
 
 Accounts containing wrapped SAFE are associated with a specific Mint called the
 "Native Mint" using the public key
-`Safe111111111111111111111111111111111111112`.
+`Safe111111111111111111111111111111111111111`.
 
 These accounts have a few unique behaviors
 
