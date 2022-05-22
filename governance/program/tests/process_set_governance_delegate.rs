@@ -16,7 +16,8 @@ async fn test_set_community_governance_delegate() {
     let realm_cookie = governance_test.with_realm().await;
     let mut token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
     // Act
     governance_test
@@ -41,7 +42,8 @@ async fn test_set_governance_delegate_to_none() {
     let realm_cookie = governance_test.with_realm().await;
     let mut token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
     governance_test
         .with_community_governance_delegate(&realm_cookie, &mut token_owner_record_cookie)
@@ -73,7 +75,8 @@ async fn test_set_council_governance_delegate() {
     let realm_cookie = governance_test.with_realm().await;
     let mut token_owner_record_cookie = governance_test
         .with_council_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
     // Act
     governance_test
@@ -98,11 +101,12 @@ async fn test_set_community_governance_delegate_with_owner_must_sign_error() {
     let realm_cookie = governance_test.with_realm().await;
     let token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
     let hacker_governance_delegate = Keypair::new();
 
-    let mut instruction = set_governance_delegate(
+    let mut set_delegate_ix = set_governance_delegate(
         &governance_test.program_id,
         &token_owner_record_cookie.token_owner.pubkey(),
         &realm_cookie.address,
@@ -111,12 +115,13 @@ async fn test_set_community_governance_delegate_with_owner_must_sign_error() {
         &Some(hacker_governance_delegate.pubkey()),
     );
 
-    instruction.accounts[0] =
+    set_delegate_ix.accounts[0] =
         AccountMeta::new_readonly(token_owner_record_cookie.token_owner.pubkey(), false);
 
     // Act
     let err = governance_test
-        .process_transaction(&[instruction], None)
+        .bench
+        .process_transaction(&[set_delegate_ix], None)
         .await
         .err()
         .unwrap();
@@ -135,7 +140,8 @@ async fn test_set_community_governance_delegate_signed_by_governance_delegate() 
     let realm_cookie = governance_test.with_realm().await;
     let mut token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
     governance_test
         .with_community_governance_delegate(&realm_cookie, &mut token_owner_record_cookie)

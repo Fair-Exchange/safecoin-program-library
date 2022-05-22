@@ -5,7 +5,6 @@ mod helpers;
 use helpers::*;
 use safecoin_program_test::*;
 use safecoin_sdk::{
-    pubkey::Pubkey,
     signature::{Keypair, Signer},
     transaction::Transaction,
 };
@@ -24,7 +23,7 @@ async fn test_success() {
     );
 
     // limit to track compute unit increase
-    test.set_bpf_compute_max_units(38_000);
+    test.set_compute_max_units(38_000);
 
     const SAFE_DEPOSIT_AMOUNT_LAMPORTS: u64 = 10 * LAMPORTS_TO_SAFE * INITIAL_COLLATERAL_RATIO;
     const SAFE_RESERVE_COLLATERAL_LAMPORTS: u64 = 2 * SAFE_DEPOSIT_AMOUNT_LAMPORTS;

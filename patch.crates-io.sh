@@ -11,7 +11,6 @@ fi
 
 workspace_crates=(
   Cargo.toml
-  themis/client_ristretto/Cargo.toml
 )
 
 if [[ ! -r "$solana_dir"/scripts/read-cargo-variable.sh ]]; then
@@ -53,6 +52,7 @@ safecoin-runtime = { path = "$solana_dir/runtime" }
 safecoin-sdk = { path = "$solana_dir/sdk" }
 safecoin-stake-program = { path = "$solana_dir/programs/stake" }
 safecoin-transaction-status = { path = "$solana_dir/transaction-status" }
+safecoin-version = { path = "$solana_dir/version" }
 safecoin-vote-program = { path = "$solana_dir/programs/vote" }
 PATCH
   fi

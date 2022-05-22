@@ -6,7 +6,6 @@ pub mod big_vec;
 pub mod error;
 pub mod instruction;
 pub mod processor;
-pub mod stake_program;
 pub mod state;
 
 #[cfg(not(feature = "no-entrypoint"))]
@@ -15,8 +14,8 @@ pub mod entrypoint;
 // Export current sdk types for downstream users building with a different sdk version
 pub use safecoin_program;
 use {
-    crate::{stake_program::Meta, state::Fee},
-    safecoin_program::{native_token::LAMPORTS_PER_SAFE, pubkey::Pubkey},
+    crate::state::Fee,
+    safecoin_program::{native_token::LAMPORTS_PER_SAFE, pubkey::Pubkey, stake::state::Meta},
 };
 
 /// Seed for deposit authority seed
@@ -26,11 +25,11 @@ const AUTHORITY_DEPOSIT: &[u8] = b"deposit";
 const AUTHORITY_WITHDRAW: &[u8] = b"withdraw";
 
 /// Seed for transient stake account
-const TRANSIENT_STAKE_SEED: &[u8] = b"transient";
+const TRANSIENT_STAKE_SEED_PREFIX: &[u8] = b"transient";
 
 /// Minimum amount of staked SAFE required in a validator stake account to allow
 /// for merges without a mismatch on credits observed
-pub const MINIMUM_ACTIVE_STAKE: u64 = LAMPORTS_PER_SAFE;
+pub const MINIMUM_ACTIVE_STAKE: u64 = LAMPORTS_PER_SAFE / 1_000;
 
 /// Maximum amount of validator stake accounts to update per
 /// `UpdateValidatorListBalance` instruction, based on compute limits
@@ -48,6 +47,10 @@ pub const WITHDRAWAL_BASELINE_FEE: Fee = Fee {
     numerator: 1,
     denominator: 1000,
 };
+
+/// The maximum number of transient stake accounts respecting
+/// transaction account limits.
+pub const MAX_TRANSIENT_STAKE_ACCOUNTS: usize = 10;
 
 /// Get the stake amount under consideration when calculating pool token
 /// conversions
@@ -81,7 +84,7 @@ pub fn find_withdraw_authority_program_address(
     stake_pool_address: &Pubkey,
 ) -> (Pubkey, u8) {
     Pubkey::find_program_address(
-        &[&stake_pool_address.to_bytes()[..32], AUTHORITY_WITHDRAW],
+        &[&stake_pool_address.to_bytes(), AUTHORITY_WITHDRAW],
         program_id,
     )
 }
@@ -94,8 +97,8 @@ pub fn find_stake_program_address(
 ) -> (Pubkey, u8) {
     Pubkey::find_program_address(
         &[
-            &vote_account_address.to_bytes()[..32],
-            &stake_pool_address.to_bytes()[..32],
+            &vote_account_address.to_bytes(),
+            &stake_pool_address.to_bytes(),
         ],
         program_id,
     )
@@ -106,15 +109,17 @@ pub fn find_transient_stake_program_address(
     program_id: &Pubkey,
     vote_account_address: &Pubkey,
     stake_pool_address: &Pubkey,
+    seed: u64,
 ) -> (Pubkey, u8) {
     Pubkey::find_program_address(
         &[
-            TRANSIENT_STAKE_SEED,
-            &vote_account_address.to_bytes()[..32],
-            &stake_pool_address.to_bytes()[..32],
+            TRANSIENT_STAKE_SEED_PREFIX,
+            &vote_account_address.to_bytes(),
+            &stake_pool_address.to_bytes(),
+            &seed.to_le_bytes(),
         ],
         program_id,
     )
 }
 
-safecoin_program::declare_id!("SPoo1xuN9wGpxNjGnPNbRPtpQ7mHgKM8d9BeFC549Jy");
+safecoin_program::declare_id!("SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy");

@@ -14,7 +14,7 @@ use safecoin_program::{
     system_instruction,
 };
 use safe_token::{
-    instruction::set_authority,
+    instruction::{set_authority, AuthorityType},
     state::{Account, Mint},
 };
 
@@ -220,17 +220,6 @@ pub fn assert_is_valid_safe_token_mint(mint_info: &AccountInfo) -> Result<(), Pr
     Ok(())
 }
 
-/// Computationally cheap method to get amount from a token account
-/// It reads amount without deserializing full account data
-pub fn get_safe_token_amount(token_account_info: &AccountInfo) -> Result<u64, ProgramError> {
-    assert_is_valid_safe_token_account(token_account_info)?;
-
-    // TokeAccount layout:   mint(32), owner(32), amount(8), ...
-    let data = token_account_info.try_borrow_data()?;
-    let amount = array_ref![data, 64, 8];
-    Ok(u64::from_le_bytes(*amount))
-}
-
 /// Computationally cheap method to get mint from a token account
 /// It reads mint without deserializing full account data
 pub fn get_safe_token_mint(token_account_info: &AccountInfo) -> Result<Pubkey, ProgramError> {
@@ -298,34 +287,6 @@ pub fn assert_safe_token_mint_authority_is_signer(
     Ok(())
 }
 
-/// Sets new mint authority
-pub fn set_safe_token_mint_authority<'a>(
-    mint_info: &AccountInfo<'a>,
-    mint_authority: &AccountInfo<'a>,
-    new_mint_authority: &Pubkey,
-    safe_token_info: &AccountInfo<'a>,
-) -> Result<(), ProgramError> {
-    let set_authority_ix = set_authority(
-        &safe_token::id(),
-        mint_info.key,
-        Some(new_mint_authority),
-        safe_token::instruction::AuthorityType::MintTokens,
-        mint_authority.key,
-        &[],
-    )?;
-
-    invoke(
-        &set_authority_ix,
-        &[
-            mint_info.clone(),
-            mint_authority.clone(),
-            safe_token_info.clone(),
-        ],
-    )?;
-
-    Ok(())
-}
-
 /// Asserts current token owner matches the given owner and it's signer of the transaction
 pub fn assert_safe_token_owner_is_signer(
     token_info: &AccountInfo,
@@ -344,27 +305,28 @@ pub fn assert_safe_token_owner_is_signer(
     Ok(())
 }
 
-/// Sets new token account owner
-pub fn set_safe_token_owner<'a>(
-    token_info: &AccountInfo<'a>,
-    token_owner: &AccountInfo<'a>,
-    new_token_owner: &Pubkey,
+/// Sets safe-token account (Mint or TokenAccount) authority
+pub fn set_safe_token_account_authority<'a>(
+    account_info: &AccountInfo<'a>,
+    account_authority: &AccountInfo<'a>,
+    new_account_authority: &Pubkey,
+    authority_type: AuthorityType,
     safe_token_info: &AccountInfo<'a>,
 ) -> Result<(), ProgramError> {
     let set_authority_ix = set_authority(
         &safe_token::id(),
-        token_info.key,
-        Some(new_token_owner),
-        safe_token::instruction::AuthorityType::AccountOwner,
-        token_owner.key,
+        account_info.key,
+        Some(new_account_authority),
+        authority_type,
+        account_authority.key,
         &[],
     )?;
 
     invoke(
         &set_authority_ix,
         &[
-            token_info.clone(),
-            token_owner.clone(),
+            account_info.clone(),
+            account_authority.clone(),
             safe_token_info.clone(),
         ],
     )?;

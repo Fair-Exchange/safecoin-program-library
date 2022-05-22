@@ -5,7 +5,6 @@ mod helpers;
 use helpers::*;
 use safecoin_program_test::*;
 use safecoin_sdk::{
-    pubkey::Pubkey,
     signature::{Keypair, Signer},
     transaction::Transaction,
 };
@@ -24,7 +23,7 @@ async fn test_success() {
     );
 
     // limit to track compute unit increase
-    test.set_bpf_compute_max_units(40_000);
+    test.set_compute_max_units(40_000);
 
     let user_accounts_owner = Keypair::new();
     let lending_market = add_lending_market(&mut test);

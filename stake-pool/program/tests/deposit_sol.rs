@@ -16,7 +16,7 @@ use {
     },
     spl_stake_pool::{
         error, id,
-        instruction::{self, DepositType},
+        instruction::{self, FundingType},
         state,
     },
     safe_token::error as token_error,
@@ -50,33 +50,6 @@ async fn setup() -> (ProgramTestContext, StakePoolAccounts, Keypair, Pubkey) {
     )
     .await
     .unwrap();
-    let mut transaction = Transaction::new_with_payer(
-        &[
-            instruction::set_fee(
-                &id(),
-                &stake_pool_accounts.stake_pool.pubkey(),
-                &stake_pool_accounts.manager.pubkey(),
-                state::FeeType::SafeDeposit(stake_pool_accounts.deposit_fee),
-            ),
-            instruction::set_fee(
-                &id(),
-                &stake_pool_accounts.stake_pool.pubkey(),
-                &stake_pool_accounts.manager.pubkey(),
-                state::FeeType::SafeReferral(stake_pool_accounts.referral_fee),
-            ),
-        ],
-        Some(&context.payer.pubkey()),
-    );
-
-    transaction.sign(
-        &[&context.payer, &stake_pool_accounts.manager],
-        context.last_blockhash,
-    );
-    context
-        .banks_client
-        .process_transaction(transaction)
-        .await
-        .unwrap();
 
     (
         context,
@@ -97,7 +70,7 @@ async fn success() {
     )
     .await;
     let pre_stake_pool =
-        try_from_slice_unchecked::<state::StakePool>(&pre_stake_pool.data.as_slice()).unwrap();
+        try_from_slice_unchecked::<state::StakePool>(pre_stake_pool.data.as_slice()).unwrap();
 
     // Save reserve state before depositing
     let pre_reserve_lamports = get_account(
@@ -128,10 +101,10 @@ async fn success() {
     )
     .await;
     let post_stake_pool =
-        try_from_slice_unchecked::<state::StakePool>(&post_stake_pool.data.as_slice()).unwrap();
+        try_from_slice_unchecked::<state::StakePool>(post_stake_pool.data.as_slice()).unwrap();
     assert_eq!(
-        post_stake_pool.total_stake_lamports,
-        pre_stake_pool.total_stake_lamports + TEST_STAKE_AMOUNT
+        post_stake_pool.total_lamports,
+        pre_stake_pool.total_lamports + TEST_STAKE_AMOUNT
     );
     assert_eq!(
         post_stake_pool.pool_token_supply,
@@ -142,7 +115,7 @@ async fn success() {
     let user_token_balance =
         get_token_balance(&mut context.banks_client, &pool_token_account).await;
     let tokens_issued_user =
-        tokens_issued - stake_pool_accounts.calculate_deposit_fee(tokens_issued);
+        tokens_issued - stake_pool_accounts.calculate_sol_deposit_fee(tokens_issued);
     assert_eq!(user_token_balance, tokens_issued_user);
 
     // Check reserve
@@ -165,7 +138,7 @@ async fn fail_with_wrong_token_program_id() {
     let wrong_token_program = Keypair::new();
 
     let mut transaction = Transaction::new_with_payer(
-        &instruction::deposit_sol(
+        &[instruction::deposit_sol(
             &id(),
             &stake_pool_accounts.stake_pool.pubkey(),
             &stake_pool_accounts.withdraw_authority,
@@ -177,16 +150,18 @@ async fn fail_with_wrong_token_program_id() {
             &stake_pool_accounts.pool_mint.pubkey(),
             &wrong_token_program.pubkey(),
             TEST_STAKE_AMOUNT,
-        ),
+        )],
         Some(&context.payer.pubkey()),
     );
     transaction.sign(&[&context.payer], context.last_blockhash);
+    #[allow(clippy::useless_conversion)] // Remove during upgrade to 1.10
     let transaction_error = context
         .banks_client
         .process_transaction(transaction)
         .await
         .err()
-        .unwrap();
+        .unwrap()
+        .into();
 
     match transaction_error {
         TransportError::TransactionError(TransactionError::InstructionError(_, error)) => {
@@ -317,12 +292,12 @@ async fn success_with_sol_deposit_authority() {
     let sol_deposit_authority = Keypair::new();
 
     let mut transaction = Transaction::new_with_payer(
-        &[instruction::set_deposit_authority(
+        &[instruction::set_funding_authority(
             &id(),
             &stake_pool_accounts.stake_pool.pubkey(),
             &stake_pool_accounts.manager.pubkey(),
             Some(&sol_deposit_authority.pubkey()),
-            DepositType::Safe,
+            FundingType::SafeDeposit,
         )],
         Some(&payer.pubkey()),
     );
@@ -368,12 +343,12 @@ async fn fail_without_sol_deposit_authority_signature() {
     .unwrap();
 
     let mut transaction = Transaction::new_with_payer(
-        &[instruction::set_deposit_authority(
+        &[instruction::set_funding_authority(
             &id(),
             &stake_pool_accounts.stake_pool.pubkey(),
             &stake_pool_accounts.manager.pubkey(),
             Some(&sol_deposit_authority.pubkey()),
-            DepositType::Safe,
+            FundingType::SafeDeposit,
         )],
         Some(&payer.pubkey()),
     );
@@ -427,7 +402,7 @@ async fn success_with_referral_fee() {
         get_token_balance(&mut context.banks_client, &referrer_token_account.pubkey()).await;
 
     let mut transaction = Transaction::new_with_payer(
-        &instruction::deposit_sol(
+        &[instruction::deposit_sol(
             &id(),
             &stake_pool_accounts.stake_pool.pubkey(),
             &stake_pool_accounts.withdraw_authority,
@@ -439,7 +414,7 @@ async fn success_with_referral_fee() {
             &stake_pool_accounts.pool_mint.pubkey(),
             &safe_token::id(),
             TEST_STAKE_AMOUNT,
-        ),
+        )],
         Some(&context.payer.pubkey()),
     );
     transaction.sign(&[&context.payer], context.last_blockhash);
@@ -451,8 +426,9 @@ async fn success_with_referral_fee() {
 
     let referrer_balance_post =
         get_token_balance(&mut context.banks_client, &referrer_token_account.pubkey()).await;
-    let referral_fee = stake_pool_accounts
-        .calculate_referral_fee(stake_pool_accounts.calculate_deposit_fee(TEST_STAKE_AMOUNT));
+    let referral_fee = stake_pool_accounts.calculate_sol_referral_fee(
+        stake_pool_accounts.calculate_sol_deposit_fee(TEST_STAKE_AMOUNT),
+    );
     assert!(referral_fee > 0);
     assert_eq!(referrer_balance_pre + referral_fee, referrer_balance_post);
 }
@@ -464,7 +440,7 @@ async fn fail_with_invalid_referrer() {
     let invalid_token_account = Keypair::new();
 
     let mut transaction = Transaction::new_with_payer(
-        &instruction::deposit_sol(
+        &[instruction::deposit_sol(
             &id(),
             &stake_pool_accounts.stake_pool.pubkey(),
             &stake_pool_accounts.withdraw_authority,
@@ -476,7 +452,7 @@ async fn fail_with_invalid_referrer() {
             &stake_pool_accounts.pool_mint.pubkey(),
             &safe_token::id(),
             TEST_STAKE_AMOUNT,
-        ),
+        )],
         Some(&context.payer.pubkey()),
     );
     transaction.sign(&[&context.payer], context.last_blockhash);

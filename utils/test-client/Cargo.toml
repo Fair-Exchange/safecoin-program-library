@@ -8,7 +8,7 @@ edition = "2018"
 # Used to ensure that SPL programs are buildable by external clients
 
 [dependencies]
-safecoin-sdk = {version = "1.8.12"}
+safecoin-sdk = "1.9.9"
 safe-memo = { path = "../../memo/program", features = [ "no-entrypoint" ] }
 safe-token = { path = "../../token/program", features = [ "no-entrypoint" ] }
 safe-token-swap = { path = "../../token-swap/program", features = [ "no-entrypoint" ] }

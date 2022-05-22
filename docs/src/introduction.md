@@ -1,5 +1,7 @@
 ---
 title: Introduction
+id: introduction
+slug: /
 ---
 
 The Safecoin Program Library (SPL) is a collection of on-chain programs targeting

@@ -5,7 +5,6 @@ mod helpers;
 use helpers::*;
 use safecoin_program_test::*;
 use safecoin_sdk::{
-    pubkey::Pubkey,
     signature::{Keypair, Signer},
     transaction::Transaction,
 };
@@ -25,7 +24,7 @@ async fn test_success() {
     );
 
     // limit to track compute unit increase
-    test.set_bpf_compute_max_units(30_000);
+    test.set_compute_max_units(30_000);
 
     const SAFE_RESERVE_LIQUIDITY_LAMPORTS: u64 = 100 * LAMPORTS_TO_SAFE;
     const USDC_RESERVE_LIQUIDITY_FRACTIONAL: u64 = 100 * FRACTIONAL_TO_USDC;

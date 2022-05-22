@@ -18,10 +18,11 @@ async fn test_remove_signatory() {
 
     let token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
-    let mut account_governance_cookie = governance_test
-        .with_account_governance(
+    let mut governance_cookie = governance_test
+        .with_governance(
             &realm_cookie,
             &governed_account_cookie,
             &token_owner_record_cookie,
@@ -30,7 +31,7 @@ async fn test_remove_signatory() {
         .unwrap();
 
     let proposal_cookie = governance_test
-        .with_proposal(&token_owner_record_cookie, &mut account_governance_cookie)
+        .with_proposal(&token_owner_record_cookie, &mut governance_cookie)
         .await
         .unwrap();
 
@@ -58,6 +59,7 @@ async fn test_remove_signatory() {
     assert_eq!(ProposalState::Draft, proposal_account.state);
 
     let signatory_account = governance_test
+        .bench
         .get_account(&signatory_record_cookie.address)
         .await;
 
@@ -74,10 +76,11 @@ async fn test_remove_signatory_with_owner_or_delegate_must_sign_error() {
 
     let mut token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
-    let mut account_governance_cookie = governance_test
-        .with_account_governance(
+    let mut governance_cookie = governance_test
+        .with_governance(
             &realm_cookie,
             &governed_account_cookie,
             &token_owner_record_cookie,
@@ -86,7 +89,7 @@ async fn test_remove_signatory_with_owner_or_delegate_must_sign_error() {
         .unwrap();
 
     let proposal_cookie = governance_test
-        .with_proposal(&token_owner_record_cookie, &mut account_governance_cookie)
+        .with_proposal(&token_owner_record_cookie, &mut governance_cookie)
         .await
         .unwrap();
 
@@ -97,7 +100,8 @@ async fn test_remove_signatory_with_owner_or_delegate_must_sign_error() {
 
     let other_token_owner_record_cookie = governance_test
         .with_council_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
     token_owner_record_cookie.token_owner = other_token_owner_record_cookie.token_owner;
 
@@ -129,10 +133,11 @@ async fn test_remove_signatory_with_invalid_proposal_owner_error() {
 
     let mut token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
-    let mut account_governance_cookie = governance_test
-        .with_account_governance(
+    let mut governance_cookie = governance_test
+        .with_governance(
             &realm_cookie,
             &governed_account_cookie,
             &token_owner_record_cookie,
@@ -141,7 +146,7 @@ async fn test_remove_signatory_with_invalid_proposal_owner_error() {
         .unwrap();
 
     let proposal_cookie = governance_test
-        .with_proposal(&token_owner_record_cookie, &mut account_governance_cookie)
+        .with_proposal(&token_owner_record_cookie, &mut governance_cookie)
         .await
         .unwrap();
 
@@ -152,7 +157,8 @@ async fn test_remove_signatory_with_invalid_proposal_owner_error() {
 
     let other_token_owner_record_cookie = governance_test
         .with_council_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
     token_owner_record_cookie.address = other_token_owner_record_cookie.address;
 
@@ -181,10 +187,11 @@ async fn test_remove_signatory_with_not_editable_error() {
 
     let token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
-    let mut account_governance_cookie = governance_test
-        .with_account_governance(
+    let mut governance_cookie = governance_test
+        .with_governance(
             &realm_cookie,
             &governed_account_cookie,
             &token_owner_record_cookie,
@@ -193,7 +200,7 @@ async fn test_remove_signatory_with_not_editable_error() {
         .unwrap();
 
     let proposal_cookie = governance_test
-        .with_proposal(&token_owner_record_cookie, &mut account_governance_cookie)
+        .with_proposal(&token_owner_record_cookie, &mut governance_cookie)
         .await
         .unwrap();
 
@@ -240,10 +247,11 @@ async fn test_remove_signatory_with_already_signed_error() {
 
     let token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
-        .await;
+        .await
+        .unwrap();
 
-    let mut account_governance_cookie = governance_test
-        .with_account_governance(
+    let mut governance_cookie = governance_test
+        .with_governance(
             &realm_cookie,
             &governed_account_cookie,
             &token_owner_record_cookie,
@@ -252,7 +260,7 @@ async fn test_remove_signatory_with_already_signed_error() {
         .unwrap();
 
     let proposal_cookie = governance_test
-        .with_proposal(&token_owner_record_cookie, &mut account_governance_cookie)
+        .with_proposal(&token_owner_record_cookie, &mut governance_cookie)
         .await
         .unwrap();
 

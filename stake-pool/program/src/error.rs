@@ -111,11 +111,25 @@ pub enum StakePoolError {
 
     // 30.
     /// Provided stake deposit authority does not match the program's
-    #[error("FeeIncreaseTooHigh")]
+    #[error("InvalidStakeDepositAuthority")]
     InvalidStakeDepositAuthority,
     /// Provided sol deposit authority does not match the program's
     #[error("InvalidSafeDepositAuthority")]
     InvalidSafeDepositAuthority,
+    /// Provided preferred validator is invalid
+    #[error("InvalidPreferredValidator")]
+    InvalidPreferredValidator,
+    /// Provided validator stake account already has a transient stake account in use
+    #[error("TransientAccountInUse")]
+    TransientAccountInUse,
+    /// Provided sol withdraw authority does not match the program's
+    #[error("InvalidSafeWithdrawAuthority")]
+    InvalidSafeWithdrawAuthority,
+
+    // 35.
+    /// Too much SAFE withdrawn from the stake pool's reserve account
+    #[error("SafeWithdrawalTooLarge")]
+    SafeWithdrawalTooLarge,
 }
 impl From<StakePoolError> for ProgramError {
     fn from(e: StakePoolError) -> Self {

@@ -1,6 +1,5 @@
 //! Program state processor
 
-use borsh::BorshSerialize;
 use safecoin_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
@@ -8,6 +7,7 @@ use safecoin_program::{
     rent::Rent,
     sysvar::Sysvar,
 };
+use spl_governance_tools::account::create_and_serialize_account_signed;
 
 use crate::{
     error::GovernanceError,
@@ -16,21 +16,17 @@ use crate::{
         realm::get_realm_data,
         token_owner_record::{
             get_token_owner_record_address_seeds, get_token_owner_record_data_for_seeds,
-            TokenOwnerRecord,
+            TokenOwnerRecordV2,
         },
     },
-    tools::{
-        account::create_and_serialize_account_signed,
-        safe_token::{
-            get_safe_token_amount, get_safe_token_mint, get_safe_token_owner, transfer_safe_tokens,
-        },
-    },
+    tools::safe_token::{get_safe_token_mint, get_safe_token_owner, transfer_safe_tokens},
 };
 
 /// Processes DepositGoverningTokens instruction
 pub fn process_deposit_governing_tokens(
     program_id: &Pubkey,
     accounts: &[AccountInfo],
+    amount: u64,
 ) -> ProgramResult {
     let account_info_iter = &mut accounts.iter();
 
@@ -44,11 +40,12 @@ pub fn process_deposit_governing_tokens(
     let system_info = next_account_info(account_info_iter)?; // 7
     let safe_token_info = next_account_info(account_info_iter)?; // 8
 
-    let rent_sysvar_info = next_account_info(account_info_iter)?; // 9
-    let rent = &Rent::from_account_info(rent_sysvar_info)?;
+    let rent = Rent::get()?;
 
     let realm_data = get_realm_data(program_id, realm_info)?;
     let governing_token_mint = get_safe_token_mint(governing_token_holding_info)?;
+
+    realm_data.asset_governing_tokens_deposits_allowed(&governing_token_mint)?;
 
     realm_data.assert_is_valid_governing_token_mint_and_holding(
         program_id,
@@ -56,8 +53,6 @@ pub fn process_deposit_governing_tokens(
         &governing_token_mint,
         governing_token_holding_info.key,
     )?;
-
-    let amount = get_safe_token_amount(governing_token_source_info)?;
 
     transfer_safe_tokens(
         governing_token_source_info,
@@ -83,8 +78,8 @@ pub fn process_deposit_governing_tokens(
             return Err(GovernanceError::GoverningTokenOwnerMustSign.into());
         }
 
-        let token_owner_record_data = TokenOwnerRecord {
-            account_type: GovernanceAccountType::TokenOwnerRecord,
+        let token_owner_record_data = TokenOwnerRecordV2 {
+            account_type: GovernanceAccountType::TokenOwnerRecordV2,
             realm: *realm_info.key,
             governing_token_owner: *governing_token_owner_info.key,
             governing_token_deposit_amount: amount,
@@ -94,6 +89,7 @@ pub fn process_deposit_governing_tokens(
             total_votes_count: 0,
             outstanding_proposal_count: 0,
             reserved: [0; 7],
+            reserved_v2: [0; 128],
         };
 
         create_and_serialize_account_signed(
@@ -103,7 +99,7 @@ pub fn process_deposit_governing_tokens(
             &token_owner_record_address_seeds,
             program_id,
             system_info,
-            rent,
+            &rent,
         )?;
     } else {
         let mut token_owner_record_data = get_token_owner_record_data_for_seeds(

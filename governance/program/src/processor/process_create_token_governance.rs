@@ -4,31 +4,31 @@ use crate::{
     state::{
         enums::GovernanceAccountType,
         governance::{
-            assert_valid_create_governance_args, get_token_governance_address_seeds, Governance,
-            GovernanceConfig,
+            assert_valid_create_governance_args, get_token_governance_address_seeds,
+            GovernanceConfig, GovernanceV2,
         },
         realm::get_realm_data,
-        token_owner_record::get_token_owner_record_data_for_realm,
     },
-    tools::{
-        account::create_and_serialize_account_signed,
-        safe_token::{assert_safe_token_owner_is_signer, set_safe_token_owner},
-    },
+    tools::safe_token::{assert_safe_token_owner_is_signer, set_safe_token_account_authority},
 };
 use safecoin_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
+    program_pack::Pack,
     pubkey::Pubkey,
     rent::Rent,
     sysvar::Sysvar,
 };
+
+use spl_governance_tools::account::create_and_serialize_account_signed;
+use safe_token::{instruction::AuthorityType, state::Account};
 
 /// Processes CreateTokenGovernance instruction
 pub fn process_create_token_governance(
     program_id: &Pubkey,
     accounts: &[AccountInfo],
     config: GovernanceConfig,
-    transfer_token_owner: bool,
+    transfer_account_authorities: bool,
 ) -> ProgramResult {
     let account_info_iter = &mut accounts.iter();
 
@@ -45,43 +45,65 @@ pub fn process_create_token_governance(
 
     let system_info = next_account_info(account_info_iter)?; // 7
 
-    let rent_sysvar_info = next_account_info(account_info_iter)?; // 8
-    let rent = &Rent::from_account_info(rent_sysvar_info)?;
+    let rent = Rent::get()?;
+
+    let create_authority_info = next_account_info(account_info_iter)?; // 8
 
     assert_valid_create_governance_args(program_id, &config, realm_info)?;
 
     let realm_data = get_realm_data(program_id, realm_info)?;
-    let token_owner_record_data =
-        get_token_owner_record_data_for_realm(program_id, token_owner_record_info, realm_info.key)?;
 
-    token_owner_record_data.assert_can_create_governance(&realm_data)?;
+    realm_data.assert_create_authority_can_create_governance(
+        program_id,
+        realm_info.key,
+        token_owner_record_info,
+        create_authority_info,
+        account_info_iter, // realm_config_info 9, voter_weight_record_info 10
+    )?;
 
-    let token_governance_data = Governance {
-        account_type: GovernanceAccountType::TokenGovernance,
+    let token_governance_data = GovernanceV2 {
+        account_type: GovernanceAccountType::TokenGovernanceV2,
         realm: *realm_info.key,
         governed_account: *governed_token_info.key,
         config,
         proposals_count: 0,
-        reserved: [0; 8],
+        reserved: [0; 6],
+        voting_proposal_count: 0,
+        reserved_v2: [0; 128],
     };
 
-    create_and_serialize_account_signed::<Governance>(
+    create_and_serialize_account_signed::<GovernanceV2>(
         payer_info,
         token_governance_info,
         &token_governance_data,
         &get_token_governance_address_seeds(realm_info.key, governed_token_info.key),
         program_id,
         system_info,
-        rent,
+        &rent,
     )?;
 
-    if transfer_token_owner {
-        set_safe_token_owner(
+    if transfer_account_authorities {
+        set_safe_token_account_authority(
             governed_token_info,
             governed_token_owner_info,
             token_governance_info.key,
+            AuthorityType::AccountOwner,
             safe_token_info,
         )?;
+
+        // If the token account has close_authority then transfer it as well
+        let token_account_data = Account::unpack(&governed_token_info.data.borrow())?;
+        // Note: The code assumes owner==close_authority
+        //       If this is not the case then the caller should set close_authority accordingly before making the transfer
+        if token_account_data.close_authority.is_some() {
+            set_safe_token_account_authority(
+                governed_token_info,
+                governed_token_owner_info,
+                token_governance_info.key,
+                AuthorityType::CloseAccount,
+                safe_token_info,
+            )?;
+        }
     } else {
         assert_safe_token_owner_is_signer(governed_token_info, governed_token_owner_info)?;
     }

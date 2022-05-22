@@ -27,7 +27,7 @@ extern uint64_t logging(SafeParameters *params) {
 }
 
 extern uint64_t entrypoint(const uint8_t *input) {
-  SafeAccountInfo accounts[0];
+  SafeAccountInfo accounts[1];
   SafeParameters params = (SafeParameters){.ka = accounts};
 
   if (!sol_deserialize(input, &params, SAFE_ARRAY_SIZE(accounts))) {

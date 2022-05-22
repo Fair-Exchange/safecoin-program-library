@@ -1,23 +1,69 @@
 //! Program state processor
 
-use crate::*;
-use safecoin_program::{
-    account_info::{next_account_info, AccountInfo},
-    entrypoint::ProgramResult,
-    msg,
-    program::{invoke, invoke_signed},
-    program_error::ProgramError,
-    pubkey::Pubkey,
-    rent::Rent,
-    system_instruction,
-    sysvar::Sysvar,
+use {
+    crate::{
+        error::AssociatedTokenAccountError,
+        instruction::AssociatedTokenAccountInstruction,
+        tools::account::{create_pda_account, get_account_len},
+        *,
+    },
+    borsh::BorshDeserialize,
+    safecoin_program::{
+        account_info::{next_account_info, AccountInfo},
+        entrypoint::ProgramResult,
+        msg,
+        program::invoke,
+        program_error::ProgramError,
+        pubkey::Pubkey,
+        rent::Rent,
+        system_program,
+        sysvar::Sysvar,
+    },
+    safe_token_2022::{
+        extension::{ExtensionType, StateWithExtensions},
+        state::Account,
+    },
 };
+
+/// Specify when to create the associated token account
+#[derive(PartialEq)]
+enum CreateMode {
+    /// Always try to create the ATA
+    Always,
+    /// Only try to create the ATA if non-existent
+    Idempotent,
+}
 
 /// Instruction processor
 pub fn process_instruction(
     program_id: &Pubkey,
     accounts: &[AccountInfo],
-    _input: &[u8],
+    input: &[u8],
+) -> ProgramResult {
+    let instruction = if input.is_empty() {
+        AssociatedTokenAccountInstruction::Create
+    } else {
+        AssociatedTokenAccountInstruction::try_from_slice(input)
+            .map_err(|_| ProgramError::InvalidInstructionData)?
+    };
+
+    msg!("{:?}", instruction);
+
+    match instruction {
+        AssociatedTokenAccountInstruction::Create => {
+            process_create_associated_token_account(program_id, accounts, CreateMode::Always)
+        }
+        AssociatedTokenAccountInstruction::CreateIdempotent => {
+            process_create_associated_token_account(program_id, accounts, CreateMode::Idempotent)
+        }
+    }
+}
+
+/// Processes CreateAssociatedTokenAccount instruction
+fn process_create_associated_token_account(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    create_mode: CreateMode,
 ) -> ProgramResult {
     let account_info_iter = &mut accounts.iter();
 
@@ -28,7 +74,6 @@ pub fn process_instruction(
     let system_program_info = next_account_info(account_info_iter)?;
     let safe_token_program_info = next_account_info(account_info_iter)?;
     let safe_token_program_id = safe_token_program_info.key;
-    let rent_sysvar_info = next_account_info(account_info_iter)?;
 
     let (associated_token_address, bump_seed) = get_associated_token_address_and_bump_seed_internal(
         wallet_account_info.key,
@@ -41,6 +86,28 @@ pub fn process_instruction(
         return Err(ProgramError::InvalidSeeds);
     }
 
+    if create_mode == CreateMode::Idempotent
+        && associated_token_account_info.owner == safe_token_program_id
+    {
+        let ata_data = associated_token_account_info.data.borrow();
+        if let Ok(associated_token_account) = StateWithExtensions::<Account>::unpack(&ata_data) {
+            if associated_token_account.base.owner != *wallet_account_info.key {
+                let error = AssociatedTokenAccountError::InvalidOwner;
+                msg!("{}", error);
+                return Err(error.into());
+            }
+            if associated_token_account.base.mint != *safe_token_mint_info.key {
+                return Err(ProgramError::InvalidAccountData);
+            }
+            return Ok(());
+        }
+    }
+    if *associated_token_account_info.owner != system_program::id() {
+        return Err(ProgramError::IllegalOwner);
+    }
+
+    let rent = Rent::get()?;
+
     let associated_token_account_signer_seeds: &[&[_]] = &[
         &wallet_account_info.key.to_bytes(),
         &safe_token_program_id.to_bytes(),
@@ -48,58 +115,35 @@ pub fn process_instruction(
         &[bump_seed],
     ];
 
-    // Fund the associated token account with the minimum balance to be rent exempt
-    let rent = &Rent::from_account_info(rent_sysvar_info)?;
-    let required_lamports = rent
-        .minimum_balance(safe_token::state::Account::LEN)
-        .max(1)
-        .saturating_sub(associated_token_account_info.lamports());
-
-    if required_lamports > 0 {
-        msg!(
-            "Transfer {} lamports to the associated token account",
-            required_lamports
-        );
-        invoke(
-            &system_instruction::transfer(
-                funder_info.key,
-                associated_token_account_info.key,
-                required_lamports,
-            ),
-            &[
-                funder_info.clone(),
-                associated_token_account_info.clone(),
-                system_program_info.clone(),
-            ],
-        )?;
-    }
-
-    msg!("Allocate space for the associated token account");
-    invoke_signed(
-        &system_instruction::allocate(
-            associated_token_account_info.key,
-            safe_token::state::Account::LEN as u64,
-        ),
-        &[
-            associated_token_account_info.clone(),
-            system_program_info.clone(),
-        ],
-        &[associated_token_account_signer_seeds],
+    let account_len = get_account_len(
+        safe_token_mint_info,
+        safe_token_program_info,
+        &[ExtensionType::ImmutableOwner],
     )?;
 
-    msg!("Assign the associated token account to the SPL Token program");
-    invoke_signed(
-        &system_instruction::assign(associated_token_account_info.key, safe_token_program_id),
-        &[
-            associated_token_account_info.clone(),
-            system_program_info.clone(),
-        ],
-        &[associated_token_account_signer_seeds],
+    create_pda_account(
+        funder_info,
+        &rent,
+        account_len,
+        safe_token_program_id,
+        system_program_info,
+        associated_token_account_info,
+        associated_token_account_signer_seeds,
     )?;
 
     msg!("Initialize the associated token account");
     invoke(
-        &safe_token::instruction::initialize_account(
+        &safe_token_2022::instruction::initialize_immutable_owner(
+            safe_token_program_id,
+            associated_token_account_info.key,
+        )?,
+        &[
+            associated_token_account_info.clone(),
+            safe_token_program_info.clone(),
+        ],
+    )?;
+    invoke(
+        &safe_token_2022::instruction::initialize_account3(
             safe_token_program_id,
             associated_token_account_info.key,
             safe_token_mint_info.key,
@@ -109,7 +153,6 @@ pub fn process_instruction(
             associated_token_account_info.clone(),
             safe_token_mint_info.clone(),
             wallet_account_info.clone(),
-            rent_sysvar_info.clone(),
             safe_token_program_info.clone(),
         ],
     )
