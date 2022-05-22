@@ -9,9 +9,9 @@ version = "0.0.1"
 
 [dependencies]
 async-trait = "0.1"
-safecoin-client = "=1.9.9"
-safecoin-program-test = "=1.9.9"
-safecoin-sdk = "=1.9.9"
+safecoin-client = "=1.9.22"
+safecoin-program-test = "=1.9.22"
+safecoin-sdk = "=1.9.22"
 # We never want the entrypoint for ATA, but we want the entrypoint for token when
 # testing token
 safe-associated-token-account = { version = "1.0.5", path = "../../associated-token-account/program", features = ["no-entrypoint"] }

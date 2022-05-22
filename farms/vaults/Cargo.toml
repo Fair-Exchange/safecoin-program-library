@@ -18,12 +18,12 @@ default = ["RDM-STAKE-LP-COMPOUND"]
 
 [dependencies]
 solana-farm-sdk = { path = "../farm-sdk" }
-safecoin-program = "1.9.9"
+safecoin-program = "1.9.22"
 safe-token = { version = "3.2.0", features = ["no-entrypoint"] }
 arrayref = "0.3.6"
 
 [dev-dependencies]
-safecoin-program-test = "1.9.9"
+safecoin-program-test = "1.9.22"
 
 [lib]
 crate-type = ["cdylib", "lib"]

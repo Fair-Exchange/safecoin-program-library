@@ -14,12 +14,12 @@ test-bpf = []
 [dependencies]
 borsh = "0.9"
 borsh-derive = "0.9.0"
-safecoin-program = "1.9.9"
+safecoin-program = "1.9.22"
 safe-token = { version = "3.3", path = "../../token/program", features = ["no-entrypoint"] }
 
 [dev-dependencies]
-safecoin-program-test = "1.9.9"
-safecoin-sdk = "1.9.9"
+safecoin-program-test = "1.9.22"
+safecoin-sdk = "1.9.22"
 
 [lib]
 crate-type = ["cdylib", "lib"]

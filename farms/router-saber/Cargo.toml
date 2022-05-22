@@ -14,7 +14,7 @@ debug = []
 
 [dependencies]
 solana-farm-sdk = { path = "../farm-sdk" }
-safecoin-program = "1.9.9"
+safecoin-program = "1.9.22"
 arrayref = "0.3.6"
 stable-swap-client = "1.5.2"
 quarry-mine = { version = "1.10.0", features = ["no-entrypoint"] }
@@ -23,7 +23,7 @@ quarry-redeemer = { version = "1.10.0", features = ["no-entrypoint"] }
 safe-token = { version = "3.2.0", features = ["no-entrypoint"] }
 
 [dev-dependencies]
-safecoin-program-test = "1.9.9"
+safecoin-program-test = "1.9.22"
 
 [lib]
 crate-type = ["cdylib", "lib"]
