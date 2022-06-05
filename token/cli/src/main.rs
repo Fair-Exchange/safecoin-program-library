@@ -1,3 +1,4 @@
+#![allow(deprecated)] // TODO: Remove when SPL upgrades to Safecoin 1.8
 use clap::{
     crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, AppSettings, Arg,
     ArgMatches, SubCommand,
@@ -14,11 +15,14 @@ use safecoin_clap_utils::{
         is_valid_signer, normalize_to_url_if_moniker,
     },
     keypair::{signer_from_path, CliSignerInfo},
+    memo::memo_arg,
     nonce::*,
     offline::{self, *},
     ArgConstant,
 };
-use safecoin_cli_output::{return_signers, CliSignature, OutputFormat};
+use safecoin_cli_output::{
+    return_signers_with_config, CliSignature, OutputFormat, ReturnSignersConfig,
+};
 use safecoin_client::{
     blockhash_query::BlockhashQuery, rpc_client::RpcClient, rpc_request::TokenAccountsFilter,
 };
@@ -52,6 +56,11 @@ use output::*;
 
 mod sort;
 use sort::sort_and_parse_token_accounts;
+
+mod rpc_client_utils;
+
+mod bench;
+use bench::*;
 
 pub const OWNER_ADDRESS_ARG: ArgConstant<'static> = ArgConstant {
     name: "owner",
@@ -182,7 +191,7 @@ fn is_multisig_minimum_signers(string: String) -> Result<(), String> {
     }
 }
 
-type Error = Box<dyn std::error::Error>;
+pub(crate) type Error = Box<dyn std::error::Error>;
 type CommandResult = Result<Option<(u64, Vec<Vec<Instruction>>)>, Error>;
 
 fn new_throwaway_signer() -> (Box<dyn Signer>, Pubkey) {
@@ -207,7 +216,7 @@ fn get_signer(
     })
 }
 
-fn check_fee_payer_balance(config: &Config, required_balance: u64) -> Result<(), Error> {
+pub(crate) fn check_fee_payer_balance(config: &Config, required_balance: u64) -> Result<(), Error> {
     let balance = config.rpc_client.get_balance(&config.fee_payer)?;
     if balance < required_balance {
         Err(format!(
@@ -504,7 +513,7 @@ fn command_authorize(
     Ok(Some((0, vec![instructions])))
 }
 
-fn resolve_mint_info(
+pub(crate) fn resolve_mint_info(
     config: &Config,
     token_account: &Pubkey,
     mint_address: Option<Pubkey>,
@@ -554,6 +563,8 @@ fn command_transfer(
     fund_recipient: bool,
     mint_decimals: Option<u8>,
     recipient_is_ata_owner: bool,
+    use_unchecked_instruction: bool,
+    memo: Option<String>,
 ) -> CommandResult {
     let sender = if let Some(sender) = sender {
         sender
@@ -692,22 +703,37 @@ fn command_transfer(
         }
     }
 
-    instructions.push(transfer_checked(
-        &safe_token::id(),
-        &sender,
-        &mint_pubkey,
-        &recipient_token_account,
-        &sender_owner,
-        &config.multisigner_pubkeys,
-        transfer_balance,
-        decimals,
-    )?);
+    if use_unchecked_instruction {
+        instructions.push(transfer(
+            &safe_token::id(),
+            &sender,
+            &recipient_token_account,
+            &sender_owner,
+            &config.multisigner_pubkeys,
+            transfer_balance,
+        )?);
+    } else {
+        instructions.push(transfer_checked(
+            &safe_token::id(),
+            &sender,
+            &mint_pubkey,
+            &recipient_token_account,
+            &sender_owner,
+            &config.multisigner_pubkeys,
+            transfer_balance,
+            decimals,
+        )?);
+    }
+    if let Some(text) = memo {
+        instructions.push(safe_memo::build_memo(text.as_bytes(), &[&config.fee_payer]));
+    }
     Ok(Some((
         minimum_balance_for_rent_exemption,
         vec![instructions],
     )))
 }
 
+#[allow(clippy::too_many_arguments)]
 fn command_burn(
     config: &Config,
     source: Pubkey,
@@ -715,6 +741,8 @@ fn command_burn(
     ui_amount: f64,
     mint_address: Option<Pubkey>,
     mint_decimals: Option<u8>,
+    use_unchecked_instruction: bool,
+    memo: Option<String>,
 ) -> CommandResult {
     println_display(
         config,
@@ -724,15 +752,29 @@ fn command_burn(
     let (mint_pubkey, decimals) = resolve_mint_info(config, &source, mint_address, mint_decimals)?;
     let amount = safe_token::ui_amount_to_amount(ui_amount, decimals);
 
-    let instructions = vec![burn_checked(
-        &safe_token::id(),
-        &source,
-        &mint_pubkey,
-        &source_owner,
-        &config.multisigner_pubkeys,
-        amount,
-        decimals,
-    )?];
+    let mut instructions = if use_unchecked_instruction {
+        vec![burn(
+            &safe_token::id(),
+            &source,
+            &mint_pubkey,
+            &source_owner,
+            &config.multisigner_pubkeys,
+            amount,
+        )?]
+    } else {
+        vec![burn_checked(
+            &safe_token::id(),
+            &source,
+            &mint_pubkey,
+            &source_owner,
+            &config.multisigner_pubkeys,
+            amount,
+            decimals,
+        )?]
+    };
+    if let Some(text) = memo {
+        instructions.push(safe_memo::build_memo(text.as_bytes(), &[&config.fee_payer]));
+    }
     Ok(Some((0, vec![instructions])))
 }
 
@@ -743,6 +785,7 @@ fn command_mint(
     recipient: Pubkey,
     mint_decimals: Option<u8>,
     mint_authority: Pubkey,
+    use_unchecked_instruction: bool,
 ) -> CommandResult {
     println_display(
         config,
@@ -755,15 +798,26 @@ fn command_mint(
     let (_, decimals) = resolve_mint_info(config, &recipient, None, mint_decimals)?;
     let amount = safe_token::ui_amount_to_amount(ui_amount, decimals);
 
-    let instructions = vec![mint_to_checked(
-        &safe_token::id(),
-        &token,
-        &recipient,
-        &mint_authority,
-        &config.multisigner_pubkeys,
-        amount,
-        decimals,
-    )?];
+    let instructions = if use_unchecked_instruction {
+        vec![mint_to(
+            &safe_token::id(),
+            &token,
+            &recipient,
+            &mint_authority,
+            &config.multisigner_pubkeys,
+            amount,
+        )?]
+    } else {
+        vec![mint_to_checked(
+            &safe_token::id(),
+            &token,
+            &recipient,
+            &mint_authority,
+            &config.multisigner_pubkeys,
+            amount,
+            decimals,
+        )?]
+    };
     Ok(Some((0, vec![instructions])))
 }
 
@@ -903,6 +957,7 @@ fn command_unwrap(
     Ok(Some((0, vec![instructions])))
 }
 
+#[allow(clippy::too_many_arguments)]
 fn command_approve(
     config: &Config,
     account: Pubkey,
@@ -911,6 +966,7 @@ fn command_approve(
     delegate: Pubkey,
     mint_address: Option<Pubkey>,
     mint_decimals: Option<u8>,
+    use_unchecked_instruction: bool,
 ) -> CommandResult {
     println_display(
         config,
@@ -923,16 +979,27 @@ fn command_approve(
     let (mint_pubkey, decimals) = resolve_mint_info(config, &account, mint_address, mint_decimals)?;
     let amount = safe_token::ui_amount_to_amount(ui_amount, decimals);
 
-    let instructions = vec![approve_checked(
-        &safe_token::id(),
-        &account,
-        &mint_pubkey,
-        &delegate,
-        &owner,
-        &config.multisigner_pubkeys,
-        amount,
-        decimals,
-    )?];
+    let instructions = if use_unchecked_instruction {
+        vec![approve(
+            &safe_token::id(),
+            &account,
+            &delegate,
+            &owner,
+            &config.multisigner_pubkeys,
+            amount,
+        )?]
+    } else {
+        vec![approve_checked(
+            &safe_token::id(),
+            &account,
+            &mint_pubkey,
+            &delegate,
+            &owner,
+            &config.multisigner_pubkeys,
+            amount,
+            decimals,
+        )?]
+    };
     Ok(Some((0, vec![instructions])))
 }
 
@@ -1359,6 +1426,15 @@ fn main() {
                 ),
         )
         .arg(fee_payer_arg().global(true))
+        .arg(
+            Arg::with_name("use_unchecked_instruction")
+                .long("use-unchecked-instruction")
+                .takes_value(false)
+                .global(true)
+                .hidden(true)
+                .help("Use unchecked instruction if appropriate. Supports transfer, burn, mint, and approve."),
+        )
+        .bench_subcommand()
         .subcommand(SubCommand::with_name("create-token").about("Create a new token")
                 .arg(
                     Arg::with_name("token_keypair")
@@ -1401,13 +1477,8 @@ fn main() {
                             "Enable the mint authority to freeze associated token accounts."
                         ),
                 )
-                .arg(
-                    Arg::with_name("memo")
-                        .long("memo")
-                        .takes_value(true)
-                        .help("Specify text that should be written as a memo when the token is created"),
-                )
                 .nonce_args(true)
+                .arg(memo_arg())
                 .offline_args(),
         )
         .subcommand(
@@ -1625,6 +1696,7 @@ fn main() {
                 .arg(multisig_signer_arg())
                 .arg(mint_decimals_arg())
                 .nonce_args(true)
+                .arg(memo_arg())
                 .offline_args_config(&SignOnlyNeedsMintDecimals{}),
         )
         .subcommand(
@@ -1658,6 +1730,7 @@ fn main() {
                 .arg(multisig_signer_arg())
                 .mint_args()
                 .nonce_args(true)
+                .arg(memo_arg())
                 .offline_args_config(&SignOnlyNeedsFullMintSpec{}),
         )
         .subcommand(
@@ -2097,6 +2170,7 @@ fn main() {
                 .value_of("json_rpc_url")
                 .unwrap_or(&cli_config.json_rpc_url),
         );
+        let websocket_url = safecoin_cli_config::Config::compute_websocket_url(&json_rpc_url);
 
         let (signer, fee_payer) = signer_from_path(
             matches,
@@ -2161,6 +2235,7 @@ fn main() {
 
         let blockhash_query = BlockhashQuery::new_from_matches(matches);
         let sign_only = matches.is_present(SIGN_ONLY_ARG.name);
+        let dump_transaction_message = matches.is_present(DUMP_TRANSACTION_MESSAGE.name);
 
         let multisig_signers = signers_of(matches, MULTISIG_SIGNER_ARG.name, &mut wallet_manager)
             .unwrap_or_else(|e| {
@@ -2176,7 +2251,11 @@ fn main() {
         let multisigner_pubkeys = multisigner_ids.iter().collect::<Vec<_>>();
 
         Config {
-            rpc_client: RpcClient::new_with_commitment(json_rpc_url, CommitmentConfig::confirmed()),
+            rpc_client: Arc::new(RpcClient::new_with_commitment(
+                json_rpc_url,
+                CommitmentConfig::confirmed(),
+            )),
+            websocket_url,
             output_format,
             fee_payer,
             default_keypair_path: cli_config.keypair_path,
@@ -2184,6 +2263,7 @@ fn main() {
             nonce_authority,
             blockhash_query,
             sign_only,
+            dump_transaction_message,
             multisigner_pubkeys,
         }
     };
@@ -2191,6 +2271,13 @@ fn main() {
     solana_logger::setup_with_default("solana=info");
 
     let _ = match (sub_command, sub_matches) {
+        ("bench", Some(arg_matches)) => bench_process_command(
+            arg_matches,
+            &config,
+            std::mem::take(&mut bulk_signers),
+            &mut wallet_manager,
+        )
+        .map(|_| None),
         ("create-token", Some(arg_matches)) => {
             let decimals = value_t_or_exit!(arg_matches, "decimals", u8);
             let mint_authority =
@@ -2302,6 +2389,8 @@ fn main() {
                 || matches.is_present("allow_unfunded_recipient");
             no_wait = matches.is_present("no_wait");
             let recipient_is_ata_owner = matches.is_present("recipient_is_ata_owner");
+            let use_unchecked_instruction = matches.is_present("use_unchecked_instruction");
+            let memo = value_t!(arg_matches, "memo", String).ok();
 
             command_transfer(
                 &config,
@@ -2314,6 +2403,8 @@ fn main() {
                 fund_recipient,
                 mint_decimals,
                 recipient_is_ata_owner,
+                use_unchecked_instruction,
+                memo,
             )
         }
         ("burn", Some(arg_matches)) => {
@@ -2329,7 +2420,18 @@ fn main() {
             let mint_address =
                 pubkey_of_signer(arg_matches, MINT_ADDRESS_ARG.name, &mut wallet_manager).unwrap();
             let mint_decimals = value_of::<u8>(arg_matches, MINT_DECIMALS_ARG.name);
-            command_burn(&config, source, owner, amount, mint_address, mint_decimals)
+            let use_unchecked_instruction = matches.is_present("use_unchecked_instruction");
+            let memo = value_t!(arg_matches, "memo", String).ok();
+            command_burn(
+                &config,
+                source,
+                owner,
+                amount,
+                mint_address,
+                mint_decimals,
+                use_unchecked_instruction,
+                memo,
+            )
         }
         ("mint", Some(arg_matches)) => {
             let (mint_authority_signer, mint_authority) =
@@ -2346,6 +2448,7 @@ fn main() {
                 &mut wallet_manager,
             );
             let mint_decimals = value_of::<u8>(arg_matches, MINT_DECIMALS_ARG.name);
+            let use_unchecked_instruction = matches.is_present("use_unchecked_instruction");
             command_mint(
                 &config,
                 token,
@@ -2353,6 +2456,7 @@ fn main() {
                 recipient,
                 mint_decimals,
                 mint_authority,
+                use_unchecked_instruction,
             )
         }
         ("freeze", Some(arg_matches)) => {
@@ -2419,6 +2523,7 @@ fn main() {
             let mint_address =
                 pubkey_of_signer(arg_matches, MINT_ADDRESS_ARG.name, &mut wallet_manager).unwrap();
             let mint_decimals = value_of::<u8>(arg_matches, MINT_DECIMALS_ARG.name);
+            let use_unchecked_instruction = matches.is_present("use_unchecked_instruction");
             command_approve(
                 &config,
                 account,
@@ -2427,6 +2532,7 @@ fn main() {
                 delegate,
                 mint_address,
                 mint_decimals,
+                use_unchecked_instruction,
             )
         }
         ("revoke", Some(arg_matches)) => {
@@ -2562,7 +2668,16 @@ fn main() {
 
                 if config.sign_only {
                     transaction.try_partial_sign(&signers, recent_blockhash)?;
-                    println!("{}", return_signers(&transaction, &config.output_format)?);
+                    println!(
+                        "{}",
+                        return_signers_with_config(
+                            &transaction,
+                            &config.output_format,
+                            &ReturnSignersConfig {
+                                dump_transaction_message: config.dump_transaction_message,
+                            }
+                        )?
+                    );
                 } else {
                     transaction.try_sign(&signers, recent_blockhash)?;
                     let signature = if no_wait {

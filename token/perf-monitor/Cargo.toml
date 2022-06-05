@@ -10,9 +10,9 @@ edition = "2018"
 [dev-dependencies]
 rand = { version = "0.7.0"}
 safe-token = { path = "../program", features = [ "no-entrypoint" ] }
-safecoin-runtime = "1.8.12"
-safecoin-sdk = {version = "1.8.12"}
-safecoin-bpf-loader-program = "1.8.12"
+safecoin-runtime = "1.9.29"
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.9.29"}
+safecoin-bpf-loader-program = "1.9.29"
 solana_rbpf = "0.2"
 
 [workspace]

@@ -13,16 +13,16 @@ test-bpf = []
 [dependencies]
 num-derive = "0.3"
 num-traits = "0.2"
-safecoin-program = {version = "1.8.12"}
-safe-token = { version = "3.2.2", path = "../../token/program", features = [ "no-entrypoint" ] }
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.9.29"}
+safe-token = { version = "3.2", path = "../../token/program", features = [ "no-entrypoint" ] }
 thiserror = "1.0"
 uint = "0.9"
 arbitrary = { version = "0.4", features = ["derive"], optional = true }
 borsh = "0.9.1"
 
 [dev-dependencies]
-safecoin-program-test = {version = "1.8.12"}
-safecoin-sdk = {version = "1.8.12"}
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.9.29"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.9.29"}
 
 [lib]
 crate-type = ["cdylib", "lib"]

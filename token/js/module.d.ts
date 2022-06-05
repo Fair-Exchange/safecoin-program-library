@@ -247,6 +247,16 @@ declare module '@safecoin/safe-token' {
       authority: PublicKey,
       multiSigners: Array<Signer>,
     ): TransactionInstruction;
+    static createTransferCheckedInstruction(
+      programId: PublicKey,
+      source: PublicKey,
+      mint: PublicKey,
+      destination: PublicKey,
+      owner: PublicKey,
+      multiSigners: Array<Signer>,
+      amount: number | u64,
+      decimals: number,
+    ): TransactionInstruction;
     static createAssociatedTokenAccountInstruction(
       associatedProgramId: PublicKey,
       programId: PublicKey,

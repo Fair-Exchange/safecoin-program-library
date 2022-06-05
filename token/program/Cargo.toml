@@ -1,6 +1,6 @@
 [package]
 name = "safe-token"
-version = "3.2.2"
+version = "3.2.0"
 description = "Safecoin Program Library Token"
 authors = ["Solana Maintainers <maintainers@solana.foundation>"]
 repository = "https://github.com/fair-exchange/safecoin-program-library"
@@ -15,12 +15,12 @@ no-entrypoint = []
 arrayref = "0.3.6"
 num-derive = "0.3"
 num-traits = "0.2"
-num_enum = "0.5.3"
-safecoin-program = {version = "1.8.12"}
+num_enum = "0.5.4"
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.9.29"}
 thiserror = "1.0"
 
 [dev-dependencies]
-safecoin-sdk = {version = "1.8.12"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.9.29"}
 
 [lib]
 crate-type = ["cdylib", "lib"]
