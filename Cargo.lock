@@ -3043,7 +3043,7 @@ dependencies = [
  "safecoin-sdk",
  "safecoin-vote-program",
  "serde",
- "solana-bloom",
+ "safecoin-bloom",
 ]
 
 [[package]]
@@ -3239,7 +3239,7 @@ dependencies = [
  "serde",
  "serde_derive",
  "safecoin-address-lookup-table-program",
- "solana-bloom",
+ "safecoin-bloom",
  "solana-bucket-map",
  "symlink",
  "tar",
@@ -3640,7 +3640,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "solana-bloom"
+name = "safecoin-bloom"
 version = "1.9.29"
 dependencies = [
  "bv",
