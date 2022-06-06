@@ -2753,7 +2753,7 @@ dependencies = [
  "safecoin-banks-interface",
  "safecoin-runtime",
  "safecoin-sdk",
- "solana-send-transaction-service",
+ "safecoin-send-transaction-service",
  "tarpc",
  "tokio",
  "tokio-serde",
@@ -3672,7 +3672,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "solana-send-transaction-service"
+name = "safecoin-send-transaction-service"
 version = "1.9.29"
 dependencies = [
  "log",
