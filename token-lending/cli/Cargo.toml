@@ -1,0 +1,24 @@
+[package]
+authors = ["Solana Maintainers <maintainers@solana.foundation>"]
+description = "SPL Token Lending CLI"
+edition = "2018"
+homepage = "https://spl.solana.com/token-lending"
+license = "Apache-2.0"
+name = "safe-token-lending-cli"
+repository = "https://github.com/fair-exchange/safecoin-program-library"
+version = "0.2.0"
+
+[dependencies]
+clap = "2.33.3"
+safecoin-clap-utils = "=1.10.29"
+safecoin-cli-config = "=1.10.29"
+safecoin-client = "=1.10.29"
+safecoin-logger = "=1.10.29"
+safecoin-sdk = "=1.10.29"
+safecoin-program = "=1.10.29"
+safe-token-lending = { version = "0.2", path="../program", features = [ "no-entrypoint" ] }
+safe-token = { version = "3.3", path="../../token/program", features = [ "no-entrypoint" ]  }
+
+[[bin]]
+name = "safe-token-lending"
+path = "src/main.rs"
