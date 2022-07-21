@@ -14,11 +14,11 @@ debug = []
 
 [dependencies]
 solana-farm-sdk = { path = "../farm-sdk" }
-safecoin-program = "1.10.8"
+safecoin-program = "1.10.32"
 arrayref = "0.3.6"
 
 [dev-dependencies]
-safecoin-program-test = "1.10.8"
+safecoin-program-test = "1.10.32"
 
 [lib]
 crate-type = ["cdylib", "lib"]

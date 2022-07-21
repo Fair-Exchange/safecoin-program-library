@@ -18,21 +18,21 @@ indicatif = "0.16.2"
 serde = "1.0.130"
 serde_derive = "1.0.103"
 serde_json = "1.0.68"
-safecoin-account-decoder = "=1.10.8"
-safecoin-clap-utils = "=1.10.8"
-safecoin-cli-config = "=1.10.8"
-safecoin-cli-output = "=1.10.8"
-safecoin-client = "=1.10.8"
-safecoin-logger = "=1.10.8"
-safecoin-remote-wallet = "=1.10.8"
-safecoin-sdk = "=1.10.8"
-safecoin-transaction-status = "=1.10.8"
+safecoin-account-decoder = "=1.10.32"
+safecoin-clap-utils = "=1.10.32"
+safecoin-cli-config = "=1.10.32"
+safecoin-cli-output = "=1.10.32"
+safecoin-client = "=1.10.32"
+safecoin-logger = "=1.10.32"
+safecoin-remote-wallet = "=1.10.32"
+safecoin-sdk = "=1.10.32"
+safecoin-transaction-status = "=1.10.32"
 safe-token = { version = "3.3", path="../program", features = [ "no-entrypoint" ] }
 safe-associated-token-account = { version = "1.0.5", path="../../associated-token-account/program", features = [ "no-entrypoint" ] }
 safe-memo = { version = "3.0.1", path="../../memo/program", features = ["no-entrypoint"] }
 
 [dev-dependencies]
-safecoin-test-validator = "=1.10.8"
+safecoin-test-validator = "=1.10.32"
 
 [[bin]]
 name = "safe-token"

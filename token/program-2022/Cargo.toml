@@ -23,8 +23,8 @@ bytemuck = { version = "1.7.2", features = ["derive"] }
 num-derive = "0.3"
 num-traits = "0.2"
 num_enum = "0.5.4"
-safecoin-program = "1.10.8"
-safe-zk-token-sdk = "1.10.8"
+safecoin-program = "1.10.32"
+safe-zk-token-sdk = "1.10.32"
 safe-memo = { version = "3.0.1", path = "../../memo/program", features = [ "no-entrypoint" ] }
 safe-token = { version = "3.3",  path = "../program", features = ["no-entrypoint"] }
 thiserror = "1.0"
@@ -32,8 +32,8 @@ thiserror = "1.0"
 [dev-dependencies]
 lazy_static = "1.4.0"
 serial_test = "0.5.1"
-safecoin-program-test = "1.10.8"
-safecoin-sdk = "1.10.8"
+safecoin-program-test = "1.10.32"
+safecoin-sdk = "1.10.32"
 
 [lib]
 crate-type = ["cdylib", "lib"]

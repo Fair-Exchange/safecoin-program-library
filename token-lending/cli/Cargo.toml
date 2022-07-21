@@ -10,12 +10,12 @@ version = "0.1.0"
 
 [dependencies]
 clap = "2.33.3"
-safecoin-clap-utils = "1.10.8"
-safecoin-cli-config = "1.10.8"
-safecoin-client = "1.10.8"
-safecoin-logger = "1.10.8"
-safecoin-sdk = "1.10.8"
-safecoin-program = "1.10.8"
+safecoin-clap-utils = "1.10.32"
+safecoin-cli-config = "1.10.32"
+safecoin-client = "1.10.32"
+safecoin-logger = "1.10.32"
+safecoin-sdk = "1.10.32"
+safecoin-program = "1.10.32"
 safe-token-lending = { path="../program", features = [ "no-entrypoint" ] }
 safe-token = { path="../../token/program", features = [ "no-entrypoint" ]  }
 
