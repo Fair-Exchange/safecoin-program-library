@@ -25,7 +25,7 @@ num-traits = "0.2"
 num_enum = "0.5.4"
 safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.32"}
 safe-zk-token-sdk = {path = "../../../Safecoin/zk-token-sdk", version = "1.10.32"}
-safe-memo = { version = "3.0.1", path = "../../memo/program", features = [ "no-entrypoint" ] }
+safe-memo = { version = "3.0.7", path = "../../memo/program", features = [ "no-entrypoint" ] }
 safe-token = { version = "3.3",  path = "../program", features = ["no-entrypoint"] }
 thiserror = "1.0"
 
