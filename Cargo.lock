@@ -2360,6 +2360,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "lpl-token-metadata"
+version = "1.2.7"
+dependencies = [
+ "arrayref",
+ "borsh",
+ "lpl-token-vault",
+ "num-derive",
+ "num-traits",
+ "safe-associated-token-account",
+ "safe-token",
+ "safecoin-program",
+ "shank",
+ "thiserror",
+]
+
+[[package]]
+name = "lpl-token-vault"
+version = "0.1.1"
+dependencies = [
+ "borsh",
+ "num-derive",
+ "num-traits",
+ "safe-token",
+ "safecoin-program",
+ "shank",
+ "thiserror",
+]
+
+[[package]]
 name = "lru"
 version = "0.7.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2520,35 +2549,6 @@ dependencies = [
  "proc-macro2 1.0.40",
  "quote 1.0.20",
  "syn 1.0.98",
-]
-
-[[package]]
-name = "lpl-token-metadata"
-version = "1.2.7"
-dependencies = [
- "arrayref",
- "borsh",
- "lpl-token-vault",
- "num-derive",
- "num-traits",
- "safe-associated-token-account",
- "safe-token",
- "safecoin-program",
- "shank",
- "thiserror",
-]
-
-[[package]]
-name = "lpl-token-vault"
-version = "0.1.1"
-dependencies = [
- "borsh",
- "num-derive",
- "num-traits",
- "safe-token",
- "safecoin-program",
- "shank",
- "thiserror",
 ]
 
 [[package]]

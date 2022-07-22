@@ -13,4 +13,4 @@ export const ASSOCIATED_TOKEN_PROGRAM_ID = new PublicKey('AToD9iqHSc2fhEP9Jp7UYA
 export const NATIVE_MINT = new PublicKey('Safe111111111111111111111111111111111111111');
 
 /** Address of the special mint for wrapped native SAFE in safe-token-2022 */
-export const NATIVE_MINT_2022 = new PublicKey('9pan9bMn5HatX4EJdBwg9VgCa7Uz5HL8N1m5D3NdXejP');
+export const NATIVE_MINT_2022 = new PublicKey('JUFMnWZ6ksBramrswzjQNraYAgHXbQPeC57URvxdcf8');
