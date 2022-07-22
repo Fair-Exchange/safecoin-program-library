@@ -2523,12 +2523,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "mpl-token-metadata"
+name = "lpl-token-metadata"
 version = "1.2.7"
 dependencies = [
  "arrayref",
  "borsh",
- "mpl-token-vault",
+ "lpl-token-vault",
  "num-derive",
  "num-traits",
  "safe-associated-token-account",
@@ -2539,7 +2539,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "mpl-token-vault"
+name = "lpl-token-vault"
 version = "0.1.1"
 dependencies = [
  "borsh",
@@ -6021,7 +6021,7 @@ name = "stateless-asks"
 version = "0.1.0"
 dependencies = [
  "borsh",
- "mpl-token-metadata",
+ "lpl-token-metadata",
  "safe-associated-token-account",
  "safe-token",
  "safecoin-program",
