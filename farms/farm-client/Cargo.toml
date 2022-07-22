@@ -19,14 +19,14 @@ serde = "1.0.130"
 clap = "2.33.3"
 thiserror = "1.0.30"
 bs58 = "0.4.0"
-safecoin-sdk = "1.10.32"
-safecoin-client = "1.10.32"
-safecoin-cli-config = "1.10.32"
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.10.32"}
+safecoin-client = {path = "../../../Safecoin/client", version = "1.10.32"}
+safecoin-cli-config = {path = "../../../Safecoin/cli-config", version = "1.10.32"}
 safecoin-account-decoder = "1.10.32"
-safecoin-logger = "1.10.32"
+safecoin-logger = {path = "../../../Safecoin/logger", version = "1.10.32"}
 safecoin-version = "1.10.32"
 solana-farm-sdk = { path = "../farm-sdk" }
-safecoin-clap-utils = "1.10.32"
+safecoin-clap-utils = {path = "../../../Safecoin/clap-utils", version = "1.10.32"}
 safe-token = { version = "3.2.0", features = ["no-entrypoint"] }
 safe-associated-token-account = { version = "1.0.3", features = ["no-entrypoint"] }
 spl-governance = { version = "2.1.4", features = ["no-entrypoint"] }

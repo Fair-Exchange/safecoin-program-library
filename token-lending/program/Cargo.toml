@@ -16,7 +16,7 @@ arrayref = "0.3.6"
 bytemuck = "1.7.2"
 num-derive = "0.3"
 num-traits = "0.2"
-safecoin-program = "1.10.32"
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.32"}
 safe-token = { path = "../../token/program", features = [ "no-entrypoint" ] }
 thiserror = "1.0"
 uint = "0.9"
@@ -26,8 +26,8 @@ assert_matches = "1.5.0"
 base64 = "0.13"
 log = "0.4.14"
 proptest = "1.0"
-safecoin-program-test = "1.10.32"
-safecoin-sdk = "1.10.32"
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.10.32"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.10.32"}
 serde = "1.0"
 serde_yaml = "0.8"
 

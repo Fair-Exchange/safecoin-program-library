@@ -18,21 +18,21 @@ indicatif = "0.16.2"
 serde = "1.0.130"
 serde_derive = "1.0.103"
 serde_json = "1.0.68"
-safecoin-account-decoder = "=1.10.32"
-safecoin-clap-utils = "=1.10.32"
-safecoin-cli-config = "=1.10.32"
-safecoin-cli-output = "=1.10.32"
-safecoin-client = "=1.10.32"
-safecoin-logger = "=1.10.32"
-safecoin-remote-wallet = "=1.10.32"
-safecoin-sdk = "=1.10.32"
-safecoin-transaction-status = "=1.10.32"
+safecoin-account-decoder = {path = "../../../Safecoin/account-decoder", version = "=1.10.32"}
+safecoin-clap-utils = {path = "../../../Safecoin/clap-utils", version = "=1.10.32"}
+safecoin-cli-config = {path = "../../../Safecoin/cli-config", version = "=1.10.32"}
+safecoin-cli-output = {path = "../../../Safecoin/cli-output", version = "=1.10.32"}
+safecoin-client = {path = "../../../Safecoin/client", version = "=1.10.32"}
+safecoin-logger = {path = "../../../Safecoin/logger", version = "=1.10.32"}
+safecoin-remote-wallet = {path = "../../../Safecoin/remote-wallet", version = "=1.10.32"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.10.32"}
+safecoin-transaction-status = {path = "../../../Safecoin/transaction-status", version = "=1.10.32"}
 safe-token = { version = "3.3", path="../program", features = [ "no-entrypoint" ] }
 safe-associated-token-account = { version = "1.0.5", path="../../associated-token-account/program", features = [ "no-entrypoint" ] }
 safe-memo = { version = "3.0.1", path="../../memo/program", features = ["no-entrypoint"] }
 
 [dev-dependencies]
-safecoin-test-validator = "=1.10.32"
+safecoin-test-validator = {path = "../../../Safecoin/test-validator", version = "=1.10.32"}
 
 [[bin]]
 name = "safe-token"

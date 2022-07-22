@@ -16,14 +16,14 @@ assert_matches = "1.5.0"
 borsh = "0.9.1"
 num-derive = "0.3"
 num-traits = "0.2"
-safecoin-program = "1.10.32"
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.32"}
 safe-token = { version = "3.3", path = "../../token/program", features = ["no-entrypoint"] }
 safe-token-2022 = { version = "0.2", path = "../../token/program-2022", features = ["no-entrypoint"] }
 thiserror = "1.0"
 
 [dev-dependencies]
-safecoin-program-test = "1.10.32"
-safecoin-sdk = "1.10.32"
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.10.32"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.10.32"}
 
 [lib]
 crate-type = ["cdylib", "lib"]
