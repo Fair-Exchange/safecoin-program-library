@@ -23,7 +23,7 @@ safecoin-logger = {path = "../../../Safecoin/logger", version = "=1.10.32"}
 safecoin-program = {path = "../../../Safecoin/sdk/program", version = "=1.10.32"}
 safecoin-remote-wallet = {path = "../../../Safecoin/remote-wallet", version = "=1.10.32"}
 safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.10.32"}
-safe-associated-token-account = { version = "=1.0.11", path="../../associated-token-account/program", features = [ "no-entrypoint" ] }
+safe-associated-token-account = { version = "=1.0.12", path="../../associated-token-account/program", features = [ "no-entrypoint" ] }
 spl-stake-pool = { version = "=0.6.4", path="../program", features = [ "no-entrypoint" ] }
 safe-token = { version = "=3.3.0", path="../../token/program", features = [ "no-entrypoint" ]  }
 bs58 = "0.4.0"
