@@ -23,12 +23,12 @@ serde = "1.0.130"
 serde_derive = "1.0.130"
 serde_json = "1.0.69"
 serde_yaml = "0.8.21"
-safecoin-client = {path = "../../../Safecoin/client", version = "1.10.32"}
-safecoin-logger = {path = "../../../Safecoin/logger", version = "1.10.32"}
-safecoin-version = "1.10.32"
-safecoin-clap-utils = {path = "../../../Safecoin/clap-utils", version = "1.10.32"}
-safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.10.32"}
+safecoin-client = {path = "../../../Safecoin/client", version = "1.10.34"}
+safecoin-logger = {path = "../../../Safecoin/logger", version = "1.10.34"}
+safecoin-version = "1.10.34"
+safecoin-clap-utils = {path = "../../../Safecoin/clap-utils", version = "1.10.34"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.10.34"}
 solana-farm-sdk = { path = "../farm-sdk" }
 solana-farm-client = { path = "../farm-client" }
-safecoin-account-decoder = "1.10.32"
+safecoin-account-decoder = "1.10.34"
 url = "2.2.2"

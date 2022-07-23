@@ -5,7 +5,7 @@ edition = "2018"
 
 [dependencies]
 arrayref = "0.3.6"
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.32"}
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.34"}
 safe-token = { version = "3.3", path = "../../token/program", features=["no-entrypoint"] }
 
 [lib]

@@ -18,21 +18,21 @@ indicatif = "0.16.2"
 serde = "1.0.130"
 serde_derive = "1.0.103"
 serde_json = "1.0.68"
-safecoin-account-decoder = {path = "../../../Safecoin/account-decoder", version = "=1.10.32"}
-safecoin-clap-utils = {path = "../../../Safecoin/clap-utils", version = "=1.10.32"}
-safecoin-cli-config = {path = "../../../Safecoin/cli-config", version = "=1.10.32"}
-safecoin-cli-output = {path = "../../../Safecoin/cli-output", version = "=1.10.32"}
-safecoin-client = {path = "../../../Safecoin/client", version = "=1.10.32"}
-safecoin-logger = {path = "../../../Safecoin/logger", version = "=1.10.32"}
-safecoin-remote-wallet = {path = "../../../Safecoin/remote-wallet", version = "=1.10.32"}
-safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.10.32"}
-safecoin-transaction-status = {path = "../../../Safecoin/transaction-status", version = "=1.10.32"}
+safecoin-account-decoder = {path = "../../../Safecoin/account-decoder", version = "=1.10.34"}
+safecoin-clap-utils = {path = "../../../Safecoin/clap-utils", version = "=1.10.34"}
+safecoin-cli-config = {path = "../../../Safecoin/cli-config", version = "=1.10.34"}
+safecoin-cli-output = {path = "../../../Safecoin/cli-output", version = "=1.10.34"}
+safecoin-client = {path = "../../../Safecoin/client", version = "=1.10.34"}
+safecoin-logger = {path = "../../../Safecoin/logger", version = "=1.10.34"}
+safecoin-remote-wallet = {path = "../../../Safecoin/remote-wallet", version = "=1.10.34"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.10.34"}
+safecoin-transaction-status = {path = "../../../Safecoin/transaction-status", version = "=1.10.34"}
 safe-token = { version = "3.3", path="../program", features = [ "no-entrypoint" ] }
 safe-associated-token-account = { version = "1.0.12", path="../../associated-token-account/program", features = [ "no-entrypoint" ] }
 safe-memo = { version = "3.0.7", path="../../memo/program", features = ["no-entrypoint"] }
 
 [dev-dependencies]
-safecoin-test-validator = {path = "../../../Safecoin/test-validator", version = "=1.10.32"}
+safecoin-test-validator = {path = "../../../Safecoin/test-validator", version = "=1.10.34"}
 
 [[bin]]
 name = "safe-token"

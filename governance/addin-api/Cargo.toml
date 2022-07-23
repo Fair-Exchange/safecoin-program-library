@@ -10,5 +10,5 @@ edition = "2018"
 [dependencies]
 borsh = "0.9.1"
 spl-governance-tools= { version = "0.1.2", path ="../tools"}
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.32"}
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.34"}
 

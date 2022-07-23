@@ -15,10 +15,10 @@ walkdir = "2"
 
 [dev-dependencies]
 async-trait = "0.1"
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "=1.10.33"}
-safecoin-program-test = {path = "../../../Safecoin/program-test", version = "=1.10.32"}
-safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.10.32"}
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "=1.10.34"}
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "=1.10.34"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.10.34"}
 safe-associated-token-account = { version = "1.0.5", path = "../../associated-token-account/program" }
-safe-memo = { version = "3.0.7", path = "../../memo/program", features = ["no-entrypoint"] }
+safe-memo = { version = "3.0.8", path = "../../memo/program", features = ["no-entrypoint"] }
 safe-token-2022 = { version = "0.2", path="../program-2022", features = ["no-entrypoint"] }
 safe-token-client = { version = "0.0.1", path = "../client" }
