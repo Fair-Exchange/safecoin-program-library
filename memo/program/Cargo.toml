@@ -1,6 +1,6 @@
 [package]
 name = "safe-memo"
-version = "3.0.7"
+version = "3.0.8"
 description = "Safecoin Program Library Memo"
 authors = ["Solana Maintainers <maintainers@solana.foundation>"]
 repository = "https://github.com/fair-exchange/safecoin-program-library"
@@ -12,7 +12,7 @@ no-entrypoint = []
 test-bpf = []
 
 [dependencies]
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.32"}
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.33"}
 
 [dev-dependencies]
 safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.10.32"}
