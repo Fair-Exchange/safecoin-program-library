@@ -1,0 +1,27 @@
+[package]
+name = "solana-farm-router-main"
+version = "0.0.1"
+description = "Safecoin Farm Main Router"
+authors = ["Solana Maintainers <maintainers@solana.foundation>"]
+repository = "https://github.com/fair-exchange/safecoin-program-library"
+license = "Apache-2.0"
+homepage = "https://safecoin.org/"
+edition = "2018"
+
+[features]
+no-entrypoint = []
+debug = []
+
+[dependencies]
+solana-farm-sdk = { path = "../farm-sdk" }
+safe-token = { version = "3.2.0", features = ["no-entrypoint"] }
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.32"}
+arrayref = "0.3.6"
+arrayvec = "0.7.2"
+
+[dev-dependencies]
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.10.32"}
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
