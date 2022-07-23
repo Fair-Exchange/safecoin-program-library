@@ -15,7 +15,7 @@ borsh = "0.9.1"
 safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.10.34"}
 safe-token = { version = "3.3", path = "../../token/program", features = ["no-entrypoint"] }
 safe-associated-token-account = {version = "1.0", path = "../../associated-token-account/program", features = ["no-entrypoint"]}
-lpl-token-metadata = { path = "../../../ledamint-program-library/token-metadata/program", version = "1.2.7", features = ["no-entrypoint"] }
+lpl-token-metadata = { path = "../../../ledamint-program-library/token-metadata/program", version = "1.2.8", features = ["no-entrypoint"] }
 thiserror = "1.0"
 
 [dev-dependencies]
