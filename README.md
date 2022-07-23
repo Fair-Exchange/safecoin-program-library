@@ -30,11 +30,13 @@ $ sudo apt-get update
 $ sudo apt-get install libssl-dev libudev-dev pkg-config zlib1g-dev llvm clang cmake make libprotobuf-dev protobuf-compiler
 ```
 
-## **2. Download the source code.**
+## **2. Download the source code.    NOTE!!  This needs two other repositories in the same directory**
 
 ```bash
+$ git clone https://github.com/Fair-Exchange/safecoin-program-library.git
 $ git clone https://github.com/Fair-Exchange/Safecoin.git
-$ cd Safecoin
+$ git clone https://github.com/ledamint-IO/ledamint-program-library.git
+$ cd safecion-program-library
 ```
 
 ## **3. Build.**
