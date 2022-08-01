@@ -1,4 +1,4 @@
-import { u8 } from '@solana/buffer-layout';
+import { u8 } from '@safecoin/buffer-layout';
 import { TransactionInstruction } from '@safecoin/web3.js';
 import { TOKEN_PROGRAM_ID } from '../constants';
 import { TokenInvalidInstructionDataError, TokenInvalidInstructionTypeError } from '../errors';

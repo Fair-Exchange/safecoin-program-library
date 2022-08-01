@@ -1,7 +1,7 @@
 import { AccountInfo, PublicKey } from '@safecoin/web3.js';
 import BigNumber from 'bignumber.js';
-import { blob, seq, struct, u8 } from '@solana/buffer-layout';
-import { decimal, publicKey, u64 } from '@solana/buffer-layout-utils';
+import { blob, seq, struct, u8 } from '@safecoin/buffer-layout';
+import { decimal, publicKey, u64 } from '@safecoin/buffer-layout-utils';
 import { LastUpdate, LastUpdateLayout } from './lastUpdate';
 import { Parser } from '../util';
 

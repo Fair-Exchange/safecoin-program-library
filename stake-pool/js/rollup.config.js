@@ -35,7 +35,7 @@ function generateConfig(configType, format) {
     // Prevent dependencies from being bundled
     config.external = [
       '@project-serum/borsh',
-      '@solana/buffer-layout',
+      '@safecoin/buffer-layout',
       '@safecoin/safe-token',
       '@safecoin/web3.js',
       'bn.js',
@@ -58,7 +58,7 @@ function generateConfig(configType, format) {
           // Prevent dependencies from being bundled
           config.external = [
             '@project-serum/borsh',
-            '@solana/buffer-layout',
+            '@safecoin/buffer-layout',
             '@safecoin/safe-token',
             '@safecoin/web3.js',
             'bn.js',

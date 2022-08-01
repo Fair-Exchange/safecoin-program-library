@@ -1,6 +1,6 @@
 import { AccountInfo, PublicKey } from '@safecoin/web3.js';
-import { blob, struct, u8 } from '@solana/buffer-layout';
-import { publicKey } from '@solana/buffer-layout-utils';
+import { blob, struct, u8 } from '@safecoin/buffer-layout';
+import { publicKey } from '@safecoin/buffer-layout-utils';
 import { Parser } from '../util';
 
 export interface LendingMarket {

@@ -1,9 +1,9 @@
 import { TOKEN_PROGRAM_ID } from '@safecoin/safe-token';
 import { PublicKey, SYSVAR_CLOCK_PUBKEY, SYSVAR_RENT_PUBKEY, TransactionInstruction } from '@safecoin/web3.js';
-import { struct, u8 } from '@solana/buffer-layout';
+import { struct, u8 } from '@safecoin/buffer-layout';
 import { LENDING_PROGRAM_ID } from '../constants';
 import { ReserveConfig, ReserveConfigLayout } from '../state';
-import { u64 } from '@solana/buffer-layout-utils';
+import { u64 } from '@safecoin/buffer-layout-utils';
 import { LendingInstruction } from './instruction';
 
 interface Data {

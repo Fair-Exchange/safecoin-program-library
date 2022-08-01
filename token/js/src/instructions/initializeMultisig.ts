@@ -1,4 +1,4 @@
-import { struct, u8 } from '@solana/buffer-layout';
+import { struct, u8 } from '@safecoin/buffer-layout';
 import { AccountMeta, PublicKey, SYSVAR_RENT_PUBKEY, TransactionInstruction } from '@safecoin/web3.js';
 import { TOKEN_PROGRAM_ID } from '../constants';
 import {

@@ -1,7 +1,7 @@
 import assert from 'assert';
 import BN from 'bn.js';
 import {Buffer} from 'buffer';
-import * as BufferLayout from '@solana/buffer-layout';
+import * as BufferLayout from '@safecoin/buffer-layout';
 import type {
   ConfirmOptions,
   Connection,

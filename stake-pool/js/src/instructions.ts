@@ -8,7 +8,7 @@ import {
   SystemProgram,
   TransactionInstruction,
 } from '@safecoin/web3.js';
-import * as BufferLayout from '@solana/buffer-layout';
+import * as BufferLayout from '@safecoin/buffer-layout';
 import { TOKEN_PROGRAM_ID } from '@safecoin/safe-token';
 import { STAKE_POOL_PROGRAM_ID } from './constants';
 import { InstructionType, encodeData, decodeData } from './utils';
