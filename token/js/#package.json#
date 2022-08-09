@@ -1,7 +1,7 @@
 {
     "name": "@safecoin/safe-token",
-    "version": "0.2.0",
-    "author": "Solana Maintainers <maintainers@solana.foundation>",
+    "version": "0.2.1",
+    "author": "Safecoin Maintainers <safe@safecoin.org>",
     "repository": "https://github.com/fair-exchange/safecoin-program-library",
     "license": "Apache-2.0",
     "publishConfig": {
@@ -40,8 +40,8 @@
         "nuke": "shx rm -rf node_modules yarn.lock"
     },
     "dependencies": {
-        "@safecoin/web3.js": "^1.44.1",
-        "@solana/buffer-layout": "^4.0.0",
+        "@safecoin/web3.js": "^1.44.0",
+        "@safecoin/buffer-layout": "^4.0.0",
         "@safecoin/buffer-layout-utils": "^0.2.0",
         "start-server-and-test": "^1.14.0"
     },
