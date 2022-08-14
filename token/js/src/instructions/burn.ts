@@ -1,5 +1,5 @@
-import { struct, u8 } from '@safecoin/buffer-layout';
-import { u64 } from '@safecoin/buffer-layout-utils';
+import { struct, u8 } from '@solana/buffer-layout';
+import { u64 } from '@solana/buffer-layout-utils';
 import { AccountMeta, PublicKey, Signer, TransactionInstruction } from '@safecoin/web3.js';
 import { TOKEN_PROGRAM_ID } from '../constants';
 import {

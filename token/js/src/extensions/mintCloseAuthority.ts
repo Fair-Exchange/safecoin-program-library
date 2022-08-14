@@ -1,5 +1,5 @@
-import { struct } from '@safecoin/buffer-layout';
-import { publicKey } from '@safecoin/buffer-layout-utils';
+import { struct } from '@solana/buffer-layout';
+import { publicKey } from '@solana/buffer-layout-utils';
 import { PublicKey } from '@safecoin/web3.js';
 import { Mint } from '../state/mint';
 import { ExtensionType, getExtensionData } from './extensionType';
