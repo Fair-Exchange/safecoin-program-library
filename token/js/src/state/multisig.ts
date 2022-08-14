@@ -1,5 +1,5 @@
 import { struct, u8 } from '@solana/buffer-layout';
-import { bool, publicKey } from '@solana/buffer-layout-utils';
+import { bool, publicKey } from '@safecoin/buffer-layout-utils';
 import { Commitment, Connection, PublicKey } from '@safecoin/web3.js';
 import { TOKEN_PROGRAM_ID } from '../constants';
 import { TokenAccountNotFoundError, TokenInvalidAccountOwnerError, TokenInvalidAccountSizeError } from '../errors';

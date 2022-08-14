@@ -42,7 +42,7 @@
     "dependencies": {
         "@safecoin/web3.js": "^1.44.3",
         "@solana/buffer-layout": "^4.0.0",
-        "@solana/buffer-layout-utils": "^0.2.0",
+        "@safecoin/buffer-layout-utils": "^0.2.3",
         "start-server-and-test": "^1.14.0"
     },
     "devDependencies": {

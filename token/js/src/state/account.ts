@@ -1,5 +1,5 @@
 import { struct, u32, u8 } from '@solana/buffer-layout';
-import { publicKey, u64 } from '@solana/buffer-layout-utils';
+import { publicKey, u64 } from '@safecoin/buffer-layout-utils';
 import { Commitment, Connection, PublicKey, AccountInfo } from '@safecoin/web3.js';
 import { TOKEN_PROGRAM_ID } from '../constants';
 import {
