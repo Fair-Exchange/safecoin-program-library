@@ -14,13 +14,13 @@ test-sbf = []
 [dependencies]
 arrayref = "0.3.6"
 borsh = "0.9"
-lpl-token-metadata =  { version = "1.3.1", features = [ "no-entrypoint" ] }
+lpl-token-metadata =  { version = "1.2.7", features = [ "no-entrypoint" ] }
 num-derive = "0.3"
 num-traits = "0.2"
 num_enum = "0.5.4"
 serde = "1.0.130"
 serde_derive = "1.0.103"
-safecoin-program = "1.11.6"
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.14.3"}
 spl-math = { version = "0.1", path = "../../libraries/math", features = [ "no-entrypoint" ] }
 safe-token = { version = "3.5", path = "../../token/program", features = [ "no-entrypoint" ] }
 thiserror = "1.0"
@@ -28,9 +28,9 @@ bincode = "1.3.1"
 
 [dev-dependencies]
 proptest = "1.0"
-safecoin-program-test = "1.11.6"
-safecoin-sdk = "1.11.6"
-safecoin-vote-program = "1.11.6"
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.14.3"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.14.3"}
+safecoin-vote-program = {path = "../../../Safecoin/programs/vote", version = "1.14.3"}
 
 [lib]
 crate-type = ["cdylib", "lib"]

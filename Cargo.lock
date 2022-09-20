@@ -4369,7 +4369,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-account-decoder"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "796a1605db8587e8126fa3aa56a7166022dfd0c661962e9f3e57d7e1892d2ab7"
 dependencies = [
@@ -4393,7 +4393,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-address-lookup-table-program"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9b1fa1f1da46d31404c2700557d10796cba44483cf2d07ba92400fc31202b813"
 dependencies = [
@@ -4414,7 +4414,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-banks-client"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b1ca4bc37728cd7c9f1387df8abc152b2ebed8bcdb15e3e45a7322133cce3e6e"
 dependencies = [
@@ -4431,7 +4431,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-banks-interface"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "542382271e43edf8737f47a9499edc3d32551d7b21fc9aa6551b9ac7da7dcf28"
 dependencies = [
@@ -4442,7 +4442,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-banks-server"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "108bdd180e71fd82ce76182770a92ef6e32b7a0940ca1e132e5d34a2d1ade6d3"
 dependencies = [
@@ -4462,7 +4462,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-bloom"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0f6abe54877a6cb58aa681c8e09c26b3e50ffe5bcb60d48f66ddb31660558c19"
 dependencies = [
@@ -4481,7 +4481,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-bpf-loader-program"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "01060b232a3b5413d6fbc69b03171f1754971c72a7206bc37c96de86ad484660"
 dependencies = [
@@ -4500,7 +4500,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-bucket-map"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "369e48a0ae9fb6e36af070b3c1ac1639f191dd6ad2132465e97b2cf2fabe3f38"
 dependencies = [
@@ -4515,7 +4515,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-clap-utils"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e1ca641dae14e71811071177e7bab57d0c0f2dbf0274af2b29d409cbc7d194b2"
 dependencies = [
@@ -4533,7 +4533,7 @@ dependencies = [
 
 [[package]]
 name = "solana-clap-v3-utils"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "60dd14659d07c6a7d04e14cb32e4645ed0acb9034674d33ad37c9d89108fc19c"
 dependencies = [
@@ -4551,7 +4551,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-cli-config"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d8d6a92fb3c00b4b6713ef07f013b5660d753a42fc341bb66d0e545060a2141a"
 dependencies = [
@@ -4567,7 +4567,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-cli-output"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08d347c84474ac6ea46dc5a4ac0dbdd966781ffb01497afb8b4882ef546d72cd"
 dependencies = [
@@ -4594,7 +4594,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-client"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a972fb37284397bba430ea48cd07ed9e140b61896da1ef8d8d30d65a6e3b094a"
 dependencies = [
@@ -4648,7 +4648,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-compute-budget-program"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5f829879c7e4fdcb2326dda171619e5bcd9d6d7154f752e62394e6eaa8bf4f1e"
 dependencies = [
@@ -4658,7 +4658,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-config-program"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "da4a1abc29b28b68ff8292896cd579e610e29b8aca9e623570f278f707e5f09a"
 dependencies = [
@@ -4672,7 +4672,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-core"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "748e97a840cbf3992e998f81476e3bb785cafd49f450dcbbf029f2ad22b20530"
 dependencies = [
@@ -4732,7 +4732,7 @@ dependencies = [
 
 [[package]]
 name = "solana-entry"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "161f5d3322694024a6b4eec4bd19d5162f8c978af831f48356007c535b8d061c"
 dependencies = [
@@ -4755,7 +4755,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-faucet"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8412e1fbecb51fe5351f8afe3c7e3bf469681362f15dfb316f665f18c78ae809"
 dependencies = [
@@ -4779,7 +4779,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-frozen-abi"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8423244f24faadb80bb4935a5869a74319c43cd037b52e4dfdd04c7e42576793"
 dependencies = [
@@ -4813,7 +4813,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-frozen-abi-macro"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8087ccb03df3fc5e4ae4b3ff81b67e701a4470cdda6b8ee0711e3431f7a0a71"
 dependencies = [
@@ -4825,7 +4825,7 @@ dependencies = [
 
 [[package]]
 name = "solana-geyser-plugin-interface"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f87b0d04024a2124f0a7d2a33af671e6272b733dd06e942b1a66deb83cdcb408"
 dependencies = [
@@ -4837,7 +4837,7 @@ dependencies = [
 
 [[package]]
 name = "solana-geyser-plugin-manager"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e459f5c02350cc63a8d2fd4592612e06c2f9149630be536cec0dbc97f7f39cac"
 dependencies = [
@@ -4859,7 +4859,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-gossip"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "98881c2a244d5c556084552cdb06730101357dd66e9e15ff782e822d2539390a"
 dependencies = [
@@ -4904,7 +4904,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-ledger"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "17351974c89c498deef75e41b2756031efba35c6131c2d0ba66224e56f70b293"
 dependencies = [
@@ -4963,7 +4963,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-logger"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "79d439a3e3ea20e0de42b8392b7e8f126b8d95019777d2701e12b034031c2ac5"
 dependencies = [
@@ -4974,7 +4974,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-measure"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b33325847e152c2e43296a19849017c69986c2e1bfb09105b69c087ca2fe1b7"
 dependencies = [
@@ -4984,7 +4984,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-merkle-tree"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8c59fc1f5090683631cdace9dc9ed3f5d2c4ce60fac2f89689a2d23e996779c3"
 dependencies = [
@@ -4995,7 +4995,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-metrics"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "09f97f46bf85890e87038fba29cdb0dc33bbeee35fd630891ab222c4635a8713"
 dependencies = [
@@ -5009,7 +5009,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-net-utils"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8285fb0f248b17a6d2b6ea4f1d39b00270073bb89d80fc180ca3b78a30dd36a5"
 dependencies = [
@@ -5031,7 +5031,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-perf"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a735c27aae8f1f4facab973d4d2cf9516fb66a487ca592110d4f89cadbe38506"
 dependencies = [
@@ -5058,7 +5058,7 @@ dependencies = [
 
 [[package]]
 name = "solana-poh"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f0b44bc47abbfc08bd5c36ae8cd0e4c7cbc62d8ec915202eae5c42e2a0d738a1"
 dependencies = [
@@ -5077,7 +5077,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-program"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "11966ec9acf9cae1162d4c65f5f601c7f2a2d3aa8ace7366f63d3a6a788f27fc"
 dependencies = [
@@ -5126,7 +5126,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-program-runtime"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e05eb0030f60fb5ef16a9076fcb3a8a21935814006d475b311cb392f8136f260"
 dependencies = [
@@ -5152,7 +5152,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-program-test"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32f3549e9655b690920cd40abd2bb95cdbb3df8e47f20e7e3bca8219c7dddc56"
 dependencies = [
@@ -5177,7 +5177,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-rayon-threadlimit"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bd7e38ba7c9fb1d4a452f46d37e9c244696062ed8eff9086815c1183713e9fee"
 dependencies = [
@@ -5187,7 +5187,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-remote-wallet"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3e9fb812f9c22176453e9197c551c57c652f7acda8f1ac9624a2a3e496a65444"
 dependencies = [
@@ -5207,7 +5207,7 @@ dependencies = [
 
 [[package]]
 name = "solana-rpc"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "649979309de04cc7d528237b7f073dbe19e8ed9da066da4e5a0f581f3db1c8cb"
 dependencies = [
@@ -5260,7 +5260,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-runtime"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ff98ca924f02a04763cbb29064d01aa38e3b646b2ae351bcc2d922e9b060c7f7"
 dependencies = [
@@ -5320,7 +5320,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-sdk"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "945f207f08366144b37425ada28676e37309024d4f7285017ed0e9ec664b1167"
 dependencies = [
@@ -5371,7 +5371,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-sdk-macro"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a9c926c8e263021fd6b9c6f42b1c1294f4db457d6afea7a65e2951d7d1285786"
 dependencies = [
@@ -5384,7 +5384,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-send-transaction-service"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "47ff1b84910a659d52c6a725b68c860a595e0ec01c8a9f2793d6e06badda3634"
 dependencies = [
@@ -5399,7 +5399,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-stake-program"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d4f8a4d52dba49ec00565d34f2f11c4230892f5cc734396d066f8aa7587ca120"
 dependencies = [
@@ -5422,7 +5422,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-storage-bigtable"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "25c561333d224e563f9f063c3fa4bc9dd7c3511fad24ab06995ee2615f0a936c"
 dependencies = [
@@ -5456,7 +5456,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-storage-proto"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3c62b15824f0f58a812b23d59da2f86a014c74ded0fe4efe4837900de00096ae"
 dependencies = [
@@ -5473,7 +5473,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-streamer"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "38e228aad64ec6374e4b6123f3dd924e8a0ac7faa63798888e9fd62adf22f1f6"
 dependencies = [
@@ -5502,7 +5502,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-sys-tuner"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08952efb6952cd1cbd662fc099885abc7636b94420d4460a5afda6bc34a87f42"
 dependencies = [
@@ -5519,7 +5519,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-test-validator"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e65cc605c26e63775475f049511d4c2796f30b343a32f0951d2a67ac788a9051"
 dependencies = [
@@ -5545,7 +5545,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-transaction-status"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3f2777fc2d8536ad789f9d9c8f2668f333196c3e10cd8353abc3d4395284417"
 dependencies = [
@@ -5573,7 +5573,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-version"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ef816837a2f354bdb12d95dbd885d19195fee5a838b1ebc299884cd316c20eb2"
 dependencies = [
@@ -5589,7 +5589,7 @@ dependencies = [
 
 [[package]]
 name = "safecoin-vote-program"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a358aef04d3f29b25b377c6a19f978dc396c3c843961af017128b7a8557bcf97"
 dependencies = [
@@ -5610,7 +5610,7 @@ dependencies = [
 
 [[package]]
 name = "safe-zk-token-proof-program"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9e0a9bda6859c3447635d115813df2456353bbe3a1eaa38f35e0329829492577"
 dependencies = [
@@ -5625,7 +5625,7 @@ dependencies = [
 
 [[package]]
 name = "safe-zk-token-sdk"
-version = "1.11.6"
+version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c83383ebf7ac256392c6776f5b882147a237174073a5ee18596899b599acacaf"
 dependencies = [
@@ -5972,7 +5972,7 @@ dependencies = [
 
 [[package]]
 name = "safe-memo"
-version = "3.0.1"
+version = "3.0.7"
 dependencies = [
  "safecoin-program",
  "safecoin-program-test",
@@ -5981,7 +5981,7 @@ dependencies = [
 
 [[package]]
 name = "safe-memo"
-version = "3.0.1"
+version = "3.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bd0dc6f70db6bacea7ff25870b016a65ba1d1b6013536f08e4fd79a8f9005325"
 dependencies = [
