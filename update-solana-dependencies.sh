@@ -25,7 +25,7 @@ crates=(
   safecoin-banks-server
   safecoin-bpf-loader-program
   safecoin-clap-utils
-  solana-clap-v3-utils
+  safecoin-clap-v3-utils
   safecoin-cli-config
   safecoin-cli-output
   safecoin-client

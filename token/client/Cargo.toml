@@ -9,7 +9,7 @@ version = "0.1.0"
 
 [dependencies]
 async-trait = "0.1"
-safecoin-cli-output = { version = "=1.14.3", optional = true }
+safecoin-cli-output = {path = "../../../Safecoin/cli-output", version = "=1.14.3", optional = true }
 safecoin-client = {path = "../../../Safecoin/client", version = "=1.14.3"}
 safecoin-program-test = {path = "../../../Safecoin/program-test", version = "=1.14.3"}
 safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.14.3"}

@@ -4532,7 +4532,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "solana-clap-v3-utils"
+name = "safecoin-clap-v3-utils"
 version = "1.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "60dd14659d07c6a7d04e14cb32e4645ed0acb9034674d33ad37c9d89108fc19c"
@@ -6312,7 +6312,7 @@ version = "0.1.0"
 dependencies = [
  "clap 3.2.17",
  "futures-util",
- "solana-clap-v3-utils",
+ "safecoin-clap-v3-utils",
  "safecoin-cli-config",
  "safecoin-client",
  "safecoin-logger",
