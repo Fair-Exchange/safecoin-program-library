@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 use safecoin_program_test::*;
 
@@ -8,7 +8,7 @@ use program_test::*;
 use spl_governance::{
     error::GovernanceError,
     state::{
-        enums::{ProposalState, VoteThresholdPercentage},
+        enums::{ProposalState, VoteThreshold},
         proposal::{OptionVoteResult, VoteType},
         vote_record::{Vote, VoteChoice},
     },
@@ -110,7 +110,7 @@ async fn test_create_proposal_with_multiple_choice_options_and_without_deny_opti
             max_voter_options: 2,
         }
     );
-    assert!(!proposal_account.deny_vote_weight.is_some());
+    assert!(proposal_account.deny_vote_weight.is_none());
 
     assert_eq!(proposal_cookie.account, proposal_account);
 }
@@ -291,7 +291,7 @@ async fn test_vote_on_none_executable_single_choice_proposal_with_multiple_optio
 
     // Act
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie, vote)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, vote)
         .await
         .unwrap();
 
@@ -396,7 +396,7 @@ async fn test_vote_on_none_executable_multi_choice_proposal_with_multiple_option
 
     // Act
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie, vote)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, vote)
         .await
         .unwrap();
 
@@ -465,7 +465,7 @@ async fn test_vote_on_executable_proposal_with_multiple_options_and_partial_succ
 
     // 100 tokes approval quorum
     let mut governance_config = governance_test.get_default_governance_config();
-    governance_config.vote_threshold_percentage = VoteThresholdPercentage::YesVote(30);
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(30);
 
     let mut governance_cookie = governance_test
         .with_governance_using_config(
@@ -531,7 +531,7 @@ async fn test_vote_on_executable_proposal_with_multiple_options_and_partial_succ
     ]);
 
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie1, vote1)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie1, vote1)
         .await
         .unwrap();
 
@@ -551,12 +551,12 @@ async fn test_vote_on_executable_proposal_with_multiple_options_and_partial_succ
     ]);
 
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie2, vote2)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie2, vote2)
         .await
         .unwrap();
 
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie3, Vote::Deny)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie3, Vote::Deny)
         .await
         .unwrap();
 
@@ -626,7 +626,7 @@ async fn test_execute_proposal_with_multiple_options_and_partial_success() {
 
     // 100 tokes approval quorum
     let mut governance_config = governance_test.get_default_governance_config();
-    governance_config.vote_threshold_percentage = VoteThresholdPercentage::YesVote(30);
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(30);
 
     let mut governance_cookie = governance_test
         .with_mint_governance_using_config(
@@ -663,6 +663,7 @@ async fn test_execute_proposal_with_multiple_options_and_partial_success() {
             &token_owner_record_cookie1,
             0,
             Some(0),
+            None,
         )
         .await
         .unwrap();
@@ -674,6 +675,7 @@ async fn test_execute_proposal_with_multiple_options_and_partial_success() {
             &token_owner_record_cookie1,
             1,
             Some(0),
+            None,
         )
         .await
         .unwrap();
@@ -685,6 +687,7 @@ async fn test_execute_proposal_with_multiple_options_and_partial_success() {
             &token_owner_record_cookie1,
             2,
             Some(0),
+            None,
         )
         .await
         .unwrap();
@@ -706,7 +709,7 @@ async fn test_execute_proposal_with_multiple_options_and_partial_success() {
     // yes threshold: 100
 
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie3, Vote::Deny)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie3, Vote::Deny)
         .await
         .unwrap();
 
@@ -726,7 +729,7 @@ async fn test_execute_proposal_with_multiple_options_and_partial_success() {
     ]);
 
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie1, vote1)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie1, vote1)
         .await
         .unwrap();
 
@@ -746,7 +749,7 @@ async fn test_execute_proposal_with_multiple_options_and_partial_success() {
     ]);
 
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie2, vote2)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie2, vote2)
         .await
         .unwrap();
 
@@ -830,7 +833,7 @@ async fn test_try_execute_proposal_with_multiple_options_and_full_deny() {
 
     // 100 tokes approval quorum
     let mut governance_config = governance_test.get_default_governance_config();
-    governance_config.vote_threshold_percentage = VoteThresholdPercentage::YesVote(30);
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(30);
 
     let mut governance_cookie = governance_test
         .with_mint_governance_using_config(
@@ -867,6 +870,7 @@ async fn test_try_execute_proposal_with_multiple_options_and_full_deny() {
             &token_owner_record_cookie1,
             0,
             Some(0),
+            None,
         )
         .await
         .unwrap();
@@ -878,6 +882,7 @@ async fn test_try_execute_proposal_with_multiple_options_and_full_deny() {
             &token_owner_record_cookie1,
             1,
             Some(0),
+            None,
         )
         .await
         .unwrap();
@@ -889,6 +894,7 @@ async fn test_try_execute_proposal_with_multiple_options_and_full_deny() {
             &token_owner_record_cookie1,
             2,
             Some(0),
+            None,
         )
         .await
         .unwrap();
@@ -904,12 +910,12 @@ async fn test_try_execute_proposal_with_multiple_options_and_full_deny() {
         .unwrap();
 
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie1, Vote::Deny)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie1, Vote::Deny)
         .await
         .unwrap();
 
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie2, Vote::Deny)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie2, Vote::Deny)
         .await
         .unwrap();
 
@@ -1039,7 +1045,7 @@ async fn test_create_proposal_with_10_options_and_cast_vote() {
 
     // Act
     governance_test
-        .with_cast_multi_option_vote(&proposal_cookie, &token_owner_record_cookie, vote)
+        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, vote)
         .await
         .unwrap();
 
@@ -1069,7 +1075,7 @@ async fn test_create_proposal_with_10_options_and_cast_vote() {
             max_voter_options: options_len,
         }
     );
-    assert!(!proposal_account.deny_vote_weight.is_some());
+    assert!(proposal_account.deny_vote_weight.is_none());
 
     assert_eq!(ProposalState::Completed, proposal_account.state);
 }

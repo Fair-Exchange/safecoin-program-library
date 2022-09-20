@@ -10,10 +10,11 @@ use spl_governance::{
         deposit_governing_tokens,
     },
     state::{
-        enums::{MintMaxVoteWeightSource, VoteThresholdPercentage},
+        enums::{MintMaxVoteWeightSource, VoteThreshold},
         governance::{get_governance_address, GovernanceConfig},
         proposal::{get_proposal_address, VoteType},
-        realm::get_realm_address,
+        realm::{get_realm_address, GoverningTokenConfigAccountArgs},
+        realm_config::GoverningTokenType,
         token_owner_record::get_token_owner_record_address,
     },
 };
@@ -108,13 +109,19 @@ impl GovernanceChatProgramTest {
 
         let realm_authority = Keypair::new();
 
+        let community_token_config_args = GoverningTokenConfigAccountArgs {
+            voter_weight_addin: self.voter_weight_addin_id,
+            max_voter_weight_addin: None,
+            token_type: GoverningTokenType::default(),
+        };
+
         let create_realm_ix = create_realm(
             &self.governance_program_id,
             &realm_authority.pubkey(),
             &governing_token_mint_keypair.pubkey(),
             &self.bench.payer.pubkey(),
             None,
-            self.voter_weight_addin_id,
+            Some(community_token_config_args),
             None,
             name.clone(),
             1,
@@ -183,9 +190,12 @@ impl GovernanceChatProgramTest {
             min_council_weight_to_create_proposal: 2,
             min_transaction_hold_up_time: 10,
             max_voting_time: 10,
-            vote_threshold_percentage: VoteThresholdPercentage::YesVote(60),
-            vote_tipping: spl_governance::state::enums::VoteTipping::Strict,
-            proposal_cool_off_time: 0,
+            community_vote_threshold: VoteThreshold::YesVotePercentage(60),
+            community_vote_tipping: spl_governance::state::enums::VoteTipping::Strict,
+            council_vote_threshold: VoteThreshold::YesVotePercentage(10),
+            council_veto_vote_threshold: VoteThreshold::YesVotePercentage(50),
+            council_vote_tipping: spl_governance::state::enums::VoteTipping::Strict,
+            community_veto_vote_threshold: VoteThreshold::YesVotePercentage(55),
         };
 
         let token_owner_record_address = get_token_owner_record_address(
@@ -286,7 +296,7 @@ impl GovernanceChatProgramTest {
             token_owner_record_address,
             token_owner,
             governing_token_mint: governing_token_mint_keypair.pubkey(),
-            governing_token_mint_authority: governing_token_mint_authority,
+            governing_token_mint_authority,
             voter_weight_record,
         }
     }

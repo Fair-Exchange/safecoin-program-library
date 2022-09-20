@@ -18,11 +18,12 @@ use crate::{
         governance::get_governance_data_for_realm,
         proposal::get_proposal_data_for_governance_and_governing_mint,
         realm::get_realm_data_for_governing_token_mint,
+        realm_config::get_realm_config_data_for_realm,
         token_owner_record::{
             get_token_owner_record_data_for_proposal_owner,
             get_token_owner_record_data_for_realm_and_governing_mint,
         },
-        vote_record::{get_vote_record_address_seeds, Vote, VoteRecordV2},
+        vote_record::{get_vote_kind, get_vote_record_address_seeds, Vote, VoteRecordV2},
     },
 };
 
@@ -44,7 +45,7 @@ pub fn process_cast_vote(
     let governance_authority_info = next_account_info(account_info_iter)?; // 5
 
     let vote_record_info = next_account_info(account_info_iter)?; // 6
-    let governing_token_mint_info = next_account_info(account_info_iter)?; // 7
+    let vote_governing_token_mint_info = next_account_info(account_info_iter)?; // 7
 
     let payer_info = next_account_info(account_info_iter)?; // 8
     let system_info = next_account_info(account_info_iter)?; // 9
@@ -59,16 +60,27 @@ pub fn process_cast_vote(
     let mut realm_data = get_realm_data_for_governing_token_mint(
         program_id,
         realm_info,
-        governing_token_mint_info.key,
+        vote_governing_token_mint_info.key,
     )?;
+
     let mut governance_data =
         get_governance_data_for_realm(program_id, governance_info, realm_info.key)?;
+
+    let vote_kind = get_vote_kind(&vote);
+
+    // Get the governing_token_mint which the Proposal should be configured with as the voting population for the given vote
+    // For Approve, Deny and Abstain votes it's the same as vote_governing_token_mint
+    // For Veto it's the governing token mint of the opposite voting population
+    let proposal_governing_token_mint = realm_data.get_proposal_governing_token_mint_for_vote(
+        vote_governing_token_mint_info.key,
+        &vote_kind,
+    )?;
 
     let mut proposal_data = get_proposal_data_for_governance_and_governing_mint(
         program_id,
         proposal_info,
         governance_info.key,
-        governing_token_mint_info.key,
+        &proposal_governing_token_mint,
     )?;
     proposal_data.assert_can_cast_vote(&governance_data.config, clock.unix_timestamp)?;
 
@@ -77,7 +89,7 @@ pub fn process_cast_vote(
             program_id,
             voter_token_owner_record_info,
             &governance_data.realm,
-            governing_token_mint_info.key,
+            vote_governing_token_mint_info.key,
         )?;
     voter_token_owner_record_data
         .assert_token_owner_or_delegate_is_signer(governance_authority_info)?;
@@ -93,17 +105,14 @@ pub fn process_cast_vote(
         .checked_add(1)
         .unwrap();
 
-    // Note: When both voter_weight and max_voter_weight addins are used the realm_config will be deserialized twice in resolve_voter_weight() and resolve_max_voter_weight()
-    //      It can't be deserialized eagerly because some realms won't have the config if they don't use any of the advanced options
-    //      This extra deserialisation should be acceptable to keep things simple and encapsulated.
-    let realm_config_info = next_account_info(account_info_iter)?; //9
+    let realm_config_info = next_account_info(account_info_iter)?; // 9
+    let realm_config_data =
+        get_realm_config_data_for_realm(program_id, realm_config_info, realm_info.key)?;
 
     let voter_weight = voter_token_owner_record_data.resolve_voter_weight(
-        program_id,
-        realm_config_info,
-        account_info_iter, // voter_weight_record  10
-        realm_info.key,
+        account_info_iter, // voter_weight_record  *10
         &realm_data,
+        &realm_config_data,
         VoterWeightAction::CastVote,
         proposal_info.key,
     )?;
@@ -129,24 +138,38 @@ pub fn process_cast_vote(
                     .unwrap(),
             )
         }
-        Vote::Abstain | Vote::Veto => {
+        Vote::Veto => {
+            proposal_data.veto_vote_weight = proposal_data
+                .veto_vote_weight
+                .checked_add(voter_weight)
+                .unwrap();
+        }
+        Vote::Abstain => {
             return Err(GovernanceError::NotSupportedVoteType.into());
         }
     }
 
     let max_voter_weight = proposal_data.resolve_max_voter_weight(
-        program_id,
-        realm_config_info,
-        governing_token_mint_info,
         account_info_iter, // max_voter_weight_record  11
         realm_info.key,
         &realm_data,
+        &realm_config_data,
+        vote_governing_token_mint_info,
+        &vote_kind,
+    )?;
+
+    let vote_threshold = governance_data.resolve_vote_threshold(
+        &realm_data,
+        vote_governing_token_mint_info.key,
+        &vote_kind,
     )?;
 
     if proposal_data.try_tip_vote(
         max_voter_weight,
-        &governance_data.config,
+        governance_data.get_vote_tipping(&realm_data, vote_governing_token_mint_info.key)?,
         clock.unix_timestamp,
+        &vote_threshold,
+        &vote_kind,
     )? {
         // Deserialize proposal owner and validate it's the actual owner of the proposal
         let mut proposal_owner_record_data = get_token_owner_record_data_for_proposal_owner(

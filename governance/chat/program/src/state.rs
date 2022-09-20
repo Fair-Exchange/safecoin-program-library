@@ -8,8 +8,7 @@ use safecoin_program::{
 use spl_governance_tools::account::{assert_is_valid_account_of_type, AccountMaxSize};
 
 /// Defines all GovernanceChat accounts types
-#[repr(C)]
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub enum GovernanceChatAccountType {
     /// Default uninitialized account state
     Uninitialized,
@@ -19,7 +18,7 @@ pub enum GovernanceChatAccountType {
 }
 
 /// Chat message body
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub enum MessageBody {
     /// Text message encoded as utf-8 string
     Text(String),
@@ -30,7 +29,7 @@ pub enum MessageBody {
 }
 
 /// Chat message
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct ChatMessage {
     /// Account type
     pub account_type: GovernanceChatAccountType,

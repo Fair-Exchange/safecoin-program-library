@@ -191,6 +191,8 @@ class IncreaseValidatorStakeParams(NamedTuple):
     """`[w]` Stake pool's reserve."""
     transient_stake: PublicKey
     """`[w]` Transient stake account to receive split."""
+    validator_stake: PublicKey
+    """`[]` Canonical stake account to check."""
     validator_vote: PublicKey
     """`[]` Validator vote account to delegate to."""
     clock_sysvar: PublicKey
@@ -672,7 +674,7 @@ def remove_validator_from_pool_with_vote(
 
 
 def deposit_stake(params: DepositStakeParams) -> TransactionInstruction:
-    """Creates a transaction instruction to deposit SAFE into a stake pool."""
+    """Creates a transaction instruction to deposit a stake account into a stake pool."""
     keys = [
         AccountMeta(pubkey=params.stake_pool, is_signer=False, is_writable=True),
         AccountMeta(pubkey=params.validator_list, is_signer=False, is_writable=True),
@@ -703,7 +705,7 @@ def deposit_stake(params: DepositStakeParams) -> TransactionInstruction:
 
 
 def withdraw_stake(params: WithdrawStakeParams) -> TransactionInstruction:
-    """Creates a transaction instruction to withdraw SAFE from a stake pool."""
+    """Creates a transaction instruction to withdraw active stake from a stake pool."""
     return TransactionInstruction(
         keys=[
             AccountMeta(pubkey=params.stake_pool, is_signer=False, is_writable=True),
@@ -866,6 +868,7 @@ def increase_validator_stake(params: IncreaseValidatorStakeParams) -> Transactio
             AccountMeta(pubkey=params.validator_list, is_signer=False, is_writable=True),
             AccountMeta(pubkey=params.reserve_stake, is_signer=False, is_writable=True),
             AccountMeta(pubkey=params.transient_stake, is_signer=False, is_writable=True),
+            AccountMeta(pubkey=params.validator_stake, is_signer=False, is_writable=False),
             AccountMeta(pubkey=params.validator_vote, is_signer=False, is_writable=False),
             AccountMeta(pubkey=params.clock_sysvar, is_signer=False, is_writable=False),
             AccountMeta(pubkey=params.rent_sysvar, is_signer=False, is_writable=False),

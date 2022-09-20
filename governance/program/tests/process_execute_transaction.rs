@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 mod program_test;
 
@@ -54,6 +54,7 @@ async fn test_execute_mint_transaction() {
             &token_owner_record_cookie,
             0,
             None,
+            None,
         )
         .await
         .unwrap();
@@ -64,7 +65,7 @@ async fn test_execute_mint_transaction() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -163,7 +164,7 @@ async fn test_execute_transfer_transaction() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -261,7 +262,7 @@ async fn test_execute_upgrade_program_transaction() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -384,6 +385,7 @@ async fn test_execute_proposal_transaction_with_invalid_state_errors() {
             &token_owner_record_cookie,
             0,
             None,
+            None,
         )
         .await
         .unwrap();
@@ -447,7 +449,7 @@ async fn test_execute_proposal_transaction_with_invalid_state_errors() {
     // Arrange
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -543,6 +545,7 @@ async fn test_execute_proposal_transaction_for_other_proposal_error() {
             &token_owner_record_cookie,
             0,
             None,
+            None,
         )
         .await
         .unwrap();
@@ -553,7 +556,7 @@ async fn test_execute_proposal_transaction_for_other_proposal_error() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -628,6 +631,7 @@ async fn test_execute_mint_transaction_twice_error() {
             &token_owner_record_cookie,
             0,
             None,
+            None,
         )
         .await
         .unwrap();
@@ -643,7 +647,7 @@ async fn test_execute_mint_transaction_twice_error() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -670,4 +674,76 @@ async fn test_execute_mint_transaction_twice_error() {
 
     // Assert
     assert_eq!(err, GovernanceError::TransactionAlreadyExecuted.into());
+}
+
+#[tokio::test]
+async fn test_execute_transaction_with_create_proposal_and_execute_in_single_slot_error() {
+    // Arrange
+    let mut governance_test = GovernanceProgramTest::start_new().await;
+
+    let realm_cookie = governance_test.with_realm().await;
+    let governed_mint_cookie = governance_test.with_governed_mint().await;
+
+    let token_owner_record_cookie = governance_test
+        .with_community_token_deposit(&realm_cookie)
+        .await
+        .unwrap();
+
+    let mut governance_config = governance_test.get_default_governance_config();
+    governance_config.min_transaction_hold_up_time = 0;
+
+    let mut mint_governance_cookie = governance_test
+        .with_mint_governance_using_config(
+            &realm_cookie,
+            &governed_mint_cookie,
+            &token_owner_record_cookie,
+            &governance_config,
+        )
+        .await
+        .unwrap();
+
+    let mut proposal_cookie = governance_test
+        .with_proposal(&token_owner_record_cookie, &mut mint_governance_cookie)
+        .await
+        .unwrap();
+
+    let signatory_record_cookie = governance_test
+        .with_signatory(&proposal_cookie, &token_owner_record_cookie)
+        .await
+        .unwrap();
+
+    let proposal_transaction_cookie = governance_test
+        .with_mint_tokens_transaction(
+            &governed_mint_cookie,
+            &mut proposal_cookie,
+            &token_owner_record_cookie,
+            0,
+            None,
+            Some(0),
+        )
+        .await
+        .unwrap();
+
+    governance_test
+        .sign_off_proposal(&proposal_cookie, &signatory_record_cookie)
+        .await
+        .unwrap();
+
+    governance_test
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .await
+        .unwrap();
+
+    // Act
+    let err = governance_test
+        .execute_proposal_transaction(&proposal_cookie, &proposal_transaction_cookie)
+        .await
+        .err()
+        .unwrap();
+
+    // Assert
+    assert_eq!(
+        err,
+        GovernanceError::CannotExecuteTransactionWithinHoldUpTime.into()
+    );
 }

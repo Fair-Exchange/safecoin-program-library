@@ -1,6 +1,7 @@
 [workspace]
 members = [
   "associated-token-account/program",
+  "associated-token-account/program-test",
   "binary-option/program",
   "binary-oracle-pair/program",
   "examples/rust/cross-program-invocation",
@@ -17,6 +18,8 @@ members = [
   "governance/tools",
   "governance/chat/program",
   "libraries/math",
+  "libraries/concurrent-merkle-tree",
+  "libraries/merkle-tree-reference",
   "memo/program",
   "name-service/program",
   "record/program",
@@ -28,6 +31,8 @@ members = [
   "token-lending/program",
   "token-swap/program",
   "token-swap/program/fuzz",
+  "token-upgrade/cli",
+  "token-upgrade/program",
   "token/cli",
   "token/program",
   "token/program-2022",
@@ -42,6 +47,7 @@ exclude = [
   "farms/farm-ctrl",
   "farms/farm-rpc",
   "farms/farm-sdk",
+  "farms/fund",
   "farms/router-main",
   "farms/router-raydium",
   "farms/router-saber",

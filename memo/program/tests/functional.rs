@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 use safecoin_program::{
     instruction::{AccountMeta, Instruction, InstructionError},

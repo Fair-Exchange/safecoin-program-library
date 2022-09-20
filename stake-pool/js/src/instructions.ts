@@ -8,7 +8,7 @@ import {
   SystemProgram,
   TransactionInstruction,
 } from '@safecoin/web3.js';
-import * as BufferLayout from '@safecoin/buffer-layout';
+import * as BufferLayout from '@solana/buffer-layout';
 import { TOKEN_PROGRAM_ID } from '@safecoin/safe-token';
 import { STAKE_POOL_PROGRAM_ID } from './constants';
 import { InstructionType, encodeData, decodeData } from './utils';
@@ -157,6 +157,7 @@ export type IncreaseValidatorStakeParams = {
   validatorList: PublicKey;
   reserveStake: PublicKey;
   transientStake: PublicKey;
+  validatorStake: PublicKey;
   validatorVote: PublicKey;
   // Amount of lamports to split into the transient stake account.
   lamports: number;
@@ -343,6 +344,7 @@ export class StakePoolInstruction {
       validatorList,
       reserveStake,
       transientStake,
+      validatorStake,
       validatorVote,
       lamports,
       transientStakeSeed,
@@ -358,6 +360,7 @@ export class StakePoolInstruction {
       { pubkey: validatorList, isSigner: false, isWritable: true },
       { pubkey: reserveStake, isSigner: false, isWritable: true },
       { pubkey: transientStake, isSigner: false, isWritable: true },
+      { pubkey: validatorStake, isSigner: false, isWritable: false },
       { pubkey: validatorVote, isSigner: false, isWritable: false },
       { pubkey: SYSVAR_CLOCK_PUBKEY, isSigner: false, isWritable: false },
       { pubkey: SYSVAR_RENT_PUBKEY, isSigner: false, isWritable: false },
@@ -413,7 +416,7 @@ export class StakePoolInstruction {
   }
 
   /**
-   * Creates a transaction instruction to deposit SAFE into a stake pool.
+   * Creates a transaction instruction to deposit a stake account into a stake pool.
    */
   static depositStake(params: DepositStakeParams): TransactionInstruction {
     const {
@@ -459,7 +462,7 @@ export class StakePoolInstruction {
   }
 
   /**
-   * Creates a transaction instruction to withdraw SAFE from a stake pool.
+   * Creates a transaction instruction to deposit SAFE into a stake pool.
    */
   static depositSafe(params: DepositSafeParams): TransactionInstruction {
     const {
@@ -507,7 +510,7 @@ export class StakePoolInstruction {
   }
 
   /**
-   * Creates a transaction instruction to withdraw SAFE from a stake pool.
+   * Creates a transaction instruction to withdraw active stake from a stake pool.
    */
   static withdrawStake(params: WithdrawStakeParams): TransactionInstruction {
     const {

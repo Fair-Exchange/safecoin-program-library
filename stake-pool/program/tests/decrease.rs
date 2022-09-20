@@ -1,4 +1,5 @@
-#![cfg(feature = "test-bpf")]
+#![allow(clippy::integer_arithmetic)]
+#![cfg(feature = "test-sbf")]
 
 mod helpers;
 
@@ -15,6 +16,7 @@ use {
     },
     spl_stake_pool::{
         error::StakePoolError, find_transient_stake_program_address, id, instruction,
+        MINIMUM_RESERVE_LAMPORTS,
     },
 };
 
@@ -28,9 +30,16 @@ async fn setup() -> (
     u64,
 ) {
     let (mut banks_client, payer, recent_blockhash) = program_test().start().await;
+    let rent = banks_client.get_rent().await.unwrap();
+    let stake_rent = rent.minimum_balance(std::mem::size_of::<stake::state::StakeState>());
     let stake_pool_accounts = StakePoolAccounts::new();
     stake_pool_accounts
-        .initialize_stake_pool(&mut banks_client, &payer, &recent_blockhash, 1)
+        .initialize_stake_pool(
+            &mut banks_client,
+            &payer,
+            &recent_blockhash,
+            MINIMUM_RESERVE_LAMPORTS,
+        )
         .await
         .unwrap();
 
@@ -42,18 +51,21 @@ async fn setup() -> (
     )
     .await;
 
+    let current_minimum_delegation =
+        stake_pool_get_minimum_delegation(&mut banks_client, &payer, &recent_blockhash).await;
+
     let deposit_info = simple_deposit_stake(
         &mut banks_client,
         &payer,
         &recent_blockhash,
         &stake_pool_accounts,
         &validator_stake_account,
-        100_000_000,
+        current_minimum_delegation * 2 + stake_rent,
     )
     .await
     .unwrap();
 
-    let lamports = deposit_info.stake_lamports / 2;
+    let decrease_lamports = current_minimum_delegation + stake_rent;
 
     (
         banks_client,
@@ -62,7 +74,7 @@ async fn setup() -> (
         stake_pool_accounts,
         validator_stake_account,
         deposit_info,
-        lamports,
+        decrease_lamports,
     )
 }
 
@@ -297,7 +309,7 @@ async fn fail_decrease_twice() {
             &recent_blockhash,
             &validator_stake.stake_account,
             &validator_stake.transient_stake_account,
-            decrease_lamports / 3,
+            decrease_lamports,
             validator_stake.transient_stake_seed,
         )
         .await;
@@ -318,7 +330,7 @@ async fn fail_decrease_twice() {
             &recent_blockhash,
             &validator_stake.stake_account,
             &transient_stake_address,
-            decrease_lamports / 2,
+            decrease_lamports,
             transient_stake_seed,
         )
         .await

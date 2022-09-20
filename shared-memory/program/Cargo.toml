@@ -8,15 +8,15 @@ license = "Apache-2.0"
 edition = "2018"
 
 [features]
-test-bpf = []
+test-sbf = []
 
 [dependencies]
 arrayref = "0.3.6"
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "=1.10.34"}
+safecoin-program = "=1.11.6"
 
 [dev-dependencies]
-safecoin-program-test = {path = "../../../Safecoin/program-test", version = "=1.10.34"}
-safecoin-sdk = {path = "../../../Safecoin/sdk", version = "=1.10.34"}
+safecoin-program-test = "=1.11.6"
+safecoin-sdk = "=1.11.6"
 
 [lib]
 crate-type = ["cdylib", "lib"]

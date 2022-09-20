@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 mod program_test;
 use {
@@ -46,28 +46,39 @@ async fn run_basic(
     } = context.token_context.unwrap();
 
     let alice_account = match owner_mode {
-        OwnerMode::SelfOwned => token
-            .create_auxiliary_token_account(&alice, &alice.pubkey())
-            .await
-            .unwrap(),
+        OwnerMode::SelfOwned => {
+            token
+                .create_auxiliary_token_account(&alice, &alice.pubkey())
+                .await
+                .unwrap();
+            alice.pubkey()
+        }
         OwnerMode::External => {
             let alice_account = Keypair::new();
             token
                 .create_auxiliary_token_account(&alice_account, &alice.pubkey())
                 .await
-                .unwrap()
+                .unwrap();
+            alice_account.pubkey()
         }
     };
     let bob_account = Keypair::new();
-    let bob_account = token
+    token
         .create_auxiliary_token_account(&bob_account, &bob.pubkey())
         .await
         .unwrap();
+    let bob_account = bob_account.pubkey();
 
     // mint tokens
     let amount = 100;
     token
-        .mint_to(&alice_account, &mint_authority, amount)
+        .mint_to(
+            &alice_account,
+            &mint_authority.pubkey(),
+            amount,
+            Some(decimals),
+            &vec![&mint_authority],
+        )
         .await
         .unwrap();
 
@@ -75,16 +86,24 @@ async fn run_basic(
     let delegated_amount = 10;
     match approve_mode {
         ApproveMode::Unchecked => token
-            .approve(&alice_account, &bob.pubkey(), &alice, delegated_amount)
+            .approve(
+                &alice_account,
+                &bob.pubkey(),
+                &alice.pubkey(),
+                delegated_amount,
+                None,
+                &vec![&alice],
+            )
             .await
             .unwrap(),
         ApproveMode::Checked => token
-            .approve_checked(
+            .approve(
                 &alice_account,
                 &bob.pubkey(),
-                &alice,
+                &alice.pubkey(),
                 delegated_amount,
-                decimals,
+                Some(decimals),
+                &vec![&alice],
             )
             .await
             .unwrap(),
@@ -92,12 +111,13 @@ async fn run_basic(
 
     // transfer too much is not ok
     let error = token
-        .transfer_checked(
+        .transfer(
             &alice_account,
             &bob_account,
-            &bob,
-            delegated_amount + 1,
-            decimals,
+            &bob.pubkey(),
+            delegated_amount.checked_add(1).unwrap(),
+            Some(decimals),
+            &vec![&bob],
         )
         .await
         .unwrap_err();
@@ -114,26 +134,57 @@ async fn run_basic(
     // transfer is ok
     if transfer_mode == TransferMode::All {
         token
-            .transfer_unchecked(&alice_account, &bob_account, &bob, 1)
+            .transfer(
+                &alice_account,
+                &bob_account,
+                &bob.pubkey(),
+                1,
+                None,
+                &vec![&bob],
+            )
             .await
             .unwrap();
     }
 
     token
-        .transfer_checked(&alice_account, &bob_account, &bob, 1, decimals)
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &bob.pubkey(),
+            1,
+            Some(decimals),
+            &vec![&bob],
+        )
         .await
         .unwrap();
 
     // burn is ok
-    token.burn(&alice_account, &bob, 1).await.unwrap();
     token
-        .burn_checked(&alice_account, &bob, 1, decimals)
+        .burn(&alice_account, &bob.pubkey(), 1, None, &vec![&bob])
+        .await
+        .unwrap();
+    token
+        .burn(
+            &alice_account,
+            &bob.pubkey(),
+            1,
+            Some(decimals),
+            &vec![&bob],
+        )
         .await
         .unwrap();
 
     // wrong signer
+    let keypair = &Keypair::new();
     let error = token
-        .transfer_checked(&alice_account, &bob_account, &Keypair::new(), 1, decimals)
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &keypair.pubkey(),
+            1,
+            Some(decimals),
+            &vec![keypair],
+        )
         .await
         .unwrap_err();
     assert_eq!(
@@ -147,11 +198,21 @@ async fn run_basic(
     );
 
     // revoke
-    token.revoke(&alice_account, &alice).await.unwrap();
+    token
+        .revoke(&alice_account, &alice.pubkey(), &vec![&alice])
+        .await
+        .unwrap();
 
     // now fails
     let error = token
-        .transfer_checked(&alice_account, &bob_account, &bob, 2, decimals)
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &bob.pubkey(),
+            2,
+            Some(decimals),
+            &vec![&bob],
+        )
         .await
         .unwrap_err();
     assert_eq!(

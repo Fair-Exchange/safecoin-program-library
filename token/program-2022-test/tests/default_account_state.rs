@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 mod program_test;
 use {
@@ -187,10 +187,11 @@ async fn end_to_end_default_account_state() {
 
     let owner = Pubkey::new_unique();
     let account = Keypair::new();
-    let account = token
+    token
         .create_auxiliary_token_account(&account, &owner)
         .await
         .unwrap();
+    let account = account.pubkey();
     let account_state = token.get_account_info(&account).await.unwrap();
     assert_eq!(account_state.base.state, default_account_state);
 
@@ -222,10 +223,11 @@ async fn end_to_end_default_account_state() {
 
     let owner = Pubkey::new_unique();
     let account = Keypair::new();
-    let account = token
+    token
         .create_auxiliary_token_account(&account, &owner)
         .await
         .unwrap();
+    let account = account.pubkey();
     let account_state = token.get_account_info(&account).await.unwrap();
     assert_eq!(account_state.base.state, AccountState::Initialized);
 
@@ -234,9 +236,10 @@ async fn end_to_end_default_account_state() {
     token
         .set_authority(
             token.get_address(),
+            &freeze_authority.pubkey(),
             Some(&new_authority.pubkey()),
             AuthorityType::FreezeAccount,
-            &freeze_authority,
+            &[&freeze_authority],
         )
         .await
         .unwrap();
@@ -269,9 +272,10 @@ async fn end_to_end_default_account_state() {
     token
         .set_authority(
             token.get_address(),
+            &new_authority.pubkey(),
             None,
             AuthorityType::FreezeAccount,
-            &new_authority,
+            &[&new_authority],
         )
         .await
         .unwrap();

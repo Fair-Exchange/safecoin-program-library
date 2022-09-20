@@ -10,3 +10,9 @@ SYSVAR_STAKE_CONFIG_ID: PublicKey = PublicKey("StakeConfig1111111111111111111111
 
 STAKE_LEN: int = 200
 """Size of stake account."""
+
+LAMPORTS_PER_SAFE: int = 1_000_000_000
+"""Number of lamports per SAFE"""
+
+MINIMUM_DELEGATION: int = LAMPORTS_PER_SAFE
+"""Minimum delegation allowed by the stake program"""

@@ -12,4 +12,4 @@ export const TRANSIENT_STAKE_SEED_PREFIX = Buffer.from('transient');
 
 // Minimum amount of staked SAFE required in a validator stake account to allow
 // for merges without a mismatch on credits observed
-export const MINIMUM_ACTIVE_STAKE = LAMPORTS_PER_SAFE / 1_000;
+export const MINIMUM_ACTIVE_STAKE = LAMPORTS_PER_SAFE;

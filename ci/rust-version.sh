@@ -18,15 +18,16 @@
 if [[ -n $RUST_STABLE_VERSION ]]; then
   stable_version="$RUST_STABLE_VERSION"
 else
-  stable_version=1.59.0
+  base="$(dirname "${BASH_SOURCE[0]}")"
+  source "$base/read-cargo-variable.sh"
+  stable_version=$(readCargoVariable channel "$base/../rust-toolchain.toml")
 fi
 
 if [[ -n $RUST_NIGHTLY_VERSION ]]; then
   nightly_version="$RUST_NIGHTLY_VERSION"
 else
-  nightly_version=2022-02-24
+  nightly_version=2022-04-01
 fi
-
 
 export rust_stable="$stable_version"
 export rust_stable_docker_image=solanalabs/rust:"$stable_version"

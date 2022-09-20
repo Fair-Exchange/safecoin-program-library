@@ -1,10 +1,13 @@
-use async_trait::async_trait;
-use safecoin_client::rpc_client::RpcClient;
-use safecoin_program_test::{tokio::sync::Mutex, BanksClient, ProgramTestContext};
-use safecoin_sdk::{
-    account::Account, hash::Hash, pubkey::Pubkey, signature::Signature, transaction::Transaction,
+use {
+    async_trait::async_trait,
+    safecoin_client::nonblocking::rpc_client::RpcClient,
+    safecoin_program_test::{tokio::sync::Mutex, BanksClient, ProgramTestContext},
+    safecoin_sdk::{
+        account::Account, hash::Hash, pubkey::Pubkey, signature::Signature,
+        transaction::Transaction,
+    },
+    std::{fmt, future::Future, pin::Pin, sync::Arc},
 };
-use std::{fmt, future::Future, pin::Pin, sync::Arc};
 
 type BoxFuture<'a, T> = Pin<Box<dyn Future<Output = T> + Send + 'a>>;
 
@@ -59,8 +62,14 @@ pub trait SendTransactionRpc: SendTransaction {
 #[derive(Debug, Clone, Copy, Default)]
 pub struct ProgramRpcClientSendTransaction;
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum RpcClientResponse {
+    Signature(Signature),
+    Transaction(Transaction),
+}
+
 impl SendTransaction for ProgramRpcClientSendTransaction {
-    type Output = Signature;
+    type Output = RpcClientResponse;
 }
 
 impl SendTransactionRpc for ProgramRpcClientSendTransaction {
@@ -69,11 +78,20 @@ impl SendTransactionRpc for ProgramRpcClientSendTransaction {
         client: &'a RpcClient,
         transaction: &'a Transaction,
     ) -> BoxFuture<'a, ProgramClientResult<Self::Output>> {
-        Box::pin(async move { client.send_transaction(transaction).map_err(Into::into) })
+        Box::pin(async move {
+            if !transaction.is_signed() {
+                return Err("Cannot send transaction: not fully signed".into());
+            }
+
+            client
+                .send_and_confirm_transaction(transaction)
+                .await
+                .map(RpcClientResponse::Signature)
+                .map_err(Into::into)
+        })
     }
 }
 
-//
 pub type ProgramClientError = Box<dyn std::error::Error + Send + Sync>;
 pub type ProgramClientResult<T> = Result<T, ProgramClientError>;
 
@@ -184,25 +202,25 @@ where
 }
 
 /// Program client for `RpcClient` from crate `safecoin-client`.
-pub struct ProgramRpcClient<'a, ST> {
-    client: &'a RpcClient,
+pub struct ProgramRpcClient<ST> {
+    client: Arc<RpcClient>,
     send: ST,
 }
 
-impl<ST> fmt::Debug for ProgramRpcClient<'_, ST> {
+impl<ST> fmt::Debug for ProgramRpcClient<ST> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("ProgramRpcClient").finish()
     }
 }
 
-impl<'a, ST> ProgramRpcClient<'a, ST> {
-    pub fn new(client: &'a RpcClient, send: ST) -> Self {
+impl<ST> ProgramRpcClient<ST> {
+    pub fn new(client: Arc<RpcClient>, send: ST) -> Self {
         Self { client, send }
     }
 }
 
 #[async_trait]
-impl<ST> ProgramClient<ST> for ProgramRpcClient<'_, ST>
+impl<ST> ProgramClient<ST> for ProgramRpcClient<ST>
 where
     ST: SendTransactionRpc + Send + Sync,
 {
@@ -212,21 +230,69 @@ where
     ) -> ProgramClientResult<u64> {
         self.client
             .get_minimum_balance_for_rent_exemption(data_len)
+            .await
             .map_err(Into::into)
     }
 
     async fn get_latest_blockhash(&self) -> ProgramClientResult<Hash> {
-        self.client.get_latest_blockhash().map_err(Into::into)
+        self.client.get_latest_blockhash().await.map_err(Into::into)
     }
 
     async fn send_transaction(&self, transaction: &Transaction) -> ProgramClientResult<ST::Output> {
-        self.send.send(self.client, transaction).await
+        self.send.send(&self.client, transaction).await
     }
 
     async fn get_account(&self, address: Pubkey) -> ProgramClientResult<Option<Account>> {
         Ok(self
             .client
-            .get_account_with_commitment(&address, self.client.commitment())?
+            .get_account_with_commitment(&address, self.client.commitment())
+            .await?
             .value)
+    }
+}
+
+/// Program client for offline signing.
+pub struct ProgramOfflineClient<ST> {
+    blockhash: Hash,
+    _send: ST,
+}
+
+impl<ST> fmt::Debug for ProgramOfflineClient<ST> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("ProgramOfflineClient").finish()
+    }
+}
+
+impl<ST> ProgramOfflineClient<ST> {
+    pub fn new(blockhash: Hash, send: ST) -> Self {
+        Self {
+            blockhash,
+            _send: send,
+        }
+    }
+}
+
+#[async_trait]
+impl<ST> ProgramClient<ST> for ProgramOfflineClient<ST>
+where
+    ST: SendTransaction<Output = RpcClientResponse> + Send + Sync,
+{
+    async fn get_minimum_balance_for_rent_exemption(
+        &self,
+        _data_len: usize,
+    ) -> ProgramClientResult<u64> {
+        Err("Unable to fetch minimum blance for rent exemption in offline mode".into())
+    }
+
+    async fn get_latest_blockhash(&self) -> ProgramClientResult<Hash> {
+        Ok(self.blockhash)
+    }
+
+    async fn send_transaction(&self, transaction: &Transaction) -> ProgramClientResult<ST::Output> {
+        Ok(RpcClientResponse::Transaction(transaction.clone()))
+    }
+
+    async fn get_account(&self, _address: Pubkey) -> ProgramClientResult<Option<Account>> {
+        Err("Unable to fetch account in offline mode".into())
     }
 }

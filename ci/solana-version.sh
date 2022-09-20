@@ -14,7 +14,7 @@
 if [[ -n $SAFECOIN_VERSION ]]; then
   solana_version="$SAFECOIN_VERSION"
 else
-  solana_version=v1.10.8
+  solana_version=v1.11.6
 fi
 
 export solana_version="$solana_version"

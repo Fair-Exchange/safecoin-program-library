@@ -1,4 +1,5 @@
-#![cfg(feature = "test-bpf")]
+#![allow(clippy::integer_arithmetic)]
+#![cfg(feature = "test-sbf")]
 
 mod helpers;
 
@@ -165,6 +166,7 @@ async fn test_success() {
             borrow_obligation_liquidity(
                 safe_token_lending::id(),
                 USDC_BORROW_AMOUNT_FRACTIONAL,
+                None,
                 usdc_test_reserve.liquidity_supply_pubkey,
                 usdc_test_reserve.user_liquidity_pubkey,
                 usdc_test_reserve.pubkey,

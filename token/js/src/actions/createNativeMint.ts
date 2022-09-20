@@ -1,6 +1,7 @@
-import { ConfirmOptions, Connection, sendAndConfirmTransaction, Signer, Transaction } from '@safecoin/web3.js';
-import { TOKEN_PROGRAM_ID, NATIVE_MINT } from '../constants';
-import { createCreateNativeMintInstruction } from '../instructions/index';
+import type { ConfirmOptions, Connection, Signer } from '@safecoin/web3.js';
+import { sendAndConfirmTransaction, Transaction } from '@safecoin/web3.js';
+import { NATIVE_MINT_2022, TOKEN_2022_PROGRAM_ID } from '../constants.js';
+import { createCreateNativeMintInstruction } from '../instructions/createNativeMint.js';
 
 /**
  * Create native mint
@@ -15,11 +16,11 @@ export async function createNativeMint(
     connection: Connection,
     payer: Signer,
     confirmOptions?: ConfirmOptions,
-    programId = TOKEN_PROGRAM_ID,
-    nativeMint = NATIVE_MINT
+    nativeMint = NATIVE_MINT_2022,
+    programId = TOKEN_2022_PROGRAM_ID
 ): Promise<void> {
     const transaction = new Transaction().add(
-        createCreateNativeMintInstruction(payer.publicKey, programId, nativeMint)
+        createCreateNativeMintInstruction(payer.publicKey, nativeMint, programId)
     );
     await sendAndConfirmTransaction(connection, transaction, [payer], confirmOptions);
 }

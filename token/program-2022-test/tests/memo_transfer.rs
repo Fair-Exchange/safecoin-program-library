@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 mod program_test;
 use {
@@ -30,6 +30,7 @@ async fn test_memo_transfers(
     bob_account: Pubkey,
 ) {
     let TokenContext {
+        decimals,
         mint_authority,
         token,
         alice,
@@ -39,7 +40,13 @@ async fn test_memo_transfers(
 
     // mint tokens
     token
-        .mint_to(&alice_account, &mint_authority, 4242)
+        .mint_to(
+            &alice_account,
+            &mint_authority.pubkey(),
+            4242,
+            Some(decimals),
+            &vec![&mint_authority],
+        )
         .await
         .unwrap();
 
@@ -55,7 +62,14 @@ async fn test_memo_transfers(
 
     // attempt to transfer from alice to bob without memo
     let err = token
-        .transfer_unchecked(&alice_account, &bob_account, &alice, 10)
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &alice.pubkey(),
+            10,
+            None,
+            &vec![&alice],
+        )
         .await
         .unwrap_err();
     assert_eq!(
@@ -117,8 +131,15 @@ async fn test_memo_transfers(
 
     // transfer with memo
     token
-        .with_memo("🦖")
-        .transfer_unchecked(&alice_account, &bob_account, &alice, 10)
+        .with_memo("🦖", vec![alice.pubkey()])
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &alice.pubkey(),
+            10,
+            None,
+            &vec![&alice],
+        )
         .await
         .unwrap();
     let bob_state = token.get_account_info(&bob_account).await.unwrap();
@@ -159,7 +180,14 @@ async fn test_memo_transfers(
 
     // transfer from alice to bob without memo
     token
-        .transfer_unchecked(&alice_account, &bob_account, &alice, 12)
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &alice.pubkey(),
+            12,
+            None,
+            &vec![&alice],
+        )
         .await
         .unwrap();
     let bob_state = token.get_account_info(&bob_account).await.unwrap();
@@ -173,12 +201,13 @@ async fn require_memo_transfers_without_realloc() {
     let token_context = context.token_context.unwrap();
 
     // create token accounts
-    let alice_account = token_context
+    token_context
         .token
         .create_auxiliary_token_account(&token_context.alice, &token_context.alice.pubkey())
         .await
         .unwrap();
-    let bob_account = token_context
+    let alice_account = token_context.alice.pubkey();
+    token_context
         .token
         .create_auxiliary_token_account_with_extension_space(
             &token_context.bob,
@@ -187,6 +216,7 @@ async fn require_memo_transfers_without_realloc() {
         )
         .await
         .unwrap();
+    let bob_account = token_context.bob.pubkey();
 
     test_memo_transfers(context.context, token_context, alice_account, bob_account).await;
 }
@@ -198,16 +228,18 @@ async fn require_memo_transfers_with_realloc() {
     let token_context = context.token_context.unwrap();
 
     // create token accounts
-    let alice_account = token_context
+    token_context
         .token
         .create_auxiliary_token_account(&token_context.alice, &token_context.alice.pubkey())
         .await
         .unwrap();
-    let bob_account = token_context
+    let alice_account = token_context.alice.pubkey();
+    token_context
         .token
         .create_auxiliary_token_account(&token_context.bob, &token_context.bob.pubkey())
         .await
         .unwrap();
+    let bob_account = token_context.bob.pubkey();
     token_context
         .token
         .reallocate(

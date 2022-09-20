@@ -40,11 +40,11 @@ fn main() {
 
     let safe_token_2022_toml = safe_token_2022_dir.join("Cargo.toml");
     let safe_token_2022_toml = format!("{}", safe_token_2022_toml.display());
-    let args = vec!["build-bpf", "--manifest-path", &safe_token_2022_toml];
+    let args = vec!["build-sbf", "--manifest-path", &safe_token_2022_toml];
     let output = Command::new("cargo")
         .args(&args)
         .output()
-        .expect("Error running cargo build-bpf");
+        .expect("Error running cargo build-sbf");
     if let Ok(output_str) = std::str::from_utf8(&output.stdout) {
         let subs = output_str.split('\n');
         for sub in subs {

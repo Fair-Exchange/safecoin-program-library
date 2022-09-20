@@ -3,7 +3,7 @@
 use crate::state::{
     enums::{
         GovernanceAccountType, InstructionExecutionFlags, ProposalState,
-        TransactionExecutionStatus, VoteThresholdPercentage,
+        TransactionExecutionStatus, VoteThreshold,
     },
     governance::GovernanceConfig,
     proposal_transaction::InstructionData,
@@ -18,7 +18,7 @@ use safecoin_program::{
 
 /// Governance Realm Account
 /// Account PDA seeds" ['governance', name]
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct RealmV1 {
     /// Governance account type
     pub account_type: GovernanceAccountType,
@@ -53,8 +53,7 @@ impl IsInitialized for RealmV1 {
 
 /// Governance Token Owner Record
 /// Account PDA seeds: ['governance', realm, token_mint, token_owner ]
-#[repr(C)]
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct TokenOwnerRecordV1 {
     /// Governance account type
     pub account_type: GovernanceAccountType,
@@ -102,8 +101,7 @@ impl IsInitialized for TokenOwnerRecordV1 {
 }
 
 /// Governance Account
-#[repr(C)]
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct GovernanceV1 {
     /// Account type. It can be Uninitialized, Governance, ProgramGovernance, TokenGovernance or MintGovernance
     pub account_type: GovernanceAccountType,
@@ -173,8 +171,7 @@ impl IsInitialized for GovernanceV1 {
 }
 
 /// Governance Proposal
-#[repr(C)]
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct ProposalV1 {
     /// Governance account type
     pub account_type: GovernanceAccountType,
@@ -247,7 +244,7 @@ pub struct ProposalV1 {
     /// The vote threshold percentage at the time Proposal was decided
     /// It's used to show correct vote results for historical proposals in cases when the threshold
     /// was changed for governance config after vote was completed.
-    pub vote_threshold_percentage: Option<VoteThresholdPercentage>,
+    pub vote_threshold: Option<VoteThreshold>,
 
     /// Proposal name
     pub name: String,
@@ -263,8 +260,7 @@ impl IsInitialized for ProposalV1 {
 }
 
 /// Account PDA seeds: ['governance', proposal, signatory]
-#[repr(C)]
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct SignatoryRecordV1 {
     /// Governance account type
     pub account_type: GovernanceAccountType,
@@ -286,7 +282,7 @@ impl IsInitialized for SignatoryRecordV1 {
 }
 
 /// Proposal instruction V1
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct ProposalInstructionV1 {
     /// Governance Account type
     pub account_type: GovernanceAccountType,
@@ -297,7 +293,7 @@ pub struct ProposalInstructionV1 {
     /// Unique instruction index within it's parent Proposal
     pub instruction_index: u16,
 
-    /// Minimum waiting time in seconds for the  instruction to be executed once proposal is voted on
+    /// Minimum waiting time in seconds for the instruction to be executed once proposal is voted on
     pub hold_up_time: u32,
 
     /// Instruction to execute
@@ -319,7 +315,7 @@ impl IsInitialized for ProposalInstructionV1 {
 }
 
 /// Vote  with number of votes
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub enum VoteWeightV1 {
     /// Yes vote
     Yes(u64),
@@ -329,7 +325,7 @@ pub enum VoteWeightV1 {
 }
 
 /// Proposal VoteRecord
-#[derive(Clone, Debug, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
+#[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct VoteRecordV1 {
     /// Governance account type
     pub account_type: GovernanceAccountType,

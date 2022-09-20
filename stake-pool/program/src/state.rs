@@ -1,6 +1,5 @@
 //! State transition types
 
-use safe_token::state::{Account, AccountState};
 use {
     crate::{
         big_vec::BigVec, error::StakePoolError, MAX_WITHDRAWAL_FEE_INCREASE,
@@ -20,7 +19,8 @@ use {
         stake::state::Lockup,
     },
     spl_math::checked_ceil_div::CheckedCeilDiv,
-    std::{convert::TryFrom, fmt, matches},
+    safe_token::state::{Account, AccountState},
+    std::{borrow::Borrow, convert::TryFrom, fmt, matches},
 };
 
 /// Enum representing the account type managed by the program
@@ -289,7 +289,7 @@ impl StakePool {
         &self,
         manager_fee_info: &AccountInfo,
     ) -> Result<(), ProgramError> {
-        let token_account = Account::unpack(&manager_fee_info.data.borrow())?;
+        let token_account = Account::unpack(&manager_fee_info.try_borrow_data()?)?;
         if manager_fee_info.owner != &self.token_program_id
             || token_account.state != AccountState::Initialized
             || token_account.mint != self.pool_mint
@@ -534,8 +534,8 @@ impl Default for StakeStatus {
 #[derive(Clone, Copy, Debug, Default, PartialEq, BorshDeserialize, BorshSerialize, BorshSchema)]
 pub struct ValidatorStakeInfo {
     /// Amount of active stake delegated to this validator, minus the minimum
-    /// required stake amount of rent-exemption + `crate::MINIMUM_ACTIVE_STAKE`
-    /// (currently 0.001 SAFE).
+    /// required stake amount of rent-exemption +
+    /// `max(crate::MINIMUM_ACTIVE_STAKE, safecoin_program::stake::tools::get_minimum_delegation())`.
     ///
     /// Note that if `last_update_epoch` does not match the current epoch then
     /// this field may not be accurate
@@ -684,7 +684,7 @@ impl ValidatorListHeader {
 
     /// Extracts the validator list into its header and internal BigVec
     pub fn deserialize_vec(data: &mut [u8]) -> Result<(Self, BigVec), ProgramError> {
-        let mut data_mut = &data[..];
+        let mut data_mut = data.borrow();
         let header = ValidatorListHeader::deserialize(&mut data_mut)?;
         let length = get_instance_packed_len(&header)?;
 
@@ -823,10 +823,8 @@ mod test {
     use {
         super::*,
         proptest::prelude::*,
-        safecoin_program::borsh::{
-            get_instance_packed_len, get_packed_len, try_from_slice_unchecked,
-        },
         safecoin_program::{
+            borsh::{get_instance_packed_len, get_packed_len, try_from_slice_unchecked},
             clock::{DEFAULT_SLOTS_PER_EPOCH, DEFAULT_S_PER_SLOT, SECONDS_PER_DAY},
             native_token::LAMPORTS_PER_SAFE,
         },

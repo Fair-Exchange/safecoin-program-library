@@ -1,4 +1,5 @@
-#![cfg(feature = "test-bpf")]
+#![allow(clippy::integer_arithmetic)]
+#![cfg(feature = "test-sbf")]
 
 mod helpers;
 
@@ -20,6 +21,7 @@ use {
     },
     spl_stake_pool::{
         error::StakePoolError, find_transient_stake_program_address, id, instruction, state,
+        MINIMUM_RESERVE_LAMPORTS,
     },
 };
 
@@ -37,7 +39,7 @@ async fn setup() -> (
             &mut context.banks_client,
             &context.payer,
             &context.last_blockhash,
-            10_000_000_000,
+            10_000_000_000 + MINIMUM_RESERVE_LAMPORTS,
         )
         .await
         .unwrap();
@@ -434,6 +436,7 @@ async fn fail_with_activating_transient_stake() {
             &context.payer,
             &context.last_blockhash,
             &validator_stake.transient_stake_account,
+            &validator_stake.stake_account,
             &validator_stake.vote.pubkey(),
             2_000_000_000,
             validator_stake.transient_stake_seed,
@@ -688,6 +691,15 @@ async fn success_resets_preferred_validator() {
 async fn success_with_hijacked_transient_account() {
     let (mut context, stake_pool_accounts, validator_stake, new_authority, destination_stake) =
         setup().await;
+    let rent = context.banks_client.get_rent().await.unwrap();
+    let stake_rent = rent.minimum_balance(std::mem::size_of::<stake::state::StakeState>());
+    let current_minimum_delegation = stake_pool_get_minimum_delegation(
+        &mut context.banks_client,
+        &context.payer,
+        &context.last_blockhash,
+    )
+    .await;
+    let increase_amount = current_minimum_delegation + stake_rent;
 
     // increase stake on validator
     let error = stake_pool_accounts
@@ -696,8 +708,9 @@ async fn success_with_hijacked_transient_account() {
             &context.payer,
             &context.last_blockhash,
             &validator_stake.transient_stake_account,
+            &validator_stake.stake_account,
             &validator_stake.vote.pubkey(),
-            1_000_000_000,
+            increase_amount,
             validator_stake.transient_stake_seed,
         )
         .await;
@@ -726,7 +739,7 @@ async fn success_with_hijacked_transient_account() {
             &context.last_blockhash,
             &validator_stake.stake_account,
             &validator_stake.transient_stake_account,
-            1_000_000_000,
+            increase_amount,
             validator_stake.transient_stake_seed,
         )
         .await;
@@ -764,7 +777,7 @@ async fn success_with_hijacked_transient_account() {
             system_instruction::transfer(
                 &context.payer.pubkey(),
                 &transient_stake_address,
-                1_000_000_000,
+                current_minimum_delegation + stake_rent,
             ),
             stake::instruction::initialize(
                 &transient_stake_address,

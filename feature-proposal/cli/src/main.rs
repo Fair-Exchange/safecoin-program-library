@@ -1,3 +1,4 @@
+#![allow(clippy::integer_arithmetic)]
 use {
     chrono::{DateTime, NaiveDateTime, SecondsFormat, Utc},
     clap::{
@@ -358,12 +359,12 @@ fn process_propose(
         the proposal by first looking up their token account address:"
     );
     println!(
-        "    $ safe-token --owner ~/validator-keypair.json accounts {}",
+        "    $ safe-token accounts --owner ~/validator-keypair.json {}",
         mint_address
     );
     println!("and then submit their vote by running:");
     println!(
-        "    $ safe-token --owner ~/validator-keypair.json transfer <TOKEN_ACCOUNT_ADDRESS> ALL {}",
+        "    $ safe-token transfer --owner ~/validator-keypair.json <TOKEN_ACCOUNT_ADDRESS> ALL {}",
         acceptance_token_address
     );
     println!();

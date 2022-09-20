@@ -1,4 +1,5 @@
-#![cfg(feature = "test-bpf")]
+#![allow(clippy::integer_arithmetic)]
+#![cfg(feature = "test-sbf")]
 
 mod helpers;
 
@@ -10,14 +11,13 @@ use {
     safecoin_program_test::*,
     safecoin_sdk::{
         signature::{Keypair, Signer},
-        transaction::Transaction,
-        transaction::TransactionError,
+        transaction::{Transaction, TransactionError},
         transport::TransportError,
     },
     spl_stake_pool::{
         error, id,
         instruction::{self, FundingType},
-        state,
+        state, MINIMUM_RESERVE_LAMPORTS,
     },
     safe_token::error as token_error,
 };
@@ -31,7 +31,7 @@ async fn setup() -> (ProgramTestContext, StakePoolAccounts, Keypair, Pubkey) {
             &mut context.banks_client,
             &context.payer,
             &context.last_blockhash,
-            1,
+            MINIMUM_RESERVE_LAMPORTS,
         )
         .await
         .unwrap();
@@ -258,7 +258,12 @@ async fn success_with_sol_deposit_authority() {
     let (mut banks_client, payer, recent_blockhash) = program_test().start().await;
     let stake_pool_accounts = StakePoolAccounts::new();
     stake_pool_accounts
-        .initialize_stake_pool(&mut banks_client, &payer, &recent_blockhash, 1)
+        .initialize_stake_pool(
+            &mut banks_client,
+            &payer,
+            &recent_blockhash,
+            MINIMUM_RESERVE_LAMPORTS,
+        )
         .await
         .unwrap();
 
@@ -323,7 +328,12 @@ async fn fail_without_sol_deposit_authority_signature() {
     let sol_deposit_authority = Keypair::new();
     let stake_pool_accounts = StakePoolAccounts::new();
     stake_pool_accounts
-        .initialize_stake_pool(&mut banks_client, &payer, &recent_blockhash, 1)
+        .initialize_stake_pool(
+            &mut banks_client,
+            &payer,
+            &recent_blockhash,
+            MINIMUM_RESERVE_LAMPORTS,
+        )
         .await
         .unwrap();
 

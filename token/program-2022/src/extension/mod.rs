@@ -7,8 +7,10 @@ use {
             confidential_transfer::{ConfidentialTransferAccount, ConfidentialTransferMint},
             default_account_state::DefaultAccountState,
             immutable_owner::ImmutableOwner,
+            interest_bearing_mint::InterestBearingConfig,
             memo_transfer::MemoTransfer,
             mint_close_authority::MintCloseAuthority,
+            non_transferable::NonTransferable,
             transfer_fee::{TransferFeeAmount, TransferFeeConfig},
         },
         pod::*,
@@ -26,16 +28,23 @@ use {
     },
 };
 
+#[cfg(feature = "serde-traits")]
+use serde::{Deserialize, Serialize};
+
 /// Confidential Transfer extension
 pub mod confidential_transfer;
 /// Default Account State extension
 pub mod default_account_state;
 /// Immutable Owner extension
 pub mod immutable_owner;
+/// Interest-Bearing Mint extension
+pub mod interest_bearing_mint;
 /// Memo Transfer extension
 pub mod memo_transfer;
 /// Mint Close Authority extension
 pub mod mint_close_authority;
+/// Non Transferable extension
+pub mod non_transferable;
 /// Utility to reallocate token accounts
 pub mod reallocate;
 /// Transfer Fee extension
@@ -407,7 +416,8 @@ impl<'data, S: BaseState> StateWithExtensionsMut<'data, S> {
         }
     }
 
-    fn init_or_get_extension<V: Extension>(&mut self, init: bool) -> Result<&mut V, ProgramError> {
+    /// Unpack a portion of the TLV data as the desired type that allows modifying the type
+    pub fn get_extension_mut<V: Extension>(&mut self) -> Result<&mut V, ProgramError> {
         if V::TYPE.get_account_type() != S::ACCOUNT_TYPE {
             return Err(ProgramError::InvalidAccountData);
         }
@@ -415,38 +425,14 @@ impl<'data, S: BaseState> StateWithExtensionsMut<'data, S> {
             type_start,
             length_start,
             value_start,
-        } = get_extension_indices::<V>(self.tlv_data, init)?;
+        } = get_extension_indices::<V>(self.tlv_data, false)?;
 
         if self.tlv_data[type_start..].len() < V::TYPE.get_tlv_len() {
             return Err(ProgramError::InvalidAccountData);
         }
-        if init {
-            // write extension type
-            let extension_type_array: [u8; 2] = V::TYPE.into();
-            let extension_type_ref = &mut self.tlv_data[type_start..length_start];
-            extension_type_ref.copy_from_slice(&extension_type_array);
-            // write length
-            let length_ref =
-                pod_from_bytes_mut::<Length>(&mut self.tlv_data[length_start..value_start])?;
-            // maybe this becomes smarter later for dynamically sized extensions
-            let length = pod_get_packed_len::<V>();
-            *length_ref = Length::try_from(length).unwrap();
-
-            let value_end = value_start.saturating_add(length);
-            let extension_ref =
-                pod_from_bytes_mut::<V>(&mut self.tlv_data[value_start..value_end])?;
-            *extension_ref = V::default();
-            Ok(extension_ref)
-        } else {
-            let length = pod_from_bytes::<Length>(&self.tlv_data[length_start..value_start])?;
-            let value_end = value_start.saturating_add(usize::from(*length));
-            pod_from_bytes_mut::<V>(&mut self.tlv_data[value_start..value_end])
-        }
-    }
-
-    /// Unpack a portion of the TLV data as the desired type that allows modifying the type
-    pub fn get_extension_mut<V: Extension>(&mut self) -> Result<&mut V, ProgramError> {
-        self.init_or_get_extension(false)
+        let length = pod_from_bytes::<Length>(&self.tlv_data[length_start..value_start])?;
+        let value_end = value_start.saturating_add(usize::from(*length));
+        pod_from_bytes_mut::<V>(&mut self.tlv_data[value_start..value_end])
     }
 
     /// Unpack a portion of the TLV data as the desired type
@@ -474,9 +460,48 @@ impl<'data, S: BaseState> StateWithExtensionsMut<'data, S> {
     }
 
     /// Packs the default extension data into an open slot if not already found in the
-    /// data buffer, otherwise overwrites the existing extension with the default state
-    pub fn init_extension<V: Extension>(&mut self) -> Result<&mut V, ProgramError> {
-        self.init_or_get_extension(true)
+    /// data buffer. If extension is already found in the buffer, it overwrites the existing
+    /// extension with the default state if `overwrite` is set. If extension found, but
+    /// `overwrite` is not set, it returns error.
+    pub fn init_extension<V: Extension>(
+        &mut self,
+        overwrite: bool,
+    ) -> Result<&mut V, ProgramError> {
+        if V::TYPE.get_account_type() != S::ACCOUNT_TYPE {
+            return Err(ProgramError::InvalidAccountData);
+        }
+        let TlvIndices {
+            type_start,
+            length_start,
+            value_start,
+        } = get_extension_indices::<V>(self.tlv_data, true)?;
+
+        if self.tlv_data[type_start..].len() < V::TYPE.get_tlv_len() {
+            return Err(ProgramError::InvalidAccountData);
+        }
+        let extension_type = ExtensionType::try_from(&self.tlv_data[type_start..length_start])?;
+
+        if extension_type == ExtensionType::Uninitialized || overwrite {
+            // write extension type
+            let extension_type_array: [u8; 2] = V::TYPE.into();
+            let extension_type_ref = &mut self.tlv_data[type_start..length_start];
+            extension_type_ref.copy_from_slice(&extension_type_array);
+            // write length
+            let length_ref =
+                pod_from_bytes_mut::<Length>(&mut self.tlv_data[length_start..value_start])?;
+            // maybe this becomes smarter later for dynamically sized extensions
+            let length = pod_get_packed_len::<V>();
+            *length_ref = Length::try_from(length).unwrap();
+
+            let value_end = value_start.saturating_add(length);
+            let extension_ref =
+                pod_from_bytes_mut::<V>(&mut self.tlv_data[value_start..value_end])?;
+            *extension_ref = V::default();
+            Ok(extension_ref)
+        } else {
+            // extension is already initialized, but no overwrite permission
+            Err(TokenError::ExtensionAlreadyInitialized.into())
+        }
     }
 
     /// If `extension_type` is an Account-associated ExtensionType that requires initialization on
@@ -492,14 +517,14 @@ impl<'data, S: BaseState> StateWithExtensionsMut<'data, S> {
         }
         match extension_type {
             ExtensionType::TransferFeeAmount => {
-                self.init_extension::<TransferFeeAmount>().map(|_| ())
+                self.init_extension::<TransferFeeAmount>(true).map(|_| ())
             }
             // ConfidentialTransfers are currently opt-in only, so this is a no-op for extra safety
             // on InitializeAccount
             ExtensionType::ConfidentialTransferAccount => Ok(()),
             #[cfg(test)]
             ExtensionType::AccountPaddingTest => {
-                self.init_extension::<AccountPaddingTest>().map(|_| ())
+                self.init_extension::<AccountPaddingTest>(true).map(|_| ())
             }
             _ => unreachable!(),
         }
@@ -579,6 +604,7 @@ impl Default for AccountType {
 /// applied to mint accounts, and account extensions must only be applied to token holding
 /// accounts.
 #[repr(u16)]
+#[cfg_attr(feature = "serde-traits", derive(Serialize, Deserialize))]
 #[derive(Clone, Copy, Debug, PartialEq, TryFromPrimitive, IntoPrimitive)]
 pub enum ExtensionType {
     /// Used as padding if the account size would otherwise be 355, same as a multisig
@@ -599,6 +625,10 @@ pub enum ExtensionType {
     ImmutableOwner,
     /// Require inbound transfers to have memo
     MemoTransfer,
+    /// Indicates that the tokens from this mint can't be transfered
+    NonTransferable,
+    /// Tokens accrue interest over time,
+    InterestBearingConfig,
     /// Padding extension used to make an account exactly Multisig::LEN, used for testing
     #[cfg(test)]
     AccountPaddingTest = u16::MAX - 1,
@@ -637,6 +667,8 @@ impl ExtensionType {
             }
             ExtensionType::DefaultAccountState => pod_get_packed_len::<DefaultAccountState>(),
             ExtensionType::MemoTransfer => pod_get_packed_len::<MemoTransfer>(),
+            ExtensionType::NonTransferable => pod_get_packed_len::<NonTransferable>(),
+            ExtensionType::InterestBearingConfig => pod_get_packed_len::<InterestBearingConfig>(),
             #[cfg(test)]
             ExtensionType::AccountPaddingTest => pod_get_packed_len::<AccountPaddingTest>(),
             #[cfg(test)]
@@ -691,7 +723,9 @@ impl ExtensionType {
             ExtensionType::TransferFeeConfig
             | ExtensionType::MintCloseAuthority
             | ExtensionType::ConfidentialTransferMint
-            | ExtensionType::DefaultAccountState => AccountType::Mint,
+            | ExtensionType::DefaultAccountState
+            | ExtensionType::NonTransferable
+            | ExtensionType::InterestBearingConfig => AccountType::Mint,
             ExtensionType::ImmutableOwner
             | ExtensionType::TransferFeeAmount
             | ExtensionType::ConfidentialTransferAccount
@@ -918,17 +952,25 @@ mod test {
         let mut state = StateWithExtensionsMut::<Mint>::unpack_uninitialized(&mut buffer).unwrap();
         // fail init account extension
         assert_eq!(
-            state.init_extension::<TransferFeeAmount>(),
+            state.init_extension::<TransferFeeAmount>(true),
             Err(ProgramError::InvalidAccountData),
         );
 
         // success write extension
         let close_authority = OptionalNonZeroPubkey::try_from(Some(Pubkey::new(&[1; 32]))).unwrap();
-        let extension = state.init_extension::<MintCloseAuthority>().unwrap();
+        let extension = state.init_extension::<MintCloseAuthority>(true).unwrap();
         extension.close_authority = close_authority;
         assert_eq!(
             &state.get_extension_types().unwrap(),
             &[ExtensionType::MintCloseAuthority]
+        );
+
+        // fail init extension when already initialized
+        assert_eq!(
+            state.init_extension::<MintCloseAuthority>(false),
+            Err(ProgramError::Custom(
+                TokenError::ExtensionAlreadyInitialized as u32
+            ))
         );
 
         // fail unpack as account, a mint extension was written
@@ -1016,7 +1058,7 @@ mod test {
         let mut state = StateWithExtensionsMut::<Mint>::unpack(&mut buffer).unwrap();
         // init one more extension
         let mint_transfer_fee = test_transfer_fee_config();
-        let new_extension = state.init_extension::<TransferFeeConfig>().unwrap();
+        let new_extension = state.init_extension::<TransferFeeConfig>(true).unwrap();
         new_extension.transfer_fee_config_authority =
             mint_transfer_fee.transfer_fee_config_authority;
         new_extension.withdraw_withheld_authority = mint_transfer_fee.withdraw_withheld_authority;
@@ -1049,7 +1091,7 @@ mod test {
         // fail to init one more extension that does not fit
         let mut state = StateWithExtensionsMut::<Mint>::unpack(&mut buffer).unwrap();
         assert_eq!(
-            state.init_extension::<MintPaddingTest>(),
+            state.init_extension::<MintPaddingTest>(true),
             Err(ProgramError::InvalidAccountData),
         );
     }
@@ -1065,11 +1107,11 @@ mod test {
         let mut state = StateWithExtensionsMut::<Mint>::unpack_uninitialized(&mut buffer).unwrap();
         // write extensions
         let close_authority = OptionalNonZeroPubkey::try_from(Some(Pubkey::new(&[1; 32]))).unwrap();
-        let extension = state.init_extension::<MintCloseAuthority>().unwrap();
+        let extension = state.init_extension::<MintCloseAuthority>(true).unwrap();
         extension.close_authority = close_authority;
 
         let mint_transfer_fee = test_transfer_fee_config();
-        let extension = state.init_extension::<TransferFeeConfig>().unwrap();
+        let extension = state.init_extension::<TransferFeeConfig>(true).unwrap();
         extension.transfer_fee_config_authority = mint_transfer_fee.transfer_fee_config_authority;
         extension.withdraw_withheld_authority = mint_transfer_fee.withdraw_withheld_authority;
         extension.withheld_amount = mint_transfer_fee.withheld_amount;
@@ -1101,7 +1143,7 @@ mod test {
 
         // write extensions in a different order
         let mint_transfer_fee = test_transfer_fee_config();
-        let extension = state.init_extension::<TransferFeeConfig>().unwrap();
+        let extension = state.init_extension::<TransferFeeConfig>(true).unwrap();
         extension.transfer_fee_config_authority = mint_transfer_fee.transfer_fee_config_authority;
         extension.withdraw_withheld_authority = mint_transfer_fee.withdraw_withheld_authority;
         extension.withheld_amount = mint_transfer_fee.withheld_amount;
@@ -1109,7 +1151,7 @@ mod test {
         extension.newer_transfer_fee = mint_transfer_fee.newer_transfer_fee;
 
         let close_authority = OptionalNonZeroPubkey::try_from(Some(Pubkey::new(&[1; 32]))).unwrap();
-        let extension = state.init_extension::<MintCloseAuthority>().unwrap();
+        let extension = state.init_extension::<MintCloseAuthority>(true).unwrap();
         extension.close_authority = close_authority;
 
         assert_eq!(
@@ -1155,7 +1197,7 @@ mod test {
         state.init_account_type().unwrap();
 
         // write padding
-        let extension = state.init_extension::<MintPaddingTest>().unwrap();
+        let extension = state.init_extension::<MintPaddingTest>(true).unwrap();
         extension.padding1 = [1; 128];
         extension.padding2 = [1; 48];
         extension.padding3 = [1; 9];
@@ -1192,12 +1234,12 @@ mod test {
             StateWithExtensionsMut::<Account>::unpack_uninitialized(&mut buffer).unwrap();
         // fail init mint extension
         assert_eq!(
-            state.init_extension::<TransferFeeConfig>(),
+            state.init_extension::<TransferFeeConfig>(true),
             Err(ProgramError::InvalidAccountData),
         );
         // success write extension
         let withheld_amount = PodU64::from(u64::MAX);
-        let extension = state.init_extension::<TransferFeeAmount>().unwrap();
+        let extension = state.init_extension::<TransferFeeAmount>(true).unwrap();
         extension.withheld_amount = withheld_amount;
 
         assert_eq!(
@@ -1291,7 +1333,7 @@ mod test {
         state.init_account_type().unwrap();
 
         // write padding
-        let extension = state.init_extension::<AccountPaddingTest>().unwrap();
+        let extension = state.init_extension::<AccountPaddingTest>(true).unwrap();
         extension.0.padding1 = [2; 128];
         extension.0.padding2 = [2; 48];
         extension.0.padding3 = [2; 9];
@@ -1327,7 +1369,7 @@ mod test {
         let mut state = StateWithExtensionsMut::<Account>::unpack(&mut buffer).unwrap();
         assert_eq!(state.base, TEST_ACCOUNT);
         assert_eq!(state.account_type[0], AccountType::Account as u8);
-        state.init_extension::<ImmutableOwner>().unwrap(); // just confirming initialization works
+        state.init_extension::<ImmutableOwner>(true).unwrap(); // just confirming initialization works
 
         // account with buffer big enough for AccountType only
         let mut buffer = TEST_ACCOUNT_SLICE.to_vec();
@@ -1370,7 +1412,7 @@ mod test {
         let mut state = StateWithExtensionsMut::<Mint>::unpack(&mut buffer).unwrap();
         assert_eq!(state.base, TEST_MINT);
         assert_eq!(state.account_type[0], AccountType::Mint as u8);
-        state.init_extension::<MintCloseAuthority>().unwrap();
+        state.init_extension::<MintCloseAuthority>(true).unwrap();
 
         // mint with buffer big enough for AccountType only
         let mut buffer = TEST_MINT_SLICE.to_vec();
@@ -1485,7 +1527,7 @@ mod test {
 
         // fail init extension
         assert_eq!(
-            state.init_extension::<TransferFeeConfig>(),
+            state.init_extension::<TransferFeeConfig>(true),
             Err(ProgramError::InvalidAccountData),
         );
 
@@ -1500,7 +1542,7 @@ mod test {
         state.base = TEST_MINT;
         state.pack_base();
         state.init_account_type().unwrap();
-        let extension = state.init_extension::<MintPaddingTest>().unwrap();
+        let extension = state.init_extension::<MintPaddingTest>(true).unwrap();
         assert_eq!(extension.padding1, [1; 128]);
         assert_eq!(extension.padding2, [2; 48]);
         assert_eq!(extension.padding3, [3; 9]);
@@ -1512,7 +1554,9 @@ mod test {
             ExtensionType::get_account_len::<Mint>(&[ExtensionType::MintCloseAuthority]);
         let mut buffer = vec![0; mint_size - 1];
         let mut state = StateWithExtensionsMut::<Mint>::unpack_uninitialized(&mut buffer).unwrap();
-        let err = state.init_extension::<MintCloseAuthority>().unwrap_err();
+        let err = state
+            .init_extension::<MintCloseAuthority>(true)
+            .unwrap_err();
         assert_eq!(err, ProgramError::InvalidAccountData);
 
         state.tlv_data[0] = 3;
@@ -1542,7 +1586,7 @@ mod test {
         state.base = TEST_ACCOUNT;
         state.pack_base();
         state.init_account_type().unwrap();
-        state.init_extension::<ImmutableOwner>().unwrap();
+        state.init_extension::<ImmutableOwner>(true).unwrap();
 
         assert_eq!(
             get_first_extension_type(state.tlv_data).unwrap(),

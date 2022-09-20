@@ -1,5 +1,6 @@
-import { PublicKey, SystemProgram, SYSVAR_RENT_PUBKEY, TransactionInstruction } from '@safecoin/web3.js';
-import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '../constants';
+import type { PublicKey } from '@safecoin/web3.js';
+import { SystemProgram, TransactionInstruction } from '@safecoin/web3.js';
+import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '../constants.js';
 
 /**
  * Construct an AssociatedTokenAccount instruction
@@ -28,7 +29,6 @@ export function createAssociatedTokenAccountInstruction(
         { pubkey: mint, isSigner: false, isWritable: false },
         { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
         { pubkey: programId, isSigner: false, isWritable: false },
-        { pubkey: SYSVAR_RENT_PUBKEY, isSigner: false, isWritable: false },
     ];
 
     return new TransactionInstruction({

@@ -4,7 +4,7 @@
   "description": "SPL Stake Pool Program JS API",
   "scripts": {
     "build": "npm run clean && tsc && cross-env NODE_ENV=production rollup -c",
-    "lint": "eslint .",
+    "lint": "eslint --max-warnings 0 .",
     "lint:fix": "eslint . --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -45,7 +45,7 @@
   "license": "ISC",
   "dependencies": {
     "@project-serum/borsh": "^0.2.2",
-    "@safecoin/buffer-layout": "^4.0.0",
+    "@solana/buffer-layout": "^4.0.0",
     "@safecoin/safe-token": "^0.1.8",
     "@safecoin/web3.js": "^1.30.2",
     "bn.js": "^5.2.0",

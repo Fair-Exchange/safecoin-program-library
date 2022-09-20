@@ -1,15 +1,16 @@
 import { struct, u8 } from '@solana/buffer-layout';
 import { publicKey } from '@safecoin/buffer-layout-utils';
-import { AccountMeta, PublicKey, Signer, TransactionInstruction } from '@safecoin/web3.js';
-import { TOKEN_PROGRAM_ID } from '../constants';
+import type { AccountMeta, Signer } from '@safecoin/web3.js';
+import { PublicKey, TransactionInstruction } from '@safecoin/web3.js';
+import { TOKEN_PROGRAM_ID } from '../constants.js';
 import {
     TokenInvalidInstructionDataError,
     TokenInvalidInstructionKeysError,
     TokenInvalidInstructionProgramError,
     TokenInvalidInstructionTypeError,
-} from '../errors';
-import { addSigners } from './internal';
-import { TokenInstruction } from './types';
+} from '../errors.js';
+import { addSigners } from './internal.js';
+import { TokenInstruction } from './types.js';
 
 /** Authority types defined by the program */
 export enum AuthorityType {

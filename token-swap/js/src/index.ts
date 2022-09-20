@@ -1,7 +1,7 @@
 import assert from 'assert';
 import BN from 'bn.js';
 import {Buffer} from 'buffer';
-import * as BufferLayout from '@safecoin/buffer-layout';
+import * as BufferLayout from '@solana/buffer-layout';
 import type {
   ConfirmOptions,
   Connection,
@@ -20,6 +20,10 @@ import * as Layout from './layout';
 import {loadAccount} from './util/account';
 
 export const TOKEN_SWAP_PROGRAM_ID: PublicKey = new PublicKey(
+  'SwapsVeCiPHMUAtzQWZw7RjsKjgCjhwU55QGu4U1Szw',
+);
+
+export const OLD_TOKEN_SWAP_PROGRAM_ID: PublicKey = new PublicKey(
   'SWPUnynS7FHA1koTbvmRktQgCDs7Tf4RkqwH19e2qSP',
 );
 
@@ -62,7 +66,7 @@ export const TokenSwapLayout = BufferLayout.struct([
   BufferLayout.u8('version'),
   BufferLayout.u8('isInitialized'),
   BufferLayout.u8('bumpSeed'),
-  Layout.publicKey('tokenProgramId'),
+  Layout.publicKey('poolTokenProgramId'),
   Layout.publicKey('tokenAccountA'),
   Layout.publicKey('tokenAccountB'),
   Layout.publicKey('tokenPool'),
@@ -84,7 +88,7 @@ export const TokenSwapLayout = BufferLayout.struct([
 export const CurveType = Object.freeze({
   ConstantProduct: 0, // Constant product curve, Uniswap-style
   ConstantPrice: 1, // Constant price curve, always X amount of A token for 1 B token, where X is defined at init
-  Offset: 3, // Offset curve, like Uniswap, but with an additional offset on the token B side
+  Offset: 2, // Offset curve, like Uniswap, but with an additional offset on the token B side
 });
 
 /**
@@ -97,7 +101,7 @@ export class TokenSwap {
    * @param connection The connection to use
    * @param tokenSwap The token swap account
    * @param swapProgramId The program ID of the token-swap program
-   * @param tokenProgramId The program ID of the token program
+   * @param poolTokenProgramId The program ID of the token program for the pool tokens
    * @param poolToken The pool token
    * @param authority The authority over the swap and accounts
    * @param tokenAccountA The token swap's Token A account
@@ -119,7 +123,7 @@ export class TokenSwap {
     private connection: Connection,
     public tokenSwap: PublicKey,
     public swapProgramId: PublicKey,
-    public tokenProgramId: PublicKey,
+    public poolTokenProgramId: PublicKey,
     public poolToken: PublicKey,
     public feeAccount: PublicKey,
     public authority: PublicKey,
@@ -141,7 +145,7 @@ export class TokenSwap {
     this.connection = connection;
     this.tokenSwap = tokenSwap;
     this.swapProgramId = swapProgramId;
-    this.tokenProgramId = tokenProgramId;
+    this.poolTokenProgramId = poolTokenProgramId;
     this.poolToken = poolToken;
     this.feeAccount = feeAccount;
     this.authority = authority;
@@ -182,7 +186,7 @@ export class TokenSwap {
     tokenPool: PublicKey,
     feeAccount: PublicKey,
     tokenAccountPool: PublicKey,
-    tokenProgramId: PublicKey,
+    poolTokenProgramId: PublicKey,
     swapProgramId: PublicKey,
     tradeFeeNumerator: number,
     tradeFeeDenominator: number,
@@ -203,7 +207,7 @@ export class TokenSwap {
       {pubkey: tokenPool, isSigner: false, isWritable: true},
       {pubkey: feeAccount, isSigner: false, isWritable: false},
       {pubkey: tokenAccountPool, isSigner: false, isWritable: true},
-      {pubkey: tokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
     ];
     const commandDataLayout = BufferLayout.struct([
       BufferLayout.u8('instruction'),
@@ -275,7 +279,7 @@ export class TokenSwap {
     const tokenAccountB = new PublicKey(tokenSwapData.tokenAccountB);
     const mintA = new PublicKey(tokenSwapData.mintA);
     const mintB = new PublicKey(tokenSwapData.mintB);
-    const tokenProgramId = new PublicKey(tokenSwapData.tokenProgramId);
+    const poolTokenProgramId = new PublicKey(tokenSwapData.poolTokenProgramId);
 
     const tradeFeeNumerator = Numberu64.fromBuffer(
       tokenSwapData.tradeFeeNumerator,
@@ -307,7 +311,7 @@ export class TokenSwap {
       connection,
       address,
       programId,
-      tokenProgramId,
+      poolTokenProgramId,
       poolToken,
       feeAccount,
       authority,
@@ -339,7 +343,7 @@ export class TokenSwap {
    * @param tokenAccountB: The token swap's Token B account
    * @param poolToken The pool token
    * @param tokenAccountPool The token swap's pool token account
-   * @param tokenProgramId The program ID of the token program
+   * @param poolTokenProgramId The program ID of the token program for pool tokens
    * @param swapProgramId The program ID of the token-swap program
    * @param feeNumerator Numerator of the fee ratio
    * @param feeDenominator Denominator of the fee ratio
@@ -358,7 +362,7 @@ export class TokenSwap {
     feeAccount: PublicKey,
     tokenAccountPool: PublicKey,
     swapProgramId: PublicKey,
-    tokenProgramId: PublicKey,
+    poolTokenProgramId: PublicKey,
     tradeFeeNumerator: number,
     tradeFeeDenominator: number,
     ownerTradeFeeNumerator: number,
@@ -376,7 +380,7 @@ export class TokenSwap {
       connection,
       tokenSwapAccount.publicKey,
       swapProgramId,
-      tokenProgramId,
+      poolTokenProgramId,
       poolToken,
       feeAccount,
       authority,
@@ -419,7 +423,7 @@ export class TokenSwap {
       poolToken,
       feeAccount,
       tokenAccountPool,
-      tokenProgramId,
+      poolTokenProgramId,
       swapProgramId,
       tradeFeeNumerator,
       tradeFeeDenominator,
@@ -451,6 +455,10 @@ export class TokenSwap {
    * @param poolSource Pool's source token account
    * @param poolDestination Pool's destination token account
    * @param userDestination User's destination token account
+   * @param sourceMint Mint for the source token
+   * @param destinationMint Mint for the destination token
+   * @param sourceTokenProgramId Program id for the source token
+   * @param destinationTokenProgramId Program id for the destination token
    * @param hostFeeAccount Host account to gather fees
    * @param userTransferAuthority Account delegated to transfer user's tokens
    * @param amountIn Amount to transfer from source account
@@ -461,6 +469,10 @@ export class TokenSwap {
     poolSource: PublicKey,
     poolDestination: PublicKey,
     userDestination: PublicKey,
+    sourceMint: PublicKey,
+    destinationMint: PublicKey,
+    sourceTokenProgramId: PublicKey,
+    destinationTokenProgramId: PublicKey,
     hostFeeAccount: PublicKey | null,
     userTransferAuthority: Account,
     amountIn: number | Numberu64,
@@ -481,8 +493,12 @@ export class TokenSwap {
           this.poolToken,
           this.feeAccount,
           hostFeeAccount,
+          sourceMint,
+          destinationMint,
           this.swapProgramId,
-          this.tokenProgramId,
+          sourceTokenProgramId,
+          destinationTokenProgramId,
+          this.poolTokenProgramId,
           amountIn,
           minimumAmountOut,
         ),
@@ -503,8 +519,12 @@ export class TokenSwap {
     poolMint: PublicKey,
     feeAccount: PublicKey,
     hostFeeAccount: PublicKey | null,
+    sourceMint: PublicKey,
+    destinationMint: PublicKey,
     swapProgramId: PublicKey,
-    tokenProgramId: PublicKey,
+    sourceTokenProgramId: PublicKey,
+    destinationTokenProgramId: PublicKey,
+    poolTokenProgramId: PublicKey,
     amountIn: number | Numberu64,
     minimumAmountOut: number | Numberu64,
   ): TransactionInstruction {
@@ -534,7 +554,11 @@ export class TokenSwap {
       {pubkey: userDestination, isSigner: false, isWritable: true},
       {pubkey: poolMint, isSigner: false, isWritable: true},
       {pubkey: feeAccount, isSigner: false, isWritable: true},
-      {pubkey: tokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: sourceMint, isSigner: false, isWritable: false},
+      {pubkey: destinationMint, isSigner: false, isWritable: false},
+      {pubkey: sourceTokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: destinationTokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
     ];
     if (hostFeeAccount !== null) {
       keys.push({pubkey: hostFeeAccount, isSigner: false, isWritable: true});
@@ -551,6 +575,8 @@ export class TokenSwap {
    * @param userAccountA User account for token A
    * @param userAccountB User account for token B
    * @param poolAccount User account for pool token
+   * @param tokenProgramIdA Program id for token A
+   * @param tokenProgramIdB Program id for token B
    * @param userTransferAuthority Account delegated to transfer user's tokens
    * @param poolTokenAmount Amount of pool tokens to mint
    * @param maximumTokenA The maximum amount of token A to deposit
@@ -560,6 +586,8 @@ export class TokenSwap {
     userAccountA: PublicKey,
     userAccountB: PublicKey,
     poolAccount: PublicKey,
+    tokenProgramIdA: PublicKey,
+    tokenProgramIdB: PublicKey,
     userTransferAuthority: Account,
     poolTokenAmount: number | Numberu64,
     maximumTokenA: number | Numberu64,
@@ -579,8 +607,12 @@ export class TokenSwap {
           this.tokenAccountB,
           this.poolToken,
           poolAccount,
+          this.mintA,
+          this.mintB,
           this.swapProgramId,
-          this.tokenProgramId,
+          tokenProgramIdA,
+          tokenProgramIdB,
+          this.poolTokenProgramId,
           poolTokenAmount,
           maximumTokenA,
           maximumTokenB,
@@ -601,8 +633,12 @@ export class TokenSwap {
     intoB: PublicKey,
     poolToken: PublicKey,
     poolAccount: PublicKey,
+    mintA: PublicKey,
+    mintB: PublicKey,
     swapProgramId: PublicKey,
-    tokenProgramId: PublicKey,
+    tokenProgramIdA: PublicKey,
+    tokenProgramIdB: PublicKey,
+    poolTokenProgramId: PublicKey,
     poolTokenAmount: number | Numberu64,
     maximumTokenA: number | Numberu64,
     maximumTokenB: number | Numberu64,
@@ -635,7 +671,11 @@ export class TokenSwap {
       {pubkey: intoB, isSigner: false, isWritable: true},
       {pubkey: poolToken, isSigner: false, isWritable: true},
       {pubkey: poolAccount, isSigner: false, isWritable: true},
-      {pubkey: tokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: mintA, isSigner: false, isWritable: false},
+      {pubkey: mintB, isSigner: false, isWritable: false},
+      {pubkey: tokenProgramIdA, isSigner: false, isWritable: false},
+      {pubkey: tokenProgramIdB, isSigner: false, isWritable: false},
+      {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
     ];
     return new TransactionInstruction({
       keys,
@@ -650,6 +690,8 @@ export class TokenSwap {
    * @param userAccountA User account for token A
    * @param userAccountB User account for token B
    * @param poolAccount User account for pool token
+   * @param tokenProgramIdA Program id for token A
+   * @param tokenProgramIdB Program id for token B
    * @param userTransferAuthority Account delegated to transfer user's tokens
    * @param poolTokenAmount Amount of pool tokens to burn
    * @param minimumTokenA The minimum amount of token A to withdraw
@@ -659,6 +701,8 @@ export class TokenSwap {
     userAccountA: PublicKey,
     userAccountB: PublicKey,
     poolAccount: PublicKey,
+    tokenProgramIdA: PublicKey,
+    tokenProgramIdB: PublicKey,
     userTransferAuthority: Account,
     poolTokenAmount: number | Numberu64,
     minimumTokenA: number | Numberu64,
@@ -679,8 +723,12 @@ export class TokenSwap {
           this.tokenAccountB,
           userAccountA,
           userAccountB,
+          this.mintA,
+          this.mintB,
           this.swapProgramId,
-          this.tokenProgramId,
+          this.poolTokenProgramId,
+          tokenProgramIdA,
+          tokenProgramIdB,
           poolTokenAmount,
           minimumTokenA,
           minimumTokenB,
@@ -702,8 +750,12 @@ export class TokenSwap {
     fromB: PublicKey,
     userAccountA: PublicKey,
     userAccountB: PublicKey,
+    mintA: PublicKey,
+    mintB: PublicKey,
     swapProgramId: PublicKey,
-    tokenProgramId: PublicKey,
+    poolTokenProgramId: PublicKey,
+    tokenProgramIdA: PublicKey,
+    tokenProgramIdB: PublicKey,
     poolTokenAmount: number | Numberu64,
     minimumTokenA: number | Numberu64,
     minimumTokenB: number | Numberu64,
@@ -737,7 +789,11 @@ export class TokenSwap {
       {pubkey: userAccountA, isSigner: false, isWritable: true},
       {pubkey: userAccountB, isSigner: false, isWritable: true},
       {pubkey: feeAccount, isSigner: false, isWritable: true},
-      {pubkey: tokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: mintA, isSigner: false, isWritable: false},
+      {pubkey: mintB, isSigner: false, isWritable: false},
+      {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: tokenProgramIdA, isSigner: false, isWritable: false},
+      {pubkey: tokenProgramIdB, isSigner: false, isWritable: false},
     ];
     return new TransactionInstruction({
       keys,
@@ -750,6 +806,8 @@ export class TokenSwap {
    * Deposit one side of tokens into the pool
    * @param userAccount User account to deposit token A or B
    * @param poolAccount User account to receive pool tokens
+   * @param sourceMint Mint for the source token
+   * @param sourceTokenProgramId Program id for the source token
    * @param userTransferAuthority Account delegated to transfer user's tokens
    * @param sourceTokenAmount The amount of token A or B to deposit
    * @param minimumPoolTokenAmount Minimum amount of pool tokens to mint
@@ -757,6 +815,8 @@ export class TokenSwap {
   async depositSingleTokenTypeExactAmountIn(
     userAccount: PublicKey,
     poolAccount: PublicKey,
+    sourceMint: PublicKey,
+    sourceTokenProgramId: PublicKey,
     userTransferAuthority: Account,
     sourceTokenAmount: number | Numberu64,
     minimumPoolTokenAmount: number | Numberu64,
@@ -774,8 +834,10 @@ export class TokenSwap {
           this.tokenAccountB,
           this.poolToken,
           poolAccount,
+          sourceMint,
           this.swapProgramId,
-          this.tokenProgramId,
+          sourceTokenProgramId,
+          this.poolTokenProgramId,
           sourceTokenAmount,
           minimumPoolTokenAmount,
         ),
@@ -794,8 +856,10 @@ export class TokenSwap {
     intoB: PublicKey,
     poolToken: PublicKey,
     poolAccount: PublicKey,
+    sourceMint: PublicKey,
     swapProgramId: PublicKey,
-    tokenProgramId: PublicKey,
+    sourceTokenProgramId: PublicKey,
+    poolTokenProgramId: PublicKey,
     sourceTokenAmount: number | Numberu64,
     minimumPoolTokenAmount: number | Numberu64,
   ): TransactionInstruction {
@@ -826,7 +890,9 @@ export class TokenSwap {
       {pubkey: intoB, isSigner: false, isWritable: true},
       {pubkey: poolToken, isSigner: false, isWritable: true},
       {pubkey: poolAccount, isSigner: false, isWritable: true},
-      {pubkey: tokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: sourceMint, isSigner: false, isWritable: false},
+      {pubkey: sourceTokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
     ];
     return new TransactionInstruction({
       keys,
@@ -840,6 +906,8 @@ export class TokenSwap {
    *
    * @param userAccount User account to receive token A or B
    * @param poolAccount User account to burn pool token
+   * @param destinationMint Mint for the destination token
+   * @param destinationTokenProgramId Program id for the destination token
    * @param userTransferAuthority Account delegated to transfer user's tokens
    * @param destinationTokenAmount The amount of token A or B to withdraw
    * @param maximumPoolTokenAmount Maximum amount of pool tokens to burn
@@ -847,6 +915,8 @@ export class TokenSwap {
   async withdrawSingleTokenTypeExactAmountOut(
     userAccount: PublicKey,
     poolAccount: PublicKey,
+    destinationMint: PublicKey,
+    destinationTokenProgramId: PublicKey,
     userTransferAuthority: Account,
     destinationTokenAmount: number | Numberu64,
     maximumPoolTokenAmount: number | Numberu64,
@@ -865,8 +935,10 @@ export class TokenSwap {
           this.tokenAccountA,
           this.tokenAccountB,
           userAccount,
+          destinationMint,
           this.swapProgramId,
-          this.tokenProgramId,
+          this.poolTokenProgramId,
+          destinationTokenProgramId,
           destinationTokenAmount,
           maximumPoolTokenAmount,
         ),
@@ -886,8 +958,10 @@ export class TokenSwap {
     fromA: PublicKey,
     fromB: PublicKey,
     userAccount: PublicKey,
+    destinationMint: PublicKey,
     swapProgramId: PublicKey,
-    tokenProgramId: PublicKey,
+    poolTokenProgramId: PublicKey,
+    destinationTokenProgramId: PublicKey,
     destinationTokenAmount: number | Numberu64,
     maximumPoolTokenAmount: number | Numberu64,
   ): TransactionInstruction {
@@ -921,7 +995,9 @@ export class TokenSwap {
       {pubkey: fromB, isSigner: false, isWritable: true},
       {pubkey: userAccount, isSigner: false, isWritable: true},
       {pubkey: feeAccount, isSigner: false, isWritable: true},
-      {pubkey: tokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: destinationMint, isSigner: false, isWritable: false},
+      {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
+      {pubkey: destinationTokenProgramId, isSigner: false, isWritable: false},
     ];
     return new TransactionInstruction({
       keys,

@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 mod program_test;
 use {
@@ -74,7 +74,7 @@ fn test_transfer_fee_config_with_keypairs() -> TransferFeeConfigWithKeypairs {
 
 struct TokenWithAccounts {
     context: TestContext,
-    token: Token<ProgramBanksClientProcessTransaction, Keypair>,
+    token: Token<ProgramBanksClientProcessTransaction>,
     transfer_fee_config: TransferFeeConfig,
     withdraw_withheld_authority: Keypair,
     freeze_authority: Keypair,
@@ -118,19 +118,27 @@ async fn create_mint_with_accounts(alice_amount: u64) -> TokenWithAccounts {
     } = context.token_context.take().unwrap();
 
     // token account is self-owned just to test another case
-    let alice_account = token
+    token
         .create_auxiliary_token_account(&alice, &alice.pubkey())
         .await
         .unwrap();
+    let alice_account = alice.pubkey();
     let bob_account = Keypair::new();
-    let bob_account = token
+    token
         .create_auxiliary_token_account(&bob_account, &bob.pubkey())
         .await
         .unwrap();
+    let bob_account = bob_account.pubkey();
 
     // mint tokens
     token
-        .mint_to(&alice_account, &mint_authority, alice_amount)
+        .mint_to(
+            &alice_account,
+            &mint_authority.pubkey(),
+            alice_amount,
+            Some(decimals),
+            &vec![&mint_authority],
+        )
         .await
         .unwrap();
     TokenWithAccounts {
@@ -267,6 +275,18 @@ async fn set_fee() {
         }])
         .await
         .unwrap();
+
+    // warp to first normal slot to easily calculate epochs
+    let epoch_schedule = context.context.lock().await.genesis_config().epoch_schedule;
+    let first_normal_slot = epoch_schedule.first_normal_slot;
+    let slots_per_epoch = epoch_schedule.slots_per_epoch;
+    context
+        .context
+        .lock()
+        .await
+        .warp_to_slot(first_normal_slot)
+        .unwrap();
+
     let token = context.token_context.unwrap().token;
 
     // set to something new, old fee not touched
@@ -315,9 +335,43 @@ async fn set_fee() {
     );
     assert_eq!(extension.older_transfer_fee, newer_transfer_fee);
 
-    // warp forward one epoch, new fee becomes old fee during set
+    // warp forward one epoch, old fee still not touched when set
+    let new_transfer_fee_basis_points = 10;
+    let new_maximum_fee = 10;
+    context
+        .context
+        .lock()
+        .await
+        .warp_to_slot(first_normal_slot + slots_per_epoch)
+        .unwrap();
+    token
+        .set_transfer_fee(
+            &transfer_fee_config_authority,
+            new_transfer_fee_basis_points,
+            new_maximum_fee,
+        )
+        .await
+        .unwrap();
+    let state = token.get_mint_info().await.unwrap();
+    let extension = state.get_extension::<TransferFeeConfig>().unwrap();
+    assert_eq!(
+        extension.newer_transfer_fee.transfer_fee_basis_points,
+        new_transfer_fee_basis_points.into()
+    );
+    assert_eq!(
+        extension.newer_transfer_fee.maximum_fee,
+        new_maximum_fee.into()
+    );
+    assert_eq!(extension.older_transfer_fee, newer_transfer_fee);
+
+    // warp forward two epochs, old fee is replaced on set
     let newer_transfer_fee = extension.newer_transfer_fee;
-    context.context.lock().await.warp_to_slot(10_000).unwrap();
+    context
+        .context
+        .lock()
+        .await
+        .warp_to_slot(first_normal_slot + 3 * slots_per_epoch)
+        .unwrap();
     let new_transfer_fee_basis_points = MAX_FEE_BASIS_POINTS;
     let new_maximum_fee = u64::MAX;
     token
@@ -456,9 +510,10 @@ async fn set_transfer_fee_config_authority() {
     let err = token
         .set_authority(
             token.get_address(),
+            &wrong.pubkey(),
             Some(&new_authority.pubkey()),
             instruction::AuthorityType::TransferFeeConfig,
-            &wrong,
+            &[&wrong],
         )
         .await
         .unwrap_err();
@@ -476,9 +531,10 @@ async fn set_transfer_fee_config_authority() {
     token
         .set_authority(
             token.get_address(),
+            &transfer_fee_config_authority.pubkey(),
             Some(&new_authority.pubkey()),
             instruction::AuthorityType::TransferFeeConfig,
-            &transfer_fee_config_authority,
+            &[&transfer_fee_config_authority],
         )
         .await
         .unwrap();
@@ -518,9 +574,10 @@ async fn set_transfer_fee_config_authority() {
     token
         .set_authority(
             token.get_address(),
+            &new_authority.pubkey(),
             None,
             instruction::AuthorityType::TransferFeeConfig,
-            &new_authority,
+            &[&new_authority],
         )
         .await
         .unwrap();
@@ -535,9 +592,10 @@ async fn set_transfer_fee_config_authority() {
     let err = token
         .set_authority(
             token.get_address(),
+            &new_authority.pubkey(),
             Some(&transfer_fee_config_authority.pubkey()),
             instruction::AuthorityType::TransferFeeConfig,
-            &new_authority,
+            &[&new_authority],
         )
         .await
         .unwrap_err();
@@ -596,9 +654,10 @@ async fn set_withdraw_withheld_authority() {
     let err = token
         .set_authority(
             token.get_address(),
+            &wrong.pubkey(),
             Some(&new_authority.pubkey()),
             instruction::AuthorityType::WithheldWithdraw,
-            &wrong,
+            &[&wrong],
         )
         .await
         .unwrap_err();
@@ -616,9 +675,10 @@ async fn set_withdraw_withheld_authority() {
     token
         .set_authority(
             token.get_address(),
+            &withdraw_withheld_authority.pubkey(),
             Some(&new_authority.pubkey()),
             instruction::AuthorityType::WithheldWithdraw,
-            &withdraw_withheld_authority,
+            &[&withdraw_withheld_authority],
         )
         .await
         .unwrap();
@@ -630,10 +690,12 @@ async fn set_withdraw_withheld_authority() {
     );
 
     // new authority can withdraw tokens
-    let account = token
-        .create_auxiliary_token_account(&Keypair::new(), &new_authority.pubkey())
+    let account = Keypair::new();
+    token
+        .create_auxiliary_token_account(&account, &new_authority.pubkey())
         .await
         .unwrap();
+    let account = account.pubkey();
     token
         .withdraw_withheld_tokens_from_accounts(&account, &new_authority, &[&account])
         .await
@@ -657,9 +719,10 @@ async fn set_withdraw_withheld_authority() {
     token
         .set_authority(
             token.get_address(),
+            &new_authority.pubkey(),
             None,
             instruction::AuthorityType::WithheldWithdraw,
-            &new_authority,
+            &[&new_authority],
         )
         .await
         .unwrap();
@@ -674,9 +737,10 @@ async fn set_withdraw_withheld_authority() {
     let err = token
         .set_authority(
             token.get_address(),
+            &new_authority.pubkey(),
             Some(&withdraw_withheld_authority.pubkey()),
             instruction::AuthorityType::WithheldWithdraw,
-            &new_authority,
+            &[&new_authority],
         )
         .await
         .unwrap_err();
@@ -691,10 +755,12 @@ async fn set_withdraw_withheld_authority() {
     );
 
     // assert no authority can withdraw withheld fees
-    let account = token
-        .create_auxiliary_token_account(&Keypair::new(), &new_authority.pubkey())
+    let account = Keypair::new();
+    token
+        .create_auxiliary_token_account(&account, &new_authority.pubkey())
         .await
         .unwrap();
+    let account = account.pubkey();
     let error = token
         .withdraw_withheld_tokens_from_accounts(&account, &withdraw_withheld_authority, &[&account])
         .await
@@ -739,7 +805,14 @@ async fn transfer_checked() {
 
     // fail unchecked always
     let error = token
-        .transfer_unchecked(&alice_account, &bob_account, &alice, maximum_fee)
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &alice.pubkey(),
+            maximum_fee,
+            None,
+            &vec![&alice],
+        )
         .await
         .unwrap_err();
     assert_eq!(
@@ -754,12 +827,13 @@ async fn transfer_checked() {
 
     // fail because amount too high
     let error = token
-        .transfer_checked(
+        .transfer(
             &alice_account,
             &bob_account,
-            &alice,
+            &alice.pubkey(),
             alice_amount + 1,
-            decimals,
+            Some(decimals),
+            &vec![&alice],
         )
         .await
         .unwrap_err();
@@ -781,7 +855,14 @@ async fn transfer_checked() {
         .calculate_epoch_fee(0, maximum_fee)
         .unwrap();
     token
-        .transfer_checked(&alice_account, &bob_account, &alice, maximum_fee, decimals)
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &alice.pubkey(),
+            maximum_fee,
+            Some(decimals),
+            &vec![&alice],
+        )
         .await
         .unwrap();
     alice_amount -= maximum_fee;
@@ -803,12 +884,13 @@ async fn transfer_checked() {
         .calculate_epoch_fee(0, transfer_amount)
         .unwrap();
     token
-        .transfer_checked(
+        .transfer(
             &alice_account,
             &bob_account,
-            &alice,
+            &alice.pubkey(),
             transfer_amount,
-            decimals,
+            Some(decimals),
+            &vec![&alice],
         )
         .await
         .unwrap();
@@ -836,12 +918,13 @@ async fn transfer_checked() {
         .unwrap();
     assert_eq!(fee, maximum_fee); // sanity
     token
-        .transfer_checked(
+        .transfer(
             &alice_account,
             &bob_account,
-            &alice,
+            &alice.pubkey(),
             transfer_amount,
-            decimals,
+            Some(decimals),
+            &vec![&alice],
         )
         .await
         .unwrap();
@@ -859,12 +942,13 @@ async fn transfer_checked() {
 
     // transfer down to 1 token
     token
-        .transfer_checked(
+        .transfer(
             &alice_account,
             &bob_account,
-            &alice,
+            &alice.pubkey(),
             alice_amount - 1,
-            decimals,
+            Some(decimals),
+            &vec![&alice],
         )
         .await
         .unwrap();
@@ -882,7 +966,14 @@ async fn transfer_checked() {
 
     // final transfer, only move tokens to withheld amount, nothing received
     token
-        .transfer_checked(&alice_account, &bob_account, &alice, 1, decimals)
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &alice.pubkey(),
+            1,
+            Some(decimals),
+            &vec![&alice],
+        )
         .await
         .unwrap();
     withheld_amount += 1;
@@ -917,13 +1008,14 @@ async fn transfer_checked_with_fee() {
         .unwrap()
         + 1;
     let error = token
-        .transfer_checked_with_fee(
+        .transfer_with_fee(
             &alice_account,
             &bob_account,
-            &alice,
+            &alice.pubkey(),
             transfer_amount,
             decimals,
             fee,
+            &vec![&alice],
         )
         .await
         .unwrap_err();
@@ -943,13 +1035,14 @@ async fn transfer_checked_with_fee() {
         .unwrap()
         - 1;
     let error = token
-        .transfer_checked_with_fee(
+        .transfer_with_fee(
             &alice_account,
             &bob_account,
-            &alice,
+            &alice.pubkey(),
             transfer_amount,
             decimals,
             fee,
+            &vec![&alice],
         )
         .await
         .unwrap_err();
@@ -969,13 +1062,14 @@ async fn transfer_checked_with_fee() {
         .unwrap()
         - 1;
     let error = token
-        .transfer_checked_with_fee(
+        .transfer_with_fee(
             &alice_account,
             &bob_account,
-            &alice,
+            &alice.pubkey(),
             alice_amount + 1,
             decimals,
             fee,
+            &vec![&alice],
         )
         .await
         .unwrap_err();
@@ -994,13 +1088,14 @@ async fn transfer_checked_with_fee() {
         .calculate_epoch_fee(0, transfer_amount)
         .unwrap();
     token
-        .transfer_checked_with_fee(
+        .transfer_with_fee(
             &alice_account,
             &bob_account,
-            &alice,
+            &alice.pubkey(),
             transfer_amount,
             decimals,
             fee,
+            &vec![&alice],
         )
         .await
         .unwrap();
@@ -1030,13 +1125,14 @@ async fn no_fees_from_self_transfer() {
     // self transfer, no fee assessed
     let fee = transfer_fee_config.calculate_epoch_fee(0, amount).unwrap();
     token
-        .transfer_checked_with_fee(
+        .transfer_with_fee(
             &alice_account,
             &alice_account,
-            &alice,
+            &alice.pubkey(),
             amount,
             decimals,
             fee,
+            &vec![&alice],
         )
         .await
         .unwrap();
@@ -1047,19 +1143,28 @@ async fn no_fees_from_self_transfer() {
 }
 
 async fn create_and_transfer_to_account(
-    token: &Token<ProgramBanksClientProcessTransaction, Keypair>,
+    token: &Token<ProgramBanksClientProcessTransaction>,
     source: &Pubkey,
     authority: &Keypair,
     owner: &Pubkey,
     amount: u64,
     decimals: u8,
 ) -> Pubkey {
-    let account = token
-        .create_auxiliary_token_account(&Keypair::new(), owner)
+    let account = Keypair::new();
+    token
+        .create_auxiliary_token_account(&account, owner)
         .await
         .unwrap();
+    let account = account.pubkey();
     token
-        .transfer_checked(source, &account, authority, amount, decimals)
+        .transfer(
+            source,
+            &account,
+            &authority.pubkey(),
+            amount,
+            Some(decimals),
+            &vec![authority],
+        )
         .await
         .unwrap();
     account
@@ -1200,10 +1305,12 @@ async fn max_withdraw_withheld_tokens_from_accounts() {
     // withdraw from max accounts, which is around 35: 1 mint, 1 destination, 1 authority,
     // 32 accounts
     // see https://docs.solana.com/proposals/transactions-v2#problem
-    let destination = token
-        .create_auxiliary_token_account(&Keypair::new(), &alice.pubkey())
+    let destination = Keypair::new();
+    token
+        .create_auxiliary_token_account(&destination, &alice.pubkey())
         .await
         .unwrap();
+    let destination = destination.pubkey();
     let mut accounts = vec![];
     let max_accounts = 32;
     for _ in 0..max_accounts {
@@ -1333,7 +1440,11 @@ async fn withdraw_withheld_tokens_from_mint() {
     )
     .await;
     token
-        .freeze_account(&account, &freeze_authority)
+        .freeze(
+            &account,
+            &freeze_authority.pubkey(),
+            &vec![&freeze_authority],
+        )
         .await
         .unwrap();
     let error = token
@@ -1363,9 +1474,10 @@ async fn withdraw_withheld_tokens_from_mint() {
     token
         .set_authority(
             token.get_address(),
+            &withdraw_withheld_authority.pubkey(),
             None,
             instruction::AuthorityType::WithheldWithdraw,
-            &withdraw_withheld_authority,
+            &[&withdraw_withheld_authority],
         )
         .await
         .unwrap();
@@ -1504,10 +1616,12 @@ async fn withdraw_withheld_tokens_from_accounts() {
         .await
         .unwrap();
     let TokenContext { token, .. } = context.token_context.take().unwrap();
-    let withdraw_account = token
-        .create_auxiliary_token_account(&Keypair::new(), &alice.pubkey())
+    let withdraw_account = Keypair::new();
+    token
+        .create_auxiliary_token_account(&withdraw_account, &alice.pubkey())
         .await
         .unwrap();
+    let withdraw_account = withdraw_account.pubkey();
     token
         .withdraw_withheld_tokens_from_accounts(
             &withdraw_account,
@@ -1567,13 +1681,20 @@ async fn fail_close_with_withheld() {
     // empty the account
     let fee = transfer_fee_config.calculate_epoch_fee(0, amount).unwrap();
     token
-        .transfer_checked(&account, &alice_account, &alice, amount - fee, decimals)
+        .transfer(
+            &account,
+            &alice_account,
+            &alice.pubkey(),
+            amount - fee,
+            Some(decimals),
+            &vec![&alice],
+        )
         .await
         .unwrap();
 
     // fail to close
     let error = token
-        .close_account(&account, &Pubkey::new_unique(), &alice)
+        .close_account(&account, &Pubkey::new_unique(), &alice.pubkey(), &[&alice])
         .await
         .unwrap_err();
     assert_eq!(
@@ -1594,7 +1715,7 @@ async fn fail_close_with_withheld() {
 
     // successfully close
     token
-        .close_account(&account, &Pubkey::new_unique(), &alice)
+        .close_account(&account, &Pubkey::new_unique(), &alice.pubkey(), &[&alice])
         .await
         .unwrap();
 }

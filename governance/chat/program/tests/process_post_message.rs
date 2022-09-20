@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 use program_test::GovernanceChatProgramTest;
 use safecoin_program_test::tokio;

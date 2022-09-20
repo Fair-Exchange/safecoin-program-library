@@ -1,25 +1,26 @@
 # Token Swap Program
 
-A Uniswap-like exchange for the Token program on the Safecoin blockchain, deployed
-to `SWPUnynS7FHA1koTbvmRktQgCDs7Tf4RkqwH19e2qSP` on all networks.
+A Uniswap-like exchange for the Token program on the Safecoin blockchain.
 
 Full documentation is available at https://spl.solana.com/token-swap
 
 JavaScript bindings are available in the `./js` directory.
 
-## Building
+## Building master
 
 To build a development version of the Token Swap program, you can use the normal
 build command for Safecoin programs:
 
 ```sh
-cargo build-bpf
+cargo build-sbf
 ```
 
-For production versions, the Token Swap Program contains a `production` feature
-to fix constraints on fees and fee account owner. A developer can
-deploy the program, allow others to create pools, and earn a "protocol fee" on
-all activity.
+## Building mainnet v2.0.0
+
+For the version deployed to `SWPUnynS7FHA1koTbvmRktQgCDs7Tf4RkqwH19e2qSP`,
+the Token Swap Program contains a `production` feature to fix constraints on fees
+and fee account owner. A developer can deploy the program, allow others to create
+pools, and earn a "protocol fee" on all activity.
 
 Since Safecoin programs cannot contain any modifiable state, we must hard-code
 all constraints into the program.  `SwapConstraints` in `program/src/constraints.rs`
@@ -31,7 +32,7 @@ You can build the production version of Token Swap running on devnet, testnet, a
 mainnet-beta using the following command:
 
 ```sh
-SWAP_PROGRAM_OWNER_FEE_ADDRESS=HfoTxFR1Tm6kGmWgYWD6J7YHVy1UwqSULUGVLXkJqaKN cargo build-bpf --features=production
+SWAP_PROGRAM_OWNER_FEE_ADDRESS=HfoTxFR1Tm6kGmWgYWD6J7YHVy1UwqSULUGVLXkJqaKN cargo build-sbf --features=production
 ```
 
 ## Testing

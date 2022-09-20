@@ -25,7 +25,7 @@ pub enum GovernanceError {
 
     /// Invalid Governing Token Mint
     #[error("Invalid Governing Token Mint")]
-    InvalidGoverningTokenMint,
+    InvalidGoverningTokenMint, // 503
 
     /// Governing Token Owner must sign transaction
     #[error("Governing Token Owner must sign transaction")]
@@ -45,11 +45,11 @@ pub enum GovernanceError {
 
     /// Invalid GoverningMint for TokenOwnerRecord
     #[error("Invalid GoverningMint for TokenOwnerRecord")]
-    InvalidGoverningMintForTokenOwnerRecord,
+    InvalidGoverningMintForTokenOwnerRecord, // 508
 
     /// Invalid Realm for TokenOwnerRecord
     #[error("Invalid Realm for TokenOwnerRecord")]
-    InvalidRealmForTokenOwnerRecord,
+    InvalidRealmForTokenOwnerRecord, // 509
 
     /// Invalid Proposal for ProposalTransaction,
     #[error("Invalid Proposal for ProposalTransaction,")]
@@ -97,38 +97,39 @@ pub enum GovernanceError {
 
     /// Invalid State: Can't edit Signatories
     #[error("Invalid State: Can't edit Signatories")]
-    InvalidStateCannotEditSignatories,
+    InvalidStateCannotEditSignatories, // 521
 
     /// Invalid Proposal state
     #[error("Invalid Proposal state")]
-    InvalidProposalState,
+    InvalidProposalState, // 522
+
     /// Invalid State: Can't edit transactions
     #[error("Invalid State: Can't edit transactions")]
-    InvalidStateCannotEditTransactions,
+    InvalidStateCannotEditTransactions, // 523
 
     /// Invalid State: Can't execute transaction
     #[error("Invalid State: Can't execute transaction")]
-    InvalidStateCannotExecuteTransaction,
+    InvalidStateCannotExecuteTransaction, // 524
 
     /// Can't execute transaction within its hold up time
     #[error("Can't execute transaction within its hold up time")]
-    CannotExecuteTransactionWithinHoldUpTime,
+    CannotExecuteTransactionWithinHoldUpTime, // 525
 
     /// Transaction already executed
     #[error("Transaction already executed")]
-    TransactionAlreadyExecuted,
+    TransactionAlreadyExecuted, // 526
 
     /// Invalid Transaction index
     #[error("Invalid Transaction index")]
-    InvalidTransactionIndex,
+    InvalidTransactionIndex, // 527
 
     /// Transaction hold up time is below the min specified by Governance
     #[error("Transaction hold up time is below the min specified by Governance")]
-    TransactionHoldUpTimeBelowRequiredMin,
+    TransactionHoldUpTimeBelowRequiredMin, // 528
 
     /// Transaction at the given index for the Proposal already exists
     #[error("Transaction at the given index for the Proposal already exists")]
-    TransactionAlreadyExists,
+    TransactionAlreadyExists, // 529
 
     /// Invalid State: Can't sign off
     #[error("Invalid State: Can't sign off")]
@@ -164,119 +165,119 @@ pub enum GovernanceError {
 
     /// Proposal does not belong to the given Governance
     #[error("Proposal does not belong to the given Governance")]
-    InvalidGovernanceForProposal,
+    InvalidGovernanceForProposal, // 538
 
     /// Proposal does not belong to given Governing Mint"
     #[error("Proposal does not belong to given Governing Mint")]
-    InvalidGoverningMintForProposal,
+    InvalidGoverningMintForProposal, // 539
 
     /// Current mint authority must sign transaction
     #[error("Current mint authority must sign transaction")]
-    MintAuthorityMustSign,
+    MintAuthorityMustSign, // 540
 
     /// Invalid mint authority
     #[error("Invalid mint authority")]
-    InvalidMintAuthority,
+    InvalidMintAuthority, // 542
 
     /// Mint has no authority
     #[error("Mint has no authority")]
-    MintHasNoAuthority,
+    MintHasNoAuthority, // 542
 
     /// ---- SPL Token Tools Errors ----
 
     /// Invalid Token account owner
     #[error("Invalid Token account owner")]
-    SafeTokenAccountWithInvalidOwner,
+    SafeTokenAccountWithInvalidOwner, // 543
 
     /// Invalid Mint account owner
     #[error("Invalid Mint account owner")]
-    SafeTokenMintWithInvalidOwner,
+    SafeTokenMintWithInvalidOwner, // 544
 
     /// Token Account is not initialized
     #[error("Token Account is not initialized")]
-    SafeTokenAccountNotInitialized,
+    SafeTokenAccountNotInitialized, // 545
 
     /// Token Account doesn't exist
     #[error("Token Account doesn't exist")]
-    SafeTokenAccountDoesNotExist,
+    SafeTokenAccountDoesNotExist, // 546
 
     /// Token account data is invalid
     #[error("Token account data is invalid")]
-    SafeTokenInvalidTokenAccountData,
+    SafeTokenInvalidTokenAccountData, // 547
 
     /// Token mint account data is invalid
     #[error("Token mint account data is invalid")]
-    SafeTokenInvalidMintAccountData,
+    SafeTokenInvalidMintAccountData, // 548
 
     /// Token Mint is not initialized
     #[error("Token Mint account is not initialized")]
-    SafeTokenMintNotInitialized,
+    SafeTokenMintNotInitialized, // 549
 
     /// Token Mint account doesn't exist
     #[error("Token Mint account doesn't exist")]
-    SafeTokenMintDoesNotExist,
+    SafeTokenMintDoesNotExist, // 550
 
     /// ---- Bpf Upgradable Loader Tools Errors ----
 
     /// Invalid ProgramData account Address
     #[error("Invalid ProgramData account address")]
-    InvalidProgramDataAccountAddress,
+    InvalidProgramDataAccountAddress, // 551
 
     /// Invalid ProgramData account data
     #[error("Invalid ProgramData account Data")]
-    InvalidProgramDataAccountData,
+    InvalidProgramDataAccountData, // 552
 
     /// Provided upgrade authority doesn't match current program upgrade authority
     #[error("Provided upgrade authority doesn't match current program upgrade authority")]
-    InvalidUpgradeAuthority,
+    InvalidUpgradeAuthority, // 553
 
     /// Current program upgrade authority must sign transaction
     #[error("Current program upgrade authority must sign transaction")]
-    UpgradeAuthorityMustSign,
+    UpgradeAuthorityMustSign, // 554
 
     /// Given program is not upgradable
     #[error("Given program is not upgradable")]
-    ProgramNotUpgradable,
+    ProgramNotUpgradable, // 555
 
     /// Invalid token owner
     #[error("Invalid token owner")]
-    InvalidTokenOwner,
+    InvalidTokenOwner, // 556
 
     /// Current token owner must sign transaction
     #[error("Current token owner must sign transaction")]
-    TokenOwnerMustSign,
+    TokenOwnerMustSign, // 557
 
-    /// Given VoteThresholdPercentageType is not supported
-    #[error("Given VoteThresholdPercentageType is not supported")]
-    VoteThresholdPercentageTypeNotSupported,
+    /// Given VoteThresholdType is not supported
+    #[error("Given VoteThresholdType is not supported")]
+    VoteThresholdTypeNotSupported, // 558
 
     /// Given VoteWeightSource is not supported
     #[error("Given VoteWeightSource is not supported")]
-    VoteWeightSourceNotSupported,
+    VoteWeightSourceNotSupported, // 559
 
-    /// Proposal cool off time is not supported
-    #[error("Proposal cool off time is not supported")]
-    ProposalCoolOffTimeNotSupported,
+    /// GoverningTokenMint not allowed to vote
+    #[error("GoverningTokenMint not allowed to vote")]
+    GoverningTokenMintNotAllowedToVote, // 560
 
     /// Governance PDA must sign
     #[error("Governance PDA must sign")]
-    GovernancePdaMustSign,
+    GovernancePdaMustSign, // 561
 
     /// Transaction already flagged with error
     #[error("Transaction already flagged with error")]
-    TransactionAlreadyFlaggedWithError,
+    TransactionAlreadyFlaggedWithError, // 562
 
     /// Invalid Realm for Governance
     #[error("Invalid Realm for Governance")]
-    InvalidRealmForGovernance,
+    InvalidRealmForGovernance, // 563
 
     /// Invalid Authority for Realm
     #[error("Invalid Authority for Realm")]
-    InvalidAuthorityForRealm,
+    InvalidAuthorityForRealm, // 564
 
     /// Realm has no authority
     #[error("Realm has no authority")]
-    RealmHasNoAuthority,
+    RealmHasNoAuthority, // 565
 
     /// Realm authority must sign
     #[error("Realm authority must sign")]
@@ -284,7 +285,7 @@ pub enum GovernanceError {
 
     /// Invalid governing token holding account
     #[error("Invalid governing token holding account")]
-    InvalidGoverningTokenHoldingAccount,
+    InvalidGoverningTokenHoldingAccount, // 567
 
     /// Realm council mint change is not supported
     #[error("Realm council mint change is not supported")]
@@ -393,6 +394,50 @@ pub enum GovernanceError {
     /// GovernanceConfig change not allowed
     #[error("GovernanceConfig change not allowed")]
     GovernanceConfigChangeNotAllowed,
+
+    /// At least one VoteThreshold is required
+    #[error("At least one VoteThreshold is required")]
+    AtLeastOneVoteThresholdRequired,
+
+    /// Reserved buffer must be empty
+    #[error("Reserved buffer must be empty")]
+    ReservedBufferMustBeEmpty,
+
+    /// Cannot Relinquish in Finalizing state
+    #[error("Cannot Relinquish in Finalizing state")]
+    CannotRelinquishInFinalizingState,
+
+    /// Invalid RealmConfig account address
+    #[error("Invalid RealmConfig account address")]
+    InvalidRealmConfigAddress,
+
+    /// Cannot deposit dormant tokens
+    #[error("Cannot deposit dormant tokens")]
+    CannotDepositDormantTokens, // 599
+
+    /// Cannot withdraw membership tokens
+    #[error("Cannot withdraw membership tokens")]
+    CannotWithdrawMembershipTokens, // 600
+
+    /// Cannot revoke GoverningTokens
+    #[error("Cannot revoke GoverningTokens")]
+    CannotRevokeGoverningTokens, // 601
+
+    /// Invalid Revoke amount
+    #[error("Invalid Revoke amount")]
+    InvalidRevokeAmount, // 602
+
+    /// Invalid GoverningToken source
+    #[error("Invalid GoverningToken source")]
+    InvalidGoverningTokenSource, // 603
+
+    /// Cannot change community TokenType to Memebership
+    #[error("Cannot change community TokenType to Memebership")]
+    CannotChangeCommunityTokenTypeToMemebership, // 604
+
+    /// Voter weight threshold disabled
+    #[error("Voter weight threshold disabled")]
+    VoterWeightThresholdDisabled, // 605
 }
 
 impl PrintProgramError for GovernanceError {

@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 mod program_test;
 
@@ -8,8 +8,13 @@ use safecoin_program_test::tokio;
 use program_test::*;
 use spl_governance::{
     error::GovernanceError,
-    state::enums::{ProposalState, VoteThresholdPercentage, VoteTipping},
+    state::{
+        enums::{MintMaxVoteWeightSource, ProposalState, VoteThreshold, VoteTipping},
+        vote_record::Vote,
+    },
 };
+
+use crate::program_test::args::RealmSetupArgs;
 
 #[tokio::test]
 async fn test_cast_vote() {
@@ -42,7 +47,7 @@ async fn test_cast_vote() {
 
     // Act
     let vote_record_cookie = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -72,8 +77,8 @@ async fn test_cast_vote() {
 
     assert_eq!(Some(100), proposal_account.max_vote_weight);
     assert_eq!(
-        Some(governance_cookie.account.config.vote_threshold_percentage),
-        proposal_account.vote_threshold_percentage
+        Some(governance_cookie.account.config.community_vote_threshold),
+        proposal_account.vote_threshold
     );
 
     let token_owner_record = governance_test
@@ -139,7 +144,7 @@ async fn test_cast_vote_with_invalid_governance_error() {
 
     // Act
     let err = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .err()
         .unwrap();
@@ -155,7 +160,7 @@ async fn test_cast_vote_with_invalid_mint_error() {
     let realm_cookie = governance_test.with_realm().await;
     let governed_account_cookie = governance_test.with_governed_account().await;
 
-    let token_owner_record_cookie = governance_test
+    let mut token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
         .await
         .unwrap();
@@ -169,18 +174,18 @@ async fn test_cast_vote_with_invalid_mint_error() {
         .await
         .unwrap();
 
-    let mut proposal_cookie = governance_test
+    let proposal_cookie = governance_test
         .with_signed_off_proposal(&token_owner_record_cookie, &mut governance_cookie)
         .await
         .unwrap();
 
     // Try to use Council Mint with Community Proposal
-    proposal_cookie.account.governing_token_mint =
+    token_owner_record_cookie.account.governing_token_mint =
         realm_cookie.account.config.council_mint.unwrap();
 
     // Act
     let err = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .err()
         .unwrap();
@@ -225,7 +230,7 @@ async fn test_cast_vote_with_invalid_token_owner_record_mint_error() {
 
     // Act
     let err = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .err()
         .unwrap();
@@ -275,7 +280,7 @@ async fn test_cast_vote_with_invalid_token_owner_record_from_different_realm_err
 
     // Act
     let err = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .err()
         .unwrap();
@@ -320,7 +325,7 @@ async fn test_cast_vote_with_governance_authority_must_sign_error() {
 
     // Act
     let err = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .err()
         .unwrap();
@@ -374,7 +379,7 @@ async fn test_cast_vote_with_strict_vote_tipped_to_succeeded() {
 
     // Act
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie1,
             YesNoVote::Yes,
@@ -392,7 +397,7 @@ async fn test_cast_vote_with_strict_vote_tipped_to_succeeded() {
 
     // Act
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
         .await
         .unwrap();
 
@@ -406,7 +411,7 @@ async fn test_cast_vote_with_strict_vote_tipped_to_succeeded() {
 
     // Act
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie3,
             YesNoVote::Yes,
@@ -488,7 +493,7 @@ async fn test_cast_vote_with_strict_vote_tipped_to_defeated() {
 
     // Act
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie1,
             YesNoVote::Yes,
@@ -506,7 +511,7 @@ async fn test_cast_vote_with_strict_vote_tipped_to_defeated() {
 
     // Act
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
         .await
         .unwrap();
 
@@ -520,7 +525,7 @@ async fn test_cast_vote_with_strict_vote_tipped_to_defeated() {
 
     // Act
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie3, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie3, YesNoVote::No)
         .await
         .unwrap();
 
@@ -549,8 +554,8 @@ async fn test_cast_vote_with_early_vote_tipped_to_succeeded() {
 
     let mut governance_config = governance_test.get_default_governance_config();
 
-    governance_config.vote_tipping = VoteTipping::Early;
-    governance_config.vote_threshold_percentage = VoteThresholdPercentage::YesVote(15);
+    governance_config.community_vote_tipping = VoteTipping::Early;
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(15);
 
     let token_owner_record_cookie1 = governance_test
         .with_community_token_deposit(&realm_cookie)
@@ -597,7 +602,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_succeeded() {
         .await
         .unwrap();
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie1,
             YesNoVote::Yes,
@@ -610,7 +615,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_succeeded() {
     assert_eq!(ProposalState::Voting, proposal_account.state);
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
         .await
         .unwrap();
     let proposal_account = governance_test
@@ -619,7 +624,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_succeeded() {
     assert_eq!(ProposalState::Voting, proposal_account.state);
 
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie3,
             YesNoVote::Yes,
@@ -641,7 +646,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_succeeded() {
         .await
         .unwrap();
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie1,
             YesNoVote::Yes,
@@ -654,7 +659,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_succeeded() {
     assert_eq!(ProposalState::Voting, proposal_account.state);
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
         .await
         .unwrap();
     let proposal_account = governance_test
@@ -663,7 +668,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_succeeded() {
     assert_eq!(ProposalState::Voting, proposal_account.state);
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie3, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie3, YesNoVote::No)
         .await
         .unwrap();
     let proposal_account = governance_test
@@ -672,7 +677,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_succeeded() {
     assert_eq!(ProposalState::Voting, proposal_account.state);
 
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie4,
             YesNoVote::Yes,
@@ -686,7 +691,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_succeeded() {
 
     // Act: 300 vs 200 makes it tip
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie5,
             YesNoVote::Yes,
@@ -713,8 +718,8 @@ async fn test_cast_vote_with_early_vote_tipped_to_defeated() {
 
     let mut governance_config = governance_test.get_default_governance_config();
 
-    governance_config.vote_tipping = VoteTipping::Early;
-    governance_config.vote_threshold_percentage = VoteThresholdPercentage::YesVote(40);
+    governance_config.community_vote_tipping = VoteTipping::Early;
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(40);
 
     // 100 votes
     let token_owner_record_cookie1 = governance_test
@@ -756,7 +761,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_defeated() {
 
     // Act
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie1,
             YesNoVote::Yes,
@@ -774,7 +779,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_defeated() {
 
     // Act
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie2, YesNoVote::No)
         .await
         .unwrap();
 
@@ -788,7 +793,7 @@ async fn test_cast_vote_with_early_vote_tipped_to_defeated() {
 
     // Act
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie3, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie3, YesNoVote::No)
         .await
         .unwrap();
 
@@ -817,7 +822,7 @@ async fn test_cast_vote_with_threshold_below_50_and_vote_not_tipped() {
 
     let mut governance_config = governance_test.get_default_governance_config();
 
-    governance_config.vote_threshold_percentage = VoteThresholdPercentage::YesVote(40);
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(40);
 
     let token_owner_record_cookie = governance_test
         .with_community_token_deposit(&realm_cookie)
@@ -846,7 +851,7 @@ async fn test_cast_vote_with_threshold_below_50_and_vote_not_tipped() {
 
     // Act
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -887,8 +892,8 @@ async fn test_cast_vote_with_disabled_tipping_yes_votes() {
 
     let mut governance_config = governance_test.get_default_governance_config();
 
-    governance_config.vote_tipping = VoteTipping::Disabled;
-    governance_config.vote_threshold_percentage = VoteThresholdPercentage::YesVote(10);
+    governance_config.community_vote_tipping = VoteTipping::Disabled;
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(10);
 
     let token_owner_record_cookie1 = governance_test
         .with_community_token_deposit(&realm_cookie)
@@ -915,7 +920,7 @@ async fn test_cast_vote_with_disabled_tipping_yes_votes() {
 
     // Act
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie1,
             YesNoVote::Yes,
@@ -936,7 +941,7 @@ async fn test_cast_vote_with_disabled_tipping_yes_votes() {
         .await
         .unwrap();
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie1, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie1, YesNoVote::No)
         .await
         .unwrap();
 
@@ -958,8 +963,8 @@ async fn test_cast_vote_with_disabled_tipping_no_votes() {
 
     let mut governance_config = governance_test.get_default_governance_config();
 
-    governance_config.vote_tipping = VoteTipping::Disabled;
-    governance_config.vote_threshold_percentage = VoteThresholdPercentage::YesVote(10);
+    governance_config.community_vote_tipping = VoteTipping::Disabled;
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(10);
 
     let token_owner_record_cookie1 = governance_test
         .with_community_token_deposit(&realm_cookie)
@@ -986,7 +991,7 @@ async fn test_cast_vote_with_disabled_tipping_no_votes() {
 
     // Act
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie1, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie1, YesNoVote::No)
         .await
         .unwrap();
 
@@ -1039,7 +1044,7 @@ async fn test_cast_vote_with_voting_time_expired_error() {
     // Act
 
     let err = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::No)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::No)
         .await
         .err()
         .unwrap();
@@ -1081,7 +1086,7 @@ async fn test_cast_vote_with_cast_twice_error() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -1089,7 +1094,7 @@ async fn test_cast_vote_with_cast_twice_error() {
 
     // Act
     let err = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .err()
         .unwrap();
@@ -1130,7 +1135,7 @@ async fn test_cast_vote_with_invalid_proposal_owner_error() {
 
     // Act
     let err = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .err()
         .unwrap();
@@ -1172,7 +1177,7 @@ async fn test_cast_tipping_vote_with_invalid_proposal_owner_error() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(
+        .with_cast_yes_no_vote(
             &proposal_cookie,
             &token_owner_record_cookie2,
             YesNoVote::Yes,
@@ -1185,10 +1190,381 @@ async fn test_cast_tipping_vote_with_invalid_proposal_owner_error() {
 
     // Act
     let err = governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .err()
         .unwrap();
 
     assert_eq!(err, GovernanceError::InvalidProposalOwnerAccount.into());
+}
+
+#[tokio::test]
+async fn test_cast_council_vote() {
+    // Arrange
+    let mut governance_test = GovernanceProgramTest::start_new().await;
+
+    let realm_cookie = governance_test.with_realm().await;
+    let governed_account_cookie = governance_test.with_governed_account().await;
+
+    let token_owner_record_cookie = governance_test
+        .with_council_token_deposit(&realm_cookie)
+        .await
+        .unwrap();
+
+    let mut governance_config = governance_test.get_default_governance_config();
+    governance_config.community_vote_threshold = VoteThreshold::Disabled;
+
+    let mut governance_cookie = governance_test
+        .with_governance_using_config(
+            &realm_cookie,
+            &governed_account_cookie,
+            &token_owner_record_cookie,
+            &governance_config,
+        )
+        .await
+        .unwrap();
+
+    let proposal_cookie = governance_test
+        .with_signed_off_proposal(&token_owner_record_cookie, &mut governance_cookie)
+        .await
+        .unwrap();
+
+    // Act
+    governance_test
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .await
+        .unwrap();
+
+    // Assert
+
+    let proposal_account = governance_test
+        .get_proposal_account(&proposal_cookie.address)
+        .await;
+
+    assert_eq!(proposal_account.state, ProposalState::Succeeded);
+
+    assert_eq!(
+        Some(governance_cookie.account.config.council_vote_threshold),
+        proposal_account.vote_threshold
+    );
+}
+
+#[tokio::test]
+async fn test_cast_vote_with_invalid_realm_config_account_address_error() {
+    // Arrange
+    let mut governance_test = GovernanceProgramTest::start_new().await;
+
+    let realm_cookie = governance_test.with_realm().await;
+    let governed_account_cookie = governance_test.with_governed_account().await;
+
+    let token_owner_record_cookie = governance_test
+        .with_community_token_deposit(&realm_cookie)
+        .await
+        .unwrap();
+
+    let mut governance_cookie = governance_test
+        .with_governance(
+            &realm_cookie,
+            &governed_account_cookie,
+            &token_owner_record_cookie,
+        )
+        .await
+        .unwrap();
+
+    let proposal_cookie = governance_test
+        .with_signed_off_proposal(&token_owner_record_cookie, &mut governance_cookie)
+        .await
+        .unwrap();
+
+    // Try bypass config check by using none existing config account
+    let realm_config_address = Pubkey::new_unique();
+
+    // Act
+    let err = governance_test
+        .with_cast_vote_using_instruction(
+            &proposal_cookie,
+            &token_owner_record_cookie,
+            Vote::Deny,
+            |i| {
+                i.accounts[10].pubkey = realm_config_address; // realm_config_address
+            },
+            None,
+        )
+        .await
+        .err()
+        .unwrap();
+
+    // Assert
+    assert_eq!(err, GovernanceError::InvalidRealmConfigAddress.into());
+}
+
+#[tokio::test]
+async fn test_cast_early_council_vote_with_disabled_community_vote_tipping() {
+    // Arrange
+    let mut governance_test = GovernanceProgramTest::start_new().await;
+
+    let realm_cookie = governance_test.with_realm().await;
+    let governed_account_cookie = governance_test.with_governed_account().await;
+
+    let token_owner_record_cookie = governance_test
+        .with_council_token_deposit(&realm_cookie)
+        .await
+        .unwrap();
+
+    let mut governance_config = governance_test.get_default_governance_config();
+
+    governance_config.community_vote_tipping = VoteTipping::Disabled;
+    governance_config.council_vote_tipping = VoteTipping::Early;
+
+    let mut governance_cookie = governance_test
+        .with_governance_using_config(
+            &realm_cookie,
+            &governed_account_cookie,
+            &token_owner_record_cookie,
+            &governance_config,
+        )
+        .await
+        .unwrap();
+
+    let proposal_cookie = governance_test
+        .with_signed_off_proposal(&token_owner_record_cookie, &mut governance_cookie)
+        .await
+        .unwrap();
+
+    governance_test
+        .mint_community_tokens(&realm_cookie, 20)
+        .await;
+
+    // Act
+    governance_test
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .await
+        .unwrap();
+
+    // Assert
+
+    let proposal_account = governance_test
+        .get_proposal_account(&proposal_cookie.address)
+        .await;
+
+    assert_eq!(proposal_account.state, ProposalState::Succeeded);
+}
+
+#[tokio::test]
+async fn test_cast_community_vote_with_early_council_and_disabled_community_vote_tipping() {
+    // Arrange
+    let mut governance_test = GovernanceProgramTest::start_new().await;
+
+    let realm_cookie = governance_test.with_realm().await;
+    let governed_account_cookie = governance_test.with_governed_account().await;
+
+    let token_owner_record_cookie = governance_test
+        .with_community_token_deposit(&realm_cookie)
+        .await
+        .unwrap();
+
+    let mut governance_config = governance_test.get_default_governance_config();
+
+    governance_config.community_vote_tipping = VoteTipping::Disabled;
+    governance_config.council_vote_tipping = VoteTipping::Early;
+
+    let mut governance_cookie = governance_test
+        .with_governance_using_config(
+            &realm_cookie,
+            &governed_account_cookie,
+            &token_owner_record_cookie,
+            &governance_config,
+        )
+        .await
+        .unwrap();
+
+    let proposal_cookie = governance_test
+        .with_signed_off_proposal(&token_owner_record_cookie, &mut governance_cookie)
+        .await
+        .unwrap();
+
+    governance_test
+        .mint_community_tokens(&realm_cookie, 20)
+        .await;
+
+    // Act
+    governance_test
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .await
+        .unwrap();
+
+    // Assert
+
+    let proposal_account = governance_test
+        .get_proposal_account(&proposal_cookie.address)
+        .await;
+
+    assert_eq!(proposal_account.state, ProposalState::Voting);
+}
+
+#[tokio::test]
+async fn test_cast_vote_with_disabled_tipping_and_max_yes_votes() {
+    // Arrange
+    let mut governance_test = GovernanceProgramTest::start_new().await;
+
+    let realm_cookie = governance_test.with_realm().await;
+    let governed_account_cookie = governance_test.with_governed_account().await;
+
+    let mut governance_config = governance_test.get_default_governance_config();
+
+    governance_config.community_vote_tipping = VoteTipping::Disabled;
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(10);
+
+    let token_owner_record_cookie1 = governance_test
+        .with_community_token_deposit(&realm_cookie)
+        .await
+        .unwrap();
+
+    let mut _governance_cookie = governance_test
+        .with_governance_using_config(
+            &realm_cookie,
+            &governed_account_cookie,
+            &token_owner_record_cookie1,
+            &governance_config,
+        )
+        .await
+        .unwrap();
+
+    let proposal_cookie = governance_test
+        .with_signed_off_proposal(&token_owner_record_cookie1, &mut _governance_cookie)
+        .await
+        .unwrap();
+
+    // Act
+    governance_test
+        .with_cast_yes_no_vote(
+            &proposal_cookie,
+            &token_owner_record_cookie1,
+            YesNoVote::Yes,
+        )
+        .await
+        .unwrap();
+
+    // Assert
+
+    let proposal_account = governance_test
+        .get_proposal_account(&proposal_cookie.address)
+        .await;
+    assert_eq!(ProposalState::Voting, proposal_account.state);
+}
+
+#[tokio::test]
+async fn test_cast_vote_with_disabled_tipping_and_max_no_votes() {
+    // Arrange
+    let mut governance_test = GovernanceProgramTest::start_new().await;
+
+    let realm_cookie = governance_test.with_realm().await;
+    let governed_account_cookie = governance_test.with_governed_account().await;
+
+    let mut governance_config = governance_test.get_default_governance_config();
+
+    governance_config.community_vote_tipping = VoteTipping::Disabled;
+    governance_config.community_vote_threshold = VoteThreshold::YesVotePercentage(10);
+
+    let token_owner_record_cookie1 = governance_test
+        .with_community_token_deposit(&realm_cookie)
+        .await
+        .unwrap();
+
+    let mut _governance_cookie = governance_test
+        .with_governance_using_config(
+            &realm_cookie,
+            &governed_account_cookie,
+            &token_owner_record_cookie1,
+            &governance_config,
+        )
+        .await
+        .unwrap();
+
+    let proposal_cookie = governance_test
+        .with_signed_off_proposal(&token_owner_record_cookie1, &mut _governance_cookie)
+        .await
+        .unwrap();
+
+    // Act
+    governance_test
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie1, YesNoVote::No)
+        .await
+        .unwrap();
+
+    // Assert
+
+    let proposal_account = governance_test
+        .get_proposal_account(&proposal_cookie.address)
+        .await;
+    assert_eq!(ProposalState::Voting, proposal_account.state);
+}
+
+#[tokio::test]
+async fn test_cast_vote_with_strict_tipping_and_inflated_max_vote_weight() {
+    // Arrange
+    let mut governance_test = GovernanceProgramTest::start_new().await;
+
+    // Reduce max voter weight to 50% for the cast vote to be above max_voter_weight
+    let realm_config_args = RealmSetupArgs {
+        community_mint_max_vote_weight_source: MintMaxVoteWeightSource::SupplyFraction(
+            MintMaxVoteWeightSource::SUPPLY_FRACTION_BASE / 2,
+        ),
+        ..Default::default()
+    };
+
+    let realm_cookie = governance_test
+        .with_realm_using_args(&realm_config_args)
+        .await;
+
+    let governed_account_cookie = governance_test.with_governed_account().await;
+
+    let governance_config = governance_test.get_default_governance_config();
+
+    // Mint and deposit 100 tokens to Member
+    let token_owner_record_cookie1 = governance_test
+        .with_community_token_deposit(&realm_cookie)
+        .await
+        .unwrap();
+
+    // Mint 20 community tokens to increase total supply to 120
+    // It gives us max_voter_weight==60 which is below the cast vote weight of 100
+    governance_test
+        .mint_community_tokens(&realm_cookie, 20)
+        .await;
+
+    let mut _governance_cookie = governance_test
+        .with_governance_using_config(
+            &realm_cookie,
+            &governed_account_cookie,
+            &token_owner_record_cookie1,
+            &governance_config,
+        )
+        .await
+        .unwrap();
+
+    let proposal_cookie = governance_test
+        .with_signed_off_proposal(&token_owner_record_cookie1, &mut _governance_cookie)
+        .await
+        .unwrap();
+
+    // Act
+    governance_test
+        .with_cast_yes_no_vote(
+            &proposal_cookie,
+            &token_owner_record_cookie1,
+            YesNoVote::Yes,
+        )
+        .await
+        .unwrap();
+
+    // Assert
+
+    let proposal_account = governance_test
+        .get_proposal_account(&proposal_cookie.address)
+        .await;
+
+    assert_eq!(ProposalState::Succeeded, proposal_account.state);
+    // max_vote_weight should be coerced from 60 to 100
+    assert_eq!(proposal_account.max_vote_weight, Some(100))
 }

@@ -1,6 +1,6 @@
 //! Program state processor
 
-use lpl_token_metadata::state::Metadata;
+use mpl_token_metadata::state::Metadata;
 use safecoin_program::program_option::COption;
 use std::slice::Iter;
 
@@ -89,18 +89,18 @@ fn process_accept_offer(
         let (maker_metadata_key, _) = Pubkey::find_program_address(
             &[
                 b"metadata",
-                lpl_token_metadata::id().as_ref(),
+                mpl_token_metadata::id().as_ref(),
                 maker_src_mint.key.as_ref(),
             ],
-            &lpl_token_metadata::id(),
+            &mpl_token_metadata::id(),
         );
         let (taker_metadata_key, _) = Pubkey::find_program_address(
             &[
                 b"metadata",
-                lpl_token_metadata::id().as_ref(),
+                mpl_token_metadata::id().as_ref(),
                 taker_src_mint.key.as_ref(),
             ],
-            &lpl_token_metadata::id(),
+            &mpl_token_metadata::id(),
         );
         if *metadata_info.key == maker_metadata_key {
             msg!("Taker pays for fees");

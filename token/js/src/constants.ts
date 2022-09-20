@@ -14,3 +14,12 @@ export const NATIVE_MINT = new PublicKey('Safe1111111111111111111111111111111111
 
 /** Address of the special mint for wrapped native SAFE in safe-token-2022 */
 export const NATIVE_MINT_2022 = new PublicKey('JUFMnWZ6ksBramrswzjQNraYAgHXbQPeC57URvxdcf8');
+
+/** Check that the token program provided is not `Tokenkeg...`, useful when using extensions */
+export function programSupportsExtensions(programId: PublicKey): boolean {
+    if (programId === TOKEN_PROGRAM_ID) {
+        return false;
+    } else {
+        return true;
+    }
+}

@@ -2,15 +2,8 @@ import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
 
-import {
-    Connection,
-    Keypair,
-    PublicKey,
-    Signer,
-    Transaction,
-    SystemProgram,
-    sendAndConfirmTransaction,
-} from '@safecoin/web3.js';
+import type { Connection, PublicKey, Signer } from '@safecoin/web3.js';
+import { Keypair, Transaction, SystemProgram, sendAndConfirmTransaction } from '@safecoin/web3.js';
 import {
     NATIVE_MINT,
     NATIVE_MINT_2022,
@@ -38,7 +31,7 @@ describe('native', () => {
             nativeMint = NATIVE_MINT;
         } else {
             nativeMint = NATIVE_MINT_2022;
-            await createNativeMint(connection, payer, undefined, TEST_PROGRAM_ID, nativeMint);
+            await createNativeMint(connection, payer, undefined, nativeMint, TEST_PROGRAM_ID);
         }
     });
     beforeEach(async () => {

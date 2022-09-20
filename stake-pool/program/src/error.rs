@@ -1,8 +1,10 @@
 //! Error types
 
-use num_derive::FromPrimitive;
-use safecoin_program::{decode_error::DecodeError, program_error::ProgramError};
-use thiserror::Error;
+use {
+    num_derive::FromPrimitive,
+    safecoin_program::{decode_error::DecodeError, program_error::ProgramError},
+    thiserror::Error,
+};
 
 /// Errors that may be returned by the StakePool program.
 #[derive(Clone, Debug, Eq, Error, FromPrimitive, PartialEq)]
@@ -130,6 +132,9 @@ pub enum StakePoolError {
     /// Too much SAFE withdrawn from the stake pool's reserve account
     #[error("SafeWithdrawalTooLarge")]
     SafeWithdrawalTooLarge,
+    /// Provided metadata account does not match metadata account derived for pool mint
+    #[error("InvalidMetadataAccount")]
+    InvalidMetadataAccount,
 }
 impl From<StakePoolError> for ProgramError {
     fn from(e: StakePoolError) -> Self {

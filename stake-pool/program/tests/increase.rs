@@ -1,4 +1,5 @@
-#![cfg(feature = "test-bpf")]
+#![allow(clippy::integer_arithmetic)]
+#![cfg(feature = "test-sbf")]
 
 mod helpers;
 
@@ -11,11 +12,12 @@ use {
     safecoin_program_test::*,
     safecoin_sdk::{
         signature::{Keypair, Signer},
+        stake::instruction::StakeError,
         transaction::{Transaction, TransactionError},
     },
     spl_stake_pool::{
         error::StakePoolError, find_transient_stake_program_address, id, instruction,
-        MINIMUM_ACTIVE_STAKE,
+        MINIMUM_RESERVE_LAMPORTS,
     },
 };
 
@@ -29,7 +31,7 @@ async fn setup() -> (
 ) {
     let (mut banks_client, payer, recent_blockhash) = program_test().start().await;
     let stake_pool_accounts = StakePoolAccounts::new();
-    let reserve_lamports = 100_000_000_000;
+    let reserve_lamports = 100_000_000_000 + MINIMUM_RESERVE_LAMPORTS;
     stake_pool_accounts
         .initialize_stake_pool(
             &mut banks_client,
@@ -48,13 +50,16 @@ async fn setup() -> (
     )
     .await;
 
+    let current_minimum_delegation =
+        stake_pool_get_minimum_delegation(&mut banks_client, &payer, &recent_blockhash).await;
+
     let _deposit_info = simple_deposit_stake(
         &mut banks_client,
         &payer,
         &recent_blockhash,
         &stake_pool_accounts,
         &validator_stake_account,
-        5_000_000,
+        current_minimum_delegation,
     )
     .await
     .unwrap();
@@ -96,13 +101,14 @@ async fn success() {
 
     let rent = banks_client.get_rent().await.unwrap();
     let stake_rent = rent.minimum_balance(std::mem::size_of::<stake::state::StakeState>());
-    let increase_amount = reserve_lamports - stake_rent - 1;
+    let increase_amount = reserve_lamports - stake_rent - MINIMUM_RESERVE_LAMPORTS;
     let error = stake_pool_accounts
         .increase_validator_stake(
             &mut banks_client,
             &payer,
             &recent_blockhash,
             &validator_stake.transient_stake_account,
+            &validator_stake.stake_account,
             &validator_stake.vote.pubkey(),
             increase_amount,
             validator_stake.transient_stake_seed,
@@ -161,6 +167,7 @@ async fn fail_with_wrong_withdraw_authority() {
             &stake_pool_accounts.validator_list.pubkey(),
             &stake_pool_accounts.reserve_stake.pubkey(),
             &validator_stake.transient_stake_account,
+            &validator_stake.stake_account,
             &validator_stake.vote.pubkey(),
             reserve_lamports / 2,
             validator_stake.transient_stake_seed,
@@ -207,6 +214,7 @@ async fn fail_with_wrong_validator_list() {
             &wrong_validator_list,
             &stake_pool_accounts.reserve_stake.pubkey(),
             &validator_stake.transient_stake_account,
+            &validator_stake.stake_account,
             &validator_stake.vote.pubkey(),
             reserve_lamports / 2,
             validator_stake.transient_stake_seed,
@@ -259,6 +267,7 @@ async fn fail_with_unknown_validator() {
             &stake_pool_accounts.validator_list.pubkey(),
             &stake_pool_accounts.reserve_stake.pubkey(),
             &unknown_stake.transient_stake_account,
+            &unknown_stake.stake_account,
             &unknown_stake.vote.pubkey(),
             reserve_lamports / 2,
             unknown_stake.transient_stake_seed,
@@ -300,6 +309,7 @@ async fn fail_increase_twice() {
             &payer,
             &recent_blockhash,
             &validator_stake.transient_stake_account,
+            &validator_stake.stake_account,
             &validator_stake.vote.pubkey(),
             reserve_lamports / 3,
             validator_stake.transient_stake_seed,
@@ -320,8 +330,9 @@ async fn fail_increase_twice() {
             &mut banks_client,
             &payer,
             &recent_blockhash,
-            &validator_stake.stake_account,
             &transient_stake_address,
+            &validator_stake.stake_account,
+            &validator_stake.vote.pubkey(),
             reserve_lamports / 4,
             transient_stake_seed,
         )
@@ -330,7 +341,7 @@ async fn fail_increase_twice() {
         .unwrap();
     match error {
         TransactionError::InstructionError(_, InstructionError::Custom(error_index)) => {
-            let program_error = StakePoolError::ValidatorNotFound as u32;
+            let program_error = StakePoolError::TransientAccountInUse as u32;
             assert_eq!(error_index, program_error);
         }
         _ => panic!("Wrong error"),
@@ -348,14 +359,18 @@ async fn fail_with_small_lamport_amount() {
         _reserve_lamports,
     ) = setup().await;
 
+    let current_minimum_delegation =
+        stake_pool_get_minimum_delegation(&mut banks_client, &payer, &recent_blockhash).await;
+
     let error = stake_pool_accounts
         .increase_validator_stake(
             &mut banks_client,
             &payer,
             &recent_blockhash,
             &validator_stake.transient_stake_account,
+            &validator_stake.stake_account,
             &validator_stake.vote.pubkey(),
-            MINIMUM_ACTIVE_STAKE - 1,
+            current_minimum_delegation - 1,
             validator_stake.transient_stake_seed,
         )
         .await
@@ -363,7 +378,10 @@ async fn fail_with_small_lamport_amount() {
         .unwrap();
 
     match error {
-        TransactionError::InstructionError(_, InstructionError::AccountNotRentExempt) => {}
+        TransactionError::InstructionError(_, InstructionError::Custom(error_index)) => {
+            let program_error = StakeError::InsufficientDelegation as u32;
+            assert_eq!(error_index, program_error);
+        }
         _ => panic!("Wrong error"),
     }
 }
@@ -385,6 +403,7 @@ async fn fail_overdraw_reserve() {
             &payer,
             &recent_blockhash,
             &validator_stake.transient_stake_account,
+            &validator_stake.stake_account,
             &validator_stake.vote.pubkey(),
             reserve_lamports,
             validator_stake.transient_stake_seed,
@@ -398,3 +417,6 @@ async fn fail_overdraw_reserve() {
         _ => panic!("Wrong error occurs while overdrawing reserve stake"),
     }
 }
+
+#[tokio::test]
+async fn fail_with_force_destaked_validator() {}

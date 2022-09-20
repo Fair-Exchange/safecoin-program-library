@@ -1,18 +1,20 @@
 import { struct, u32, u8 } from '@solana/buffer-layout';
 import { bool, publicKey, u64 } from '@safecoin/buffer-layout-utils';
-import { Commitment, Connection, PublicKey } from '@safecoin/web3.js';
-import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '../constants';
+import type { AccountInfo, Commitment, Connection } from '@safecoin/web3.js';
+import { PublicKey } from '@safecoin/web3.js';
+import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '../constants.js';
 import {
     TokenAccountNotFoundError,
     TokenInvalidAccountOwnerError,
     TokenInvalidAccountSizeError,
     TokenInvalidMintError,
     TokenOwnerOffCurveError,
-} from '../errors';
-import { ACCOUNT_SIZE } from './account';
-import { MULTISIG_SIZE } from './multisig';
-import { AccountType, ACCOUNT_TYPE_SIZE } from '../extensions/accountType';
-import { ExtensionType, getMintLen } from '../extensions/extensionType';
+} from '../errors.js';
+import { ACCOUNT_TYPE_SIZE, AccountType } from '../extensions/accountType.js';
+import type { ExtensionType } from '../extensions/extensionType.js';
+import { getMintLen } from '../extensions/extensionType.js';
+import { ACCOUNT_SIZE } from './account.js';
+import { MULTISIG_SIZE } from './multisig.js';
 
 /** Information about a mint */
 export interface Mint {
@@ -77,6 +79,19 @@ export async function getMint(
     programId = TOKEN_PROGRAM_ID
 ): Promise<Mint> {
     const info = await connection.getAccountInfo(address, commitment);
+    return unpackMint(address, info, programId);
+}
+
+/**
+ * Unpack a mint
+ *
+ * @param address   Mint account
+ * @param info      Mint account data
+ * @param programId SPL Token program account
+ *
+ * @return Unpacked mint
+ */
+export function unpackMint(address: PublicKey, info: AccountInfo<Buffer> | null, programId = TOKEN_PROGRAM_ID): Mint {
     if (!info) throw new TokenAccountNotFoundError();
     if (!info.owner.equals(programId)) throw new TokenInvalidAccountOwnerError();
     if (info.data.length < MINT_SIZE) throw new TokenInvalidAccountSizeError();
@@ -133,7 +148,8 @@ export async function getMinimumBalanceForRentExemptMintWithExtensions(
 }
 
 /**
- * Get the address of the associated token account for a given mint and owner
+ * Async version of getAssociatedTokenAddressSync
+ * For backwards compatibility
  *
  * @param mint                     Token mint account
  * @param owner                    Owner of the new account
@@ -141,7 +157,7 @@ export async function getMinimumBalanceForRentExemptMintWithExtensions(
  * @param programId                SPL Token program account
  * @param associatedTokenProgramId SPL Associated Token program account
  *
- * @return Address of the associated token account
+ * @return Promise containing the address of the associated token account
  */
 export async function getAssociatedTokenAddress(
     mint: PublicKey,
@@ -153,6 +169,34 @@ export async function getAssociatedTokenAddress(
     if (!allowOwnerOffCurve && !PublicKey.isOnCurve(owner.toBuffer())) throw new TokenOwnerOffCurveError();
 
     const [address] = await PublicKey.findProgramAddress(
+        [owner.toBuffer(), programId.toBuffer(), mint.toBuffer()],
+        associatedTokenProgramId
+    );
+
+    return address;
+}
+
+/**
+ * Get the address of the associated token account for a given mint and owner
+ *
+ * @param mint                     Token mint account
+ * @param owner                    Owner of the new account
+ * @param allowOwnerOffCurve       Allow the owner account to be a PDA (Program Derived Address)
+ * @param programId                SPL Token program account
+ * @param associatedTokenProgramId SPL Associated Token program account
+ *
+ * @return Address of the associated token account
+ */
+export function getAssociatedTokenAddressSync(
+    mint: PublicKey,
+    owner: PublicKey,
+    allowOwnerOffCurve = false,
+    programId = TOKEN_PROGRAM_ID,
+    associatedTokenProgramId = ASSOCIATED_TOKEN_PROGRAM_ID
+): PublicKey {
+    if (!allowOwnerOffCurve && !PublicKey.isOnCurve(owner.toBuffer())) throw new TokenOwnerOffCurveError();
+
+    const [address] = PublicKey.findProgramAddressSync(
         [owner.toBuffer(), programId.toBuffer(), mint.toBuffer()],
         associatedTokenProgramId
     );

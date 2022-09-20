@@ -1,4 +1,4 @@
-import { AccountMeta, PublicKey, Signer } from '@safecoin/web3.js';
+import type { AccountMeta, PublicKey, Signer } from '@safecoin/web3.js';
 
 /** @internal */
 export function addSigners(keys: AccountMeta[], ownerOrAuthority: PublicKey, multiSigners: Signer[]): AccountMeta[] {

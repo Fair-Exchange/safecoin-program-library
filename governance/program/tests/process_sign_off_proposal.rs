@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 mod program_test;
 
@@ -63,7 +63,7 @@ async fn test_sign_off_proposal() {
         .get_signatory_record_account(&signatory_record_cookie.address)
         .await;
 
-    assert_eq!(true, signatory_record_account.signed_off);
+    assert!(signatory_record_account.signed_off);
 
     let realm_account = governance_test
         .get_realm_account(&realm_cookie.address)

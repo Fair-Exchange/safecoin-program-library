@@ -3,7 +3,7 @@
 use crate::{
     error::LendingError,
     instruction::LendingInstruction,
-    math::{Decimal, Rate, TryAdd, TryDiv, TryMul, WAD},
+    math::{Decimal, Rate, TryAdd, TryDiv, TryMul},
     pyth,
     state::{
         CalculateBorrowResult, CalculateLiquidationResult, CalculateRepayResult,
@@ -83,9 +83,17 @@ pub fn process_instruction(
             msg!("Instruction: Withdraw Obligation Collateral");
             process_withdraw_obligation_collateral(program_id, collateral_amount, accounts)
         }
-        LendingInstruction::BorrowObligationLiquidity { liquidity_amount } => {
+        LendingInstruction::BorrowObligationLiquidity {
+            liquidity_amount,
+            slippage_limit,
+        } => {
             msg!("Instruction: Borrow Obligation Liquidity");
-            process_borrow_obligation_liquidity(program_id, liquidity_amount, accounts)
+            process_borrow_obligation_liquidity(
+                program_id,
+                liquidity_amount,
+                slippage_limit,
+                accounts,
+            )
         }
         LendingInstruction::RepayObligationLiquidity { liquidity_amount } => {
             msg!("Instruction: Repay Obligation Liquidity");
@@ -98,6 +106,10 @@ pub fn process_instruction(
         LendingInstruction::FlashLoan { amount } => {
             msg!("Instruction: Flash Loan");
             process_flash_loan(program_id, amount, accounts)
+        }
+        LendingInstruction::ModifyReserveConfig { new_config } => {
+            msg!("Instruction: Modify Reserve Config");
+            process_modify_reserve_config(program_id, new_config, accounts)
         }
     }
 }
@@ -173,44 +185,8 @@ fn process_init_reserve(
         msg!("Reserve must be initialized with liquidity");
         return Err(LendingError::InvalidAmount.into());
     }
-    if config.optimal_utilization_rate > 100 {
-        msg!("Optimal utilization rate must be in range [0, 100]");
-        return Err(LendingError::InvalidConfig.into());
-    }
-    if config.loan_to_value_ratio >= 100 {
-        msg!("Loan to value ratio must be in range [0, 100)");
-        return Err(LendingError::InvalidConfig.into());
-    }
-    if config.liquidation_bonus > 100 {
-        msg!("Liquidation bonus must be in range [0, 100]");
-        return Err(LendingError::InvalidConfig.into());
-    }
-    if config.liquidation_threshold <= config.loan_to_value_ratio
-        || config.liquidation_threshold > 100
-    {
-        msg!("Liquidation threshold must be in range (LTV, 100]");
-        return Err(LendingError::InvalidConfig.into());
-    }
-    if config.optimal_borrow_rate < config.min_borrow_rate {
-        msg!("Optimal borrow rate must be >= min borrow rate");
-        return Err(LendingError::InvalidConfig.into());
-    }
-    if config.optimal_borrow_rate > config.max_borrow_rate {
-        msg!("Optimal borrow rate must be <= max borrow rate");
-        return Err(LendingError::InvalidConfig.into());
-    }
-    if config.fees.borrow_fee_wad >= WAD {
-        msg!("Borrow fee must be in range [0, 1_000_000_000_000_000_000)");
-        return Err(LendingError::InvalidConfig.into());
-    }
-    if config.fees.flash_loan_fee_wad >= WAD {
-        msg!("Flash loan fee must be in range [0, 1_000_000_000_000_000_000)");
-        return Err(LendingError::InvalidConfig.into());
-    }
-    if config.fees.host_fee_percentage > 100 {
-        msg!("Host fee percentage must be in range [0, 100]");
-        return Err(LendingError::InvalidConfig.into());
-    }
+
+    config.validate()?;
 
     let account_info_iter = &mut accounts.iter().peekable();
     let source_liquidity_info = next_account_info(account_info_iter)?;
@@ -1002,7 +978,9 @@ fn process_withdraw_obligation_collateral(
         msg!("Obligation deposited value is zero");
         return Err(LendingError::ObligationDepositsZero.into());
     } else {
-        let max_withdraw_value = obligation.max_withdraw_value()?;
+        let max_withdraw_value = obligation.max_withdraw_value(Rate::from_percent(
+            withdraw_reserve.config.loan_to_value_ratio,
+        ))?;
         if max_withdraw_value == Decimal::zero() {
             msg!("Maximum withdraw value is zero");
             return Err(LendingError::WithdrawTooLarge.into());
@@ -1053,6 +1031,7 @@ fn process_withdraw_obligation_collateral(
 fn process_borrow_obligation_liquidity(
     program_id: &Pubkey,
     liquidity_amount: u64,
+    slippage_limit: u64,
     accounts: &[AccountInfo],
 ) -> ProgramResult {
     if liquidity_amount == 0 {
@@ -1169,6 +1148,11 @@ fn process_borrow_obligation_liquidity(
     if receive_amount == 0 {
         msg!("Borrow amount is too small to receive liquidity after fees");
         return Err(LendingError::BorrowTooSmall.into());
+    }
+
+    if liquidity_amount == u64::MAX && receive_amount < slippage_limit {
+        msg!("Received liquidity would be smaller than the desired slippage limit");
+        return Err(LendingError::ExceededSlippage.into());
     }
 
     borrow_reserve.liquidity.borrow(borrow_amount)?;
@@ -1692,6 +1676,53 @@ fn process_flash_loan(
             token_program: token_program_id.clone(),
         })?;
     }
+
+    Ok(())
+}
+
+fn process_modify_reserve_config(
+    program_id: &Pubkey,
+    new_config: ReserveConfig,
+    accounts: &[AccountInfo],
+) -> ProgramResult {
+    new_config.validate()?;
+
+    let account_info_iter = &mut accounts.iter().peekable();
+    let reserve_info = next_account_info(account_info_iter)?;
+    let lending_market_info = next_account_info(account_info_iter)?;
+    let lending_market_owner_info = next_account_info(account_info_iter)?;
+
+    if reserve_info.owner != program_id {
+        msg!("Reserve provided is not owned by the lending program");
+        return Err(LendingError::InvalidAccountOwner.into());
+    }
+
+    let lending_market = LendingMarket::unpack(&lending_market_info.data.borrow())?;
+    if lending_market_info.owner != program_id {
+        msg!("Lending market provided is not owned by the lending program");
+        return Err(LendingError::InvalidAccountOwner.into());
+    }
+    if &lending_market.owner != lending_market_owner_info.key {
+        msg!("Lending market owner does not match the lending market owner provided");
+        return Err(LendingError::InvalidMarketOwner.into());
+    }
+    if !lending_market_owner_info.is_signer {
+        msg!("Lending market owner provided must be a signer");
+        return Err(LendingError::InvalidSigner.into());
+    }
+
+    let mut reserve = Reserve::unpack(&reserve_info.data.borrow_mut())?;
+    // Validate that the reserve account corresponds to the correct lending market,
+    // after validating above that the lending market and lending market owner correspond,
+    // to prevent one compromised lending market owner from changing configs on other lending markets
+    if reserve.lending_market != *lending_market_info.key {
+        msg!("Reserve account does not match the lending market");
+        return Err(LendingError::InvalidAccountInput.into());
+    }
+
+    reserve.config = new_config;
+
+    Reserve::pack(reserve, &mut reserve_info.data.borrow_mut())?;
 
     Ok(())
 }

@@ -1,3 +1,4 @@
+#![allow(clippy::integer_arithmetic)]
 #![deny(missing_docs)]
 #![cfg_attr(not(test), forbid(unsafe_code))]
 
@@ -10,6 +11,8 @@ pub mod instruction;
 pub mod native_mint;
 pub mod pod;
 pub mod processor;
+#[cfg(feature = "serde-traits")]
+pub mod serialization;
 pub mod state;
 
 #[cfg(not(feature = "no-entrypoint"))]

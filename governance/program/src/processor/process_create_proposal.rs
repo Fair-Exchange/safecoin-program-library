@@ -21,7 +21,9 @@ use crate::{
             ProposalOption, ProposalV2, VoteType,
         },
         realm::get_realm_data_for_governing_token_mint,
+        realm_config::get_realm_config_data_for_realm,
         token_owner_record::get_token_owner_record_data_for_realm,
+        vote_record::VoteKind,
     },
 };
 
@@ -64,6 +66,12 @@ pub fn process_create_proposal(
     let mut governance_data =
         get_governance_data_for_realm(program_id, governance_info, realm_info.key)?;
 
+    governance_data.assert_governing_token_mint_can_vote(
+        &realm_data,
+        governing_token_mint_info.key,
+        &VoteKind::Electorate,
+    )?;
+
     let mut proposal_owner_record_data = get_token_owner_record_data_for_realm(
         program_id,
         proposal_owner_record_info,
@@ -75,13 +83,13 @@ pub fn process_create_proposal(
         .assert_token_owner_or_delegate_is_signer(governance_authority_info)?;
 
     let realm_config_info = next_account_info(account_info_iter)?; // 10
+    let realm_config_data =
+        get_realm_config_data_for_realm(program_id, realm_config_info, realm_info.key)?;
 
     let voter_weight = proposal_owner_record_data.resolve_voter_weight(
-        program_id,
-        realm_config_info,
-        account_info_iter,
-        realm_info.key,
+        account_info_iter, // voter_weight_record  *11
         &realm_data,
+        &realm_config_data,
         VoterWeightAction::CreateProposal,
         governance_info.key,
     )?;
@@ -143,14 +151,15 @@ pub fn process_create_proposal(
         options: proposal_options,
         deny_vote_weight,
 
-        veto_vote_weight: None,
+        veto_vote_weight: 0,
         abstain_vote_weight: None,
 
         max_vote_weight: None,
         max_voting_time: None,
-        vote_threshold_percentage: None,
+        vote_threshold: None,
 
         reserved: [0; 64],
+        reserved1: 0,
     };
 
     create_and_serialize_account_signed::<ProposalV2>(

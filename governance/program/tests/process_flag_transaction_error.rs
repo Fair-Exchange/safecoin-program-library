@@ -1,4 +1,4 @@
-#![cfg(feature = "test-bpf")]
+#![cfg(feature = "test-sbf")]
 
 mod program_test;
 
@@ -53,7 +53,7 @@ async fn test_execute_flag_transaction_error() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -138,6 +138,7 @@ async fn test_execute_proposal_transaction_after_flagged_with_error() {
             &token_owner_record_cookie,
             0,
             None,
+            None,
         )
         .await
         .unwrap();
@@ -148,7 +149,7 @@ async fn test_execute_proposal_transaction_after_flagged_with_error() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -234,6 +235,7 @@ async fn test_execute_second_transaction_after_first_transaction_flagged_with_er
             &token_owner_record_cookie,
             0,
             None,
+            None,
         )
         .await
         .unwrap();
@@ -244,7 +246,7 @@ async fn test_execute_second_transaction_after_first_transaction_flagged_with_er
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -316,6 +318,7 @@ async fn test_flag_transaction_error_with_proposal_transaction_already_executed_
             &token_owner_record_cookie,
             0,
             None,
+            None,
         )
         .await
         .unwrap();
@@ -332,7 +335,7 @@ async fn test_flag_transaction_error_with_proposal_transaction_already_executed_
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 
@@ -406,7 +409,7 @@ async fn test_flag_transaction_error_with_owner_or_delegate_must_sign_error() {
         .unwrap();
 
     governance_test
-        .with_cast_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
+        .with_cast_yes_no_vote(&proposal_cookie, &token_owner_record_cookie, YesNoVote::Yes)
         .await
         .unwrap();
 

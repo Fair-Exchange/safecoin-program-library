@@ -25,11 +25,11 @@
         "build": "rm -rf lib/* && tsc && rollup -c && rm lib/rollup.config.d.ts",
         "deploy": "yarn docs && gh-pages -d docs -e token-lending",
         "docs": "rm -rf docs/* && typedoc",
-        "lint": "eslint . --ext .ts && prettier --check '**/*.{ts,js,json}'",
+        "lint": "eslint . --ext .ts --max-warnings 0 && prettier --check '**/*.{ts,js,json}'",
         "lint:fix": "eslint . --ext .ts --fix && prettier --write '**/*.{ts,js,json}'"
     },
     "dependencies": {
-        "@safecoin/buffer-layout": "^4.0.0",
+        "@solana/buffer-layout": "^4.0.0",
         "@safecoin/buffer-layout-utils": "^0.2.0",
         "bigint-buffer": "^1.1.5",
         "bignumber.js": "^9.0.1"

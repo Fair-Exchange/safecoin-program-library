@@ -1,1 +1,1 @@
-declare module '@safecoin/buffer-layout';
+declare module '@solana/buffer-layout';

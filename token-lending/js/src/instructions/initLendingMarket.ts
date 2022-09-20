@@ -1,6 +1,6 @@
 import { TOKEN_PROGRAM_ID } from '@safecoin/safe-token';
 import { PublicKey, SYSVAR_RENT_PUBKEY, TransactionInstruction } from '@safecoin/web3.js';
-import { blob, struct, u8 } from '@safecoin/buffer-layout';
+import { blob, struct, u8 } from '@solana/buffer-layout';
 import { LENDING_PROGRAM_ID, ORACLE_PROGRAM_ID } from '../constants';
 import { publicKey } from '@safecoin/buffer-layout-utils';
 import { LendingInstruction } from './instruction';

@@ -1,4 +1,5 @@
-#![cfg(feature = "test-bpf")]
+#![allow(clippy::integer_arithmetic)]
+#![cfg(feature = "test-sbf")]
 
 mod helpers;
 
@@ -12,13 +13,15 @@ use {
     },
     safecoin_program_test::*,
     safecoin_sdk::{
-        instruction::InstructionError, signature::Keypair, signature::Signer,
-        transaction::Transaction, transaction::TransactionError, transport::TransportError,
+        instruction::InstructionError,
+        signature::{Keypair, Signer},
+        transaction::{Transaction, TransactionError},
+        transport::TransportError,
     },
     spl_stake_pool::{
         error, find_deposit_authority_program_address, id,
         instruction::{self, FundingType},
-        state,
+        state, MINIMUM_RESERVE_LAMPORTS,
     },
 };
 
@@ -26,7 +29,12 @@ async fn setup() -> (BanksClient, Keypair, Hash, StakePoolAccounts, Keypair) {
     let (mut banks_client, payer, recent_blockhash) = program_test().start().await;
     let stake_pool_accounts = StakePoolAccounts::new();
     stake_pool_accounts
-        .initialize_stake_pool(&mut banks_client, &payer, &recent_blockhash, 1)
+        .initialize_stake_pool(
+            &mut banks_client,
+            &payer,
+            &recent_blockhash,
+            MINIMUM_RESERVE_LAMPORTS,
+        )
         .await
         .unwrap();
 

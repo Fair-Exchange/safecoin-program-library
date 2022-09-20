@@ -2,6 +2,15 @@
 
 #![cfg(not(feature = "no-entrypoint"))]
 
+solana_security_txt::security_txt! {
+    name: "Safecoin Farms",
+    project_url: "https://github.com/fair-exchange/safecoin-program-library/tree/master/farms",
+    contacts: "email:solana.farms@protonmail.com",
+    policy: "",
+    preferred_languages: "en",
+    auditors: "Halborn"
+}
+
 use safecoin_program::{
     account_info::AccountInfo, entrypoint, entrypoint::ProgramResult, pubkey::Pubkey,
 };

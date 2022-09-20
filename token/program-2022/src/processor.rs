@@ -8,8 +8,10 @@ use {
             confidential_transfer::{self, ConfidentialTransferAccount},
             default_account_state::{self, DefaultAccountState},
             immutable_owner::ImmutableOwner,
+            interest_bearing_mint::{self, InterestBearingConfig},
             memo_transfer::{self, check_previous_sibling_instruction_is_memo, memo_required},
             mint_close_authority::MintCloseAuthority,
+            non_transferable::NonTransferable,
             reallocate,
             transfer_fee::{self, TransferFeeAmount, TransferFeeConfig},
             ExtensionType, StateWithExtensions, StateWithExtensionsMut,
@@ -18,20 +20,17 @@ use {
         native_mint,
         state::{Account, AccountState, Mint, Multisig},
     },
-    num_traits::FromPrimitive,
     safecoin_program::{
         account_info::{next_account_info, AccountInfo},
         clock::Clock,
-        decode_error::DecodeError,
         entrypoint::ProgramResult,
         msg,
         program::{invoke, invoke_signed, set_return_data},
-        program_error::{PrintProgramError, ProgramError},
-        program_memory::sol_memset,
+        program_error::ProgramError,
         program_option::COption,
         program_pack::Pack,
         pubkey::Pubkey,
-        system_instruction,
+        system_instruction, system_program,
         sysvar::{rent::Rent, Sysvar},
     },
     std::convert::{TryFrom, TryInto},
@@ -290,6 +289,11 @@ impl Processor {
 
             let mint_data = mint_info.try_borrow_data()?;
             let mint = StateWithExtensions::<Mint>::unpack(&mint_data)?;
+
+            if mint.get_extension::<NonTransferable>().is_ok() {
+                return Err(TokenError::NonTransferable.into());
+            }
+
             if expected_decimals != mint.base.decimals {
                 return Err(TokenError::MintDecimalsMismatch.into());
             }
@@ -610,7 +614,7 @@ impl Processor {
                     mint.base.freeze_authority = new_authority;
                     mint.pack_base();
                 }
-                AuthorityType::CloseAccount => {
+                AuthorityType::CloseMint => {
                     let extension = mint.get_extension_mut::<MintCloseAuthority>()?;
                     let maybe_close_authority: Option<Pubkey> = extension.close_authority.into();
                     let close_authority =
@@ -654,6 +658,20 @@ impl Processor {
                     )?;
                     extension.withdraw_withheld_authority = new_authority.try_into()?;
                 }
+                AuthorityType::InterestRate => {
+                    let extension = mint.get_extension_mut::<InterestBearingConfig>()?;
+                    let maybe_rate_authority: Option<Pubkey> = extension.rate_authority.into();
+                    let rate_authority =
+                        maybe_rate_authority.ok_or(TokenError::AuthorityTypeNotSupported)?;
+                    Self::validate_owner(
+                        program_id,
+                        &rate_authority,
+                        authority_info,
+                        authority_info_data_len,
+                        account_info_iter.as_slice(),
+                    )?;
+                    extension.rate_authority = new_authority.try_into()?;
+                }
                 _ => {
                     return Err(TokenError::AuthorityTypeNotSupported.into());
                 }
@@ -694,6 +712,17 @@ impl Processor {
 
         let mut mint_data = mint_info.data.borrow_mut();
         let mut mint = StateWithExtensionsMut::<Mint>::unpack(&mut mint_data)?;
+
+        // If the mint if non-transferable, only allow minting to accounts
+        // with immutable ownership.
+        if mint.get_extension::<NonTransferable>().is_ok()
+            && destination_account
+                .get_extension::<ImmutableOwner>()
+                .is_err()
+        {
+            return Err(TokenError::NonTransferableNeedsImmutableOwnership.into());
+        }
+
         if let Some(expected_decimals) = expected_decimals {
             if expected_decimals != mint.base.decimals {
                 return Err(TokenError::MintDecimalsMismatch.into());
@@ -845,7 +874,7 @@ impl Processor {
             return Err(ProgramError::InvalidAccountData);
         }
 
-        let mut source_account_data = source_account_info.data.borrow_mut();
+        let source_account_data = source_account_info.data.borrow();
         if let Ok(source_account) = StateWithExtensions::<Account>::unpack(&source_account_data) {
             if !source_account.base.is_native() && source_account.base.amount != 0 {
                 return Err(TokenError::NonNativeHasBalance.into());
@@ -905,8 +934,8 @@ impl Processor {
             .ok_or(TokenError::Overflow)?;
 
         **source_account_info.lamports.borrow_mut() = 0;
-        let data_len = source_account_data.len();
-        sol_memset(*source_account_data, 0, data_len);
+        drop(source_account_data);
+        delete_account(source_account_info)?;
 
         Ok(())
     }
@@ -999,7 +1028,7 @@ impl Processor {
 
         let mut mint_data = mint_account_info.data.borrow_mut();
         let mut mint = StateWithExtensionsMut::<Mint>::unpack_uninitialized(&mut mint_data)?;
-        let extension = mint.init_extension::<MintCloseAuthority>()?;
+        let extension = mint.init_extension::<MintCloseAuthority>(true)?;
         extension.close_authority = close_authority.try_into()?;
 
         Ok(())
@@ -1031,7 +1060,9 @@ impl Processor {
         let token_account_data = &mut token_account_info.data.borrow_mut();
         let mut token_account =
             StateWithExtensionsMut::<Account>::unpack_uninitialized(token_account_data)?;
-        token_account.init_extension::<ImmutableOwner>().map(|_| ())
+        token_account
+            .init_extension::<ImmutableOwner>(true)
+            .map(|_| ())
     }
 
     /// Processes an [AmountToUiAmount](enum.TokenInstruction.html) instruction
@@ -1043,8 +1074,14 @@ impl Processor {
         let mint_data = mint_info.data.borrow();
         let mint = StateWithExtensions::<Mint>::unpack(&mint_data)
             .map_err(|_| Into::<ProgramError>::into(TokenError::InvalidMint))?;
-        // TODO: update this with interest-bearing token extension logic
-        let ui_amount = crate::amount_to_ui_amount_string_trimmed(amount, mint.base.decimals);
+        let ui_amount = if let Ok(extension) = mint.get_extension::<InterestBearingConfig>() {
+            let unix_timestamp = Clock::get()?.unix_timestamp;
+            extension
+                .amount_to_ui_amount(amount, mint.base.decimals, unix_timestamp)
+                .ok_or(ProgramError::InvalidArgument)?
+        } else {
+            crate::amount_to_ui_amount_string_trimmed(amount, mint.base.decimals)
+        };
 
         set_return_data(&ui_amount.into_bytes());
         Ok(())
@@ -1059,8 +1096,12 @@ impl Processor {
         let mint_data = mint_info.data.borrow();
         let mint = StateWithExtensions::<Mint>::unpack(&mint_data)
             .map_err(|_| Into::<ProgramError>::into(TokenError::InvalidMint))?;
-        // TODO: update this with interest-bearing token extension logic
-        let amount = crate::try_ui_amount_into_amount(ui_amount.to_string(), mint.base.decimals)?;
+        let amount = if let Ok(extension) = mint.get_extension::<InterestBearingConfig>() {
+            let unix_timestamp = Clock::get()?.unix_timestamp;
+            extension.try_ui_amount_into_amount(ui_amount, mint.base.decimals, unix_timestamp)?
+        } else {
+            crate::try_ui_amount_into_amount(ui_amount.to_string(), mint.base.decimals)?
+        };
 
         set_return_data(&amount.to_le_bytes());
         Ok(())
@@ -1109,6 +1150,18 @@ impl Processor {
             },
             &mut native_mint_info.data.borrow_mut(),
         )
+    }
+
+    /// Processes an [InitializeNonTransferableMint](enum.TokenInstruction.html) instruction
+    pub fn process_initialize_non_transferable_mint(accounts: &[AccountInfo]) -> ProgramResult {
+        let account_info_iter = &mut accounts.iter();
+        let mint_account_info = next_account_info(account_info_iter)?;
+
+        let mut mint_data = mint_account_info.data.borrow_mut();
+        let mut mint = StateWithExtensionsMut::<Mint>::unpack_uninitialized(&mut mint_data)?;
+        mint.init_extension::<NonTransferable>(true)?;
+
+        Ok(())
     }
 
     /// Processes an [Instruction](enum.Instruction.html).
@@ -1260,6 +1313,17 @@ impl Processor {
                 msg!("Instruction: CreateNativeMint");
                 Self::process_create_native_mint(accounts)
             }
+            TokenInstruction::InitializeNonTransferableMint => {
+                msg!("Instruction: InitializeNonTransferableMint");
+                Self::process_initialize_non_transferable_mint(accounts)
+            }
+            TokenInstruction::InterestBearingMintExtension => {
+                interest_bearing_mint::processor::process_instruction(
+                    program_id,
+                    accounts,
+                    &input[1..],
+                )
+            }
         }
     }
 
@@ -1323,99 +1387,23 @@ impl Processor {
     }
 }
 
-impl PrintProgramError for TokenError {
-    fn print<E>(&self)
-    where
-        E: 'static + std::error::Error + DecodeError<E> + PrintProgramError + FromPrimitive,
-    {
-        match self {
-            TokenError::NotRentExempt => msg!("Error: Lamport balance below rent-exempt threshold"),
-            TokenError::InsufficientFunds => msg!("Error: insufficient funds"),
-            TokenError::InvalidMint => msg!("Error: Invalid Mint"),
-            TokenError::MintMismatch => msg!("Error: Account not associated with this Mint"),
-            TokenError::OwnerMismatch => msg!("Error: owner does not match"),
-            TokenError::FixedSupply => msg!("Error: the total supply of this token is fixed"),
-            TokenError::AlreadyInUse => msg!("Error: account or token already in use"),
-            TokenError::InvalidNumberOfProvidedSigners => {
-                msg!("Error: Invalid number of provided signers")
-            }
-            TokenError::InvalidNumberOfRequiredSigners => {
-                msg!("Error: Invalid number of required signers")
-            }
-            TokenError::UninitializedState => msg!("Error: State is uninitialized"),
-            TokenError::NativeNotSupported => {
-                msg!("Error: Instruction does not support native tokens")
-            }
-            TokenError::NonNativeHasBalance => {
-                msg!("Error: Non-native account can only be closed if its balance is zero")
-            }
-            TokenError::InvalidInstruction => msg!("Error: Invalid instruction"),
-            TokenError::InvalidState => msg!("Error: Invalid account state for operation"),
-            TokenError::Overflow => msg!("Error: Operation overflowed"),
-            TokenError::AuthorityTypeNotSupported => {
-                msg!("Error: Account does not support specified authority type")
-            }
-            TokenError::MintCannotFreeze => msg!("Error: This token mint cannot freeze accounts"),
-            TokenError::AccountFrozen => msg!("Error: Account is frozen"),
-            TokenError::MintDecimalsMismatch => {
-                msg!("Error: decimals different from the Mint decimals")
-            }
-            TokenError::NonNativeNotSupported => {
-                msg!("Error: Instruction does not support non-native tokens")
-            }
-            TokenError::ExtensionTypeMismatch => {
-                msg!("Error: New extension type does not match already existing extensions")
-            }
-            TokenError::ExtensionBaseMismatch => {
-                msg!("Error: Extension does not match the base type provided")
-            }
-            TokenError::ExtensionAlreadyInitialized => {
-                msg!("Error: Extension already initialized on this account")
-            }
-            TokenError::ConfidentialTransferAccountHasBalance => {
-                msg!("Error: An account can only be closed if its confidential balance is zero")
-            }
-            TokenError::ConfidentialTransferAccountNotApproved => {
-                msg!("Error: Account not approved for confidential transfers")
-            }
-            TokenError::ConfidentialTransferDepositsAndTransfersDisabled => {
-                msg!("Error: Account not accepting deposits or transfers")
-            }
-            TokenError::ConfidentialTransferElGamalPubkeyMismatch => {
-                msg!("Error: ElGamal public key mismatch")
-            }
-            TokenError::ConfidentialTransferBalanceMismatch => {
-                msg!("Error: Balance mismatch")
-            }
-            TokenError::MintHasSupply => {
-                msg!("Error: Mint has non-zero supply. Burn all tokens before closing the mint")
-            }
-            TokenError::NoAuthorityExists => {
-                msg!("Error: No authority exists to perform the desired operation");
-            }
-            TokenError::TransferFeeExceedsMaximum => {
-                msg!("Error: Transfer fee exceeds maximum of 10,000 basis points");
-            }
-            TokenError::MintRequiredForTransfer => {
-                msg!("Mint required for this account to transfer tokens, use `transfer_checked` or `transfer_checked_with_fee`");
-            }
-            TokenError::FeeMismatch => {
-                msg!("Calculated fee does not match expected fee");
-            }
-            TokenError::FeeParametersMismatch => {
-                msg!("Fee parameters associated with zero-knowledge proofs do not match fee parameters in mint")
-            }
-            TokenError::ImmutableOwner => {
-                msg!("The owner authority cannot be changed");
-            }
-            TokenError::AccountHasWithheldTransferFees => {
-                msg!("Error: An account can only be closed if its withheld fee balance is zero, harvest fees to the mint and try again");
-            }
-            TokenError::NoMemo => {
-                msg!("Error: No memo in previous instruction; required for recipient to receive a transfer");
-            }
-        }
-    }
+/// Helper function to mostly delete an account in a test environment.  We could
+/// potentially muck around the bytes assuming that a vec is passed in, but that
+/// would be more trouble than it's worth.
+#[cfg(not(target_os = "solana"))]
+fn delete_account(account_info: &AccountInfo) -> Result<(), ProgramError> {
+    account_info.assign(&system_program::id());
+    let mut account_data = account_info.data.borrow_mut();
+    let data_len = account_data.len();
+    safecoin_program::program_memory::sol_memset(*account_data, 0, data_len);
+    Ok(())
+}
+
+/// Helper function to totally delete an account on-chain
+#[cfg(target_os = "solana")]
+fn delete_account(account_info: &AccountInfo) -> Result<(), ProgramError> {
+    account_info.assign(&system_program::id());
+    account_info.realloc(0, false)
 }
 
 #[cfg(test)]
@@ -1430,7 +1418,7 @@ mod tests {
             account_info::IntoAccountInfo,
             clock::Epoch,
             instruction::Instruction,
-            program_error,
+            program_error::{self, PrintProgramError},
             sysvar::{clock::Clock, rent},
         },
         safecoin_sdk::account::{

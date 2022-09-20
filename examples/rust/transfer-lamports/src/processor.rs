@@ -1,3 +1,4 @@
+#![allow(clippy::integer_arithmetic)]
 //! Program instruction processor
 
 use safecoin_program::{

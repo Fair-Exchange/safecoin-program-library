@@ -1,4 +1,5 @@
-#![cfg(feature = "test-bpf")]
+#![allow(clippy::integer_arithmetic)]
+#![cfg(feature = "test-sbf")]
 
 mod helpers;
 
@@ -15,11 +16,13 @@ use {
     safecoin_program_test::*,
     safecoin_sdk::{
         signature::{Keypair, Signer},
-        transaction::Transaction,
-        transaction::TransactionError,
+        transaction::{Transaction, TransactionError},
         transport::TransportError,
     },
-    spl_stake_pool::{error::StakePoolError, id, instruction, minimum_stake_lamports, state},
+    spl_stake_pool::{
+        error::StakePoolError, id, instruction, minimum_stake_lamports, state,
+        MINIMUM_RESERVE_LAMPORTS,
+    },
     safe_token::error as token_error,
 };
 
@@ -40,7 +43,7 @@ async fn setup() -> (
             &mut context.banks_client,
             &context.payer,
             &context.last_blockhash,
-            1,
+            MINIMUM_RESERVE_LAMPORTS,
         )
         .await
         .unwrap();
@@ -246,8 +249,14 @@ async fn success() {
     let stake_state =
         deserialize::<stake::state::StakeState>(&validator_stake_account.data).unwrap();
     let meta = stake_state.meta().unwrap();
+    let stake_minimum_delegation = stake_get_minimum_delegation(
+        &mut context.banks_client,
+        &context.payer,
+        &context.last_blockhash,
+    )
+    .await;
     assert_eq!(
-        validator_stake_account.lamports - minimum_stake_lamports(&meta),
+        validator_stake_account.lamports - minimum_stake_lamports(&meta, stake_minimum_delegation),
         post_validator_stake_item.stake_lamports()
     );
     assert_eq!(post_validator_stake_item.transient_stake_lamports, 0);
@@ -441,8 +450,14 @@ async fn success_with_extra_stake_lamports() {
     let stake_state =
         deserialize::<stake::state::StakeState>(&validator_stake_account.data).unwrap();
     let meta = stake_state.meta().unwrap();
+    let stake_minimum_delegation = stake_get_minimum_delegation(
+        &mut context.banks_client,
+        &context.payer,
+        &context.last_blockhash,
+    )
+    .await;
     assert_eq!(
-        validator_stake_account.lamports - minimum_stake_lamports(&meta),
+        validator_stake_account.lamports - minimum_stake_lamports(&meta, stake_minimum_delegation),
         post_validator_stake_item.stake_lamports()
     );
     assert_eq!(post_validator_stake_item.transient_stake_lamports, 0);
@@ -616,7 +631,12 @@ async fn fail_with_unknown_validator() {
     let (mut banks_client, payer, recent_blockhash) = program_test().start().await;
     let stake_pool_accounts = StakePoolAccounts::new();
     stake_pool_accounts
-        .initialize_stake_pool(&mut banks_client, &payer, &recent_blockhash, 1)
+        .initialize_stake_pool(
+            &mut banks_client,
+            &payer,
+            &recent_blockhash,
+            MINIMUM_RESERVE_LAMPORTS,
+        )
         .await
         .unwrap();
 
