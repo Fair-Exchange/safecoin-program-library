@@ -42,11 +42,10 @@ async fn reallocate() {
 
     // create account just large enough for base
     let alice_account = Keypair::new();
-    token
+    let alice_account = token
         .create_auxiliary_token_account(&alice_account, &alice.pubkey())
         .await
         .unwrap();
-    let alice_account = alice_account.pubkey();
 
     // reallocate fails on invalid extension type
     let error = token
@@ -145,11 +144,10 @@ async fn reallocate_without_current_extension_knowledge() {
 
     // create account just large enough for TransferFeeAmount extension
     let alice_account = Keypair::new();
-    token
+    let alice_account = token
         .create_auxiliary_token_account(&alice_account, &alice.pubkey())
         .await
         .unwrap();
-    let alice_account = alice_account.pubkey();
 
     // reallocate resizes account to accommodate new and existing extensions
     token

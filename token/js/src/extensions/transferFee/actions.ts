@@ -1,13 +1,20 @@
-import type { ConfirmOptions, Connection, PublicKey, Signer, TransactionSignature } from '@safecoin/web3.js';
-import { sendAndConfirmTransaction, Transaction } from '@safecoin/web3.js';
-import { getSigners } from '../../actions/internal.js';
-import { TOKEN_2022_PROGRAM_ID } from '../../constants.js';
 import {
-    createHarvestWithheldTokensToMintInstruction,
+    ConfirmOptions,
+    Connection,
+    PublicKey,
+    sendAndConfirmTransaction,
+    Signer,
+    Transaction,
+    TransactionSignature,
+} from '@safecoin/web3.js';
+import { TOKEN_2022_PROGRAM_ID } from '../../constants';
+import {
     createTransferCheckedWithFeeInstruction,
+    createHarvestWithheldTokensToMintInstruction,
     createWithdrawWithheldTokensFromAccountsInstruction,
     createWithdrawWithheldTokensFromMintInstruction,
-} from './instructions.js';
+} from './instructions';
+import { getSigners } from '../../actions/internal';
 
 /**
  * Transfer tokens from one account to another, asserting the transfer fee, token mint, and decimals

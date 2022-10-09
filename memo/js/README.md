@@ -11,19 +11,10 @@ A TypeScript library for interacting with the SPL Memo program.
 ## Install
 
 ```shell
-npm install --save @solana/safe-memo @safecoin/web3.js
-```
-_OR_
-```shell
-yarn add @solana/safe-memo @safecoin/web3.js
+yarn add @solana/safe-memo
 ```
 
 ## Build from Source
-
-0. Prerequisites
-
-* Node 16+
-* NPM 8+
 
 1. Clone the project:
 ```shell
@@ -37,15 +28,15 @@ cd safecoin-program-library/memo/js
 
 3. Install the dependencies:
 ```shell
-npm install
+yarn install
 ```
 
 4. Build the library:
 ```shell
-npm run build
+yarn build
 ```
 
 5. Run the tests:
 ```shell
-npm run test
+yarn test
 ```

@@ -1,5 +1,5 @@
 anchor_version = "0.24.2"
-solana_version = "1.14.3"
+solana_version = "1.11.6"
 
 [workspace]
 members = [
@@ -8,9 +8,6 @@ members = [
   "stake-pool/program",
   "token/program",
   "token/program-2022",
-]
-exclude = [
-  "account-compression/"
 ]
 
 [provider]

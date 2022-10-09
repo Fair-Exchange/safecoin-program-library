@@ -2,8 +2,15 @@ import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
 
-import type { Connection, PublicKey, Signer } from '@safecoin/web3.js';
-import { sendAndConfirmTransaction, Keypair, SystemProgram, Transaction } from '@safecoin/web3.js';
+import {
+    sendAndConfirmTransaction,
+    Connection,
+    Keypair,
+    PublicKey,
+    Signer,
+    SystemProgram,
+    Transaction,
+} from '@safecoin/web3.js';
 import {
     AccountState,
     createAccount,

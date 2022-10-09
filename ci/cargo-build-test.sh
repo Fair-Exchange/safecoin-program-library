@@ -15,8 +15,8 @@ set -x
 make -C examples/c
 
 # Build/test all host crates
-cargo +"$rust_stable" build --workspace --exclude safe-token-cli --exclude safe-token-upgrade-cli
-cargo +"$rust_stable" test --workspace --exclude safe-token-cli --exclude safe-token-upgrade-cli -- --nocapture
+cargo +"$rust_stable" build --workspace --exclude safe-token-cli
+cargo +"$rust_stable" test --workspace --exclude safe-token-cli -- --nocapture
 
 # Run test-client sanity check
 cargo +"$rust_stable" run --manifest-path=utils/test-client/Cargo.toml

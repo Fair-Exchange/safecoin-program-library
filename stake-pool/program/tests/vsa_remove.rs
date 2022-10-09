@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 #![cfg(feature = "test-sbf")]
 
 mod helpers;
@@ -21,7 +20,7 @@ use {
     },
     spl_stake_pool::{
         error::StakePoolError, find_transient_stake_program_address, id, instruction, state,
-        MINIMUM_RESERVE_LAMPORTS,
+        MINIMUM_ACTIVE_STAKE, MINIMUM_RESERVE_LAMPORTS,
     },
 };
 
@@ -693,13 +692,7 @@ async fn success_with_hijacked_transient_account() {
         setup().await;
     let rent = context.banks_client.get_rent().await.unwrap();
     let stake_rent = rent.minimum_balance(std::mem::size_of::<stake::state::StakeState>());
-    let current_minimum_delegation = stake_pool_get_minimum_delegation(
-        &mut context.banks_client,
-        &context.payer,
-        &context.last_blockhash,
-    )
-    .await;
-    let increase_amount = current_minimum_delegation + stake_rent;
+    let increase_amount = MINIMUM_ACTIVE_STAKE + stake_rent;
 
     // increase stake on validator
     let error = stake_pool_accounts
@@ -777,7 +770,7 @@ async fn success_with_hijacked_transient_account() {
             system_instruction::transfer(
                 &context.payer.pubkey(),
                 &transient_stake_address,
-                current_minimum_delegation + stake_rent,
+                MINIMUM_RESERVE_LAMPORTS + stake_rent,
             ),
             stake::instruction::initialize(
                 &transient_stake_address,

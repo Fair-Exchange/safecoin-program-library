@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 #![deny(missing_docs)]
 
 //! A lending program for the Safecoin blockchain.

@@ -23,52 +23,30 @@ async fn run_basic(context: TestContext) {
     } = context.token_context.unwrap();
 
     let alice_account = Keypair::new();
-    token
+    let alice_account = token
         .create_auxiliary_token_account(&alice_account, &alice.pubkey())
         .await
         .unwrap();
-    let alice_account = alice_account.pubkey();
 
     // mint a token
     let amount = 10;
     token
-        .mint_to(
-            &alice_account,
-            &mint_authority.pubkey(),
-            amount,
-            Some(decimals),
-            &vec![&mint_authority],
-        )
+        .mint_to(&alice_account, &mint_authority, amount)
         .await
         .unwrap();
 
     // unchecked is ok
-    token
-        .burn(&alice_account, &alice.pubkey(), 1, None, &vec![&alice])
-        .await
-        .unwrap();
+    token.burn(&alice_account, &alice, 1).await.unwrap();
 
     // checked is ok
     token
-        .burn(
-            &alice_account,
-            &alice.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .burn_checked(&alice_account, &alice, 1, decimals)
         .await
         .unwrap();
 
     // burn too much is not ok
     let error = token
-        .burn(
-            &alice_account,
-            &alice.pubkey(),
-            amount,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .burn_checked(&alice_account, &alice, amount, decimals)
         .await
         .unwrap_err();
     assert_eq!(
@@ -83,13 +61,7 @@ async fn run_basic(context: TestContext) {
 
     // wrong signer
     let error = token
-        .burn(
-            &alice_account,
-            &bob.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&bob],
-        )
+        .burn_checked(&alice_account, &bob, 1, decimals)
         .await
         .unwrap_err();
     assert_eq!(
@@ -134,40 +106,24 @@ async fn run_self_owned(context: TestContext) {
         ..
     } = context.token_context.unwrap();
 
-    token
+    let alice_account = token
         .create_auxiliary_token_account(&alice, &alice.pubkey())
         .await
         .unwrap();
-    let alice_account = alice.pubkey();
 
     // mint a token
     let amount = 10;
     token
-        .mint_to(
-            &alice_account,
-            &mint_authority.pubkey(),
-            amount,
-            Some(decimals),
-            &vec![&mint_authority],
-        )
+        .mint_to(&alice_account, &mint_authority, amount)
         .await
         .unwrap();
 
     // unchecked is ok
-    token
-        .burn(&alice_account, &alice.pubkey(), 1, None, &vec![&alice])
-        .await
-        .unwrap();
+    token.burn(&alice_account, &alice, 1).await.unwrap();
 
     // checked is ok
     token
-        .burn(
-            &alice_account,
-            &alice.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .burn_checked(&alice_account, &alice, 1, decimals)
         .await
         .unwrap();
 }
@@ -204,40 +160,25 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
     } = context.token_context.unwrap();
 
     let alice_account = Keypair::new();
-    token
+    let alice_account = token
         .create_auxiliary_token_account(&alice_account, &alice.pubkey())
         .await
         .unwrap();
-    let alice_account = alice_account.pubkey();
 
     // mint a token
     token
-        .mint_to(
-            &alice_account,
-            &mint_authority.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&mint_authority],
-        )
+        .mint_to(&alice_account, &mint_authority, 1)
         .await
         .unwrap();
 
     // transfer token to incinerator/system
     let non_owner_account = Keypair::new();
-    token
+    let non_owner_account = token
         .create_auxiliary_token_account(&non_owner_account, non_owner)
         .await
         .unwrap();
-    let non_owner_account = non_owner_account.pubkey();
     token
-        .transfer(
-            &alice_account,
-            &non_owner_account,
-            &alice.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .transfer_checked(&alice_account, &non_owner_account, &alice, 1, decimals)
         .await
         .unwrap();
 
@@ -247,8 +188,7 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
         .close_account(
             &non_owner_account,
             &safecoin_program::incinerator::id(),
-            &carlos.pubkey(),
-            &[&carlos],
+            &carlos,
         )
         .await
         .unwrap_err();
@@ -264,24 +204,13 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
 
     // but anyone can burn it
     token
-        .burn(
-            &non_owner_account,
-            &carlos.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&carlos],
-        )
+        .burn_checked(&non_owner_account, &carlos, 1, decimals)
         .await
         .unwrap();
 
     // closing fails if destination is not the incinerator
     let error = token
-        .close_account(
-            &non_owner_account,
-            &carlos.pubkey(),
-            &carlos.pubkey(),
-            &[&carlos],
-        )
+        .close_account(&non_owner_account, &carlos.pubkey(), &carlos)
         .await
         .unwrap_err();
     assert_eq!(
@@ -295,8 +224,7 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
         .close_account(
             &non_owner_account,
             &safecoin_program::system_program::id(),
-            &carlos.pubkey(),
-            &[&carlos],
+            &carlos,
         )
         .await
         .unwrap_err();
@@ -313,8 +241,7 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
         .close_account(
             &non_owner_account,
             &safecoin_program::incinerator::id(),
-            &carlos.pubkey(),
-            &[&carlos],
+            &carlos,
         )
         .await
         .unwrap();

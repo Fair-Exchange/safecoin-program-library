@@ -1,12 +1,19 @@
-import type { ConfirmOptions, Connection, PublicKey, Signer, TransactionSignature } from '@safecoin/web3.js';
-import { sendAndConfirmTransaction, Transaction } from '@safecoin/web3.js';
-import { getSigners } from '../../actions/internal.js';
-import { TOKEN_2022_PROGRAM_ID } from '../../constants.js';
-import type { AccountState } from '../../state/account.js';
+import {
+    ConfirmOptions,
+    Connection,
+    PublicKey,
+    sendAndConfirmTransaction,
+    Signer,
+    Transaction,
+    TransactionSignature,
+} from '@safecoin/web3.js';
+import { TOKEN_2022_PROGRAM_ID } from '../../constants';
+import { AccountState } from '../../state';
 import {
     createInitializeDefaultAccountStateInstruction,
     createUpdateDefaultAccountStateInstruction,
-} from './instructions.js';
+} from './instructions';
+import { getSigners } from '../../actions/internal';
 
 /**
  * Initialize a default account state on a mint

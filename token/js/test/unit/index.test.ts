@@ -6,7 +6,6 @@ import {
     createAssociatedTokenAccountInstruction,
     createReallocateInstruction,
     createInitializeMintInstruction,
-    createInitializeMint2Instruction,
     createSyncNativeInstruction,
     createTransferCheckedInstruction,
     getAssociatedTokenAddress,
@@ -19,8 +18,6 @@ import {
     getAssociatedTokenAddressSync,
     createInitializeAccount2Instruction,
     createInitializeAccount3Instruction,
-    createAmountToUiAmountInstruction,
-    createUiAmountToAmountInstruction,
 } from '../../src';
 
 chai.use(chaiAsPromised);
@@ -43,17 +40,6 @@ describe('safe-token instructions', () => {
         const ix = createInitializeMintInstruction(Keypair.generate().publicKey, 9, Keypair.generate().publicKey, null);
         expect(ix.programId).to.eql(TOKEN_PROGRAM_ID);
         expect(ix.keys).to.have.length(2);
-    });
-
-    it('InitializeMint2', () => {
-        const ix = createInitializeMint2Instruction(
-            Keypair.generate().publicKey,
-            9,
-            Keypair.generate().publicKey,
-            null
-        );
-        expect(ix.programId).to.eql(TOKEN_PROGRAM_ID);
-        expect(ix.keys).to.have.length(1);
     });
 
     it('SyncNative', () => {
@@ -111,18 +97,6 @@ describe('safe-token-2022 instructions', () => {
         expect(ix.keys).to.have.length(2);
     });
 
-    it('InitializeMint2', () => {
-        const ix = createInitializeMint2Instruction(
-            Keypair.generate().publicKey,
-            9,
-            Keypair.generate().publicKey,
-            null,
-            TOKEN_2022_PROGRAM_ID
-        );
-        expect(ix.programId).to.eql(TOKEN_2022_PROGRAM_ID);
-        expect(ix.keys).to.have.length(1);
-    });
-
     it('SyncNative', () => {
         const ix = createSyncNativeInstruction(Keypair.generate().publicKey, TOKEN_2022_PROGRAM_ID);
         expect(ix.programId).to.eql(TOKEN_2022_PROGRAM_ID);
@@ -140,18 +114,6 @@ describe('safe-token-2022 instructions', () => {
         expect(ix.data[1]).to.eql(extensionTypes[0]);
         expect(ix.data[3]).to.eql(extensionTypes[1]);
     });
-
-    it('AmountToUiAmount', () => {
-        const ix = createAmountToUiAmountInstruction(Keypair.generate().publicKey, 22, TOKEN_2022_PROGRAM_ID);
-        expect(ix.programId).to.eql(TOKEN_2022_PROGRAM_ID);
-        expect(ix.keys).to.have.length(1);
-    });
-
-    it('UiAmountToAmount', () => {
-        const ix = createUiAmountToAmountInstruction(Keypair.generate().publicKey, '22', TOKEN_2022_PROGRAM_ID);
-        expect(ix.programId).to.eql(TOKEN_2022_PROGRAM_ID);
-        expect(ix.keys).to.have.length(1);
-    });
 });
 
 describe('safe-associated-token-account instructions', () => {
@@ -163,7 +125,7 @@ describe('safe-associated-token-account instructions', () => {
             Keypair.generate().publicKey
         );
         expect(ix.programId).to.eql(ASSOCIATED_TOKEN_PROGRAM_ID);
-        expect(ix.keys).to.have.length(6);
+        expect(ix.keys).to.have.length(7);
     });
 });
 

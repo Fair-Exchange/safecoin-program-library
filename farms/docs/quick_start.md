@@ -42,12 +42,12 @@ popd
 
 Alternatively, you can execute instructions directly using [HTTP Client](https://github.com/fair-exchange/safecoin-program-library/blob/master/farms/docs/http_client.md) or [Rust Client](https://github.com/fair-exchange/safecoin-program-library/blob/master/farms/docs/rust_client.md).
 
-To build on-chain programs, use the standard `cargo build-bpf` command for Safecoin programs:
+To build on-chain programs, use the standard `cargo build-sbf` command for Safecoin programs:
 
 ```sh
 for program in router-*; do
     pushd $program &>/dev/null
-    cargo build-bpf
+    cargo build-sbf
     popd &>/dev/null
 done
 ```
@@ -56,7 +56,7 @@ To build Vaults, specify an additional argument that tells the compiler which st
 
 ```sh
 pusdh vaults
-cargo build-bpf --no-default-features --features SBR-STAKE-LP-COMPOUND
+cargo build-sbf --no-default-features --features SBR-STAKE-LP-COMPOUND
 popd
 ```
 
@@ -66,7 +66,7 @@ Every time you re-build the vault program with another strategy, it overwrites t
 pushd vaults &>/dev/null
 for strategy in RDM SBR ORC; do
     safecoin-keygen new -o vault_$strategy.json
-    cargo build-bpf --no-default-features --features $strategy-STAKE-LP-COMPOUND
+    cargo build-sbf --no-default-features --features $strategy-STAKE-LP-COMPOUND
     safecoin program deploy --program-id vault_$strategy.json target/deploy/solana_vaults.so
 done
 popd &>/dev/null

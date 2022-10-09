@@ -1,10 +1,9 @@
 import { struct, u8 } from '@solana/buffer-layout';
-import type { PublicKey, Signer } from '@safecoin/web3.js';
-import { TransactionInstruction } from '@safecoin/web3.js';
-import { programSupportsExtensions, TOKEN_2022_PROGRAM_ID } from '../../constants.js';
-import { TokenUnsupportedInstructionError } from '../../errors.js';
-import { TokenInstruction } from '../../instructions/types.js';
-import type { AccountState } from '../../state/account.js';
+import { PublicKey, Signer, TransactionInstruction } from '@safecoin/web3.js';
+import { AccountState } from '../../state/account';
+import { TokenInstruction } from '../../instructions/types';
+import { programSupportsExtensions, TOKEN_2022_PROGRAM_ID } from '../../constants';
+import { TokenUnsupportedInstructionError } from '../../errors';
 
 export enum DefaultAccountStateInstruction {
     Initialize = 0,

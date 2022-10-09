@@ -1,6 +1,6 @@
 import { struct } from '@solana/buffer-layout';
-import type { Account } from '../state/account.js';
-import { ExtensionType, getExtensionData } from './extensionType.js';
+import { Account } from '../state/account';
+import { ExtensionType, getExtensionData } from './extensionType';
 
 /** ImmutableOwner as stored by the program */
 export interface ImmutableOwner {} // eslint-disable-line

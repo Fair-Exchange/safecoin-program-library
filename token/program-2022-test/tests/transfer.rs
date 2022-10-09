@@ -29,69 +29,40 @@ async fn run_basic_transfers(context: TestContext, test_mode: TestMode) {
     } = context.token_context.unwrap();
 
     let alice_account = Keypair::new();
-    token
+    let alice_account = token
         .create_auxiliary_token_account(&alice_account, &alice.pubkey())
         .await
         .unwrap();
-    let alice_account = alice_account.pubkey();
     let bob_account = Keypair::new();
-    token
+    let bob_account = token
         .create_auxiliary_token_account(&bob_account, &bob.pubkey())
         .await
         .unwrap();
-    let bob_account = bob_account.pubkey();
 
     // mint a token
     let amount = 10;
     token
-        .mint_to(
-            &alice_account,
-            &mint_authority.pubkey(),
-            amount,
-            Some(decimals),
-            &vec![&mint_authority],
-        )
+        .mint_to(&alice_account, &mint_authority, amount)
         .await
         .unwrap();
 
     if test_mode == TestMode::All {
         // unchecked is ok
         token
-            .transfer(
-                &alice_account,
-                &bob_account,
-                &alice.pubkey(),
-                1,
-                None,
-                &vec![&alice],
-            )
+            .transfer_unchecked(&alice_account, &bob_account, &alice, 1)
             .await
             .unwrap();
     }
 
     // checked is ok
     token
-        .transfer(
-            &alice_account,
-            &bob_account,
-            &alice.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .transfer_checked(&alice_account, &bob_account, &alice, 1, decimals)
         .await
         .unwrap();
 
     // transfer too much is not ok
     let error = token
-        .transfer(
-            &alice_account,
-            &bob_account,
-            &alice.pubkey(),
-            amount,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .transfer_checked(&alice_account, &bob_account, &alice, amount, decimals)
         .await
         .unwrap_err();
     assert_eq!(
@@ -106,14 +77,7 @@ async fn run_basic_transfers(context: TestContext, test_mode: TestMode) {
 
     // wrong signer
     let error = token
-        .transfer(
-            &alice_account,
-            &bob_account,
-            &bob.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&bob],
-        )
+        .transfer_checked(&alice_account, &bob_account, &bob, 1, decimals)
         .await
         .unwrap_err();
     assert_eq!(
@@ -159,61 +123,33 @@ async fn run_self_transfers(context: TestContext, test_mode: TestMode) {
     } = context.token_context.unwrap();
 
     let alice_account = Keypair::new();
-    token
+    let alice_account = token
         .create_auxiliary_token_account(&alice_account, &alice.pubkey())
         .await
         .unwrap();
-    let alice_account = alice_account.pubkey();
 
     // mint a token
     let amount = 10;
     token
-        .mint_to(
-            &alice_account,
-            &mint_authority.pubkey(),
-            amount,
-            Some(decimals),
-            &vec![&mint_authority],
-        )
+        .mint_to(&alice_account, &mint_authority, amount)
         .await
         .unwrap();
 
     // self transfer is ok
     token
-        .transfer(
-            &alice_account,
-            &alice_account,
-            &alice.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .transfer_checked(&alice_account, &alice_account, &alice, 1, decimals)
         .await
         .unwrap();
     if test_mode == TestMode::All {
         token
-            .transfer(
-                &alice_account,
-                &alice_account,
-                &alice.pubkey(),
-                1,
-                None,
-                &vec![&alice],
-            )
+            .transfer_unchecked(&alice_account, &alice_account, &alice, 1)
             .await
             .unwrap();
     }
 
     // too much self transfer is not ok
     let error = token
-        .transfer(
-            &alice_account,
-            &alice_account,
-            &alice.pubkey(),
-            amount.checked_add(1).unwrap(),
-            Some(decimals),
-            &vec![&alice],
-        )
+        .transfer_checked(&alice_account, &alice_account, &alice, amount + 1, decimals)
         .await
         .unwrap_err();
     assert_eq!(
@@ -259,69 +195,40 @@ async fn run_self_owned(context: TestContext, test_mode: TestMode) {
         ..
     } = context.token_context.unwrap();
 
-    token
+    let alice_account = token
         .create_auxiliary_token_account(&alice, &alice.pubkey())
         .await
         .unwrap();
-    let alice_account = alice.pubkey();
     let bob_account = Keypair::new();
-    token
+    let bob_account = token
         .create_auxiliary_token_account(&bob_account, &bob.pubkey())
         .await
         .unwrap();
-    let bob_account = bob_account.pubkey();
 
     // mint a token
     let amount = 10;
     token
-        .mint_to(
-            &alice_account,
-            &mint_authority.pubkey(),
-            amount,
-            Some(decimals),
-            &vec![&mint_authority],
-        )
+        .mint_to(&alice_account, &mint_authority, amount)
         .await
         .unwrap();
 
     if test_mode == TestMode::All {
         // unchecked is ok
         token
-            .transfer(
-                &alice_account,
-                &bob_account,
-                &alice.pubkey(),
-                1,
-                None,
-                &vec![&alice],
-            )
+            .transfer_unchecked(&alice_account, &bob_account, &alice, 1)
             .await
             .unwrap();
     }
 
     // checked is ok
     token
-        .transfer(
-            &alice_account,
-            &bob_account,
-            &alice.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .transfer_checked(&alice_account, &bob_account, &alice, 1, decimals)
         .await
         .unwrap();
 
     // self transfer is ok
     token
-        .transfer(
-            &alice_account,
-            &alice_account,
-            &alice.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .transfer_checked(&alice_account, &alice_account, &alice, 1, decimals)
         .await
         .unwrap();
 }
@@ -362,56 +269,32 @@ async fn transfer_with_fee_on_mint_without_fee_configured() {
     } = context.token_context.unwrap();
 
     let alice_account = Keypair::new();
-    token
+    let alice_account = token
         .create_auxiliary_token_account(&alice_account, &alice.pubkey())
         .await
         .unwrap();
-    let alice_account = alice_account.pubkey();
     let bob_account = Keypair::new();
-    token
+    let bob_account = token
         .create_auxiliary_token_account(&bob_account, &bob.pubkey())
         .await
         .unwrap();
-    let bob_account = bob_account.pubkey();
 
     // mint some tokens
     let amount = 10;
     token
-        .mint_to(
-            &alice_account,
-            &mint_authority.pubkey(),
-            amount,
-            Some(decimals),
-            &vec![&mint_authority],
-        )
+        .mint_to(&alice_account, &mint_authority, amount)
         .await
         .unwrap();
 
     // success if expected fee is 0
     token
-        .transfer_with_fee(
-            &alice_account,
-            &bob_account,
-            &alice.pubkey(),
-            1,
-            decimals,
-            0,
-            &vec![&alice],
-        )
+        .transfer_checked_with_fee(&alice_account, &bob_account, &alice, 1, decimals, 0)
         .await
         .unwrap();
 
     // fail for anything else
     let error = token
-        .transfer_with_fee(
-            &alice_account,
-            &bob_account,
-            &alice.pubkey(),
-            2,
-            decimals,
-            1,
-            &vec![&alice],
-        )
+        .transfer_checked_with_fee(&alice_account, &bob_account, &alice, 2, decimals, 1)
         .await
         .unwrap_err();
     assert_eq!(

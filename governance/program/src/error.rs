@@ -261,23 +261,23 @@ pub enum GovernanceError {
 
     /// Governance PDA must sign
     #[error("Governance PDA must sign")]
-    GovernancePdaMustSign, // 561
+    GovernancePdaMustSign,
 
     /// Transaction already flagged with error
     #[error("Transaction already flagged with error")]
-    TransactionAlreadyFlaggedWithError, // 562
+    TransactionAlreadyFlaggedWithError,
 
     /// Invalid Realm for Governance
     #[error("Invalid Realm for Governance")]
-    InvalidRealmForGovernance, // 563
+    InvalidRealmForGovernance,
 
     /// Invalid Authority for Realm
     #[error("Invalid Authority for Realm")]
-    InvalidAuthorityForRealm, // 564
+    InvalidAuthorityForRealm,
 
     /// Realm has no authority
     #[error("Realm has no authority")]
-    RealmHasNoAuthority, // 565
+    RealmHasNoAuthority,
 
     /// Realm authority must sign
     #[error("Realm authority must sign")]
@@ -285,7 +285,7 @@ pub enum GovernanceError {
 
     /// Invalid governing token holding account
     #[error("Invalid governing token holding account")]
-    InvalidGoverningTokenHoldingAccount, // 567
+    InvalidGoverningTokenHoldingAccount,
 
     /// Realm council mint change is not supported
     #[error("Realm council mint change is not supported")]
@@ -406,38 +406,6 @@ pub enum GovernanceError {
     /// Cannot Relinquish in Finalizing state
     #[error("Cannot Relinquish in Finalizing state")]
     CannotRelinquishInFinalizingState,
-
-    /// Invalid RealmConfig account address
-    #[error("Invalid RealmConfig account address")]
-    InvalidRealmConfigAddress,
-
-    /// Cannot deposit dormant tokens
-    #[error("Cannot deposit dormant tokens")]
-    CannotDepositDormantTokens, // 599
-
-    /// Cannot withdraw membership tokens
-    #[error("Cannot withdraw membership tokens")]
-    CannotWithdrawMembershipTokens, // 600
-
-    /// Cannot revoke GoverningTokens
-    #[error("Cannot revoke GoverningTokens")]
-    CannotRevokeGoverningTokens, // 601
-
-    /// Invalid Revoke amount
-    #[error("Invalid Revoke amount")]
-    InvalidRevokeAmount, // 602
-
-    /// Invalid GoverningToken source
-    #[error("Invalid GoverningToken source")]
-    InvalidGoverningTokenSource, // 603
-
-    /// Cannot change community TokenType to Memebership
-    #[error("Cannot change community TokenType to Memebership")]
-    CannotChangeCommunityTokenTypeToMemebership, // 604
-
-    /// Voter weight threshold disabled
-    #[error("Voter weight threshold disabled")]
-    VoterWeightThresholdDisabled, // 605
 }
 
 impl PrintProgramError for GovernanceError {

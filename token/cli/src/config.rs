@@ -1,7 +1,7 @@
 use crate::{signers_of, Error, MULTISIG_SIGNER_ARG};
 use clap::ArgMatches;
 use safecoin_clap_utils::{
-    input_parsers::{pubkey_of_signer, value_of},
+    input_parsers::{pubkey_of, pubkey_of_signer, value_of},
     input_validators::normalize_to_url_if_moniker,
     keypair::{signer_from_path, signer_from_path_with_config, SignerFromPathConfig},
     nonce::{NONCE_ARG, NONCE_AUTHORITY_ARG},
@@ -10,10 +10,7 @@ use safecoin_clap_utils::{
 use safecoin_cli_output::OutputFormat;
 use safecoin_client::nonblocking::rpc_client::RpcClient;
 use safecoin_remote_wallet::remote_wallet::RemoteWalletManager;
-use safecoin_sdk::{
-    account::Account as RawAccount, commitment_config::CommitmentConfig, pubkey::Pubkey,
-    signature::Signer,
-};
+use safecoin_sdk::{commitment_config::CommitmentConfig, pubkey::Pubkey, signature::Signer};
 use safe_associated_token_account::*;
 use safe_token_2022::{
     extension::StateWithExtensionsOwned,
@@ -36,7 +33,7 @@ pub(crate) struct Config<'a> {
     pub(crate) program_client: Arc<dyn ProgramClient<ProgramRpcClientSendTransaction>>,
     pub(crate) websocket_url: String,
     pub(crate) output_format: OutputFormat,
-    pub(crate) fee_payer: Arc<dyn Signer>,
+    pub(crate) fee_payer: Pubkey,
     pub(crate) nonce_account: Option<Pubkey>,
     pub(crate) nonce_authority: Option<Pubkey>,
     pub(crate) sign_only: bool,
@@ -46,12 +43,12 @@ pub(crate) struct Config<'a> {
 }
 
 impl<'a> Config<'a> {
-    pub(crate) async fn new(
-        matches: &ArgMatches<'_>,
+    pub(crate) fn new(
+        matches: &ArgMatches,
         wallet_manager: &mut Option<Arc<RemoteWalletManager>>,
         bulk_signers: &mut Vec<Arc<dyn Signer>>,
         multisigner_ids: &'a mut Vec<Pubkey>,
-    ) -> Config<'a> {
+    ) -> Self {
         let cli_config = if let Some(config_file) = matches.value_of("config_file") {
             safecoin_cli_config::Config::load(config_file).unwrap_or_else(|_| {
                 eprintln!("error: Could not find config file `{}`", config_file);
@@ -92,18 +89,17 @@ impl<'a> Config<'a> {
             program_client,
             websocket_url,
         )
-        .await
     }
 
-    pub(crate) async fn new_with_clients_and_ws_url(
-        matches: &ArgMatches<'_>,
+    pub(crate) fn new_with_clients_and_ws_url(
+        matches: &ArgMatches,
         wallet_manager: &mut Option<Arc<RemoteWalletManager>>,
         bulk_signers: &mut Vec<Arc<dyn Signer>>,
         multisigner_ids: &'a mut Vec<Pubkey>,
         rpc_client: Arc<RpcClient>,
         program_client: Arc<dyn ProgramClient<ProgramRpcClientSendTransaction>>,
         websocket_url: String,
-    ) -> Config<'a> {
+    ) -> Self {
         let cli_config = if let Some(config_file) = matches.value_of("config_file") {
             safecoin_cli_config::Config::load(config_file).unwrap_or_else(|_| {
                 eprintln!("error: Could not find config file `{}`", config_file);
@@ -150,18 +146,20 @@ impl<'a> Config<'a> {
             exit(1);
         });
 
-        let fee_payer = matches
+        let (signer, fee_payer) = matches
             .value_of("fee_payer")
             .map_or(Ok(default_signer.clone()), |path| {
                 signer_from_path(matches, path, "fee_payer", wallet_manager).map(Arc::from)
+            })
+            .map(|s: Arc<dyn Signer>| {
+                let p = s.pubkey();
+                (s, p)
             })
             .unwrap_or_else(|e| {
                 eprintln!("error: {}", e);
                 exit(1);
             });
-        if !bulk_signers.contains(&fee_payer) {
-            bulk_signers.push(fee_payer.clone());
-        }
+        bulk_signers.push(signer);
 
         let verbose = matches.is_present("verbose");
         let output_format = matches
@@ -200,9 +198,7 @@ impl<'a> Config<'a> {
                 eprintln!("error: {}", e);
                 exit(1);
             });
-            if !bulk_signers.contains(&signer) {
-                bulk_signers.push(signer);
-            }
+            bulk_signers.push(signer);
 
             Some(nonce_authority)
         } else {
@@ -211,26 +207,7 @@ impl<'a> Config<'a> {
 
         let sign_only = matches.is_present(SIGN_ONLY_ARG.name);
         let dump_transaction_message = matches.is_present(DUMP_TRANSACTION_MESSAGE.name);
-
-        let default_program_id = safe_token::id();
-        let program_id = if let Some(program_id) = value_of(matches, "program_id") {
-            program_id
-        } else if !sign_only {
-            if let Some(address) = value_of(matches, "token")
-                .or_else(|| value_of(matches, "account"))
-                .or_else(|| value_of(matches, "address"))
-            {
-                rpc_client
-                    .get_account(&address)
-                    .await
-                    .map(|account| account.owner)
-                    .unwrap_or(default_program_id)
-            } else {
-                default_program_id
-            }
-        } else {
-            default_program_id
-        };
+        let program_id = pubkey_of(matches, "program_id").unwrap();
 
         Self {
             default_signer,
@@ -350,25 +327,6 @@ impl<'a> Config<'a> {
         (authority, authority_address)
     }
 
-    pub(crate) async fn get_account_checked(
-        &self,
-        account_pubkey: &Pubkey,
-    ) -> Result<RawAccount, Error> {
-        if let Ok(Some(account)) = self.program_client.get_account(*account_pubkey).await {
-            if self.program_id == account.owner {
-                Ok(account)
-            } else {
-                Err(format!(
-                    "Account {} is owned by {}, not configured program id {}",
-                    account_pubkey, account.owner, self.program_id
-                )
-                .into())
-            }
-        } else {
-            Err(format!("Account {} not found", account_pubkey).into())
-        }
-    }
-
     pub(crate) async fn get_mint_info(
         &self,
         mint: &Pubkey,
@@ -381,7 +339,8 @@ impl<'a> Config<'a> {
                 decimals: mint_decimals.unwrap_or_default(),
             })
         } else {
-            let account = self.get_account_checked(mint).await?;
+            let account = self.rpc_client.get_account(mint).await?;
+            self.check_owner(mint, &account.owner)?;
             let mint_account = StateWithExtensionsOwned::<Mint>::unpack(account.data)
                 .map_err(|_| format!("Could not find mint account {}", mint))?;
             if let Some(decimals) = mint_decimals {
@@ -401,13 +360,25 @@ impl<'a> Config<'a> {
         }
     }
 
+    pub(crate) fn check_owner(&self, account: &Pubkey, owner: &Pubkey) -> Result<(), Error> {
+        if self.program_id != *owner {
+            Err(format!(
+                "Account {:?} is owned by {}, not configured program id {}",
+                account, owner, self.program_id
+            )
+            .into())
+        } else {
+            Ok(())
+        }
+    }
+
     pub(crate) async fn check_account(
         &self,
         token_account: &Pubkey,
         mint_address: Option<Pubkey>,
     ) -> Result<Pubkey, Error> {
         if !self.sign_only {
-            let account = self.get_account_checked(token_account).await?;
+            let account = self.rpc_client.get_account(token_account).await?;
             let source_account = StateWithExtensionsOwned::<Account>::unpack(account.data)
                 .map_err(|_| format!("Could not find token account {}", token_account))?;
             let source_mint = source_account.base.mint;
@@ -420,6 +391,7 @@ impl<'a> Config<'a> {
                     .into());
                 }
             }
+            self.check_owner(token_account, &account.owner)?;
             Ok(source_mint)
         } else {
             Ok(mint_address.unwrap_or_default())

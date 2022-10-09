@@ -1,5 +1,4 @@
-import type { Signer } from '@safecoin/web3.js';
-import { PublicKey, Keypair, Connection } from '@safecoin/web3.js';
+import { PublicKey, Keypair, Connection, Signer } from '@safecoin/web3.js';
 import { TOKEN_PROGRAM_ID } from '../src';
 
 export async function newAccountWithLamports(connection: Connection, lamports = 1000000): Promise<Signer> {

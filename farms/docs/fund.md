@@ -14,7 +14,7 @@ To build and deploy the Fund program, run:
 
 ```sh
 cd safecoin-program-library/farms/fund
-cargo build-bpf
+cargo build-sbf
 safecoin program deploy ../target/deploy/solana_fund.so
 ```
 

@@ -1,10 +1,9 @@
-import { s16, struct, u8 } from '@solana/buffer-layout';
+import { struct, s16, u8 } from '@solana/buffer-layout';
 import { publicKey } from '@safecoin/buffer-layout-utils';
-import type { PublicKey, Signer } from '@safecoin/web3.js';
-import { TransactionInstruction } from '@safecoin/web3.js';
-import { TOKEN_2022_PROGRAM_ID } from '../../constants.js';
-import { addSigners } from '../../instructions/internal.js';
-import { TokenInstruction } from '../../instructions/types.js';
+import { PublicKey, Signer, TransactionInstruction } from '@safecoin/web3.js';
+import { TOKEN_2022_PROGRAM_ID } from '../../constants';
+import { TokenInstruction } from '../../instructions';
+import { addSigners } from '../../instructions/internal';
 
 export enum InterestBearingMintInstruction {
     Initialize = 0,

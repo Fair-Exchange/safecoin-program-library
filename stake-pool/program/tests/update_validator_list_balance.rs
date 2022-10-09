@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 #![cfg(feature = "test-sbf")]
 
 mod helpers;
@@ -17,7 +16,7 @@ use {
         find_transient_stake_program_address, find_withdraw_authority_program_address, id,
         instruction,
         state::{StakePool, StakeStatus, ValidatorList},
-        MAX_VALIDATORS_TO_UPDATE, MINIMUM_RESERVE_LAMPORTS,
+        MAX_VALIDATORS_TO_UPDATE, MINIMUM_ACTIVE_STAKE, MINIMUM_RESERVE_LAMPORTS,
     },
     safe_token::state::Mint,
 };
@@ -441,13 +440,7 @@ async fn merge_into_validator_stake() {
     // Check validator stake accounts have the expected balance now:
     // validator stake account minimum + deposited lamports + rents + increased lamports
     let stake_rent = rent.minimum_balance(std::mem::size_of::<StakeState>());
-    let current_minimum_delegation = stake_pool_get_minimum_delegation(
-        &mut context.banks_client,
-        &context.payer,
-        &context.last_blockhash,
-    )
-    .await;
-    let expected_lamports = current_minimum_delegation
+    let expected_lamports = MINIMUM_ACTIVE_STAKE
         + lamports
         + reserve_lamports / stake_accounts.len() as u64
         + stake_rent;

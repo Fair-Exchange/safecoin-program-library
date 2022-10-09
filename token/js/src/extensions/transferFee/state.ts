@@ -1,20 +1,19 @@
-import type { Layout } from '@solana/buffer-layout';
-import { struct, u16 } from '@solana/buffer-layout';
+import { struct, u16, Layout } from '@solana/buffer-layout';
 import { publicKey, u64 } from '@safecoin/buffer-layout-utils';
-import type { PublicKey } from '@safecoin/web3.js';
-import type { Account } from '../../state/account.js';
-import type { Mint } from '../../state/mint.js';
-import { ExtensionType, getExtensionData } from '../extensionType.js';
+import { PublicKey } from '@safecoin/web3.js';
+import { Account } from '../../state';
+import { Mint } from '../../state/mint';
+import { ExtensionType, getExtensionData } from '../extensionType';
 
 export const MAX_FEE_BASIS_POINTS = 10_000;
-export const ONE_IN_BASIS_POINTS: bigint = MAX_FEE_BASIS_POINTS as unknown as bigint;
+export const ONE_IN_BASIS_POINTS: BigInt = MAX_FEE_BASIS_POINTS as unknown as BigInt;
 
 /** TransferFeeConfig as stored by the program */
 export interface TransferFee {
     /** First epoch where the transfer fee takes effect */
-    epoch: bigint;
+    epoch: BigInt;
     /** Maximum fee assessed on transfers, expressed as an amount of tokens */
-    maximumFee: bigint;
+    maximumFee: BigInt;
     /**
      * Amount of transfer collected as fees, expressed as basis points of the
      * transfer amount, ie. increments of 0.01%
@@ -29,7 +28,7 @@ export interface TransferFeeConfig {
     /** Withdraw from mint instructions must be signed by this key */
     withdrawWithheldAuthority: PublicKey;
     /** Withheld transfer fee tokens that have been moved to the mint for withdrawal */
-    withheldAmount: bigint;
+    withheldAmount: BigInt;
     /** Older transfer fee, used if the current epoch < newerTransferFee.epoch */
     olderTransferFee: TransferFee;
     /** Newer transfer fee, used if the current epoch >= newerTransferFee.epoch */
@@ -55,7 +54,7 @@ export const TRANSFER_FEE_CONFIG_SIZE = TransferFeeConfigLayout.span;
 /** Transfer fee amount data for accounts. */
 export interface TransferFeeAmount {
     /** Withheld transfer fee tokens that can be claimed by the fee authority */
-    withheldAmount: bigint;
+    withheldAmount: BigInt;
 }
 /** Buffer layout for de/serializing */
 export const TransferFeeAmountLayout = struct<TransferFeeAmount>([u64('withheldAmount')]);

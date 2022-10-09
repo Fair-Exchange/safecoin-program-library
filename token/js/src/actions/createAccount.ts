@@ -1,10 +1,18 @@
-import type { ConfirmOptions, Connection, Keypair, PublicKey, Signer } from '@safecoin/web3.js';
-import { sendAndConfirmTransaction, SystemProgram, Transaction } from '@safecoin/web3.js';
-import { TOKEN_PROGRAM_ID } from '../constants.js';
-import { getAccountLenForMint } from '../extensions/extensionType.js';
-import { createInitializeAccountInstruction } from '../instructions/initializeAccount.js';
-import { getMint } from '../state/mint.js';
-import { createAssociatedTokenAccount } from './createAssociatedTokenAccount.js';
+import {
+    ConfirmOptions,
+    Connection,
+    Keypair,
+    PublicKey,
+    sendAndConfirmTransaction,
+    Signer,
+    SystemProgram,
+    Transaction,
+} from '@safecoin/web3.js';
+import { TOKEN_PROGRAM_ID } from '../constants';
+import { createInitializeAccountInstruction } from '../instructions/index';
+import { getMint } from '../state/index';
+import { createAssociatedTokenAccount } from './createAssociatedTokenAccount';
+import { getAccountLenForMint } from '../extensions/extensionType';
 
 /**
  * Create and initialize a new token account

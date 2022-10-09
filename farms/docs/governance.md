@@ -4,7 +4,7 @@ To initialize the DAO, first build and deploy the governance program:
 
 ```sh
 cd safecoin-program-library/governance/program
-cargo build-bpf
+cargo build-sbf
 safecoin program deploy --commitment finalized target/deploy/spl_governance.so
 ```
 

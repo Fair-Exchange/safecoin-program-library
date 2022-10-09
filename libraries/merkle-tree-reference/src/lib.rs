@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 use safecoin_program::keccak::hashv;
 use std::cell::RefCell;
 use std::collections::VecDeque;

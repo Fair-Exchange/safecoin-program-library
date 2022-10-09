@@ -3,7 +3,6 @@ mod program_test;
 
 use safecoin_program_test::*;
 
-use crate::program_test::args::RealmSetupArgs;
 use program_test::*;
 use safecoin_sdk::signature::Keypair;
 use spl_governance::{error::GovernanceError, state::enums::VoteThreshold};
@@ -219,7 +218,7 @@ async fn test_create_governance_using_realm_authority() {
             &realm_cookie,
             &governed_account_cookie,
             None,
-            realm_authority,
+            &realm_authority,
             None,
             &config,
             None,
@@ -252,7 +251,7 @@ async fn test_create_governance_using_realm_authority_with_authority_must_sign_e
             &realm_cookie,
             &governed_account_cookie,
             None,
-            realm_authority,
+            &realm_authority,
             None,
             &config,
             Some(&[]),
@@ -271,7 +270,6 @@ async fn test_create_governance_using_realm_authority_with_wrong_authority_sign_
     let mut governance_test = GovernanceProgramTest::start_new().await;
 
     let realm_cookie = governance_test.with_realm().await;
-
     let governed_account_cookie = governance_test.with_governed_account().await;
 
     let token_owner_record_cookie = governance_test
@@ -302,43 +300,4 @@ async fn test_create_governance_using_realm_authority_with_wrong_authority_sign_
         err,
         GovernanceError::GoverningTokenOwnerOrDelegateMustSign.into()
     );
-}
-
-#[tokio::test]
-async fn test_create_governance_with_community_disabled_error() {
-    // Arrange
-    let mut governance_test = GovernanceProgramTest::start_new().await;
-
-    let realm_config_args = RealmSetupArgs {
-        min_community_weight_to_create_governance: u64::MAX,
-        ..Default::default()
-    };
-
-    let realm_cookie = governance_test
-        .with_realm_using_args(&realm_config_args)
-        .await;
-
-    let governed_account_cookie = governance_test.with_governed_account().await;
-
-    // Set token deposit amount to max
-    let token_amount = u64::MAX;
-
-    let token_owner_record_cookie = governance_test
-        .with_community_token_deposit_amount(&realm_cookie, token_amount)
-        .await
-        .unwrap();
-
-    // Act
-    let err = governance_test
-        .with_governance(
-            &realm_cookie,
-            &governed_account_cookie,
-            &token_owner_record_cookie,
-        )
-        .await
-        .err()
-        .unwrap();
-
-    // Assert
-    assert_eq!(err, GovernanceError::VoterWeightThresholdDisabled.into());
 }

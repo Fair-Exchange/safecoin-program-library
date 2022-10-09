@@ -66,10 +66,9 @@ async fn set_authority() {
     let err = token
         .set_authority(
             token.get_address(),
-            &wrong.pubkey(),
             Some(&new_authority.pubkey()),
             instruction::AuthorityType::CloseMint,
-            &[&wrong],
+            &wrong,
         )
         .await
         .unwrap_err();
@@ -87,10 +86,9 @@ async fn set_authority() {
     token
         .set_authority(
             token.get_address(),
-            &close_authority.pubkey(),
             Some(&new_authority.pubkey()),
             instruction::AuthorityType::CloseMint,
-            &[&close_authority],
+            &close_authority,
         )
         .await
         .unwrap();
@@ -105,10 +103,9 @@ async fn set_authority() {
     token
         .set_authority(
             token.get_address(),
-            &new_authority.pubkey(),
             None,
             instruction::AuthorityType::CloseMint,
-            &[&new_authority],
+            &new_authority,
         )
         .await
         .unwrap();
@@ -120,10 +117,9 @@ async fn set_authority() {
     let err = token
         .set_authority(
             token.get_address(),
-            &new_authority.pubkey(),
             Some(&close_authority.pubkey()),
             instruction::AuthorityType::CloseMint,
-            &[&new_authority],
+            &new_authority,
         )
         .await
         .unwrap_err();
@@ -140,12 +136,7 @@ async fn set_authority() {
     // fail close
     let destination = Pubkey::new_unique();
     let err = token
-        .close_account(
-            token.get_address(),
-            &destination,
-            &new_authority.pubkey(),
-            &[&new_authority],
-        )
+        .close_account(token.get_address(), &destination, &new_authority)
         .await
         .unwrap_err();
     assert_eq!(
@@ -173,12 +164,7 @@ async fn success_close() {
 
     let destination = Pubkey::new_unique();
     token
-        .close_account(
-            token.get_address(),
-            &destination,
-            &close_authority.pubkey(),
-            &[&close_authority],
-        )
+        .close_account(token.get_address(), &destination, &close_authority)
         .await
         .unwrap();
     let destination = token.get_account(&destination).await.unwrap();
@@ -200,10 +186,9 @@ async fn fail_without_extension() {
     let err = token
         .set_authority(
             token.get_address(),
-            &mint_authority.pubkey(),
             Some(&close_authority),
             instruction::AuthorityType::CloseMint,
-            &[&mint_authority],
+            &mint_authority,
         )
         .await
         .unwrap_err();
@@ -217,12 +202,7 @@ async fn fail_without_extension() {
     // fail close
     let destination = Pubkey::new_unique();
     let err = token
-        .close_account(
-            token.get_address(),
-            &destination,
-            &mint_authority.pubkey(),
-            &[&mint_authority],
-        )
+        .close_account(token.get_address(), &destination, &mint_authority)
         .await
         .unwrap_err();
     assert_eq!(
@@ -244,7 +224,6 @@ async fn fail_close_with_supply() {
         .await
         .unwrap();
     let TokenContext {
-        decimals,
         mint_authority,
         token,
         ..
@@ -253,31 +232,16 @@ async fn fail_close_with_supply() {
     // mint a token
     let owner = Pubkey::new_unique();
     let account = Keypair::new();
-    token
+    let account = token
         .create_auxiliary_token_account(&account, &owner)
         .await
         .unwrap();
-    let account = account.pubkey();
-    token
-        .mint_to(
-            &account,
-            &mint_authority.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&mint_authority],
-        )
-        .await
-        .unwrap();
+    token.mint_to(&account, &mint_authority, 1).await.unwrap();
 
     // fail close
     let destination = Pubkey::new_unique();
     let err = token
-        .close_account(
-            token.get_address(),
-            &destination,
-            &close_authority.pubkey(),
-            &[&close_authority],
-        )
+        .close_account(token.get_address(), &destination, &close_authority)
         .await
         .unwrap_err();
     assert_eq!(

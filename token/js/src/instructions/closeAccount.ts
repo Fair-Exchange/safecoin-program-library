@@ -1,15 +1,14 @@
 import { struct, u8 } from '@solana/buffer-layout';
-import type { AccountMeta, PublicKey, Signer } from '@safecoin/web3.js';
-import { TransactionInstruction } from '@safecoin/web3.js';
-import { TOKEN_PROGRAM_ID } from '../constants.js';
+import { AccountMeta, PublicKey, Signer, TransactionInstruction } from '@safecoin/web3.js';
+import { TOKEN_PROGRAM_ID } from '../constants';
 import {
     TokenInvalidInstructionDataError,
     TokenInvalidInstructionKeysError,
     TokenInvalidInstructionProgramError,
     TokenInvalidInstructionTypeError,
-} from '../errors.js';
-import { addSigners } from './internal.js';
-import { TokenInstruction } from './types.js';
+} from '../errors';
+import { addSigners } from './internal';
+import { TokenInstruction } from './types';
 
 /** TODO: docs */
 export interface CloseAccountInstructionData {

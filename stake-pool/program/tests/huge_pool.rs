@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 #![cfg(feature = "test-sbf")]
 
 mod helpers;
@@ -8,7 +7,6 @@ use {
     safecoin_program::{borsh::try_from_slice_unchecked, pubkey::Pubkey, stake},
     safecoin_program_test::*,
     safecoin_sdk::{
-        native_token::LAMPORTS_PER_SAFE,
         signature::{Keypair, Signer},
         transaction::Transaction,
     },
@@ -16,7 +14,7 @@ use {
         find_stake_program_address, find_transient_stake_program_address, id,
         instruction::{self, PreferredValidatorType},
         state::{StakePool, StakeStatus, ValidatorList},
-        MAX_VALIDATORS_TO_UPDATE,
+        MAX_VALIDATORS_TO_UPDATE, MINIMUM_ACTIVE_STAKE,
     },
 };
 
@@ -223,7 +221,7 @@ async fn update() {
 #[tokio::test]
 async fn remove_validator_from_pool() {
     let (mut context, stake_pool_accounts, vote_account_pubkeys, _, _, _, _) =
-        setup(HUGE_POOL_SIZE, HUGE_POOL_SIZE, LAMPORTS_PER_SAFE).await;
+        setup(HUGE_POOL_SIZE, HUGE_POOL_SIZE, MINIMUM_ACTIVE_STAKE).await;
 
     let first_vote = vote_account_pubkeys[0];
     let (stake_address, _) =
@@ -429,7 +427,7 @@ async fn add_validator_to_pool() {
         &stake_pool_pubkey,
         transient_stake_seed,
     );
-    let increase_amount = LAMPORTS_PER_SAFE;
+    let increase_amount = MINIMUM_ACTIVE_STAKE;
     let error = stake_pool_accounts
         .increase_validator_stake(
             &mut context.banks_client,

@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 #![cfg(feature = "test-sbf")]
 
 mod helpers;
@@ -12,12 +11,11 @@ use {
     safecoin_program_test::*,
     safecoin_sdk::{
         signature::{Keypair, Signer},
-        stake::instruction::StakeError,
         transaction::{Transaction, TransactionError},
     },
     spl_stake_pool::{
         error::StakePoolError, find_transient_stake_program_address, id, instruction,
-        MINIMUM_RESERVE_LAMPORTS,
+        MINIMUM_ACTIVE_STAKE, MINIMUM_RESERVE_LAMPORTS,
     },
 };
 
@@ -50,16 +48,13 @@ async fn setup() -> (
     )
     .await;
 
-    let current_minimum_delegation =
-        stake_pool_get_minimum_delegation(&mut banks_client, &payer, &recent_blockhash).await;
-
     let _deposit_info = simple_deposit_stake(
         &mut banks_client,
         &payer,
         &recent_blockhash,
         &stake_pool_accounts,
         &validator_stake_account,
-        current_minimum_delegation,
+        MINIMUM_ACTIVE_STAKE,
     )
     .await
     .unwrap();
@@ -359,9 +354,6 @@ async fn fail_with_small_lamport_amount() {
         _reserve_lamports,
     ) = setup().await;
 
-    let current_minimum_delegation =
-        stake_pool_get_minimum_delegation(&mut banks_client, &payer, &recent_blockhash).await;
-
     let error = stake_pool_accounts
         .increase_validator_stake(
             &mut banks_client,
@@ -370,7 +362,7 @@ async fn fail_with_small_lamport_amount() {
             &validator_stake.transient_stake_account,
             &validator_stake.stake_account,
             &validator_stake.vote.pubkey(),
-            current_minimum_delegation - 1,
+            MINIMUM_ACTIVE_STAKE - 1,
             validator_stake.transient_stake_seed,
         )
         .await
@@ -378,10 +370,7 @@ async fn fail_with_small_lamport_amount() {
         .unwrap();
 
     match error {
-        TransactionError::InstructionError(_, InstructionError::Custom(error_index)) => {
-            let program_error = StakeError::InsufficientDelegation as u32;
-            assert_eq!(error_index, program_error);
-        }
+        TransactionError::InstructionError(_, InstructionError::AccountNotRentExempt) => {}
         _ => panic!("Wrong error"),
     }
 }

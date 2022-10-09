@@ -19,7 +19,6 @@ mod process_insert_transaction;
 mod process_relinquish_vote;
 mod process_remove_signatory;
 mod process_remove_transaction;
-mod process_revoke_governing_tokens;
 mod process_set_governance_config;
 mod process_set_governance_delegate;
 mod process_set_realm_authority;
@@ -49,7 +48,6 @@ use process_insert_transaction::*;
 use process_relinquish_vote::*;
 use process_remove_signatory::*;
 use process_remove_transaction::*;
-use process_revoke_governing_tokens::*;
 use process_set_governance_config::*;
 use process_set_governance_delegate::*;
 use process_set_realm_authority::*;
@@ -214,10 +212,6 @@ pub fn process_instruction(
         }
         GovernanceInstruction::CreateNativeTreasury {} => {
             process_create_native_treasury(program_id, accounts)
-        }
-
-        GovernanceInstruction::RevokeGoverningTokens { amount } => {
-            process_revoke_governing_tokens(program_id, accounts, amount)
         }
     }
 }

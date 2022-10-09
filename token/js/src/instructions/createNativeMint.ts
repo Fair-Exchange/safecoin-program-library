@@ -1,9 +1,9 @@
 import { struct, u8 } from '@solana/buffer-layout';
-import type { PublicKey } from '@safecoin/web3.js';
-import { SystemProgram, TransactionInstruction } from '@safecoin/web3.js';
-import { NATIVE_MINT_2022, programSupportsExtensions, TOKEN_2022_PROGRAM_ID } from '../constants.js';
-import { TokenUnsupportedInstructionError } from '../errors.js';
-import { TokenInstruction } from './types.js';
+import { PublicKey, TransactionInstruction, SystemProgram } from '@safecoin/web3.js';
+import { TOKEN_2022_PROGRAM_ID, NATIVE_MINT_2022 } from '../constants';
+import { TokenInstruction } from './types';
+import { TokenUnsupportedInstructionError } from '../errors';
+import { programSupportsExtensions } from '../constants';
 
 /** TODO: docs */
 export interface CreateNativeMintInstructionData {

@@ -17,7 +17,7 @@ use {
 };
 
 async fn run_basic(
-    token: Token<ProgramBanksClientProcessTransaction>,
+    token: Token<ProgramBanksClientProcessTransaction, Keypair>,
     context: Arc<Mutex<ProgramTestContext>>,
     account: Pubkey,
 ) {
@@ -56,12 +56,10 @@ async fn basic() {
     let TokenContext { token, alice, .. } = context.token_context.unwrap();
     let context = context.context.clone();
 
-    let account = Keypair::new();
-    token
-        .create_auxiliary_token_account(&account, &alice.pubkey())
+    let account = token
+        .create_auxiliary_token_account(&Keypair::new(), &alice.pubkey())
         .await
         .unwrap();
-    let account = account.pubkey();
     run_basic(token, context, account).await;
 }
 
@@ -72,15 +70,13 @@ async fn basic_with_extension() {
     let TokenContext { token, alice, .. } = context.token_context.unwrap();
     let context = context.context.clone();
 
-    let account = Keypair::new();
-    token
+    let account = token
         .create_auxiliary_token_account_with_extension_space(
-            &account,
+            &Keypair::new(),
             &alice.pubkey(),
             vec![ExtensionType::ImmutableOwner],
         )
         .await
         .unwrap();
-    let account = account.pubkey();
     run_basic(token, context, account).await;
 }

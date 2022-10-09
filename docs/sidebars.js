@@ -16,7 +16,6 @@ module.exports = {
     "token-swap",
     "token-lending",
     "associated-token-account",
-    "token-upgrade",
     "memo",
     "name-service",
     "shared-memory",

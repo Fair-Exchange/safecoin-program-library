@@ -25,7 +25,6 @@ crates=(
   safecoin-banks-server
   safecoin-bpf-loader-program
   safecoin-clap-utils
-  safecoin-clap-v3-utils
   safecoin-cli-config
   safecoin-cli-output
   safecoin-client
@@ -48,5 +47,4 @@ crates=(
 set -x
 for crate in "${crates[@]}"; do
   sed -E -i'' -e "s:(${crate} = \")(=?)${old_solana_ver}\".*:\1\2${solana_ver}\":" "${tomls[@]}"
-  sed -E -i'' -e "s:(${crate} = \{ version = \")(=?)${old_solana_ver}(\".*):\1\2${solana_ver}\3:" "${tomls[@]}"
 done

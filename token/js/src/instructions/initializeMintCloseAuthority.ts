@@ -1,16 +1,15 @@
 import { struct, u8 } from '@solana/buffer-layout';
 import { publicKey } from '@safecoin/buffer-layout-utils';
-import type { AccountMeta } from '@safecoin/web3.js';
-import { PublicKey, TransactionInstruction } from '@safecoin/web3.js';
-import { programSupportsExtensions } from '../constants.js';
+import { AccountMeta, PublicKey, TransactionInstruction } from '@safecoin/web3.js';
 import {
+    TokenUnsupportedInstructionError,
     TokenInvalidInstructionDataError,
     TokenInvalidInstructionKeysError,
     TokenInvalidInstructionProgramError,
     TokenInvalidInstructionTypeError,
-    TokenUnsupportedInstructionError,
-} from '../errors.js';
-import { TokenInstruction } from './types.js';
+} from '../errors';
+import { TokenInstruction } from './types';
+import { programSupportsExtensions } from '../constants';
 
 /** TODO: docs */
 export interface InitializeMintCloseAuthorityInstructionData {

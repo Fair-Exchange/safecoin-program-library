@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 //! # Concurrent Merkle Tree
 //!
 //! This crate is a Safecoin-optimized implementation of the

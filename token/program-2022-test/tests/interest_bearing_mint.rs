@@ -165,10 +165,9 @@ async fn set_authority() {
     token
         .set_authority(
             token.get_address(),
-            &rate_authority.pubkey(),
             Some(&new_rate_authority.pubkey()),
             AuthorityType::InterestRate,
-            &[&rate_authority],
+            &rate_authority,
         )
         .await
         .unwrap();
@@ -200,10 +199,9 @@ async fn set_authority() {
     token
         .set_authority(
             token.get_address(),
-            &new_rate_authority.pubkey(),
             None,
             AuthorityType::InterestRate,
-            &[&new_rate_authority],
+            &new_rate_authority,
         )
         .await
         .unwrap();
@@ -314,14 +312,14 @@ async fn amount_conversions() {
     let TokenContext { token, .. } = context.token_context.take().unwrap();
 
     // warp forward, so interest is accrued
-    let warp_slot: u64 = 1_000;
-    let initial_num_warps: u64 = 10;
+    let warp_slot = 1_000;
+    let initial_num_warps = 10;
     for i in 1..initial_num_warps {
         context
             .context
             .lock()
             .await
-            .warp_to_slot(i.checked_mul(warp_slot).unwrap())
+            .warp_to_slot(i * warp_slot)
             .unwrap();
     }
 

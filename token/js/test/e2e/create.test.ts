@@ -1,5 +1,4 @@
-import type { Connection, PublicKey, Signer } from '@safecoin/web3.js';
-import { Keypair } from '@safecoin/web3.js';
+import { Connection, Keypair, PublicKey, Signer } from '@safecoin/web3.js';
 
 import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';

@@ -416,7 +416,7 @@ export class StakePoolInstruction {
   }
 
   /**
-   * Creates a transaction instruction to deposit a stake account into a stake pool.
+   * Creates a transaction instruction to deposit SAFE into a stake pool.
    */
   static depositStake(params: DepositStakeParams): TransactionInstruction {
     const {
@@ -462,7 +462,7 @@ export class StakePoolInstruction {
   }
 
   /**
-   * Creates a transaction instruction to deposit SAFE into a stake pool.
+   * Creates a transaction instruction to withdraw SAFE from a stake pool.
    */
   static depositSafe(params: DepositSafeParams): TransactionInstruction {
     const {
@@ -510,7 +510,7 @@ export class StakePoolInstruction {
   }
 
   /**
-   * Creates a transaction instruction to withdraw active stake from a stake pool.
+   * Creates a transaction instruction to withdraw SAFE from a stake pool.
    */
   static withdrawStake(params: WithdrawStakeParams): TransactionInstruction {
     const {

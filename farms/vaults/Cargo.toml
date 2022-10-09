@@ -11,6 +11,7 @@ edition = "2021"
 [features]
 no-entrypoint = []
 debug = []
+test-sbf = []
 RDM-STAKE-LP-COMPOUND = []
 SBR-STAKE-LP-COMPOUND = []
 ORC-STAKE-LP-COMPOUND = []
@@ -28,3 +29,4 @@ safecoin-program-test = "1.9.18"
 
 [lib]
 crate-type = ["cdylib", "lib"]
+

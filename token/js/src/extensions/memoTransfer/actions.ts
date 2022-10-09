@@ -1,11 +1,18 @@
-import type { ConfirmOptions, Connection, PublicKey, Signer, TransactionSignature } from '@safecoin/web3.js';
-import { sendAndConfirmTransaction, Transaction } from '@safecoin/web3.js';
-import { getSigners } from '../../actions/internal.js';
-import { TOKEN_2022_PROGRAM_ID } from '../../constants.js';
 import {
-    createDisableRequiredMemoTransfersInstruction,
+    ConfirmOptions,
+    Connection,
+    PublicKey,
+    sendAndConfirmTransaction,
+    Signer,
+    Transaction,
+    TransactionSignature,
+} from '@safecoin/web3.js';
+import { TOKEN_2022_PROGRAM_ID } from '../../constants';
+import {
     createEnableRequiredMemoTransfersInstruction,
-} from './instructions.js';
+    createDisableRequiredMemoTransfersInstruction,
+} from './instructions';
+import { getSigners } from '../../actions/internal';
 
 /**
  * Enable memo transfers on the given account

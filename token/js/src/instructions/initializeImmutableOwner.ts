@@ -1,13 +1,12 @@
 import { struct, u8 } from '@solana/buffer-layout';
-import type { AccountMeta, PublicKey } from '@safecoin/web3.js';
-import { TransactionInstruction } from '@safecoin/web3.js';
+import { AccountMeta, PublicKey, TransactionInstruction } from '@safecoin/web3.js';
 import {
     TokenInvalidInstructionDataError,
     TokenInvalidInstructionKeysError,
     TokenInvalidInstructionProgramError,
     TokenInvalidInstructionTypeError,
-} from '../errors.js';
-import { TokenInstruction } from './types.js';
+} from '../errors';
+import { TokenInstruction } from './types';
 
 /** Deserialized instruction for the initiation of an immutable owner account */
 export interface InitializeImmutableOwnerInstructionData {

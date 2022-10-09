@@ -1,70 +1,28 @@
-use spl_governance::state::{
-    enums::MintMaxVoteWeightSource, realm::GoverningTokenConfigAccountArgs,
-};
+use safecoin_program::pubkey::Pubkey;
+use spl_governance::state::{enums::MintMaxVoteWeightSource, realm::RealmConfigArgs};
 
 #[derive(Clone, Debug, PartialEq)]
-pub struct RealmSetupArgs {
-    pub use_council_mint: bool,
-    pub min_community_weight_to_create_governance: u64,
-    pub community_mint_max_vote_weight_source: MintMaxVoteWeightSource,
-    pub community_token_config_args: GoverningTokenConfigAccountArgs,
-    pub council_token_config_args: GoverningTokenConfigAccountArgs,
+pub struct SetRealmConfigArgs {
+    pub realm_config_args: RealmConfigArgs,
+    pub community_voter_weight_addin: Option<Pubkey>,
+    pub max_community_voter_weight_addin: Option<Pubkey>,
 }
 
-impl Default for RealmSetupArgs {
+impl Default for SetRealmConfigArgs {
     fn default() -> Self {
-        Self {
+        let realm_config_args = RealmConfigArgs {
             use_council_mint: true,
-            community_token_config_args: GoverningTokenConfigAccountArgs::default(),
-            council_token_config_args: GoverningTokenConfigAccountArgs::default(),
+
+            community_mint_max_vote_weight_source: MintMaxVoteWeightSource::SupplyFraction(100),
             min_community_weight_to_create_governance: 10,
-            community_mint_max_vote_weight_source: MintMaxVoteWeightSource::FULL_SUPPLY_FRACTION,
+            use_community_voter_weight_addin: false,
+            use_max_community_voter_weight_addin: false,
+        };
+
+        Self {
+            realm_config_args,
+            community_voter_weight_addin: None,
+            max_community_voter_weight_addin: None,
         }
     }
-}
-
-#[derive(Clone, Debug, PartialEq)]
-pub struct PluginSetupArgs {
-    pub use_community_voter_weight_addin: bool,
-    pub use_max_community_voter_weight_addin: bool,
-    pub use_council_voter_weight_addin: bool,
-    pub use_max_council_voter_weight_addin: bool,
-}
-
-impl PluginSetupArgs {
-    #[allow(dead_code)]
-    pub const COMMUNITY_VOTER_WEIGHT: PluginSetupArgs = PluginSetupArgs {
-        use_community_voter_weight_addin: true,
-        use_max_community_voter_weight_addin: false,
-        use_council_voter_weight_addin: false,
-        use_max_council_voter_weight_addin: false,
-    };
-    #[allow(dead_code)]
-    pub const COMMUNITY_MAX_VOTER_WEIGHT: PluginSetupArgs = PluginSetupArgs {
-        use_community_voter_weight_addin: false,
-        use_max_community_voter_weight_addin: true,
-        use_council_voter_weight_addin: false,
-        use_max_council_voter_weight_addin: false,
-    };
-    #[allow(dead_code)]
-    pub const COUNCIL_VOTER_WEIGHT: PluginSetupArgs = PluginSetupArgs {
-        use_community_voter_weight_addin: false,
-        use_max_community_voter_weight_addin: false,
-        use_council_voter_weight_addin: true,
-        use_max_council_voter_weight_addin: false,
-    };
-    #[allow(dead_code)]
-    pub const COUNCIL_MAX_VOTER_WEIGHT: PluginSetupArgs = PluginSetupArgs {
-        use_community_voter_weight_addin: false,
-        use_max_community_voter_weight_addin: false,
-        use_council_voter_weight_addin: false,
-        use_max_council_voter_weight_addin: true,
-    };
-    #[allow(dead_code)]
-    pub const ALL: PluginSetupArgs = PluginSetupArgs {
-        use_community_voter_weight_addin: true,
-        use_max_community_voter_weight_addin: true,
-        use_council_voter_weight_addin: true,
-        use_max_council_voter_weight_addin: true,
-    };
 }

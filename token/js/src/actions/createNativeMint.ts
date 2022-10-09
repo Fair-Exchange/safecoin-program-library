@@ -1,7 +1,6 @@
-import type { ConfirmOptions, Connection, Signer } from '@safecoin/web3.js';
-import { sendAndConfirmTransaction, Transaction } from '@safecoin/web3.js';
-import { NATIVE_MINT_2022, TOKEN_2022_PROGRAM_ID } from '../constants.js';
-import { createCreateNativeMintInstruction } from '../instructions/createNativeMint.js';
+import { ConfirmOptions, Connection, sendAndConfirmTransaction, Signer, Transaction } from '@safecoin/web3.js';
+import { TOKEN_2022_PROGRAM_ID, NATIVE_MINT_2022 } from '../constants';
+import { createCreateNativeMintInstruction } from '../instructions/index';
 
 /**
  * Create native mint

@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 #![deny(missing_docs)]
 //! Shared memory program for the Safecoin blockchain.
 //

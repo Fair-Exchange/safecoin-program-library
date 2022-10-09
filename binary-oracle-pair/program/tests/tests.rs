@@ -128,7 +128,6 @@ pub async fn make_decision(
     Ok(())
 }
 
-#[allow(clippy::too_many_arguments)]
 pub async fn make_withdraw(
     program_context: &mut ProgramTestContext,
     pool_account: &Pubkey,
@@ -447,11 +446,6 @@ impl TestPool {
         banks_client.process_transaction(transaction).await.unwrap();
     }
 }
-impl Default for TestPool {
-    fn default() -> Self {
-        Self::new()
-    }
-}
 
 pub async fn create_mint(
     banks_client: &mut BanksClient,
@@ -473,7 +467,7 @@ pub async fn create_mint(
             safe_token::instruction::initialize_mint(
                 &safe_token::id(),
                 &mint_account.pubkey(),
-                owner,
+                &owner,
                 None,
                 0,
             )

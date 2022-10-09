@@ -7,37 +7,34 @@ mod program_test;
 
 use program_test::*;
 
-use crate::program_test::args::RealmSetupArgs;
-
 #[tokio::test]
 async fn test_create_realm_with_max_voter_weight_addin() {
     // Arrange
     let mut governance_test = GovernanceProgramTest::start_with_max_voter_weight_addin().await;
 
-    let mut realm_setup_args = RealmSetupArgs::default();
-
-    realm_setup_args
-        .community_token_config_args
-        .max_voter_weight_addin = governance_test.max_voter_weight_addin_id;
-
     // Act
 
-    let realm_cookie = governance_test
-        .with_realm_using_args(&realm_setup_args)
-        .await;
+    let realm_cookie = governance_test.with_realm().await;
 
     // Assert
 
-    let realm_config_data = governance_test
-        .get_realm_config_account(&realm_cookie.realm_config.address)
+    let realm_account_data = governance_test
+        .get_realm_account(&realm_cookie.address)
         .await;
 
-    assert_eq!(realm_cookie.realm_config.account, realm_config_data);
+    assert!(
+        realm_account_data
+            .config
+            .use_max_community_voter_weight_addin
+    );
 
-    assert!(realm_config_data
-        .community_token_config
-        .max_voter_weight_addin
-        .is_some());
+    let realm_config_cookie = realm_cookie.realm_config.unwrap();
+
+    let realm_config_data = governance_test
+        .get_realm_config_data(&realm_config_cookie.address)
+        .await;
+
+    assert_eq!(realm_config_cookie.account, realm_config_data);
 }
 
 #[tokio::test]
@@ -45,35 +42,50 @@ async fn test_set_realm_max_voter_weight_addin_for_realm_without_addins() {
     // Arrange
     let mut governance_test = GovernanceProgramTest::start_with_max_voter_weight_addin().await;
 
-    let mut realm_setup_args = RealmSetupArgs::default();
+    let mut set_realm_config_args = governance_test.get_default_set_realm_config_args();
+
+    set_realm_config_args
+        .realm_config_args
+        .use_max_community_voter_weight_addin = false;
+
+    set_realm_config_args
+        .realm_config_args
+        .use_community_voter_weight_addin = false;
 
     let mut realm_cookie = governance_test
-        .with_realm_using_args(&realm_setup_args)
+        .with_realm_using_config_args(&set_realm_config_args)
         .await;
 
-    realm_setup_args
-        .community_token_config_args
-        .max_voter_weight_addin = governance_test.max_voter_weight_addin_id;
+    set_realm_config_args
+        .realm_config_args
+        .use_max_community_voter_weight_addin = true;
 
     // Act
 
     governance_test
-        .set_realm_config(&mut realm_cookie, &realm_setup_args)
+        .set_realm_config(&mut realm_cookie, &set_realm_config_args)
         .await
         .unwrap();
 
     // Assert
 
-    let realm_config_data = governance_test
-        .get_realm_config_account(&realm_cookie.realm_config.address)
+    let realm_account_data = governance_test
+        .get_realm_account(&realm_cookie.address)
         .await;
 
-    assert_eq!(realm_cookie.realm_config.account, realm_config_data);
+    assert!(
+        realm_account_data
+            .config
+            .use_max_community_voter_weight_addin
+    );
 
-    assert!(realm_config_data
-        .community_token_config
-        .max_voter_weight_addin
-        .is_some());
+    let realm_config_cookie = realm_cookie.realm_config.unwrap();
+
+    let realm_config_data = governance_test
+        .get_realm_config_data(&realm_config_cookie.address)
+        .await;
+
+    assert_eq!(realm_config_cookie.account, realm_config_data);
 }
 
 #[tokio::test]
@@ -81,38 +93,52 @@ async fn test_set_realm_max_voter_weight_addin_for_realm_without_council_and_add
     // Arrange
     let mut governance_test = GovernanceProgramTest::start_with_max_voter_weight_addin().await;
 
-    let mut realm_setup_args = RealmSetupArgs {
-        use_council_mint: false,
-        ..Default::default()
-    };
+    let mut set_realm_config_args = governance_test.get_default_set_realm_config_args();
+
+    set_realm_config_args
+        .realm_config_args
+        .use_community_voter_weight_addin = false;
+
+    set_realm_config_args
+        .realm_config_args
+        .use_max_community_voter_weight_addin = false;
+
+    set_realm_config_args.realm_config_args.use_council_mint = false;
 
     let mut realm_cookie = governance_test
-        .with_realm_using_args(&realm_setup_args)
+        .with_realm_using_config_args(&set_realm_config_args)
         .await;
 
-    realm_setup_args
-        .community_token_config_args
-        .max_voter_weight_addin = governance_test.max_voter_weight_addin_id;
+    set_realm_config_args
+        .realm_config_args
+        .use_max_community_voter_weight_addin = true;
 
     // Act
 
     governance_test
-        .set_realm_config(&mut realm_cookie, &realm_setup_args)
+        .set_realm_config(&mut realm_cookie, &set_realm_config_args)
         .await
         .unwrap();
 
     // Assert
 
-    let realm_config_data = governance_test
-        .get_realm_config_account(&realm_cookie.realm_config.address)
+    let realm_account_data = governance_test
+        .get_realm_account(&realm_cookie.address)
         .await;
 
-    assert_eq!(realm_cookie.realm_config.account, realm_config_data);
+    assert!(
+        realm_account_data
+            .config
+            .use_max_community_voter_weight_addin
+    );
 
-    assert!(realm_config_data
-        .community_token_config
-        .max_voter_weight_addin
-        .is_some());
+    let realm_config_cookie = realm_cookie.realm_config.unwrap();
+
+    let realm_config_data = governance_test
+        .get_realm_config_data(&realm_config_cookie.address)
+        .await;
+
+    assert_eq!(realm_config_cookie.account, realm_config_data);
 }
 
 #[tokio::test]
@@ -122,42 +148,46 @@ async fn test_set_realm_max_voter_weight_addin_for_realm_with_existing_voter_wei
 
     let mut realm_cookie = governance_test.with_realm().await;
 
-    let mut realm_setup_args = RealmSetupArgs::default();
+    let mut set_realm_config_args = governance_test.get_default_set_realm_config_args();
 
-    realm_setup_args
-        .community_token_config_args
-        .max_voter_weight_addin = governance_test.max_voter_weight_addin_id;
+    set_realm_config_args
+        .realm_config_args
+        .use_max_community_voter_weight_addin = true;
 
     let max_community_voter_weight_addin_address = Pubkey::new_unique();
-    realm_setup_args
-        .community_token_config_args
-        .max_voter_weight_addin = Some(max_community_voter_weight_addin_address);
+    set_realm_config_args.max_community_voter_weight_addin =
+        Some(max_community_voter_weight_addin_address);
 
     // Act
 
     governance_test
-        .set_realm_config(&mut realm_cookie, &realm_setup_args)
+        .set_realm_config(&mut realm_cookie, &set_realm_config_args)
         .await
         .unwrap();
 
     // Assert
 
-    let realm_config_data = governance_test
-        .get_realm_config_account(&realm_cookie.realm_config.address)
+    let realm_account_data = governance_test
+        .get_realm_account(&realm_cookie.address)
         .await;
 
-    assert_eq!(realm_cookie.realm_config.account, realm_config_data);
-    assert_eq!(
-        realm_config_data
-            .community_token_config
-            .max_voter_weight_addin,
-        Some(max_community_voter_weight_addin_address)
+    assert!(
+        realm_account_data
+            .config
+            .use_max_community_voter_weight_addin
     );
 
-    assert!(realm_config_data
-        .community_token_config
-        .max_voter_weight_addin
-        .is_some());
+    let realm_config_cookie = realm_cookie.realm_config.unwrap();
+
+    let realm_config_data = governance_test
+        .get_realm_config_data(&realm_config_cookie.address)
+        .await;
+
+    assert_eq!(realm_config_cookie.account, realm_config_data);
+    assert_eq!(
+        realm_config_data.max_community_voter_weight_addin,
+        Some(max_community_voter_weight_addin_address)
+    );
 }
 
 #[tokio::test]
@@ -165,33 +195,38 @@ async fn test_set_realm_config_with_no_max_voter_weight_addin_for_realm_without_
     // Arrange
     let mut governance_test = GovernanceProgramTest::start_with_max_voter_weight_addin().await;
 
-    let mut realm_setup_args = RealmSetupArgs::default();
+    let mut set_realm_config_args = governance_test.get_default_set_realm_config_args();
+
+    set_realm_config_args
+        .realm_config_args
+        .use_max_community_voter_weight_addin = false;
 
     let mut realm_cookie = governance_test
-        .with_realm_using_args(&realm_setup_args)
+        .with_realm_using_config_args(&set_realm_config_args)
         .await;
 
-    realm_setup_args
-        .community_token_config_args
-        .max_voter_weight_addin = None;
+    set_realm_config_args
+        .realm_config_args
+        .use_max_community_voter_weight_addin = false;
 
     // Act
 
     governance_test
-        .set_realm_config(&mut realm_cookie, &realm_setup_args)
+        .set_realm_config(&mut realm_cookie, &set_realm_config_args)
         .await
         .unwrap();
 
     // Assert
 
-    let realm_config_data = governance_test
-        .get_realm_config_account(&realm_cookie.realm_config.address)
+    let realm_account_data = governance_test
+        .get_realm_account(&realm_cookie.address)
         .await;
 
-    assert!(realm_config_data
-        .community_token_config
-        .max_voter_weight_addin
-        .is_none());
+    assert!(
+        !realm_account_data
+            .config
+            .use_max_community_voter_weight_addin
+    );
 }
 
 #[tokio::test]
@@ -200,28 +235,30 @@ async fn test_set_realm_config_with_no_max_voter_weight_addin_for_realm_with_exi
     let mut governance_test = GovernanceProgramTest::start_with_max_voter_weight_addin().await;
     let mut realm_cookie = governance_test.with_realm().await;
 
-    let realm_setup_args = RealmSetupArgs::default();
+    let mut set_realm_config_args = governance_test.get_default_set_realm_config_args();
+
+    set_realm_config_args
+        .realm_config_args
+        .use_max_community_voter_weight_addin = false;
 
     // Act
 
     governance_test
-        .set_realm_config(&mut realm_cookie, &realm_setup_args)
+        .set_realm_config(&mut realm_cookie, &set_realm_config_args)
         .await
         .unwrap();
 
     // Assert
 
-    let realm_config_data = governance_test
-        .get_realm_config_account(&realm_cookie.realm_config.address)
+    let realm_account_data = governance_test
+        .get_realm_account(&realm_cookie.address)
         .await;
 
-    assert!(realm_config_data
-        .community_token_config
-        .max_voter_weight_addin
-        .is_none());
+    assert!(!realm_account_data.config.use_community_voter_weight_addin);
 
-    assert!(realm_config_data
-        .community_token_config
-        .voter_weight_addin
-        .is_none());
+    let realm_config_data = governance_test
+        .get_realm_config_data(&realm_cookie.realm_config.unwrap().address)
+        .await;
+
+    assert!(realm_config_data.max_community_voter_weight_addin.is_none());
 }

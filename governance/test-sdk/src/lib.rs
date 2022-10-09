@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 use std::borrow::Borrow;
 
 use borsh::BorshDeserialize;

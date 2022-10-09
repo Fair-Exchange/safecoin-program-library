@@ -1,8 +1,8 @@
 import { struct, u8 } from '@solana/buffer-layout';
 import { bool, publicKey } from '@safecoin/buffer-layout-utils';
-import type { AccountInfo, Commitment, Connection, PublicKey } from '@safecoin/web3.js';
-import { TOKEN_PROGRAM_ID } from '../constants.js';
-import { TokenAccountNotFoundError, TokenInvalidAccountOwnerError, TokenInvalidAccountSizeError } from '../errors.js';
+import { AccountInfo, Commitment, Connection, PublicKey } from '@safecoin/web3.js';
+import { TOKEN_PROGRAM_ID } from '../constants';
+import { TokenAccountNotFoundError, TokenInvalidAccountOwnerError, TokenInvalidAccountSizeError } from '../errors';
 
 /** Information about a multisig */
 export interface Multisig {

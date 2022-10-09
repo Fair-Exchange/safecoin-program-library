@@ -32,11 +32,11 @@ program id.
 
 To safely code the transition, we'll follow a test-driven development approach:
 
-- add a dependency to `safe-token-2022`
-- change tests to use `safe_token::id()` or `safe_token_2022::id()`, see that all
-  tests fail with Token-2022
-- update on-chain program code to always use the instruction and deserializers from
-  `safe_token_2022`, make all tests pass
+* add a dependency to `safe-token-2022`
+* change tests to use `safe_token::id()` or `safe_token_2022::id()`, see that all
+tests fail with Token-2022
+* update on-chain program code to always use the instruction and deserializers from 
+`safe_token_2022`, make all tests pass
 
 Optionally, if an instruction uses more than one token mint, common to most DeFi,
 you must add an input token program account for each additional mint. Since it's
@@ -87,7 +87,7 @@ $ safecoin program dump ZToGWcF1Qh9H7te1MmABiGsFUKvj5zXPQ2QnTqoHpHN safe_token_2
 If you're using `safecoin-test-validator` for your tests, you can include it using:
 
 ```console
-$ safecoin-test-validator -c ZToGWcF1Qh9H7te1MmABiGsFUKvj5zXPQ2QnTqoHpHN
+$ safecoin-test-validator -c ZToGWcF1Qh9H7te1MmABiGsFUKvj5zXPQ2QnTqoHpHN 
 ```
 
 **Note**: This step is temporary, until Token-2022 is included by default in
@@ -135,7 +135,7 @@ normal `Account::unpack` and `Mint::unpack` will fail if the size of the account
 is not exactly 165 and 82, respectively.
 
 Let's make the tests fail again by adding an extension to all mint and token
-accounts. We'll add the `MintCloseAuthority` extension to mints, and the `ImmutableOwner`
+accounts.  We'll add the `MintCloseAuthority` extension to mints, and the `ImmutableOwner`
 extension to accounts.
 
 When creating mint accounts, calculate the space required before allocating, then
@@ -293,7 +293,7 @@ Swap {
 }
 ```
 
-Note the new inputs of `9.` and `10.`, and the clarification on `11`.
+Note the clarification on `9.`, and the new inputs of `10.` and `11.`.
 
 All of these additional accounts may make you wonder: how big will transactions
 get with these new accounts? If you are using both Token and Token-2022,
@@ -346,14 +346,11 @@ in the `Swap` instruction processor, we'll go from:
 let account_info_iter = &mut accounts.iter();
 let swap_info = next_account_info(account_info_iter)?;
 let authority_info = next_account_info(account_info_iter)?;
-let user_transfer_authority_info = next_account_info(account_info_iter)?;
-let source_info = next_account_info(account_info_iter)?;
+let user_transfer_authority_info = next_account_info(account_info_iter)?;                     let source_info = next_account_info(account_info_iter)?;
 let swap_source_info = next_account_info(account_info_iter)?;
 let swap_destination_info = next_account_info(account_info_iter)?;
-let destination_info = next_account_info(account_info_iter)?;
-let pool_mint_info = next_account_info(account_info_iter)?;
-let pool_fee_account_info = next_account_info(account_info_iter)?;
-let token_program_info = next_account_info(account_info_iter)?;
+let destination_info = next_account_info(account_info_iter)?;                                 let pool_mint_info = next_account_info(account_info_iter)?;                                   let pool_fee_account_info = next_account_info(account_info_iter)?;
+let token_program_info = next_account_info(account_info_iter)?;                       
 ```
 
 To:
@@ -369,9 +366,9 @@ let swap_destination_info = next_account_info(account_info_iter)?;
 let destination_info = next_account_info(account_info_iter)?;
 let pool_mint_info = next_account_info(account_info_iter)?;
 let pool_fee_account_info = next_account_info(account_info_iter)?;
-let source_token_program_info = next_account_info(account_info_iter)?; // added
-let destination_token_program_info = next_account_info(account_info_iter)?; // added
-let pool_token_program_info = next_account_info(account_info_iter)?; // renamed
+let source_token_program_info = next_account_info(account_info_iter)?;
+let destination_token_program_info = next_account_info(account_info_iter)?;
+let pool_token_program_info = next_account_info(account_info_iter)?;
 ```
 
 For now, just use one of those. For example, we'll just use `pool_token_program_info`
@@ -389,10 +386,10 @@ Previously, our `test_case`s defined only provided one program id. Now it's
 time to mix them up and add more cases. For full coverage, we could do all
 permutations of different programs, but let's go with:
 
-- all mints belong to Token
-- all mints belong to Token-2022
-- the pool mint belongs to Token, but token A and B belong to Token-2022
-- the pool mint belongs to Token-2022, but token A and B are mixed
+* all mints belong to Token
+* all mints belong to Token-2022
+* the pool mint belongs to Token, but token A and B belong to Token-2022
+* the pool mint belongs to Token-2022, but token A and B are mixed
 
 Let's update test cases to pass in three different program ids, and then use them
 in the tests. For example, that means transforming:
@@ -477,290 +474,8 @@ It's tedious, but at this point, we have updated our program to use both Token
 and Token-2022 simultaneously. Congratulations! You're ready to be part of the
 next stage of DeFi on Safecoin.
 
-## Part III: Support All Extensions
+## Part III: Support Specific Extensions
 
-It seems like our program is working perfectly and that it won't have any issues
-processing Token-2022 mints.
+### Update from `transfer` to `transfer_checked`
 
-Unfortunately, there's one more bit of work required for full compatibility in
-token-swap. Since the program is using `transfer` instead of `transfer_checked`,
-it will fail for certain mints.
-
-We must upgrade to using `transfer_checked` if we want to support all extensions
-in Token-2022. As always, let's start by making our tests fail.
-
-### Step 1: Add transfer fee extension to Token-2022 tests
-
-The Token-2022 tests currently initialize the `MintCloseAuthority` extension.
-Let's add the `TransferFeeConfig` extension to the mint, and the `TransferFeeAmount`
-extension to the token accounts.
-
-Instead of:
-
-```rust
-let mint_space = ExtensionType::get_account_len::<Mint>(&[ExtensionType::MintCloseAuthority]);
-let account_space = ExtensionType::get_account_len::<Account>(&[ExtensionType::ImmutableOwner]);
-```
-
-We'll do:
-
-```rust
-let mint_space = ExtensionType::get_account_len::<Mint>(&[ExtensionType::MintCloseAuthority, ExtensionType::TransferFeeConfig]);
-let account_space = ExtensionType::get_account_len::<Account>(&[ExtensionType::ImmutableOwner, ExtensionType::TransferFeeAmount]);
-```
-
-And during initialization of the mint, we'll add in the instruction to initialize
-the transfer fee config to the initialization transaction:
-
-```rust
-let rate_authority = Keypair::new();
-let withdraw_authority = Keypair::new();
-
-let instruction = safe_token_2022::extension::transfer_fee::instruction::initialize_transfer_fee_config(
-    program_id, &mint_key, rate_authority.pubkey(), withdraw_authority.pubkey(), 0, 0
-).unwrap();
-```
-
-With this step, some of the Token-2022 test variants fail with: "Mint required 
-for this account to transfer tokens, use `transfer_checked` or 
-`transfer_checked_with_fee`".
-
-### Step 2: Add mints to instructions that use `transfer`
-
-The biggest difference between `transfer` and `transfer_checked` is the presence
-of the mint for the tokens. First, we must provide the mint account for every
-instruction that uses `transfer`.
-
-For example, the swap instruction becomes:
-
-```rust
-///   Swap the tokens in the pool.
-///
-///   0. `[]` Token-swap
-///   1. `[]` swap authority
-///   2. `[]` user transfer authority
-///   3. `[writable]` token_(A|B) SOURCE Account, amount is transferable by user transfer authority,
-///   4. `[writable]` token_(A|B) Base Account to swap INTO.  Must be the SOURCE token.
-///   5. `[writable]` token_(A|B) Base Account to swap FROM.  Must be the DESTINATION token.
-///   6. `[writable]` token_(A|B) DESTINATION Account assigned to USER as the owner.
-///   7. `[writable]` Pool token mint, to generate trading fees
-///   8. `[writable]` Fee account, to receive trading fees
-///   9. `[]` Token (A|B) SOURCE mint
-///   10. `[]` Token (A|B) DESTINATION mint
-///   11. `[]` Token (A|B) SOURCE program id
-///   12. `[]` Token (A|B) DESTINATION program id
-///   13. `[]` Pool Token program id
-///   14. `[optional, writable]` Host fee account to receive additional trading fees
-Swap(...),
-```
-
-Note the addition of `Token (A|B) SOURCE mint` and `Token (A|B) DESTINATION mint`.
-The pool token mint is already included, so we're safe there.
-
-Next, in the processor code, we'll extract these additional accounts, but we
-won't use them yet.
-
-For swap, the beginning becomes:
-
-```rust
-let account_info_iter = &mut accounts.iter();
-let swap_info = next_account_info(account_info_iter)?;
-let authority_info = next_account_info(account_info_iter)?;
-let user_transfer_authority_info = next_account_info(account_info_iter)?;
-let source_info = next_account_info(account_info_iter)?;
-let swap_source_info = next_account_info(account_info_iter)?;
-let swap_destination_info = next_account_info(account_info_iter)?;
-let destination_info = next_account_info(account_info_iter)?;
-let pool_mint_info = next_account_info(account_info_iter)?;
-let pool_fee_account_info = next_account_info(account_info_iter)?;
-let source_token_mint_info = next_account_info(account_info_iter)?;
-let destination_token_mint_info = next_account_info(account_info_iter)?;
-let source_token_program_info = next_account_info(account_info_iter)?;
-let destination_token_program_info = next_account_info(account_info_iter)?;
-let pool_token_program_info = next_account_info(account_info_iter)?;
-```
-
-Note the addition of `source_token_mint_info` and `destination_token_mint_info`.
-
-We'll go through every instruction that uses `transfer`, which for token-swap,
-includes `swap`, `deposit_all_token_types`, `withdraw_all_token_types`,
-`deposit_single_token_type_exact_amount_in`, and
-`withdraw_single_token_type_exact_amount_out`.
-
-By the end of this, some of the Token-2022 tests still fail, but the Token
-tests all pass.
-
-### Step 3: Change `transfer` to `transfer_checked` instruction
-
-Everything's in place to use `transfer_checked`, so the next step will thankfully
-be quite simple and get all of our tests to pass.
-
-Where we normally use `safe_token_2022::instruction::transfer`, we'll instead use
-`safe_token_2022::instruction::transfer_checked`, also providing the mint account
-info and decimals.
-
-For example, we can do:
-
-```rust
-let decimals = StateWithExtensions::<Mint>::unpack(&mint.data.borrow()).map(|m| m.base)?.decimals;
-let ix = safe_token_2022::instruction::transfer_checked(
-  token_program.key,
-  source.key,
-  mint.key,
-  destination.key,
-  authority.key,
-  &[],
-  amount,
-  decimals,
-)?;
-invoke(
-  &ix,
-  &[source, mint, destination, authority, token_program],
-)
-```
-
-After this step, all of your tests should pass once again, so congratulations
-again!
-
-## Part IV: Support transfer fees in calculation
-
-Now that everything is in place to support every possible extension in Token-2022,
-we find that token-swap has some strange behavior for certain extensions.
-
-In token-swap, if a token has transfer fees, then the curve calculations will
-not be correct. For example, if you try to trade token A for B, and token A has
-a 1% transfer fee, then fewer tokens will arrive into the pool, which means that
-you should receive fewer tokens.
-
-We'll add logic to properly handle the transfer fee extension as an example in
-token-swap.
-
-### Step 1: Add a failing test swapping with transfer fees
-
-Let's start by adding a failing test where we swap between tokens that have
-non-zero transfer fees.
-
-For token-swap, we can reuse a previous test which checks that the curve calculation
-lines up with what is actually traded. The most important part is to add a transfer
-fee when initializing the mint, meaning we go from:
-
-```rust
-let rate_authority = Keypair::new();
-let withdraw_authority = Keypair::new();
-
-let instruction = safe_token_2022::extension::transfer_fee::instruction::initialize_transfer_fee_config(
-    program_id, &mint_key, rate_authority.pubkey(), withdraw_authority.pubkey(), 0, 0
-).unwrap();
-```
-
-To:
-
-```rust
-let rate_authority = Keypair::new();
-let withdraw_authority = Keypair::new();
-let transfer_fee_basis_points = 100;
-let maximum_transfer_fee = 1_000_000_000;
-
-let instruction = safe_token_2022::extension::transfer_fee::instruction::initialize_transfer_fee_config(
-    program_id, &mint_key, rate_authority.pubkey(), withdraw_authority.pubkey(), 
-    transfer_fee_basis_points, maximum_transfer_fee
-).unwrap();
-```
-
-### Step 2: Calculate the expected transfer fee
-
-Whenever the program moves tokens, it needs to check if the mint contains a
-transfer fee and account for them.
-
-To check if the mint has an extension, we simply need to get the extension for
-the desired type, and properly handle the valid error case.
-
-Roughly speaking that means changing the amount traded before calculation:
-
-```rust
-use safecoin_program::{clock::Clock, sysvar::Sysvar};
-use safe_token_2022::{extension::{StateWithExtensions, transfer_fee::TransferFeeConfig}, state::Mint};
-
-let mint_data = token_mint_info.data.borrow();
-let mint = StateWithExtensions::<Mint>::unpack(&mint_data)?;
-let actual_amount = if let Ok(transfer_fee_config) = mint.get_extension::<TransferFeeConfig>() {
-    let fee = transfer_fee_config
-        .calculate_epoch_fee(Clock::get()?.epoch, amount)
-        .ok_or(ProgramError::InvalidArgument)?;
-    amount.saturating_sub(fee)
-} else {
-    amount
-};
-```
-
-After making these changes, our tests pass once again, congratulations!
-
-**Note**: in the case of token-swap, we need to reverse calculate the fee, which
-introduces extra complexity. Most likely, your program won't need that.
-
-## Part V: Prohibit closable mints
-
-In Token-2022, it's possible for certain mints to be closed if their supply is 0.
-Typically, this won't cause any damage, because all token accounts are empty if
-a mint is closable.
-
-If your program stores any information about mints, however, it can go out of
-sync if the mint is closed and re-created on that same address. Worse, the
-account can be used for something completely different. If your program is storing
-mint info, find a way to redesign your solution so it always uses the information
-from the mint directly.
-
-In token-swap, the program gracefully handles closed mints, but an empty pool
-can be rendered unusable if the pool mint is closed. No funds are at risk, since
-the pool is empty anyway, but for the sake of the tutorial, let's prohibit the
-pool mint from being closable.
-
-### Step 1: Add a failing test with a mint close authority
-
-Let's add a mint close authority to the pool token mint. During initialization,
-we'll do:
-
-```rust
-use safe_token_2022::{extension::ExtensionType, instruction::*, state::Mint};
-use safecoin_sdk::{system_instruction, transaction::Transaction};
-
-// Calculate the space required using the `ExtensionType`
-let space = ExtensionType::get_account_len::<Mint>(&[ExtensionType::MintCloseAuthority]);
-
-// get the Rent object and calculate the rent required
-let rent_required = rent.minimum_balance(space);
-
-// and then create the account using those parameters
-let create_instruction = system_instruction::create_account(&payer.pubkey(), mint_pubkey, rent_required, space, token_program_id);
-
-// Important: you must initialize the mint close authority *BEFORE* initializing the mint,
-// and only when working with Token-2022, since the instruction is unsupported by Token.
-let initialize_close_authority_instruction = initialize_mint_close_authority(token_program_id, mint_pubkey, Some(close_authority)).unwrap();
-let initialize_mint_instruction = initialize_mint(token_program_id, mint_pubkey, mint_authority_pubkey, freeze_authority, 9).unwrap();
-
-// Make the transaction with all of these instructions
-let create_mint_transaction = Transaction::new(&[create_instruction, initialize_close_authority_instruction, initialize_mint_instruction], Some(&payer.pubkey));
-```
-
-And then try to initialize the token swap pool as normal, checking for a failure.
-Since there isn't any logic to prohibit a close authority, it should fail. Nice!
-
-### Step 2: Add processor check to prevent a mint close authority
-
-When processing the initialize code, we simply add a check to see if a non-`None`
-mint close authority exists.
-
-For example, that means:
-
-```rust
-let pool_mint_data = pool_mint_info.data.borrow();
-let pool_mint = StateWithExtensions::<Mint>::unpack(pool_mint_data)?;
-if let Ok(extension) = pool_mint.get_extension::<MintCloseAuthority>() {
-    let close_authority: Option<Pubkey> = extension.close_authority.into();
-    if close_authority.is_some() {
-        return Err(ProgramError::InvalidAccountData);
-    }
-}
-```
-
-Now the test should pass. Well done!
+### Take fee into account when calculating slippage

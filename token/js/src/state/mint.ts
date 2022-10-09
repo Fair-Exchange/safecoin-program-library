@@ -1,20 +1,18 @@
 import { struct, u32, u8 } from '@solana/buffer-layout';
 import { bool, publicKey, u64 } from '@safecoin/buffer-layout-utils';
-import type { AccountInfo, Commitment, Connection } from '@safecoin/web3.js';
-import { PublicKey } from '@safecoin/web3.js';
-import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '../constants.js';
+import { AccountInfo, Commitment, Connection, PublicKey } from '@safecoin/web3.js';
+import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '../constants';
 import {
     TokenAccountNotFoundError,
     TokenInvalidAccountOwnerError,
     TokenInvalidAccountSizeError,
     TokenInvalidMintError,
     TokenOwnerOffCurveError,
-} from '../errors.js';
-import { ACCOUNT_TYPE_SIZE, AccountType } from '../extensions/accountType.js';
-import type { ExtensionType } from '../extensions/extensionType.js';
-import { getMintLen } from '../extensions/extensionType.js';
-import { ACCOUNT_SIZE } from './account.js';
-import { MULTISIG_SIZE } from './multisig.js';
+} from '../errors';
+import { ACCOUNT_SIZE } from './account';
+import { MULTISIG_SIZE } from './multisig';
+import { AccountType, ACCOUNT_TYPE_SIZE } from '../extensions/accountType';
+import { ExtensionType, getMintLen } from '../extensions/extensionType';
 
 /** Information about a mint */
 export interface Mint {

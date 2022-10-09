@@ -1,9 +1,8 @@
 import { struct, u8 } from '@solana/buffer-layout';
-import type { PublicKey } from '@safecoin/web3.js';
-import { TransactionInstruction } from '@safecoin/web3.js';
-import { programSupportsExtensions } from '../constants.js';
-import { TokenUnsupportedInstructionError } from '../errors.js';
-import { TokenInstruction } from './types.js';
+import { PublicKey, TransactionInstruction } from '@safecoin/web3.js';
+import { TokenInstruction } from './types';
+import { TokenUnsupportedInstructionError } from '../errors';
+import { programSupportsExtensions } from '../constants';
 
 /** Deserialized instruction for the initiation of an immutable owner account */
 export interface InitializeNonTransferableMintInstructionData {

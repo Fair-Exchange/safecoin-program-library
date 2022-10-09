@@ -1,4 +1,3 @@
-#![allow(clippy::integer_arithmetic)]
 #![cfg(feature = "test-sbf")]
 
 mod helpers;
@@ -36,7 +35,7 @@ async fn test_success() {
     test.prefer_bpf(false);
     test.add_program(
         "flash_loan_receiver",
-        receiver_program_id,
+        receiver_program_id.clone(),
         processor!(helpers::flash_loan_receiver::process_instruction),
     );
 
@@ -95,8 +94,11 @@ async fn test_success() {
             usdc_test_reserve.liquidity_fee_receiver_pubkey,
             usdc_test_reserve.liquidity_host_pubkey,
             lending_market.pubkey,
-            receiver_program_id,
-            vec![AccountMeta::new_readonly(receiver_authority_pubkey, false)],
+            receiver_program_id.clone(),
+            vec![AccountMeta::new_readonly(
+                receiver_authority_pubkey.clone(),
+                false,
+            )],
         )],
         Some(&payer.pubkey()),
     );
@@ -153,7 +155,7 @@ async fn test_failure() {
     test.prefer_bpf(false);
     test.add_program(
         "flash_loan_receiver",
-        flash_loan_receiver_program_id,
+        flash_loan_receiver_program_id.clone(),
         processor!(helpers::flash_loan_receiver::process_instruction),
     );
 
@@ -204,8 +206,11 @@ async fn test_failure() {
             usdc_test_reserve.liquidity_fee_receiver_pubkey,
             usdc_test_reserve.liquidity_host_pubkey,
             lending_market.pubkey,
-            flash_loan_receiver_program_id,
-            vec![AccountMeta::new_readonly(receiver_authority_pubkey, false)],
+            flash_loan_receiver_program_id.clone(),
+            vec![AccountMeta::new_readonly(
+                receiver_authority_pubkey.clone(),
+                false,
+            )],
         )],
         Some(&payer.pubkey()),
     );

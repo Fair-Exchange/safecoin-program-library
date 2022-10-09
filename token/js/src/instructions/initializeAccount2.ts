@@ -1,15 +1,14 @@
+import { TokenInstruction } from './types';
 import { struct, u8 } from '@solana/buffer-layout';
 import { publicKey } from '@safecoin/buffer-layout-utils';
-import type { AccountMeta, PublicKey } from '@safecoin/web3.js';
-import { SYSVAR_RENT_PUBKEY, TransactionInstruction } from '@safecoin/web3.js';
-import { TOKEN_PROGRAM_ID } from '../constants.js';
+import { AccountMeta, PublicKey, SYSVAR_RENT_PUBKEY, TransactionInstruction } from '@safecoin/web3.js';
+import { TOKEN_PROGRAM_ID } from '../constants';
 import {
     TokenInvalidInstructionDataError,
     TokenInvalidInstructionKeysError,
     TokenInvalidInstructionProgramError,
     TokenInvalidInstructionTypeError,
-} from '../errors.js';
-import { TokenInstruction } from './types.js';
+} from '../errors';
 
 export interface InitializeAccount2InstructionData {
     instruction: TokenInstruction.InitializeAccount2;

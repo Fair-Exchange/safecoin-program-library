@@ -2,8 +2,7 @@ import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
 
-import type { Connection, PublicKey, Signer } from '@safecoin/web3.js';
-import { Keypair } from '@safecoin/web3.js';
+import { Connection, Keypair, PublicKey, Signer } from '@safecoin/web3.js';
 
 import { createMint, getMint, createAccount, getAccount, mintTo, mintToChecked } from '../../src';
 

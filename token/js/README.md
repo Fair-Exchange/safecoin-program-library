@@ -25,19 +25,10 @@ Please see [upgrading from 0.1.x](#upgrading-from-0.1.x).
 ## Install
 
 ```shell
-npm install --save @safecoin/safe-token @safecoin/web3.js
-```
-_OR_
-```shell
-yarn add @safecoin/safe-token @safecoin/web3.js
+yarn add @safecoin/safe-token
 ```
 
 ## Build from Source
-
-0. Prerequisites
-
-* Node 16+
-* NPM 8+
 
 1. Clone the project:
 ```shell
@@ -51,27 +42,27 @@ cd safecoin-program-library/token/js
 
 3. Install the dependencies:
 ```shell
-npm install
+yarn install
 ```
 
 4. Build the library:
 ```shell
-npm run build
+yarn build
 ```
 
 5. Build the on-chain programs:
 ```shell
-npm run test:build-programs
+yarn test:build-programs
 ```
 
 6. Run the tests:
 ```shell
-npm run test
+yarn test
 ```
 
 7. Run the example:
 ```shell
-npm run example
+yarn example
 ```
 
 ## Upgrading

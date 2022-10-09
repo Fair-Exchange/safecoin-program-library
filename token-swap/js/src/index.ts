@@ -88,7 +88,7 @@ export const TokenSwapLayout = BufferLayout.struct([
 export const CurveType = Object.freeze({
   ConstantProduct: 0, // Constant product curve, Uniswap-style
   ConstantPrice: 1, // Constant price curve, always X amount of A token for 1 B token, where X is defined at init
-  Offset: 2, // Offset curve, like Uniswap, but with an additional offset on the token B side
+  Offset: 3, // Offset curve, like Uniswap, but with an additional offset on the token B side
 });
 
 /**
@@ -455,8 +455,6 @@ export class TokenSwap {
    * @param poolSource Pool's source token account
    * @param poolDestination Pool's destination token account
    * @param userDestination User's destination token account
-   * @param sourceMint Mint for the source token
-   * @param destinationMint Mint for the destination token
    * @param sourceTokenProgramId Program id for the source token
    * @param destinationTokenProgramId Program id for the destination token
    * @param hostFeeAccount Host account to gather fees
@@ -469,8 +467,6 @@ export class TokenSwap {
     poolSource: PublicKey,
     poolDestination: PublicKey,
     userDestination: PublicKey,
-    sourceMint: PublicKey,
-    destinationMint: PublicKey,
     sourceTokenProgramId: PublicKey,
     destinationTokenProgramId: PublicKey,
     hostFeeAccount: PublicKey | null,
@@ -493,8 +489,6 @@ export class TokenSwap {
           this.poolToken,
           this.feeAccount,
           hostFeeAccount,
-          sourceMint,
-          destinationMint,
           this.swapProgramId,
           sourceTokenProgramId,
           destinationTokenProgramId,
@@ -519,8 +513,6 @@ export class TokenSwap {
     poolMint: PublicKey,
     feeAccount: PublicKey,
     hostFeeAccount: PublicKey | null,
-    sourceMint: PublicKey,
-    destinationMint: PublicKey,
     swapProgramId: PublicKey,
     sourceTokenProgramId: PublicKey,
     destinationTokenProgramId: PublicKey,
@@ -554,8 +546,6 @@ export class TokenSwap {
       {pubkey: userDestination, isSigner: false, isWritable: true},
       {pubkey: poolMint, isSigner: false, isWritable: true},
       {pubkey: feeAccount, isSigner: false, isWritable: true},
-      {pubkey: sourceMint, isSigner: false, isWritable: false},
-      {pubkey: destinationMint, isSigner: false, isWritable: false},
       {pubkey: sourceTokenProgramId, isSigner: false, isWritable: false},
       {pubkey: destinationTokenProgramId, isSigner: false, isWritable: false},
       {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
@@ -607,8 +597,6 @@ export class TokenSwap {
           this.tokenAccountB,
           this.poolToken,
           poolAccount,
-          this.mintA,
-          this.mintB,
           this.swapProgramId,
           tokenProgramIdA,
           tokenProgramIdB,
@@ -633,8 +621,6 @@ export class TokenSwap {
     intoB: PublicKey,
     poolToken: PublicKey,
     poolAccount: PublicKey,
-    mintA: PublicKey,
-    mintB: PublicKey,
     swapProgramId: PublicKey,
     tokenProgramIdA: PublicKey,
     tokenProgramIdB: PublicKey,
@@ -671,8 +657,6 @@ export class TokenSwap {
       {pubkey: intoB, isSigner: false, isWritable: true},
       {pubkey: poolToken, isSigner: false, isWritable: true},
       {pubkey: poolAccount, isSigner: false, isWritable: true},
-      {pubkey: mintA, isSigner: false, isWritable: false},
-      {pubkey: mintB, isSigner: false, isWritable: false},
       {pubkey: tokenProgramIdA, isSigner: false, isWritable: false},
       {pubkey: tokenProgramIdB, isSigner: false, isWritable: false},
       {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
@@ -723,8 +707,6 @@ export class TokenSwap {
           this.tokenAccountB,
           userAccountA,
           userAccountB,
-          this.mintA,
-          this.mintB,
           this.swapProgramId,
           this.poolTokenProgramId,
           tokenProgramIdA,
@@ -750,8 +732,6 @@ export class TokenSwap {
     fromB: PublicKey,
     userAccountA: PublicKey,
     userAccountB: PublicKey,
-    mintA: PublicKey,
-    mintB: PublicKey,
     swapProgramId: PublicKey,
     poolTokenProgramId: PublicKey,
     tokenProgramIdA: PublicKey,
@@ -789,8 +769,6 @@ export class TokenSwap {
       {pubkey: userAccountA, isSigner: false, isWritable: true},
       {pubkey: userAccountB, isSigner: false, isWritable: true},
       {pubkey: feeAccount, isSigner: false, isWritable: true},
-      {pubkey: mintA, isSigner: false, isWritable: false},
-      {pubkey: mintB, isSigner: false, isWritable: false},
       {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
       {pubkey: tokenProgramIdA, isSigner: false, isWritable: false},
       {pubkey: tokenProgramIdB, isSigner: false, isWritable: false},
@@ -806,7 +784,6 @@ export class TokenSwap {
    * Deposit one side of tokens into the pool
    * @param userAccount User account to deposit token A or B
    * @param poolAccount User account to receive pool tokens
-   * @param sourceMint Mint for the source token
    * @param sourceTokenProgramId Program id for the source token
    * @param userTransferAuthority Account delegated to transfer user's tokens
    * @param sourceTokenAmount The amount of token A or B to deposit
@@ -815,7 +792,6 @@ export class TokenSwap {
   async depositSingleTokenTypeExactAmountIn(
     userAccount: PublicKey,
     poolAccount: PublicKey,
-    sourceMint: PublicKey,
     sourceTokenProgramId: PublicKey,
     userTransferAuthority: Account,
     sourceTokenAmount: number | Numberu64,
@@ -834,7 +810,6 @@ export class TokenSwap {
           this.tokenAccountB,
           this.poolToken,
           poolAccount,
-          sourceMint,
           this.swapProgramId,
           sourceTokenProgramId,
           this.poolTokenProgramId,
@@ -856,7 +831,6 @@ export class TokenSwap {
     intoB: PublicKey,
     poolToken: PublicKey,
     poolAccount: PublicKey,
-    sourceMint: PublicKey,
     swapProgramId: PublicKey,
     sourceTokenProgramId: PublicKey,
     poolTokenProgramId: PublicKey,
@@ -890,7 +864,6 @@ export class TokenSwap {
       {pubkey: intoB, isSigner: false, isWritable: true},
       {pubkey: poolToken, isSigner: false, isWritable: true},
       {pubkey: poolAccount, isSigner: false, isWritable: true},
-      {pubkey: sourceMint, isSigner: false, isWritable: false},
       {pubkey: sourceTokenProgramId, isSigner: false, isWritable: false},
       {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
     ];
@@ -906,7 +879,6 @@ export class TokenSwap {
    *
    * @param userAccount User account to receive token A or B
    * @param poolAccount User account to burn pool token
-   * @param destinationMint Mint for the destination token
    * @param destinationTokenProgramId Program id for the destination token
    * @param userTransferAuthority Account delegated to transfer user's tokens
    * @param destinationTokenAmount The amount of token A or B to withdraw
@@ -915,7 +887,6 @@ export class TokenSwap {
   async withdrawSingleTokenTypeExactAmountOut(
     userAccount: PublicKey,
     poolAccount: PublicKey,
-    destinationMint: PublicKey,
     destinationTokenProgramId: PublicKey,
     userTransferAuthority: Account,
     destinationTokenAmount: number | Numberu64,
@@ -935,7 +906,6 @@ export class TokenSwap {
           this.tokenAccountA,
           this.tokenAccountB,
           userAccount,
-          destinationMint,
           this.swapProgramId,
           this.poolTokenProgramId,
           destinationTokenProgramId,
@@ -958,7 +928,6 @@ export class TokenSwap {
     fromA: PublicKey,
     fromB: PublicKey,
     userAccount: PublicKey,
-    destinationMint: PublicKey,
     swapProgramId: PublicKey,
     poolTokenProgramId: PublicKey,
     destinationTokenProgramId: PublicKey,
@@ -995,7 +964,6 @@ export class TokenSwap {
       {pubkey: fromB, isSigner: false, isWritable: true},
       {pubkey: userAccount, isSigner: false, isWritable: true},
       {pubkey: feeAccount, isSigner: false, isWritable: true},
-      {pubkey: destinationMint, isSigner: false, isWritable: false},
       {pubkey: poolTokenProgramId, isSigner: false, isWritable: false},
       {pubkey: destinationTokenProgramId, isSigner: false, isWritable: false},
     ];

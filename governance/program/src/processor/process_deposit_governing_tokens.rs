@@ -14,16 +14,12 @@ use crate::{
     state::{
         enums::GovernanceAccountType,
         realm::get_realm_data,
-        realm_config::get_realm_config_data_for_realm,
         token_owner_record::{
             get_token_owner_record_address_seeds, get_token_owner_record_data_for_seeds,
             TokenOwnerRecordV2,
         },
     },
-    tools::safe_token::{
-        get_safe_token_mint, is_safe_token_account, is_safe_token_mint, mint_safe_tokens_to,
-        transfer_safe_tokens,
-    },
+    tools::safe_token::{get_safe_token_mint, get_safe_token_owner, transfer_safe_tokens},
 };
 
 /// Processes DepositGoverningTokens instruction
@@ -38,12 +34,11 @@ pub fn process_deposit_governing_tokens(
     let governing_token_holding_info = next_account_info(account_info_iter)?; // 1
     let governing_token_source_info = next_account_info(account_info_iter)?; // 2
     let governing_token_owner_info = next_account_info(account_info_iter)?; // 3
-    let governing_token_source_authority_info = next_account_info(account_info_iter)?; // 4
+    let governing_token_transfer_authority_info = next_account_info(account_info_iter)?; // 4
     let token_owner_record_info = next_account_info(account_info_iter)?; // 5
     let payer_info = next_account_info(account_info_iter)?; // 6
     let system_info = next_account_info(account_info_iter)?; // 7
     let safe_token_info = next_account_info(account_info_iter)?; // 8
-    let realm_config_info = next_account_info(account_info_iter)?; // 9
 
     let rent = Rent::get()?;
 
@@ -57,32 +52,13 @@ pub fn process_deposit_governing_tokens(
         governing_token_holding_info.key,
     )?;
 
-    let realm_config_data =
-        get_realm_config_data_for_realm(program_id, realm_config_info, realm_info.key)?;
-
-    realm_config_data.assert_can_deposit_governing_token(&realm_data, &governing_token_mint)?;
-
-    if is_safe_token_account(governing_token_source_info) {
-        // If the source is safe-token token account then transfer tokens from it
-        transfer_safe_tokens(
-            governing_token_source_info,
-            governing_token_holding_info,
-            governing_token_source_authority_info,
-            amount,
-            safe_token_info,
-        )?;
-    } else if is_safe_token_mint(governing_token_source_info) {
-        // If it's a mint then mint the tokens
-        mint_safe_tokens_to(
-            governing_token_source_info,
-            governing_token_holding_info,
-            governing_token_source_authority_info,
-            amount,
-            safe_token_info,
-        )?;
-    } else {
-        return Err(GovernanceError::InvalidGoverningTokenSource.into());
-    }
+    transfer_safe_tokens(
+        governing_token_source_info,
+        governing_token_holding_info,
+        governing_token_transfer_authority_info,
+        amount,
+        safe_token_info,
+    )?;
 
     let token_owner_record_address_seeds = get_token_owner_record_address_seeds(
         realm_info.key,
@@ -92,7 +68,11 @@ pub fn process_deposit_governing_tokens(
 
     if token_owner_record_info.data_is_empty() {
         // Deposited tokens can only be withdrawn by the owner so let's make sure the owner signed the transaction
-        if !governing_token_owner_info.is_signer {
+        let governing_token_owner = get_safe_token_owner(governing_token_source_info)?;
+
+        if !(governing_token_owner == *governing_token_owner_info.key
+            && governing_token_owner_info.is_signer)
+        {
             return Err(GovernanceError::GoverningTokenOwnerMustSign.into());
         }
 
