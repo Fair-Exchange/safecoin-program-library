@@ -2274,8 +2274,7 @@ checksum = "292a948cd991e376cf75541fe5b97a1081d713c618b4f1b9500f8844e49eb565"
 [[package]]
 name = "librocksdb-sys"
 version = "0.8.0+7.4.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "611804e4666a25136fcc5f8cf425ab4d26c7f74ea245ffe92ea23b85b6420b5d"
+source = "git+https://github.com/rust-rocksdb/rust-rocksdb?branch=master#e78c9e8879ebc579ea32f0c4582a4edf2b7a91aa"
 dependencies = [
  "bindgen",
  "bzip2-sys",
@@ -2283,6 +2282,8 @@ dependencies = [
  "glob",
  "libc",
  "libz-sys",
+ "lz4-sys",
+ "zstd-sys",
 ]
 
 [[package]]
@@ -3676,8 +3677,7 @@ dependencies = [
 [[package]]
 name = "rocksdb"
 version = "0.19.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7e9562ea1d70c0cc63a34a22d977753b50cca91cc6b6527750463bd5dd8697bc"
+source = "git+https://github.com/rust-rocksdb/rust-rocksdb?branch=master#e78c9e8879ebc579ea32f0c4582a4edf2b7a91aa"
 dependencies = [
  "libc",
  "librocksdb-sys",
@@ -3864,20 +3864,20 @@ dependencies = [
 
 [[package]]
 name = "safe-memo"
-version = "3.0.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4073602c729f3cc3f3638aa4a9a21b715ea5fdf308f3ac30704407cd21e23d6b"
-dependencies = [
- "safecoin-program 1.10.34",
-]
-
-[[package]]
-name = "safe-memo"
 version = "3.0.7"
 dependencies = [
  "safecoin-program 1.14.3",
  "safecoin-program-test",
  "safecoin-sdk",
+]
+
+[[package]]
+name = "safe-memo"
+version = "3.0.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c5323d062f178f34d5a2ef74ac19b8460b00c0ea78ec4514e8362ba890705201"
+dependencies = [
+ "safecoin-program 1.10.34",
 ]
 
 [[package]]
@@ -4324,7 +4324,7 @@ dependencies = [
  "humantime",
  "indicatif",
  "pretty-hex",
- "safe-memo 3.0.5",
+ "safe-memo 3.0.8",
  "safecoin-account-decoder",
  "safecoin-clap-utils",
  "safecoin-cli-config",
@@ -4469,14 +4469,14 @@ dependencies = [
 
 [[package]]
 name = "safecoin-faucet"
-version = "1.14.3"
+version = "1.14.4"
 dependencies = [
  "bincode",
  "byteorder",
  "clap 2.34.0",
  "crossbeam-channel",
  "log",
- "safe-memo 3.0.5",
+ "safe-memo 3.0.8",
  "safecoin-clap-utils",
  "safecoin-cli-config",
  "safecoin-logger",
@@ -5200,7 +5200,7 @@ dependencies = [
  "lazy_static",
  "log",
  "safe-associated-token-account",
- "safe-memo 3.0.5",
+ "safe-memo 3.0.8",
  "safe-token",
  "safe-token-2022",
  "safecoin-account-decoder",
