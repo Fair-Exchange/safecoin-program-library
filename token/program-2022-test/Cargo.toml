@@ -1,0 +1,27 @@
+[package]
+authors = ["Safecoin Labs Maintainers <maintainers@solanalabs.com>"]
+description = "SPL-Token 2022 Integration Tests"
+edition = "2021"
+license = "Apache-2.0"
+name = "safe-token-2022-test"
+repository = "https://github.com/fair-exchange/safecoin-program-library"
+version = "0.0.1"
+
+[features]
+test-sbf = []
+default = ["zk-ops"]
+zk-ops = []
+
+[build-dependencies]
+walkdir = "2"
+
+[dev-dependencies]
+async-trait = "0.1"
+safecoin-program = "=1.14.12"
+safecoin-program-test = "=1.14.12"
+safecoin-sdk = "=1.14.12"
+safe-associated-token-account = { version = "1.1", path = "../../associated-token-account/program" }
+safe-memo = { version = "3.0.1", path = "../../memo/program", features = ["no-entrypoint"] }
+safe-token-2022 = { version = "0.5", path="../program-2022", features = ["no-entrypoint"] }
+spl-instruction-padding = { version = "0.1.0", path="../../instruction-padding/program", features = ["no-entrypoint"] }
+safe-token-client = { version = "0.3", path = "../client" }

@@ -1,0 +1,25 @@
+[package]
+name = "safe-feature-proposal-cli"
+version = "1.2.0"
+description = "SPL Feature Proposal Command-line Utility"
+authors = ["Safecoin Labs Maintainers <maintainers@solanalabs.com>"]
+repository = "https://github.com/fair-exchange/safecoin-program-library"
+license = "Apache-2.0"
+edition = "2021"
+
+[dependencies]
+chrono = "0.4.22"
+clap = "2.33.3"
+safecoin-clap-utils = "1.14.12"
+safecoin-cli-config = "1.14.12"
+safecoin-client = "1.14.12"
+safecoin-logger = "1.14.12"
+safecoin-sdk = "1.14.12"
+safe-feature-proposal = { version = "1.0", path = "../program", features = ["no-entrypoint"] }
+
+[[bin]]
+name = "safe-feature-proposal"
+path = "src/main.rs"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]

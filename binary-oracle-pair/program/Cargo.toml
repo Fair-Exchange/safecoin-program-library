@@ -1,0 +1,27 @@
+[package]
+name = "spl-binary-oracle-pair"
+version = "0.1.0"
+description = "Safecoin Program Library Binary Oracle Pair"
+authors = ["Safecoin Labs Maintainers <maintainers@solanalabs.com>"]
+repository = "https://github.com/fair-exchange/safecoin-program-library"
+license = "Apache-2.0"
+edition = "2021"
+
+[features]
+test-sbf = []
+
+[dependencies]
+num-derive = "0.3"
+num-traits = "0.2"
+safecoin-program = "1.14.12"
+safe-token = { version = "3.5", path = "../../token/program", features = [ "no-entrypoint" ] }
+thiserror = "1.0"
+uint = "0.9"
+borsh = "0.9.1"
+
+[dev-dependencies]
+safecoin-program-test = "1.14.12"
+safecoin-sdk = "1.14.12"
+
+[lib]
+crate-type = ["cdylib", "lib"]

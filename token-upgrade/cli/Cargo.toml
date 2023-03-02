@@ -1,0 +1,37 @@
+[package]
+name = "safe-token-upgrade-cli"
+version = "0.1.0"
+description = "SPL Token Upgrade Command-line Utility"
+authors = ["Safecoin Labs Maintainers <maintainers@solanalabs.com>"]
+repository = "https://github.com/fair-exchange/safecoin-program-library"
+license = "Apache-2.0"
+edition = "2021"
+
+[build-dependencies]
+walkdir = "2"
+
+[dependencies]
+clap = { version = "3", features = ["cargo"] }
+futures-util = "0.3.19"
+safecoin-clap-v3-utils = "1.14.12"
+safecoin-cli-config = "1.14.12"
+safecoin-client = "1.14.12"
+safecoin-logger = "1.14.12"
+safecoin-remote-wallet = "1.14.12"
+safecoin-sdk = "1.14.12"
+safe-associated-token-account = { version = "1.1", path = "../../associated-token-account/program", features = ["no-entrypoint"] }
+safe-token = { version = "3.5", path = "../../token/program", features = ["no-entrypoint"] }
+safe-token-2022 = { version = "0.5", path = "../../token/program-2022", features = ["no-entrypoint"] }
+safe-token-client = { version = "0.3", path = "../../token/client" }
+safe-token-upgrade = { version = "0.1", path = "../program", features = ["no-entrypoint"] }
+tokio = { version = "1", features = ["full"] }
+
+[dev-dependencies]
+safecoin-test-validator = "1.14.12"
+
+[[bin]]
+name = "safe-token-upgrade"
+path = "src/main.rs"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
