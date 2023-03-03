@@ -1,6 +1,7 @@
 //! Program state processor
 
 use lpl_token_metadata::state::Metadata;
+use lpl_token_metadata::state::TokenMetadataAccount;
 use safecoin_program::program_option::COption;
 use std::slice::Iter;
 

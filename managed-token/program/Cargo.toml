@@ -24,7 +24,7 @@ test = []
 [dependencies]
 safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.15.3"}
 shank = "^0.0.5"
-safe-token = { version = "3.5.0", features = ["no-entrypoint"] }
+safe-token = { version = "3.5.0", path = "../../token/program", features = ["no-entrypoint"] }
 safe-associated-token-account = { version = "1.1.2", path="../../associated-token-account/program", features = [ "no-entrypoint", ] }
 thiserror = "^1.0.24"
 borsh = "0.9.3"

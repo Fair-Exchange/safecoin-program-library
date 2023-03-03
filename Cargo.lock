@@ -474,7 +474,7 @@ version = "0.1.0"
 dependencies = [
  "arrayref",
  "borsh",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "thiserror",
  "uint",
@@ -1629,7 +1629,7 @@ name = "flash_loan_receiver"
 version = "1.0.0"
 dependencies = [
  "arrayref",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
 ]
 
@@ -2656,7 +2656,7 @@ dependencies = [
  "num-derive",
  "num-traits",
  "safe-associated-token-account",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "shank 0.0.11",
  "thiserror",
@@ -2676,7 +2676,7 @@ version = "0.1.0"
 dependencies = [
  "arrayref",
  "borsh",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
 ]
 
@@ -4185,7 +4185,7 @@ dependencies = [
  "borsh",
  "num-derive",
  "num-traits",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safecoin-program 1.15.3",
  "thiserror",
@@ -4196,7 +4196,7 @@ name = "safe-associated-token-account-test"
 version = "0.0.1"
 dependencies = [
  "safe-associated-token-account",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
@@ -4208,7 +4208,7 @@ name = "safe-feature-proposal"
 version = "1.0.0"
 dependencies = [
  "borsh",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -4266,21 +4266,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "safe-token"
-version = "3.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "447ce3b073018d40b395ef0dc68b67efacde57abb540cdd6f028d94c6725ce0d"
-dependencies = [
- "arrayref",
- "bytemuck",
- "num-derive",
- "num-traits",
- "num_enum",
- "safecoin-program 1.14.3",
- "thiserror",
-]
-
-[[package]]
 name = "safe-token-2022"
 version = "0.5.0"
 dependencies = [
@@ -4292,7 +4277,7 @@ dependencies = [
  "num_enum",
  "proptest",
  "safe-memo",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-zk-token-sdk",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
@@ -4330,7 +4315,7 @@ dependencies = [
  "indicatif 0.16.2",
  "safe-associated-token-account",
  "safe-memo",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safe-token-client",
  "safecoin-account-decoder",
@@ -4361,7 +4346,7 @@ dependencies = [
  "async-trait",
  "safe-associated-token-account",
  "safe-memo",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safecoin-cli-output",
  "safecoin-client",
@@ -4382,7 +4367,7 @@ dependencies = [
  "num-derive",
  "num-traits",
  "proptest",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -4397,7 +4382,7 @@ name = "safe-token-lending-cli"
 version = "0.2.0"
 dependencies = [
  "clap 2.34.0",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-lending",
  "safecoin-clap-utils",
  "safecoin-cli-config",
@@ -4418,7 +4403,7 @@ dependencies = [
  "num-traits",
  "proptest",
  "roots",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safecoin-program 1.15.3",
  "safecoin-sdk",
@@ -4433,7 +4418,7 @@ version = "0.0.1"
 dependencies = [
  "arbitrary",
  "honggfuzz",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-swap",
  "safecoin-program 1.15.3",
  "spl-math",
@@ -4446,7 +4431,7 @@ dependencies = [
  "num-derive",
  "num-traits",
  "num_enum",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safe-token-client",
  "safecoin-program 1.15.3",
@@ -4463,7 +4448,7 @@ dependencies = [
  "clap 3.2.23",
  "futures-util",
  "safe-associated-token-account",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safe-token-client",
  "safe-token-upgrade",
@@ -4530,7 +4515,7 @@ dependencies = [
  "bs58",
  "bv",
  "lazy_static",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safecoin-address-lookup-table-program",
  "safecoin-config-program",
@@ -5090,7 +5075,7 @@ dependencies = [
  "reed-solomon-erasure",
  "rocksdb",
  "rustc_version 0.4.0",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safecoin-account-decoder",
  "safecoin-bpf-loader-program",
@@ -5466,7 +5451,7 @@ dependencies = [
  "log",
  "rayon",
  "regex",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safecoin-account-decoder",
  "safecoin-client",
@@ -5886,7 +5871,7 @@ dependencies = [
  "log",
  "safe-associated-token-account",
  "safe-memo",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safecoin-account-decoder",
  "safecoin-address-lookup-table-program",
@@ -6536,7 +6521,7 @@ dependencies = [
  "borsh",
  "num-derive",
  "num-traits",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -6606,7 +6591,7 @@ dependencies = [
 name = "spl-example-transfer-tokens"
 version = "1.0.0"
 dependencies = [
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -6624,7 +6609,7 @@ dependencies = [
  "num-derive",
  "num-traits",
  "proptest",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -6658,7 +6643,7 @@ dependencies = [
  "num-derive",
  "num-traits",
  "proptest",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -6682,7 +6667,7 @@ dependencies = [
  "num-derive",
  "num-traits",
  "proptest",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -6706,7 +6691,7 @@ dependencies = [
  "lazy_static",
  "num-derive",
  "num-traits",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -6724,7 +6709,7 @@ dependencies = [
  "borsh",
  "num-derive",
  "num-traits",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "serde",
  "serde_derive",
@@ -6738,7 +6723,7 @@ dependencies = [
  "anyhow",
  "borsh",
  "safe-associated-token-account",
- "safe-token 3.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -6821,7 +6806,7 @@ dependencies = [
  "num-traits",
  "num_enum",
  "proptest",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-2022",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
@@ -6843,7 +6828,7 @@ dependencies = [
  "bs58",
  "clap 2.34.0",
  "safe-associated-token-account",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-account-decoder",
  "safecoin-clap-utils",
  "safecoin-cli-config",
@@ -6866,7 +6851,7 @@ dependencies = [
  "borsh",
  "lpl-token-metadata",
  "safe-associated-token-account",
- "safe-token 3.5.0",
+ "safe-token",
  "safecoin-program 1.15.3",
  "safecoin-program-test",
  "safecoin-sdk",
@@ -7100,7 +7085,7 @@ name = "test-client"
 version = "0.1.0"
 dependencies = [
  "safe-memo",
- "safe-token 3.5.0",
+ "safe-token",
  "safe-token-swap",
  "safecoin-sdk",
 ]
