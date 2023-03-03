@@ -1,0 +1,27 @@
+[package]
+name = "safe-instruction-padding"
+version = "0.1.0"
+description = "Safecoin Program Library Instruction Padding Program"
+authors = ["Safecoin Labs Maintainers <maintainers@solanalabs.com>"]
+repository = "https://github.com/fair-exchange/safecoin-program-library"
+license = "Apache-2.0"
+homepage = "https://safecoin.org/"
+edition = "2021"
+
+[features]
+no-entrypoint = []
+test-sbf = []
+
+[dependencies]
+num_enum = "0.5.9"
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.15.3"}
+
+[dev-dependencies]
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.15.3"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.15.3"}
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
