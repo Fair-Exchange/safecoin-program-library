@@ -13750,7 +13750,7 @@
         {
           "symbol": "wSRM_V1",
           "name": "Serum (Wormhole V1)",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "address": "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
           "decimals": 6,
           "extensions": {
@@ -13765,9 +13765,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -13784,7 +13784,7 @@
         {
           "symbol": "wSRM_V1",
           "name": "Serum (Wormhole V1)",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "address": "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
           "decimals": 6,
           "extensions": {
@@ -13799,9 +13799,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -13818,7 +13818,7 @@
         {
           "symbol": "wSRM_V1",
           "name": "Serum (Wormhole V1)",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "address": "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
           "decimals": 6,
           "extensions": {
@@ -13833,9 +13833,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -13861,7 +13861,7 @@
           "website": "https://app.saber.so/pools/srm",
           "underlyingTokens": [
             "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
-            "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt"
+            "Safe111111111111111111111111111111111111111"
           ],
           "source": "saber"
         }
@@ -13889,7 +13889,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "2MaiPeRjPZc9gqG3MzeKp9DUMabbJYfV2b9M7YkV8tue",
-            "mint": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+            "mint": "Safe111111111111111111111111111111111111111",
             "reserve": "3F5DPU5ScgHiFzePYUHZovvgh3uqmM5keNvbavx2ERqV"
           },
           "initialAmpFactor": "96",
@@ -19766,9 +19766,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -19803,9 +19803,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -19840,9 +19840,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -19868,7 +19868,7 @@
           "website": "https://app.saber.so/pools/wsrm",
           "underlyingTokens": [
             "xnorPhAzWXUczCP3KjU5yDxmKKZi5cSbxytQ1LgE3kG",
-            "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt"
+            "Safe111111111111111111111111111111111111111"
           ],
           "source": "saber"
         }
@@ -19896,7 +19896,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "FRv4oVoLA8hDfcwVvwtRY7bPPgGK4HcTdrmLmghmgMYG",
-            "mint": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+            "mint": "Safe111111111111111111111111111111111111111",
             "reserve": "6aqJQ5wedqpUt4fFEDUqUmXhrdxCu4bEJsQdVPCADLko"
           },
           "initialAmpFactor": "01f4",

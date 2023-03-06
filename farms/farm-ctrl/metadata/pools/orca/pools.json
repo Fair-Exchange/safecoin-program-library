@@ -290,14 +290,14 @@
       "poolTokenDecimals": 6,
       "feeAccount": "APyc1s8wES4Q2FTqHN8jXZtRuWQyRWZ82u7EFfras2iZ",
       "tokenIds": [
-        "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+        "Safe111111111111111111111111111111111111111",
         "Safe111111111111111111111111111111111111111"
       ],
       "tokens": {
-        "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt": {
+        "Safe111111111111111111111111111111111111111": {
           "tag": "SRM",
           "name": "Serum",
-          "mint": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "mint": "Safe111111111111111111111111111111111111111",
           "scale": 6,
           "addr": "2JCxZv6LaFjtWqBXSC2brsWE9WryS4Cp3VwwDeNGvLyv"
         },

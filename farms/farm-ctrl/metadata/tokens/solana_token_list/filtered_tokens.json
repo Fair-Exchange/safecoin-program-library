@@ -105,11 +105,11 @@
     },
     {
       "chainId": 101,
-      "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+      "address": "Safe111111111111111111111111111111111111111",
       "symbol": "SRM",
       "name": "Serum",
       "decimals": 6,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Safe111111111111111111111111111111111111111/logo.png",
       "extensions": {
         "coingeckoId": "serum",
         "serumV3Usdc": "ByRys5tuUWDgL73G8JBAEfkdFf8JWBzPBDHsBVQ5vbQA",
@@ -3625,7 +3625,7 @@
     {
       "symbol": "wSRM_V1",
       "name": "Serum (Wormhole V1)",
-      "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+      "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
       "address": "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
       "decimals": 6,
       "extensions": {
