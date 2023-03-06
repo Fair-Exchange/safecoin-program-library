@@ -13,4 +13,4 @@ mod entrypoint;
 pub use safecoin_program;
 
 // Binary Oracle Pair id
-safecoin_program::declare_id!("Fd7btgySsrjuo25CJCj7oE7VPMyezDhnx7pZkj2v69Nk");
+safecoin_program::declare_id!("bop7P4FFBNz6jgKJqgo3UmA2MuHR6K1D6a3RfRRg5Jo");

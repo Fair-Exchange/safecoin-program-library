@@ -8,7 +8,7 @@ to maximize censorship resistance and rewards.
 
 | Information | Account Address |
 | --- | --- |
-| Stake Pool Program | `SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy` |
+| Stake Pool Program | `spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo` |
 
 ## Getting Started
 

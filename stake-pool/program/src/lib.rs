@@ -157,7 +157,7 @@ pub fn find_ephemeral_stake_program_address(
     )
 }
 
-safecoin_program::declare_id!("SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy");
+safecoin_program::declare_id!("spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo");
 
 #[cfg(test)]
 mod test {

@@ -59,7 +59,7 @@ to activate and deactivate, you can run the stake pool locally using the
 from devnet.
 
 ```console
-$ safecoin-test-validator -c SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy -c EmiU8AQkB2sswTxVB6aCmsAJftoowZGGDXuytm6X65R3 --url devnet --slots-per-epoch 32
+$ safecoin-test-validator -c spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo -c EmiU8AQkB2sswTxVB6aCmsAJftoowZGGDXuytm6X65R3 --url devnet --slots-per-epoch 32
 $ safecoin config set --url http://127.0.0.1:8328
 ```
 

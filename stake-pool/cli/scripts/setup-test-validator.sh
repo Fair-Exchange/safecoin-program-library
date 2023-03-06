@@ -16,9 +16,9 @@ create_keypair () {
 }
 
 setup_test_validator() {
-  safecoin-test-validator -c SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy -c EmiU8AQkB2sswTxVB6aCmsAJftoowZGGDXuytm6X65R3 --url devnet --slots-per-epoch 32 --quiet --reset &
+  safecoin-test-validator -c spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo -c EmiU8AQkB2sswTxVB6aCmsAJftoowZGGDXuytm6X65R3 --url devnet --slots-per-epoch 32 --quiet --reset &
   # Uncomment to use a locally built stake program
-  #safecoin-test-validator --bpf-program SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy ../../../target/deploy/spl_stake_pool.so --slots-per-epoch 32 --quiet --reset &
+  #safecoin-test-validator --bpf-program spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo ../../../target/deploy/spl_stake_pool.so --slots-per-epoch 32 --quiet --reset &
   pid=$!
   safecoin config set --url http://127.0.0.1:8328
   safecoin config set --commitment confirmed

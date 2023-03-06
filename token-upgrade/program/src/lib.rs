@@ -11,7 +11,7 @@ pub mod processor;
 pub use safecoin_program;
 use safecoin_program::pubkey::Pubkey;
 
-safecoin_program::declare_id!("TkupDoNseygccBCjSsrSpMccjwHfTYwcrjpnDSrFDhC");
+safecoin_program::declare_id!("tupQguEnJ1ngKtvHx3Z5AdyR1aLzFy4mKAwSxYfCKtd");
 
 const TOKEN_ESCROW_AUTHORITY_SEED: &[u8] = b"token-escrow-authority";
 
