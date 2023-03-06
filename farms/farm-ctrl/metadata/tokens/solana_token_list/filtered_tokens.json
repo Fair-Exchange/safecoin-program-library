@@ -17,11 +17,11 @@
     },
     {
       "chainId": 101,
-      "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
       "symbol": "USDC",
       "name": "USD Coin",
       "decimals": 6,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6/logo.png",
       "tags": ["stablecoin"],
       "extensions": {
         "coingeckoId": "usd-coin",
@@ -2267,7 +2267,7 @@
       "symbol": "AAUSDC",
       "name": "Wrapped USDC (Allbridge from Avalanche)",
       "decimals": 9,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6/logo.png",
       "tags": ["stablecoin"],
       "extensions": { "coingeckoId": "usd-coin" }
     },
@@ -2475,7 +2475,7 @@
       "symbol": "ACUSDC",
       "name": "Wrapped USDC (Allbridge from Celo)",
       "decimals": 9,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6/logo.png",
       "tags": ["stablecoin"],
       "extensions": { "coingeckoId": "usd-coin" }
     },
@@ -2505,7 +2505,7 @@
       "symbol": "AEUSDC",
       "name": "Wrapped USDC (Allbridge from Ethereum)",
       "decimals": 9,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6/logo.png",
       "tags": ["stablecoin"],
       "extensions": { "coingeckoId": "usd-coin" }
     },
