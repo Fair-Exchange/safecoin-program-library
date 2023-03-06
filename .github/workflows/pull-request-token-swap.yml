@@ -24,7 +24,7 @@ jobs:
           source ci/rust-version.sh
           echo "RUST_STABLE=$rust_stable" >> $GITHUB_ENV
           source ci/solana-version.sh
-          echo "SAFECOIN_VERSION=$solana_version" >> $GITHUB_ENV
+          echo "SAFECOIN_VERSION=$safecoin_version" >> $GITHUB_ENV
 
       - uses: actions-rs/toolchain@v1
         with:
@@ -114,7 +114,7 @@ jobs:
           source ci/rust-version.sh
           echo "RUST_STABLE=$rust_stable" >> $GITHUB_ENV
           source ci/solana-version.sh
-          echo "SAFECOIN_VERSION=$solana_version" >> $GITHUB_ENV
+          echo "SAFECOIN_VERSION=$safecoin_version" >> $GITHUB_ENV
 
       - uses: actions-rs/toolchain@v1
         with:

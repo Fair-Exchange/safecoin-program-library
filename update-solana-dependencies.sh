@@ -11,10 +11,10 @@ fi
 
 cd "$(dirname "$0")"
 source ./ci/safecoin-version.sh
-old_solana_ver=${solana_version#v}
+old_solana_ver=${safecoin_version#v}
 
-sed -i'' -e "s#solana_version=v.*#solana_version=v${solana_ver}#" ./ci/safecoin-version.sh
-sed -i'' -e "s#solana_version = \".*\"#solana_version = \"${solana_ver}\"#" ./Anchor.toml
+sed -i'' -e "s#safecoin_version=v.*#safecoin_version=v${solana_ver}#" ./ci/safecoin-version.sh
+sed -i'' -e "s#safecoin_version = \".*\"#safecoin_version = \"${solana_ver}\"#" ./Anchor.toml
 
 declare tomls=()
 while IFS='' read -r line; do tomls+=("$line"); done < <(find . -name Cargo.toml)
