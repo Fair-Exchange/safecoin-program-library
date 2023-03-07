@@ -12,7 +12,7 @@ use {
     },
     arrayref::{array_ref, array_refs},
     pyth_client::{PriceStatus, PriceType},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, msg, program::invoke,
         program_error::ProgramError, program_pack::Pack, pubkey::Pubkey, system_instruction,
         sysvar, sysvar::Sysvar,
@@ -571,7 +571,7 @@ pub fn get_pyth_price(
 
     let last_update_age_sec = math::checked_mul(
         math::checked_sub(clock::get_slot()?, pyth_price.valid_slot)?,
-        safecoin_program::clock::DEFAULT_MS_PER_SLOT,
+        solana_program::clock::DEFAULT_MS_PER_SLOT,
     )? / 1000;
     if last_update_age_sec > max_price_age_sec {
         msg!("Error: Pyth oracle price is stale");

@@ -1,7 +1,7 @@
 #![cfg(feature = "test-sbf")]
 
-use safecoin_program::program_error::ProgramError;
-use safecoin_program_test::*;
+use solana_program::program_error::ProgramError;
+use solana_program_test::*;
 
 mod program_test;
 

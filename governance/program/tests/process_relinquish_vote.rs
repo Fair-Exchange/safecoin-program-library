@@ -2,11 +2,11 @@
 
 mod program_test;
 
-use safecoin_program::{instruction::AccountMeta, pubkey::Pubkey};
-use safecoin_program_test::tokio;
+use solana_program::{instruction::AccountMeta, pubkey::Pubkey};
+use solana_program_test::tokio;
 
 use program_test::*;
-use safecoin_sdk::signer::Signer;
+use solana_sdk::signer::Signer;
 use spl_governance::{
     error::GovernanceError,
     instruction::{cast_vote, relinquish_vote},

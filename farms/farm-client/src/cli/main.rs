@@ -9,7 +9,7 @@ use {
     num_enum::TryFromPrimitive,
     solana_farm_client::client::FarmClient,
     solana_farm_sdk::{fund::FundVaultType, id::DAO_CUSTODY_NAME, token::TokenSelector},
-    safecoin_sdk::{bpf_loader_upgradeable, instruction::Instruction, pubkey::Pubkey},
+    solana_sdk::{bpf_loader_upgradeable, instruction::Instruction, pubkey::Pubkey},
     safe_associated_token_account::create_associated_token_account,
     std::str::FromStr,
 };

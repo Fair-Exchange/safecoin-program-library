@@ -11,7 +11,7 @@ use {
     },
     safecoin_client::nonblocking::rpc_client::RpcClient,
     safecoin_remote_wallet::remote_wallet::RemoteWalletManager,
-    safecoin_sdk::{
+    solana_sdk::{
         commitment_config::CommitmentConfig,
         message::Message,
         program_option::COption,
@@ -495,7 +495,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 mod test {
     use {
         super::*,
-        safecoin_sdk::{bpf_loader, signer::keypair::Keypair},
+        solana_sdk::{bpf_loader, signer::keypair::Keypair},
         solana_test_validator::{ProgramInfo, TestValidator, TestValidatorGenesis},
         safe_token_client::client::{ProgramClient, SendTransaction},
         std::path::PathBuf,

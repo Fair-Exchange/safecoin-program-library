@@ -6,11 +6,11 @@ mod helpers;
 use {
     bincode::deserialize,
     helpers::*,
-    safecoin_program::{
+    solana_program::{
         borsh::try_from_slice_unchecked, instruction::InstructionError, pubkey::Pubkey, stake,
     },
-    safecoin_program_test::*,
-    safecoin_sdk::{signature::Signer, transaction::TransactionError},
+    solana_program_test::*,
+    solana_sdk::{signature::Signer, transaction::TransactionError},
     spl_stake_pool::{error::StakePoolError, instruction, state, MINIMUM_RESERVE_LAMPORTS},
     test_case::test_case,
 };

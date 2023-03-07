@@ -2,12 +2,12 @@
 
 mod program_test;
 
-use safecoin_program::{
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     program_error::ProgramError,
     sysvar::clock,
 };
-use safecoin_program_test::tokio;
+use solana_program_test::tokio;
 
 use program_test::*;
 use spl_governance::{

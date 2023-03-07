@@ -8,7 +8,7 @@ use {
         ser::SerializeSeq,
         Deserialize, Deserializer, Serializer,
     },
-    safecoin_program::{program_error::ProgramError, pubkey::Pubkey},
+    solana_program::{program_error::ProgramError, pubkey::Pubkey},
     std::{fmt, str::FromStr},
 };
 

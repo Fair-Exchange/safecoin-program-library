@@ -6,7 +6,7 @@ use {
     num_enum::TryFromPrimitive,
     serde::{Deserialize, Serialize},
     serde_json::to_string,
-    safecoin_program::{clock::UnixTimestamp, program_error::ProgramError, pubkey::Pubkey},
+    solana_program::{clock::UnixTimestamp, program_error::ProgramError, pubkey::Pubkey},
 };
 
 pub const DISCRIMINATOR_FUND_CUSTODY: u64 = 15979585294446943865;

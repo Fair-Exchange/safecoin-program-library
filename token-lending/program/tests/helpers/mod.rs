@@ -4,9 +4,9 @@ pub mod flash_loan_receiver;
 pub mod genesis;
 
 use assert_matches::*;
-use safecoin_program::{program_option::COption, program_pack::Pack, pubkey::Pubkey};
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program::{program_option::COption, program_pack::Pack, pubkey::Pubkey};
+use solana_program_test::*;
+use solana_sdk::{
     account::Account,
     signature::{read_keypair_file, Keypair, Signer},
     system_instruction::create_account,

@@ -6,7 +6,7 @@ mod helpers;
 use {
     borsh::BorshSerialize,
     helpers::*,
-    safecoin_program::{
+    solana_program::{
         borsh::{get_instance_packed_len, get_packed_len, try_from_slice_unchecked},
         hash::Hash,
         instruction::{AccountMeta, Instruction},
@@ -14,8 +14,8 @@ use {
         pubkey::Pubkey,
         stake, system_instruction, sysvar,
     },
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program_test::*,
+    solana_sdk::{
         instruction::InstructionError,
         signature::{Keypair, Signer},
         transaction::{Transaction, TransactionError},

@@ -10,7 +10,7 @@ use safecoin_clap_utils::{
 use safecoin_cli_output::OutputFormat;
 use safecoin_client::nonblocking::rpc_client::RpcClient;
 use safecoin_remote_wallet::remote_wallet::RemoteWalletManager;
-use safecoin_sdk::{
+use solana_sdk::{
     account::Account as RawAccount, commitment_config::CommitmentConfig, pubkey::Pubkey,
     signature::Signer,
 };

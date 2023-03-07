@@ -5,9 +5,9 @@ mod helpers;
 
 use {
     helpers::*,
-    safecoin_program::{borsh::try_from_slice_unchecked, program_pack::Pack, pubkey::Pubkey},
-    safecoin_program_test::*,
-    safecoin_sdk::{hash::Hash, signature::Signer, stake::state::StakeState},
+    solana_program::{borsh::try_from_slice_unchecked, program_pack::Pack, pubkey::Pubkey},
+    solana_program_test::*,
+    solana_sdk::{hash::Hash, signature::Signer, stake::state::StakeState},
     spl_stake_pool::{
         state::{StakePool, StakeStatus, ValidatorList},
         MAX_VALIDATORS_TO_UPDATE, MINIMUM_RESERVE_LAMPORTS,

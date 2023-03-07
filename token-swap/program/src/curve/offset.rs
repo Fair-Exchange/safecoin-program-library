@@ -15,7 +15,7 @@ use {
         error::SwapError,
     },
     arrayref::{array_mut_ref, array_ref},
-    safecoin_program::{
+    solana_program::{
         program_error::ProgramError,
         program_pack::{IsInitialized, Pack, Sealed},
     },

@@ -5,7 +5,7 @@ use {
         instruction::orca::OrcaUserInit,
         program::{account, protocol::orca},
     },
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         entrypoint::ProgramResult,
         instruction::{AccountMeta, Instruction},

@@ -2,8 +2,8 @@
 
 mod program_test;
 
-use safecoin_program::pubkey::Pubkey;
-use safecoin_program_test::tokio;
+use solana_program::pubkey::Pubkey;
+use solana_program_test::tokio;
 
 use program_test::*;
 use spl_governance::{error::GovernanceError, state::enums::ProposalState};

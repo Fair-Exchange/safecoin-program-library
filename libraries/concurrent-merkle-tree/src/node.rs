@@ -1,4 +1,4 @@
-use safecoin_program::keccak::hashv;
+use solana_program::keccak::hashv;
 
 /// Abstract type for 32 byte leaf data
 pub type Node = [u8; 32];

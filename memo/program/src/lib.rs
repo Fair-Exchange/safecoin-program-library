@@ -7,18 +7,18 @@ mod entrypoint;
 pub mod processor;
 
 // Export current sdk types for downstream users building with a different sdk version
-pub use safecoin_program;
-use safecoin_program::{
+pub use solana_program;
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     pubkey::Pubkey,
 };
 
 /// Legacy symbols from Memo v1
 pub mod v1 {
-    safecoin_program::declare_id!("MEMDqRW2fYAU19mcFnoDVoqG4Br4t7TdyWjjv38P6Nc");
+    solana_program::declare_id!("MEMDqRW2fYAU19mcFnoDVoqG4Br4t7TdyWjjv38P6Nc");
 }
 
-safecoin_program::declare_id!("MEMWKbqsjEB8o972BvDHExZFSauzGZKvB4xHDVPFowh");
+solana_program::declare_id!("MEMWKbqsjEB8o972BvDHExZFSauzGZKvB4xHDVPFowh");
 
 /// Build a memo instruction, possibly signed
 ///

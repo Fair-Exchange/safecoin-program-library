@@ -1,7 +1,7 @@
 //! Safecoin program utilities for Plain Old Data types
 use {
     bytemuck::{Pod, Zeroable},
-    safecoin_program::{program_error::ProgramError, program_option::COption, pubkey::Pubkey},
+    solana_program::{program_error::ProgramError, program_option::COption, pubkey::Pubkey},
     safe_zk_token_sdk::zk_token_elgamal::pod,
     std::convert::TryFrom,
 };

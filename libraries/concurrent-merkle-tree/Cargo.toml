@@ -12,7 +12,7 @@ log = []
 sol-log = [ "log" ]
 
 [dependencies]
-safecoin-program = "1.10.33"
+safecoin-program = { path = "../../../Safecoin/sdk/program" }
 bytemuck = "1.13.0"
 thiserror = "1.0.30"
 

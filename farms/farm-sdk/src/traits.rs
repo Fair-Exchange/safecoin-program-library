@@ -1,5 +1,5 @@
 use crate::string::ArrayString64;
-use safecoin_program::program_error::ProgramError;
+use solana_program::program_error::ProgramError;
 
 pub trait Named {
     fn name(&self) -> ArrayString64;

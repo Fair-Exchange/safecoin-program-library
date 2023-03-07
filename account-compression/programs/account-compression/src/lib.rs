@@ -24,7 +24,7 @@
 
 use anchor_lang::{
     prelude::*,
-    safecoin_program::sysvar::{clock::Clock, rent::Rent},
+    solana_program::sysvar::{clock::Clock, rent::Rent},
 };
 use borsh::{BorshDeserialize, BorshSerialize};
 

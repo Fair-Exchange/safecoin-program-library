@@ -11,7 +11,7 @@ use {
         tpu_client::TpuClient, tpu_client::TpuClientConfig,
     },
     safecoin_remote_wallet::remote_wallet::RemoteWalletManager,
-    safecoin_sdk::{
+    solana_sdk::{
         message::Message, native_token::Safe, program_pack::Pack, pubkey::Pubkey, signature::Signer,
         system_instruction,
     },

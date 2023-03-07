@@ -5,9 +5,9 @@ mod helpers;
 
 use {
     helpers::*,
-    safecoin_program::{borsh::try_from_slice_unchecked, pubkey::Pubkey, stake},
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program::{borsh::try_from_slice_unchecked, pubkey::Pubkey, stake},
+    solana_program_test::*,
+    solana_sdk::{
         hash::Hash,
         instruction::InstructionError,
         signature::Signer,

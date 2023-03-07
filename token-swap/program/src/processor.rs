@@ -15,7 +15,7 @@ use crate::{
     state::{SwapState, SwapV1, SwapVersion},
 };
 use num_traits::FromPrimitive;
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     clock::Clock,
     decode_error::DecodeError,
@@ -1283,11 +1283,11 @@ mod tests {
             withdraw_all_token_types, withdraw_single_token_type_exact_amount_out,
         },
     };
-    use safecoin_program::{
+    use solana_program::{
         clock::Clock, entrypoint::SUCCESS, instruction::Instruction, program_pack::Pack,
         program_stubs, rent::Rent,
     };
-    use safecoin_sdk::account::{
+    use solana_sdk::account::{
         create_account_for_test, create_is_signer_account_infos, Account as SafecoinAccount,
     };
     use safe_token_2022::{

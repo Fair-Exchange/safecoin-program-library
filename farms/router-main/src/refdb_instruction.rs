@@ -7,7 +7,7 @@ use {
         refdb,
         refdb::RefDB,
     },
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         entrypoint::ProgramResult,
         msg,

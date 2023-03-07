@@ -13,7 +13,7 @@ use crate::{
     },
 };
 use num_traits::FromPrimitive;
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     decode_error::DecodeError,
     entrypoint::ProgramResult,
@@ -25,7 +25,7 @@ use safecoin_program::{
     pubkey::Pubkey,
     sysvar::{clock::Clock, rent::Rent, Sysvar},
 };
-use safe_token::safecoin_program::instruction::AccountMeta;
+use safe_token::solana_program::instruction::AccountMeta;
 use safe_token::state::{Account, Mint};
 use std::convert::TryInto;
 

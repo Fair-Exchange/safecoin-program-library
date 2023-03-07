@@ -2,7 +2,7 @@
 
 use {
     solana_farm_sdk::program::account,
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         bpf_loader_upgradeable,
         entrypoint::ProgramResult,

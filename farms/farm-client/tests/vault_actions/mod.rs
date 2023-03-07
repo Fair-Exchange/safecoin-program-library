@@ -1,7 +1,7 @@
 use {
     crate::{utils, utils::Swap},
     solana_farm_client::client::FarmClient,
-    safecoin_sdk::{commitment_config::CommitmentConfig, signature::Keypair, signer::Signer},
+    solana_sdk::{commitment_config::CommitmentConfig, signature::Keypair, signer::Signer},
     std::{thread, time},
 };
 

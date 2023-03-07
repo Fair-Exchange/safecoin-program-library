@@ -6,7 +6,7 @@ use {
     num_enum::TryFromPrimitive,
     serde::{Deserialize, Serialize},
     serde_json::to_string,
-    safecoin_program::{clock::UnixTimestamp, program_error::ProgramError, pubkey::Pubkey},
+    solana_program::{clock::UnixTimestamp, program_error::ProgramError, pubkey::Pubkey},
 };
 
 #[repr(u8)]

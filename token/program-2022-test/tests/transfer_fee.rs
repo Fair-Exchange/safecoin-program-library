@@ -3,8 +3,8 @@
 mod program_test;
 use {
     program_test::{TestContext, TokenContext},
-    safecoin_program_test::tokio,
-    safecoin_sdk::{
+    solana_program_test::tokio,
+    solana_sdk::{
         instruction::InstructionError, program_option::COption, pubkey::Pubkey, signature::Signer,
         signer::keypair::Keypair, transaction::TransactionError, transport::TransportError,
     },

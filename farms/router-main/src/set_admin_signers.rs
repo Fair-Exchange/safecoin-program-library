@@ -5,7 +5,7 @@ use {
         id::main_router,
         program::{account, multisig, multisig::Multisig, pda},
     },
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         entrypoint::ProgramResult,
         msg,

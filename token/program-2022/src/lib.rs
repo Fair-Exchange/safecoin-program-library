@@ -19,8 +19,8 @@ pub mod state;
 mod entrypoint;
 
 // Export current sdk types for downstream users building with a different sdk version
-pub use safecoin_program;
-use safecoin_program::{
+pub use solana_program;
+use solana_program::{
     entrypoint::ProgramResult,
     program_error::ProgramError,
     program_memory::sol_memcmp,
@@ -88,7 +88,7 @@ pub fn try_ui_amount_into_amount(ui_amount: String, decimals: u8) -> Result<u64,
         .map_err(|_| ProgramError::InvalidArgument)
 }
 
-safecoin_program::declare_id!("ZToGWcF1Qh9H7te1MmABiGsFUKvj5zXPQ2QnTqoHpHN");
+solana_program::declare_id!("ZToGWcF1Qh9H7te1MmABiGsFUKvj5zXPQ2QnTqoHpHN");
 
 /// Checks that the supplied program ID is correct for safe-token-2022
 pub fn check_program_account(safe_token_program_id: &Pubkey) -> ProgramResult {

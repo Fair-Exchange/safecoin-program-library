@@ -21,7 +21,7 @@ use {
         state::DataV2,
     },
     num_traits::FromPrimitive,
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         borsh::try_from_slice_unchecked,
         clock::{Clock, Epoch},
@@ -709,7 +709,7 @@ impl Processor {
         system_program: AccountInfo<'a>,
         amount: u64,
     ) -> Result<(), ProgramError> {
-        let ix = safecoin_program::system_instruction::transfer(source.key, destination.key, amount);
+        let ix = solana_program::system_instruction::transfer(source.key, destination.key, amount);
         invoke(&ix, &[source, destination, system_program])
     }
 

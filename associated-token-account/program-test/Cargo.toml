@@ -11,9 +11,9 @@ version = "0.0.1"
 test-sbf = []
 
 [dev-dependencies]
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.15.3"}
-safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.15.3"}
-safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.15.3"}
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.14.17"}
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.14.17"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.14.17"}
 safe-associated-token-account = { version = "1.1", path = "../program", features = ["no-entrypoint"] }
 safe-token = { version = "3.5", path = "../../token/program", features = ["no-entrypoint"] }
 safe-token-2022 = { version = "0.5", path = "../../token/program-2022", features = ["no-entrypoint"] }

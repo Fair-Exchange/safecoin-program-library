@@ -2,15 +2,15 @@
 
 use {
     borsh::BorshSerialize,
-    safecoin_program::{
+    solana_program::{
         borsh::get_packed_len,
         instruction::{AccountMeta, Instruction, InstructionError},
         pubkey::Pubkey,
         rent::Rent,
         system_instruction,
     },
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program_test::*,
+    solana_sdk::{
         signature::{Keypair, Signer},
         transaction::{Transaction, TransactionError},
     },

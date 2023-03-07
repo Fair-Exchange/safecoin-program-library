@@ -6,9 +6,9 @@ mod helpers;
 use {
     bincode::deserialize,
     helpers::*,
-    safecoin_program::{borsh::try_from_slice_unchecked, pubkey::Pubkey, stake},
-    safecoin_program_test::*,
-    safecoin_sdk::signature::{Keypair, Signer},
+    solana_program::{borsh::try_from_slice_unchecked, pubkey::Pubkey, stake},
+    solana_program_test::*,
+    solana_sdk::signature::{Keypair, Signer},
     spl_stake_pool::{minimum_stake_lamports, state},
 };
 

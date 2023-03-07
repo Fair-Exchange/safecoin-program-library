@@ -1,6 +1,6 @@
 //! Base curve implementation
 
-use safecoin_program::{
+use solana_program::{
     program_error::ProgramError,
     program_pack::{Pack, Sealed},
 };

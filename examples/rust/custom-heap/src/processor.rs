@@ -1,6 +1,6 @@
 //! Program instruction processor
 
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, log::sol_log_slice, pubkey::Pubkey,
 };
 

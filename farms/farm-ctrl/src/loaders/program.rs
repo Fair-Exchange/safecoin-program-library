@@ -6,7 +6,7 @@ use {
     serde::Deserialize,
     solana_farm_client::client::FarmClient,
     solana_farm_sdk::{pack::pubkey_deserialize, ProgramIDType},
-    safecoin_sdk::pubkey::Pubkey,
+    solana_sdk::pubkey::Pubkey,
 };
 
 #[allow(dead_code)]

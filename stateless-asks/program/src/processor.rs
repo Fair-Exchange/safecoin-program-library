@@ -2,7 +2,7 @@
 
 use lpl_token_metadata::state::Metadata;
 use lpl_token_metadata::state::TokenMetadataAccount;
-use safecoin_program::program_option::COption;
+use solana_program::program_option::COption;
 use std::slice::Iter;
 
 use crate::error::UtilError;
@@ -10,7 +10,7 @@ use crate::instruction::StatelessOfferInstruction;
 use crate::validation_utils::{assert_is_ata, assert_keys_equal};
 use {
     borsh::BorshDeserialize,
-    safecoin_program::{
+    solana_program::{
         account_info::next_account_info,
         account_info::AccountInfo,
         entrypoint::ProgramResult,

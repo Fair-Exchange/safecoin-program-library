@@ -1,7 +1,7 @@
 //! Instruction types
 
 use crate::{check_program_account, error::TokenError};
-use safecoin_program::{
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     program_error::ProgramError,
     program_option::COption,

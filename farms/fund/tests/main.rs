@@ -13,7 +13,7 @@ use {
         string::str_to_as64,
         Protocol,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         commitment_config::{CommitmentConfig, CommitmentLevel},
         signature::Keypair,
         signer::Signer,

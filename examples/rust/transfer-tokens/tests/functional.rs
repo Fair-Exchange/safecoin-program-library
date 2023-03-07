@@ -1,13 +1,13 @@
 use {
-    safecoin_program::{
+    solana_program::{
         instruction::{AccountMeta, Instruction},
         program_pack::Pack,
         pubkey::Pubkey,
         rent::Rent,
         system_instruction,
     },
-    safecoin_program_test::{processor, tokio, ProgramTest},
-    safecoin_sdk::{signature::Signer, signer::keypair::Keypair, transaction::Transaction},
+    solana_program_test::{processor, tokio, ProgramTest},
+    solana_sdk::{signature::Signer, signer::keypair::Keypair, transaction::Transaction},
     spl_example_transfer_tokens::processor::process_instruction,
     safe_token::state::{Account, Mint},
     std::str::FromStr,

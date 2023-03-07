@@ -1,4 +1,4 @@
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, declare_id, entrypoint::ProgramResult, instruction::Instruction,
     pubkey::Pubkey,
 };
@@ -6,7 +6,7 @@ use safecoin_program::{
 declare_id!("noopb9bkMVfRPU8AsbpTUg8AQkHtKwMYZiFUjNRtMmV");
 
 #[cfg(not(feature = "no-entrypoint"))]
-use safecoin_program::entrypoint;
+use solana_program::entrypoint;
 
 #[cfg(not(feature = "no-entrypoint"))]
 entrypoint!(noop);

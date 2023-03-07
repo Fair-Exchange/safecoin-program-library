@@ -5,7 +5,7 @@ use crate::{
 use serde::{Deserialize, Serialize};
 use safecoin_account_decoder::{parse_token::TokenAccountType, UiAccountData};
 use safecoin_client::rpc_response::RpcKeyedAccount;
-use safecoin_sdk::pubkey::Pubkey;
+use solana_sdk::pubkey::Pubkey;
 use safe_associated_token_account::get_associated_token_address_with_program_id;
 use std::{
     collections::{btree_map::Entry, BTreeMap},

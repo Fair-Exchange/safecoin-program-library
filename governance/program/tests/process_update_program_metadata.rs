@@ -1,6 +1,6 @@
 #![cfg(feature = "test-sbf")]
 
-use safecoin_program_test::*;
+use solana_program_test::*;
 
 mod program_test;
 

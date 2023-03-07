@@ -4,14 +4,14 @@
 mod helpers;
 
 use helpers::*;
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program_test::*;
+use solana_sdk::{
     account::Account,
     signature::{Keypair, Signer},
     system_instruction::create_account,
     transaction::Transaction,
 };
-use safe_token::{instruction::approve, safecoin_program::program_pack::Pack};
+use safe_token::{instruction::approve, solana_program::program_pack::Pack};
 use safe_token_lending::{
     instruction::{
         borrow_obligation_liquidity, deposit_obligation_collateral, init_obligation,

@@ -1,13 +1,13 @@
 #![cfg(feature = "test-sbf")]
 use std::str::FromStr;
 
-use safecoin_program::{instruction::Instruction, program_pack::Pack, pubkey::Pubkey};
-use safecoin_program_test::{
+use solana_program::{instruction::Instruction, program_pack::Pack, pubkey::Pubkey};
+use solana_program_test::{
     processor, tokio, ProgramTest, ProgramTestBanksClientExt, ProgramTestContext,
 };
 
-use safecoin_program::hash::hashv;
-use safecoin_sdk::{
+use solana_program::hash::hashv;
+use solana_sdk::{
     signature::{Keypair, Signer},
     transaction::Transaction,
     transport::TransportError,

@@ -1,5 +1,5 @@
-pub use safecoin_program::log::*;
-use safecoin_program::{account_info::AccountInfo, msg};
+pub use solana_program::log::*;
+use solana_program::{account_info::AccountInfo, msg};
 
 #[macro_export]
 macro_rules! debug_msg {

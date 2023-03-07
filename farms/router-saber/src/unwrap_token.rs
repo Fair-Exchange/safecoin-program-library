@@ -2,7 +2,7 @@
 
 use {
     solana_farm_sdk::program::{account, protocol::saber},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, msg, program_error::ProgramError,
     },
 };

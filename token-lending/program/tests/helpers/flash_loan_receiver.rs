@@ -1,10 +1,10 @@
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, entrypoint, entrypoint::ProgramResult, msg, pubkey::Pubkey,
 };
 
 use crate::helpers::flash_loan_receiver::FlashLoanReceiverError::InvalidInstruction;
 use safe_token::{
-    safecoin_program::{
+    solana_program::{
         account_info::next_account_info, program::invoke_signed, program_error::ProgramError,
         program_pack::Pack,
     },

@@ -7,7 +7,7 @@ use crate::{
     },
     error::SwapError,
 };
-use safecoin_program::program_error::ProgramError;
+use solana_program::program_error::ProgramError;
 
 #[cfg(feature = "production")]
 use std::env;

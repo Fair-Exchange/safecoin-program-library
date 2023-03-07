@@ -22,7 +22,7 @@ use {
         native_mint,
         state::{Account, AccountState, Mint, Multisig},
     },
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         clock::Clock,
         entrypoint::ProgramResult,
@@ -1008,7 +1008,7 @@ impl Processor {
                     authority_info_data_len,
                     account_info_iter.as_slice(),
                 )?;
-            } else if !safecoin_program::incinerator::check_id(destination_account_info.key) {
+            } else if !solana_program::incinerator::check_id(destination_account_info.key) {
                 return Err(ProgramError::InvalidAccountData);
             }
 
@@ -1530,7 +1530,7 @@ fn delete_account(account_info: &AccountInfo) -> Result<(), ProgramError> {
     account_info.assign(&system_program::id());
     let mut account_data = account_info.data.borrow_mut();
     let data_len = account_data.len();
-    safecoin_program::program_memory::sol_memset(*account_data, 0, data_len);
+    solana_program::program_memory::sol_memset(*account_data, 0, data_len);
     Ok(())
 }
 
@@ -1549,14 +1549,14 @@ mod tests {
             extension::transfer_fee::instruction::initialize_transfer_fee_config, instruction::*,
         },
         serial_test::serial,
-        safecoin_program::{
+        solana_program::{
             account_info::IntoAccountInfo,
             clock::Epoch,
             instruction::Instruction,
             program_error::{self, PrintProgramError},
             sysvar::{clock::Clock, rent},
         },
-        safecoin_sdk::account::{
+        solana_sdk::account::{
             create_account_for_test, create_is_signer_account_infos, Account as SafecoinAccount,
         },
         std::sync::{Arc, RwLock},
@@ -1571,7 +1571,7 @@ mod tests {
     }
 
     struct SyscallStubs {}
-    impl safecoin_sdk::program_stubs::SyscallStubs for SyscallStubs {
+    impl solana_sdk::program_stubs::SyscallStubs for SyscallStubs {
         fn sol_log(&self, _message: &str) {}
 
         fn sol_invoke_signed(
@@ -1587,7 +1587,7 @@ mod tests {
             unsafe {
                 *(var_addr as *mut _ as *mut Clock) = Clock::default();
             }
-            safecoin_program::entrypoint::SUCCESS
+            solana_program::entrypoint::SUCCESS
         }
 
         fn sol_get_epoch_schedule_sysvar(&self, _var_addr: *mut u8) -> u64 {
@@ -1603,7 +1603,7 @@ mod tests {
             unsafe {
                 *(var_addr as *mut _ as *mut Rent) = Rent::default();
             }
-            safecoin_program::entrypoint::SUCCESS
+            solana_program::entrypoint::SUCCESS
         }
 
         fn sol_set_return_data(&self, data: &[u8]) {
@@ -1620,7 +1620,7 @@ mod tests {
             static ONCE: Once = Once::new();
 
             ONCE.call_once(|| {
-                safecoin_sdk::program_stubs::set_syscall_stubs(Box::new(SyscallStubs {}));
+                solana_sdk::program_stubs::set_syscall_stubs(Box::new(SyscallStubs {}));
             });
         }
 

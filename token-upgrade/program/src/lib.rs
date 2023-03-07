@@ -8,10 +8,10 @@ pub mod instruction;
 pub mod processor;
 
 // Export current SDK types for downstream users building with a different SDK version
-pub use safecoin_program;
-use safecoin_program::pubkey::Pubkey;
+pub use solana_program;
+use solana_program::pubkey::Pubkey;
 
-safecoin_program::declare_id!("tupQguEnJ1ngKtvHx3Z5AdyR1aLzFy4mKAwSxYfCKtd");
+solana_program::declare_id!("tupQguEnJ1ngKtvHx3Z5AdyR1aLzFy4mKAwSxYfCKtd");
 
 const TOKEN_ESCROW_AUTHORITY_SEED: &[u8] = b"token-escrow-authority";
 

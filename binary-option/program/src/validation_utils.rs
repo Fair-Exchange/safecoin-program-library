@@ -1,6 +1,6 @@
 use {
     crate::error::BinaryOptionError,
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         entrypoint::ProgramResult,
         program_error::ProgramError,

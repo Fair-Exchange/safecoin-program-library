@@ -8,9 +8,9 @@ use {
         state::{MAX_NAME_LENGTH, MAX_SYMBOL_LENGTH, MAX_URI_LENGTH},
         utils::puffed_out_string,
     },
-    safecoin_program::{instruction::InstructionError, pubkey::Pubkey},
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program::{instruction::InstructionError, pubkey::Pubkey},
+    solana_program_test::*,
+    solana_sdk::{
         signature::{Keypair, Signer},
         transaction::{Transaction, TransactionError},
     },

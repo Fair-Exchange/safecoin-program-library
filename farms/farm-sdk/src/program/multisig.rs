@@ -12,7 +12,7 @@ use {
     arrayref::{array_mut_ref, array_ref, array_refs, mut_array_refs},
     serde::{Deserialize, Serialize},
     serde_json::to_string,
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, msg, program_error::ProgramError,
         pubkey::Pubkey,
     },

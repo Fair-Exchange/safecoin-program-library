@@ -6,13 +6,13 @@ mod helpers;
 use {
     borsh::BorshSerialize,
     helpers::*,
-    safecoin_program::{
+    solana_program::{
         borsh::try_from_slice_unchecked,
         hash::Hash,
         instruction::{AccountMeta, Instruction},
     },
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program_test::*,
+    solana_sdk::{
         instruction::InstructionError,
         signature::{Keypair, Signer},
         transaction::{Transaction, TransactionError},

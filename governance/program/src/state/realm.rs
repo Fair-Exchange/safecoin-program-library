@@ -4,7 +4,7 @@ use borsh::maybestd::io::Write;
 use std::slice::Iter;
 
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     program_error::ProgramError,
     program_pack::IsInitialized,
@@ -457,7 +457,7 @@ pub fn assert_valid_realm_config_args(
 mod test {
 
     use crate::instruction::GovernanceInstruction;
-    use safecoin_program::borsh::try_from_slice_unchecked;
+    use solana_program::borsh::try_from_slice_unchecked;
 
     use super::*;
 

@@ -4,7 +4,7 @@
 pub const DECIMALS: u8 = 9;
 
 // The Mint for native SAFE Token accounts
-safecoin_program::declare_id!("JUFMnWZ6ksBramrswzjQNraYAgHXbQPeC57URvxdcf8");
+solana_program::declare_id!("JUFMnWZ6ksBramrswzjQNraYAgHXbQPeC57URvxdcf8");
 
 /// Seed for the native_mint's program-derived address
 pub const PROGRAM_ADDRESS_SEEDS: &[&[u8]] = &["native-mint".as_bytes(), &[255]];
@@ -13,7 +13,7 @@ pub const PROGRAM_ADDRESS_SEEDS: &[&[u8]] = &["native-mint".as_bytes(), &[255]];
 mod tests {
     use {
         super::*,
-        safecoin_program::{native_token::*, pubkey::Pubkey},
+        solana_program::{native_token::*, pubkey::Pubkey},
     };
 
     #[test]

@@ -4,7 +4,7 @@ use {
         pod::{OptionalNonZeroPubkey, PodI16, PodI64},
     },
     bytemuck::{Pod, Zeroable},
-    safecoin_program::program_error::ProgramError,
+    solana_program::program_error::ProgramError,
     std::convert::TryInto,
 };
 

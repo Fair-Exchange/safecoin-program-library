@@ -1,7 +1,7 @@
 //! Program state
 
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, clock::UnixTimestamp, program_error::ProgramError, pubkey::Pubkey,
 };
 

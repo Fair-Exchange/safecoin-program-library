@@ -10,7 +10,7 @@ use {
         processor::Processor,
         state::{Account, Mint},
     },
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         entrypoint::ProgramResult,
         instruction::Instruction,
@@ -29,7 +29,7 @@ use {
         non_transferable::NonTransferable,
         transfer_fee::TransferFeeConfig,
     },
-    safecoin_program::{clock::Clock, sysvar::Sysvar},
+    solana_program::{clock::Clock, sysvar::Sysvar},
     safe_zk_token_sdk::zk_token_elgamal::ops as syscall,
 };
 

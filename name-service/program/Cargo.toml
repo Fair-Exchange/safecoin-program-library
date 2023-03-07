@@ -17,15 +17,15 @@ no-entrypoint = []
 test-sbf = []
 
 [dependencies]
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.15.3"}
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.14.17"}
 num-traits = "0.2"
 borsh = "0.9.1"
 num-derive = "0.3.3"
 thiserror = "1.0.29"
 
 [dev-dependencies]
-safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.15.3"}
-safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.15.3"}
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.14.17"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.14.17"}
 
 [lib]
 crate-type = ["cdylib", "lib"]

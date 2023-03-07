@@ -5,9 +5,9 @@ mod helpers;
 
 use {
     helpers::*,
-    safecoin_program::hash::Hash,
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program::hash::Hash,
+    solana_program_test::*,
+    solana_sdk::{
         borsh::try_from_slice_unchecked,
         instruction::InstructionError,
         pubkey::Pubkey,

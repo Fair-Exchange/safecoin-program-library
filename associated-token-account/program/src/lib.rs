@@ -9,14 +9,14 @@ pub mod processor;
 pub mod tools;
 
 // Export current SDK types for downstream users building with a different SDK version
-pub use safecoin_program;
-use safecoin_program::{
+pub use solana_program;
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     pubkey::Pubkey,
     sysvar,
 };
 
-safecoin_program::declare_id!("AToD9iqHSc2fhEP9Jp7UYA6mRjHQ4CTWyzCsw8X3tH7K");
+solana_program::declare_id!("AToD9iqHSc2fhEP9Jp7UYA6mRjHQ4CTWyzCsw8X3tH7K");
 
 pub(crate) fn get_associated_token_address_and_bump_seed(
     wallet_address: &Pubkey,
@@ -105,7 +105,7 @@ pub fn create_associated_token_account(
             AccountMeta::new(associated_account_address, false),
             AccountMeta::new_readonly(*wallet_address, false),
             AccountMeta::new_readonly(*token_mint_address, false),
-            AccountMeta::new_readonly(safecoin_program::system_program::id(), false),
+            AccountMeta::new_readonly(solana_program::system_program::id(), false),
             AccountMeta::new_readonly(safe_token::id(), false),
             AccountMeta::new_readonly(sysvar::rent::id(), false),
         ],

@@ -1,8 +1,8 @@
 use {
     serde::{Deserialize, Serialize},
     safecoin_cli_output::{QuietDisplay, VerboseDisplay},
-    safecoin_sdk::native_token::Safe,
-    safecoin_sdk::{pubkey::Pubkey, stake::state::Lockup},
+    solana_sdk::native_token::Safe,
+    solana_sdk::{pubkey::Pubkey, stake::state::Lockup},
     spl_stake_pool::state::{Fee, StakePool, StakeStatus, ValidatorList, ValidatorStakeInfo},
     std::fmt::{Display, Formatter, Result, Write},
 };

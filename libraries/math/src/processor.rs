@@ -8,7 +8,7 @@ use {
         precise_number::PreciseNumber,
     },
     borsh::BorshDeserialize,
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, log::sol_log_compute_units, msg,
         pubkey::Pubkey,
     },

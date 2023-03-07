@@ -1,8 +1,8 @@
 #![cfg(feature = "test-sbf")]
 
 use {
-    safecoin_program_test::{processor, tokio, ProgramTest, ProgramTestContext},
-    safecoin_sdk::{
+    solana_program_test::{processor, tokio, ProgramTest, ProgramTestContext},
+    solana_sdk::{
         instruction::InstructionError,
         program_pack::Pack,
         pubkey::Pubkey,

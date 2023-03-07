@@ -4,7 +4,7 @@ use {
     clap::{crate_description, crate_name, App, AppSettings, Arg, ArgMatches, SubCommand},
     safecoin_clap_utils::{input_validators::is_url, keypair::signer_from_path},
     solana_farm_sdk::{program::multisig::Multisig, refdb},
-    safecoin_sdk::{commitment_config::CommitmentConfig, pubkey::Pubkey, signature::Signer},
+    solana_sdk::{commitment_config::CommitmentConfig, pubkey::Pubkey, signature::Signer},
     std::str::FromStr,
 };
 

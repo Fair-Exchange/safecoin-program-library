@@ -3,13 +3,13 @@ use std::borrow::Borrow;
 
 use borsh::{BorshDeserialize, BorshSerialize};
 use cookies::{TokenAccountCookie, WalletCookie};
-use safecoin_program::{
+use solana_program::{
     borsh::try_from_slice_unchecked, clock::Clock, instruction::Instruction,
     program_error::ProgramError, program_pack::Pack, pubkey::Pubkey, rent::Rent,
     stake_history::Epoch, system_instruction, system_program, sysvar,
 };
-use safecoin_program_test::{ProgramTest, ProgramTestContext};
-use safecoin_sdk::{
+use solana_program_test::{ProgramTest, ProgramTestContext};
+use solana_sdk::{
     account::{Account, AccountSharedData, WritableAccount},
     signature::Keypair,
     signer::Signer,

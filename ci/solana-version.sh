@@ -14,7 +14,7 @@
 if [[ -n $SAFECOIN_VERSION ]]; then
   safecoin_version="$SAFECOIN_VERSION"
 else
-  safecoin_version=v1.15.3
+  safecoin_version=v1.14.17
 fi
 
 export safecoin_version="$safecoin_version"

@@ -22,7 +22,7 @@ use crate::{
     error::LendingError,
     math::{common::*, decimal::Decimal},
 };
-use safecoin_program::program_error::ProgramError;
+use solana_program::program_error::ProgramError;
 use std::{convert::TryFrom, fmt};
 use uint::construct_uint;
 

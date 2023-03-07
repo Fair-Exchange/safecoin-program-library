@@ -12,7 +12,7 @@ use {
         program::account,
     },
     arrayref::{array_ref, array_refs},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         entrypoint::ProgramResult,
         instruction::{AccountMeta, Instruction},
@@ -24,22 +24,22 @@ use {
 };
 
 pub mod raydium_v2 {
-    safecoin_program::declare_id!("RAYFrn8s4Bsx7NY6gXQPpnWax5dDgd3MCayubNVcZvd");
+    solana_program::declare_id!("RAYFrn8s4Bsx7NY6gXQPpnWax5dDgd3MCayubNVcZvd");
 }
 pub mod raydium_v3 {
-    safecoin_program::declare_id!("RAYFZ91CAQSREwhzPVssQM6w33uYPfKM5Nea6o4mH1t");
+    solana_program::declare_id!("RAYFZ91CAQSREwhzPVssQM6w33uYPfKM5Nea6o4mH1t");
 }
 pub mod raydium_v4 {
-    safecoin_program::declare_id!("675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8");
+    solana_program::declare_id!("675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8");
 }
 pub mod raydium_stake {
-    safecoin_program::declare_id!("RAYqdf1KnhLXkfvhvxQXajuRY2Gq3pHvv3Ucr7WwM6t");
+    solana_program::declare_id!("RAYqdf1KnhLXkfvhvxQXajuRY2Gq3pHvv3Ucr7WwM6t");
 }
 pub mod raydium_stake_v4 {
-    safecoin_program::declare_id!("CBuCnLe26faBpcBP2fktp4rp8abpcAnTWft6ZrP5Q4T");
+    solana_program::declare_id!("CBuCnLe26faBpcBP2fktp4rp8abpcAnTWft6ZrP5Q4T");
 }
 pub mod raydium_stake_v5 {
-    safecoin_program::declare_id!("9KEPoZmtHUrBbhWN1v1KWLMkkvwY6WLtAVUCPRtRjP4z");
+    solana_program::declare_id!("9KEPoZmtHUrBbhWN1v1KWLMkkvwY6WLtAVUCPRtRjP4z");
 }
 
 pub const RAYDIUM_FEE: f64 = 0.0025;

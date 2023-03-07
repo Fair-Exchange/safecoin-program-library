@@ -3,10 +3,10 @@
 use borsh::maybestd::io::Write;
 
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use safecoin_program::account_info::AccountInfo;
+use solana_program::account_info::AccountInfo;
 
-use safecoin_program::program_error::ProgramError;
-use safecoin_program::{program_pack::IsInitialized, pubkey::Pubkey};
+use solana_program::program_error::ProgramError;
+use solana_program::{program_pack::IsInitialized, pubkey::Pubkey};
 use spl_governance_tools::account::{get_account_data, get_account_type, AccountMaxSize};
 
 use crate::error::GovernanceError;
@@ -259,7 +259,7 @@ pub fn get_vote_record_address<'a>(
 mod test {
 
     use borsh::BorshSerialize;
-    use safecoin_program::clock::Epoch;
+    use solana_program::clock::Epoch;
 
     use super::*;
 

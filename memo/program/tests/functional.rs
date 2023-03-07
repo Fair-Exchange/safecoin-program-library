@@ -1,11 +1,11 @@
 #![cfg(feature = "test-sbf")]
 
-use safecoin_program::{
+use solana_program::{
     instruction::{AccountMeta, Instruction, InstructionError},
     pubkey::Pubkey,
 };
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program_test::*;
+use solana_sdk::{
     signature::{Keypair, Signer},
     transaction::{Transaction, TransactionError},
 };

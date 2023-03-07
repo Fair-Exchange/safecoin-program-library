@@ -12,10 +12,10 @@ pub mod state;
 pub mod entrypoint;
 
 // Export current sdk types for downstream users building with a different sdk version
-pub use safecoin_program;
+pub use solana_program;
 use {
     crate::state::Fee,
-    safecoin_program::{pubkey::Pubkey, stake::state::Meta},
+    solana_program::{pubkey::Pubkey, stake::state::Meta},
     std::num::NonZeroU32,
 };
 
@@ -157,7 +157,7 @@ pub fn find_ephemeral_stake_program_address(
     )
 }
 
-safecoin_program::declare_id!("spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo");
+solana_program::declare_id!("spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo");
 
 #[cfg(test)]
 mod test {

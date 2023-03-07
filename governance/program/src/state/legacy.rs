@@ -10,7 +10,7 @@ use crate::state::{
     realm::RealmConfig,
 };
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     clock::{Slot, UnixTimestamp},
     program_pack::IsInitialized,
     pubkey::Pubkey,

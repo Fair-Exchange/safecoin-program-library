@@ -16,14 +16,14 @@ borsh = "0.9"
 borsh-derive = "0.9.0"
 num-derive = "0.3"
 num-traits = "0.2"
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.15.3"}
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.14.17"}
 thiserror = "1.0"
 uint = "0.9"
 
 [dev-dependencies]
 proptest = "1.0.0"
-safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.15.3"}
-safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.15.3"}
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.14.17"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.14.17"}
 libm = "0.2.2"
 
 [lib]

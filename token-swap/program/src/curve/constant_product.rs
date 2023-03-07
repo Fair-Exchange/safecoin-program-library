@@ -8,7 +8,7 @@ use {
         },
         error::SwapError,
     },
-    safecoin_program::{
+    solana_program::{
         program_error::ProgramError,
         program_pack::{IsInitialized, Pack, Sealed},
     },

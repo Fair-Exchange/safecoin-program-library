@@ -5,7 +5,7 @@ use {
         state::{write_data, NameRecordHeader},
     },
     borsh::BorshDeserialize,
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         entrypoint::ProgramResult,
         msg,

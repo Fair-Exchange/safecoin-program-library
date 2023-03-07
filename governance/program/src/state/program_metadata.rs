@@ -1,7 +1,7 @@
 //! ProgramMetadata Account
 
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, clock::Slot, program_error::ProgramError,
     program_pack::IsInitialized, pubkey::Pubkey,
 };

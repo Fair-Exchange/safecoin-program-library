@@ -1,13 +1,13 @@
 //! Proposal  Account
 
 use borsh::maybestd::io::Write;
-use safecoin_program::account_info::next_account_info;
+use solana_program::account_info::next_account_info;
 use std::cmp::Ordering;
 use std::slice::Iter;
 
-use safecoin_program::clock::{Slot, UnixTimestamp};
+use solana_program::clock::{Slot, UnixTimestamp};
 
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, program_error::ProgramError, program_pack::IsInitialized,
     pubkey::Pubkey,
 };
@@ -1113,7 +1113,7 @@ pub fn assert_valid_proposal_options(
 #[cfg(test)]
 mod test {
     use super::*;
-    use safecoin_program::clock::Epoch;
+    use solana_program::clock::Epoch;
 
     use crate::state::{
         enums::{MintMaxVoterWeightSource, VoteThreshold},

@@ -5,11 +5,11 @@ mod helpers;
 
 use {
     helpers::*,
-    safecoin_program::{
+    solana_program::{
         borsh::try_from_slice_unchecked, instruction::InstructionError, pubkey::Pubkey,
     },
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program_test::*,
+    solana_sdk::{
         hash::Hash,
         signature::{Keypair, Signer},
         stake,

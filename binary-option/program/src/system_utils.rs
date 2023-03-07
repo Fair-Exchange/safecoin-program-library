@@ -1,5 +1,5 @@
 use {
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         entrypoint::ProgramResult,
         msg,

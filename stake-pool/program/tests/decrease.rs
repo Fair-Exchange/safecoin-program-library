@@ -6,9 +6,9 @@ mod helpers;
 use {
     bincode::deserialize,
     helpers::*,
-    safecoin_program::{clock::Epoch, instruction::InstructionError, pubkey::Pubkey, stake},
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program::{clock::Epoch, instruction::InstructionError, pubkey::Pubkey, stake},
+    solana_program_test::*,
+    solana_sdk::{
         signature::{Keypair, Signer},
         transaction::{Transaction, TransactionError},
     },

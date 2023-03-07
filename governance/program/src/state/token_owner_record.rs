@@ -16,7 +16,7 @@ use crate::{
 };
 
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     program_error::ProgramError,
     program_pack::IsInitialized,
@@ -422,7 +422,7 @@ pub fn get_token_owner_record_data_for_proposal_owner(
 
 #[cfg(test)]
 mod test {
-    use safecoin_program::{borsh::get_packed_len, stake_history::Epoch};
+    use solana_program::{borsh::get_packed_len, stake_history::Epoch};
 
     use super::*;
 

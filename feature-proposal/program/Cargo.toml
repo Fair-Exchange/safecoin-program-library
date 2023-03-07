@@ -13,12 +13,12 @@ test-sbf = []
 
 [dependencies]
 borsh = "0.9"
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.15.3"}
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.14.17"}
 safe-token = { version = "3.5", path = "../../token/program", features = ["no-entrypoint"] }
 
 [dev-dependencies]
-safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.15.3"}
-safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.15.3"}
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.14.17"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.14.17"}
 
 [lib]
 crate-type = ["cdylib", "lib"]

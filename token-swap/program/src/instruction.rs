@@ -4,7 +4,7 @@
 
 use crate::curve::{base::SwapCurve, fees::Fees};
 use crate::error::SwapError;
-use safecoin_program::{
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     program_error::ProgramError,
     program_pack::Pack,

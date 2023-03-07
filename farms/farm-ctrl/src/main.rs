@@ -13,7 +13,7 @@ mod remove;
 mod vault;
 
 use {
-    log::error, solana_farm_client::client::FarmClient, safecoin_sdk::pubkey::Pubkey,
+    log::error, solana_farm_client::client::FarmClient, solana_sdk::pubkey::Pubkey,
     std::str::FromStr,
 };
 

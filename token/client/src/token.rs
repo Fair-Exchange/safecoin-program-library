@@ -1,7 +1,7 @@
 use {
     crate::client::{ProgramClient, ProgramClientError, SendTransaction},
-    safecoin_program_test::tokio::time,
-    safecoin_sdk::{
+    solana_program_test::tokio::time,
+    solana_sdk::{
         account::Account as BaseAccount,
         epoch_info::EpochInfo,
         hash::Hash,

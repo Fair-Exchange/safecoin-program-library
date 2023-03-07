@@ -1,12 +1,12 @@
 #![cfg(feature = "test-sbf")]
 
-use safecoin_program::{instruction::AccountMeta, pubkey::Pubkey};
-use safecoin_program_test::*;
+use solana_program::{instruction::AccountMeta, pubkey::Pubkey};
+use solana_program_test::*;
 
 mod program_test;
 
 use program_test::*;
-use safecoin_sdk::signature::Keypair;
+use solana_sdk::signature::Keypair;
 use spl_governance::{
     error::GovernanceError,
     state::{enums::VoteThreshold, governance::SECURITY_DEPOSIT_BASE_LAMPORTS},

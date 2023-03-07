@@ -15,7 +15,7 @@ use safe_token_swap::{
 
 use safe_token::instruction::approve;
 
-use safecoin_program::{bpf_loader, entrypoint::ProgramResult, pubkey::Pubkey, system_program};
+use solana_program::{bpf_loader, entrypoint::ProgramResult, pubkey::Pubkey, system_program};
 
 pub struct NativeTokenSwap {
     pub user_account: NativeAccountData,

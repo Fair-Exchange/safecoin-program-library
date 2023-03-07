@@ -1,9 +1,9 @@
 use {
-    safecoin_program_test::{
+    solana_program_test::{
         tokio::{self, sync::Mutex},
         ProgramTest,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         program_option::COption,
         signer::{keypair::Keypair, Signer},
     },

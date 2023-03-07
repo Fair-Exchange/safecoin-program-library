@@ -1,5 +1,5 @@
 use crate::assert_with_msg;
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     program_error::ProgramError,
     system_program,

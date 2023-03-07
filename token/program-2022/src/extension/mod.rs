@@ -20,7 +20,7 @@ use {
     },
     bytemuck::{Pod, Zeroable},
     num_enum::{IntoPrimitive, TryFromPrimitive},
-    safecoin_program::{
+    solana_program::{
         program_error::ProgramError,
         program_pack::{IsInitialized, Pack},
     },
@@ -846,7 +846,7 @@ mod test {
     use {
         super::*,
         crate::state::test::{TEST_ACCOUNT, TEST_ACCOUNT_SLICE, TEST_MINT, TEST_MINT_SLICE},
-        safecoin_program::pubkey::Pubkey,
+        solana_program::pubkey::Pubkey,
         transfer_fee::test::test_transfer_fee_config,
     };
 

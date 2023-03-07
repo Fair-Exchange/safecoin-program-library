@@ -22,7 +22,7 @@ use {
     },
     safecoin_cli_output::OutputFormat,
     safecoin_client::rpc_client::RpcClient,
-    safecoin_program::{
+    solana_program::{
         borsh::{get_instance_packed_len, get_packed_len},
         instruction::Instruction,
         program_pack::Pack,
@@ -30,7 +30,7 @@ use {
         stake,
     },
     safecoin_remote_wallet::remote_wallet::RemoteWalletManager,
-    safecoin_sdk::{
+    solana_sdk::{
         commitment_config::CommitmentConfig,
         hash::Hash,
         message::Message,

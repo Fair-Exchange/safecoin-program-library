@@ -8,7 +8,7 @@ use {
         refdb::{RefDB, Reference, ReferenceType, StorageType},
         string::{str_to_as64, ArrayString64},
     },
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, clock::UnixTimestamp, entrypoint::ProgramResult,
         program_error::ProgramError, pubkey::Pubkey,
     },

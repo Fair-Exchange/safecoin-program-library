@@ -4,7 +4,7 @@
 use {
     arrayref::array_ref,
     borsh::{BorshDeserialize, BorshSerialize},
-    safecoin_program::{
+    solana_program::{
         program_error::ProgramError, program_memory::sol_memmove, program_pack::Pack,
     },
     std::marker::PhantomData,
@@ -239,7 +239,7 @@ impl<'data, 'vec, T: Pack + 'data> Iterator for IterMut<'data, 'vec, T> {
 
 #[cfg(test)]
 mod tests {
-    use {super::*, safecoin_program::program_pack::Sealed};
+    use {super::*, solana_program::program_pack::Sealed};
 
     #[derive(Debug, PartialEq)]
     struct TestStruct {

@@ -6,7 +6,7 @@ use {
     serde::Serialize,
     solana_farm_client::client::FarmClient,
     solana_farm_sdk::string::to_pretty_json,
-    safecoin_sdk::pubkey::Pubkey,
+    solana_sdk::pubkey::Pubkey,
     std::str::FromStr,
 };
 

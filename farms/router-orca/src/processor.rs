@@ -6,7 +6,7 @@ use {
         stake::stake, swap::swap, unstake::unstake, user_init::user_init,
     },
     solana_farm_sdk::{instruction::amm::AmmInstruction, log::sol_log_params_short},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, log::sol_log_compute_units, msg,
         pubkey::Pubkey,
     },

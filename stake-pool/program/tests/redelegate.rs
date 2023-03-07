@@ -6,11 +6,11 @@ mod helpers;
 use {
     bincode::deserialize,
     helpers::*,
-    safecoin_program::{
+    solana_program::{
         clock::Epoch, hash::Hash, instruction::InstructionError, pubkey::Pubkey, stake,
     },
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program_test::*,
+    solana_sdk::{
         signature::{Keypair, Signer},
         stake::instruction::StakeError,
         transaction::{Transaction, TransactionError},

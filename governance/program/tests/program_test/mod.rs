@@ -2,7 +2,7 @@
 use std::str::FromStr;
 
 use borsh::BorshSerialize;
-use safecoin_program::{
+use solana_program::{
     bpf_loader_upgradeable::{self, UpgradeableLoaderState},
     clock::{Slot, UnixTimestamp},
     instruction::{AccountMeta, Instruction},
@@ -12,9 +12,9 @@ use safecoin_program::{
     system_instruction,
 };
 
-use safecoin_program_test::*;
+use solana_program_test::*;
 
-use safecoin_sdk::signature::{Keypair, Signer};
+use solana_sdk::signature::{Keypair, Signer};
 
 use spl_governance::{
     instruction::{

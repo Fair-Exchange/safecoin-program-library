@@ -2,13 +2,13 @@
 #![cfg(feature = "test-sbf")]
 
 use {
-    safecoin_program::{
+    solana_program::{
         feature::{self, Feature},
         program_option::COption,
         system_program,
     },
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program_test::*,
+    solana_sdk::{
         signature::{Keypair, Signer},
         transaction::Transaction,
     },

@@ -1,5 +1,5 @@
 anchor_version = "0.24.2"
-safecoin_version = "1.15.3"
+safecoin_version = "1.14.17"
 
 [workspace]
 members = [

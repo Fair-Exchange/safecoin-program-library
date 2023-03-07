@@ -2,7 +2,7 @@
 
 use {
     num_derive::FromPrimitive,
-    safecoin_program::{
+    solana_program::{
         decode_error::DecodeError,
         msg,
         program_error::{PrintProgramError, ProgramError},

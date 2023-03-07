@@ -3,7 +3,7 @@
 use {
     borsh::BorshSerialize,
     lpl_token_metadata::{pda::find_metadata_account, state::Metadata},
-    safecoin_program::{
+    solana_program::{
         borsh::{get_instance_packed_len, get_packed_len, try_from_slice_unchecked},
         hash::Hash,
         instruction::Instruction,
@@ -12,8 +12,8 @@ use {
         pubkey::Pubkey,
         stake, system_instruction, system_program,
     },
-    safecoin_program_test::{processor, BanksClient, ProgramTest, ProgramTestContext},
-    safecoin_sdk::{
+    solana_program_test::{processor, BanksClient, ProgramTest, ProgramTestContext},
+    solana_sdk::{
         account::{Account as SafecoinAccount, WritableAccount},
         clock::{Clock, Epoch},
         compute_budget::ComputeBudgetInstruction,

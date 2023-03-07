@@ -1,6 +1,6 @@
 use {
-    safecoin_program::pubkey::Pubkey,
-    safecoin_program_test::{ProgramTest, *},
+    solana_program::pubkey::Pubkey,
+    solana_program_test::{ProgramTest, *},
     safe_associated_token_account::{id, processor::process_instruction},
 };
 

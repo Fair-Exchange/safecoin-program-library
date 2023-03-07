@@ -2,8 +2,8 @@
 #![cfg(feature = "test-sbf")]
 
 use {
-    safecoin_program_test::*,
-    safecoin_sdk::{signature::Signer, transaction::Transaction},
+    solana_program_test::*,
+    solana_sdk::{signature::Signer, transaction::Transaction},
     spl_math::{id, instruction, processor::process_instruction},
 };
 

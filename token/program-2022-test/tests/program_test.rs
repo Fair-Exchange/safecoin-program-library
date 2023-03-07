@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 
 use {
-    safecoin_program_test::{processor, tokio::sync::Mutex, ProgramTest, ProgramTestContext},
-    safecoin_sdk::signer::{keypair::Keypair, Signer},
+    solana_program_test::{processor, tokio::sync::Mutex, ProgramTest, ProgramTestContext},
+    solana_sdk::signer::{keypair::Keypair, Signer},
     safe_token_2022::{id, native_mint, processor::Processor},
     safe_token_client::{
         client::{ProgramBanksClient, ProgramBanksClientProcessTransaction, ProgramClient},

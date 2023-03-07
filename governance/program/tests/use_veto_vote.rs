@@ -3,8 +3,8 @@
 mod program_test;
 use program_test::*;
 
-use safecoin_program::instruction::AccountMeta;
-use safecoin_program_test::tokio;
+use solana_program::instruction::AccountMeta;
+use solana_program_test::tokio;
 
 use spl_governance::{
     error::GovernanceError,

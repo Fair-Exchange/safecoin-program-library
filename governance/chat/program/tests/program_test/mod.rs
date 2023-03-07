@@ -1,9 +1,9 @@
 use std::str::FromStr;
 
-use safecoin_program::{program_error::ProgramError, pubkey::Pubkey};
-use safecoin_program_test::{processor, ProgramTest};
+use solana_program::{program_error::ProgramError, pubkey::Pubkey};
+use solana_program_test::{processor, ProgramTest};
 
-use safecoin_sdk::{signature::Keypair, signer::Signer};
+use solana_sdk::{signature::Keypair, signer::Signer};
 use spl_governance::{
     instruction::{
         create_governance, create_proposal, create_realm, create_token_owner_record,

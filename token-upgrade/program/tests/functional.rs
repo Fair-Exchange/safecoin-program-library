@@ -2,12 +2,12 @@
 #![cfg(feature = "test-sbf")]
 
 use {
-    safecoin_program_test::{
+    solana_program_test::{
         processor,
         tokio::{self, sync::Mutex},
         ProgramTest, ProgramTestContext,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         instruction::{AccountMeta, InstructionError},
         pubkey::Pubkey,
         signature::Signer,

@@ -3,7 +3,7 @@
 use {
     crate::id,
     borsh::{BorshDeserialize, BorshSerialize},
-    safecoin_program::instruction::Instruction,
+    solana_program::instruction::Instruction,
 };
 
 /// Instructions supported by the math program, used for testing instruction

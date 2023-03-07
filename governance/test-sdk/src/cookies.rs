@@ -1,5 +1,5 @@
-use safecoin_program::pubkey::Pubkey;
-use safecoin_sdk::account::Account;
+use solana_program::pubkey::Pubkey;
+use solana_sdk::account::Account;
 
 #[derive(Debug)]
 pub struct TokenAccountCookie {

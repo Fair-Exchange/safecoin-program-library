@@ -4,9 +4,9 @@
 mod helpers;
 
 use helpers::*;
-use safecoin_program::instruction::{AccountMeta, Instruction};
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program::instruction::{AccountMeta, Instruction};
+use solana_program_test::*;
+use solana_sdk::{
     instruction::InstructionError,
     pubkey::Pubkey,
     signature::{Keypair, Signer},

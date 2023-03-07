@@ -13,7 +13,7 @@ use crate::{
     PROGRAM_AUTHORITY_SEED,
 };
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo,
     clock::UnixTimestamp,
     instruction::{AccountMeta, Instruction},
@@ -250,7 +250,7 @@ mod test {
 
     use std::str::FromStr;
 
-    use safecoin_program::{bpf_loader_upgradeable, clock::Epoch};
+    use solana_program::{bpf_loader_upgradeable, clock::Epoch};
 
     use super::*;
 

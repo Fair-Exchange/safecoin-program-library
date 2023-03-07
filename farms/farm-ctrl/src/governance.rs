@@ -12,7 +12,7 @@ use {
         token::{OracleType, Token, TokenType},
         ProgramIDType,
     },
-    safecoin_sdk::{program_pack::Pack, pubkey::Pubkey},
+    solana_sdk::{program_pack::Pack, pubkey::Pubkey},
     safe_associated_token_account::{create_associated_token_account, get_associated_token_address},
     spl_governance::instruction as dao_instruction,
     spl_governance::state::{

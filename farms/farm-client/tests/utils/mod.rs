@@ -2,7 +2,7 @@
 
 use {
     solana_farm_client::client::FarmClient,
-    safecoin_sdk::{pubkey::Pubkey, signature::Keypair, signer::keypair::read_keypair_file},
+    solana_sdk::{pubkey::Pubkey, signature::Keypair, signer::keypair::read_keypair_file},
 };
 
 #[derive(Copy, Clone)]

@@ -3,7 +3,7 @@
 use {
     crate::error::FarmClientError,
     solana_farm_sdk::{farm::FarmRoute, instruction::amm::AmmInstruction},
-    safecoin_sdk::{instruction::Instruction, pubkey::Pubkey},
+    solana_sdk::{instruction::Instruction, pubkey::Pubkey},
 };
 
 use super::FarmClient;

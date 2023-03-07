@@ -3,12 +3,12 @@
 mod program_test;
 use {
     program_test::{keypair_clone, TestContext, TokenContext},
-    safecoin_program_test::{
+    solana_program_test::{
         processor,
         tokio::{self, sync::Mutex},
         ProgramTest,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         account_info::{next_account_info, AccountInfo},
         entrypoint::ProgramResult,
         instruction::{AccountMeta, Instruction, InstructionError},

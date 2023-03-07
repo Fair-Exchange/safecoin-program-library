@@ -5,9 +5,9 @@ mod program_test;
 
 use {
     program_test::{program_test, program_test_2022},
-    safecoin_program::{pubkey::Pubkey, system_instruction},
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program::{pubkey::Pubkey, system_instruction},
+    solana_program_test::*,
+    solana_sdk::{
         instruction::{AccountMeta, InstructionError},
         signature::Signer,
         signer::keypair::Keypair,

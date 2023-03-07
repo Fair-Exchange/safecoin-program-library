@@ -5,9 +5,9 @@ mod helpers;
 
 use {
     helpers::*,
-    safecoin_program::{instruction::InstructionError, pubkey::Pubkey, stake},
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program::{instruction::InstructionError, pubkey::Pubkey, stake},
+    solana_program_test::*,
+    solana_sdk::{
         account::{Account, WritableAccount},
         clock::Epoch,
         signature::Signer,

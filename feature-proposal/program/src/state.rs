@@ -1,6 +1,6 @@
 //! Program state
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     clock::UnixTimestamp,
     msg,
     program_error::ProgramError,
@@ -64,7 +64,7 @@ mod tests {
     fn test_get_packed_len() {
         assert_eq!(
             FeatureProposal::get_packed_len(),
-            safecoin_program::borsh::get_packed_len::<FeatureProposal>()
+            solana_program::borsh::get_packed_len::<FeatureProposal>()
         );
     }
 

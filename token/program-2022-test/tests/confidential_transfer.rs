@@ -4,8 +4,8 @@
 mod program_test;
 use {
     program_test::{TestContext, TokenContext},
-    safecoin_program_test::tokio,
-    safecoin_sdk::{
+    solana_program_test::tokio,
+    solana_sdk::{
         instruction::InstructionError, pubkey::Pubkey, signature::Signer, signer::keypair::Keypair,
         transaction::TransactionError, transport::TransportError,
     },
@@ -32,7 +32,7 @@ use {
 };
 
 #[cfg(feature = "zk-ops")]
-use {safecoin_sdk::epoch_info::EpochInfo, safe_token_2022::safe_zk_token_sdk::zk_token_elgamal};
+use {solana_sdk::epoch_info::EpochInfo, safe_token_2022::safe_zk_token_sdk::zk_token_elgamal};
 
 #[cfg(feature = "zk-ops")]
 const TEST_MAXIMUM_FEE: u64 = 100;

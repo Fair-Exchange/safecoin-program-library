@@ -1,7 +1,7 @@
 //! Instruction types
 
 use borsh::{BorshDeserialize, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     clock::Slot,
     instruction::{AccountMeta, Instruction},
     program_error::ProgramError,

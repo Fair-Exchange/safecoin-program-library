@@ -5,7 +5,7 @@ use {
     log::info,
     solana_farm_client::client::FarmClient,
     solana_farm_sdk::{string::to_pretty_json, token::TokenSelector},
-    safecoin_sdk::pubkey::Pubkey,
+    solana_sdk::pubkey::Pubkey,
 };
 
 pub fn init(client: &FarmClient, config: &Config, vault_names: &str, step: u64) {

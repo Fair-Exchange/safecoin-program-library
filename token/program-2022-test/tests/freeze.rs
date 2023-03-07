@@ -3,8 +3,8 @@
 mod program_test;
 use {
     program_test::{TestContext, TokenContext},
-    safecoin_program_test::tokio,
-    safecoin_sdk::{signature::Signer, signer::keypair::Keypair},
+    solana_program_test::tokio,
+    solana_sdk::{signature::Signer, signer::keypair::Keypair},
     safe_token_2022::state::AccountState,
 };
 

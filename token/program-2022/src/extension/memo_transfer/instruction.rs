@@ -4,7 +4,7 @@ use {
         instruction::{encode_instruction, TokenInstruction},
     },
     num_enum::{IntoPrimitive, TryFromPrimitive},
-    safecoin_program::{
+    solana_program::{
         instruction::{AccountMeta, Instruction},
         program_error::ProgramError,
         pubkey::Pubkey,

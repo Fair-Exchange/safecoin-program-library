@@ -5,7 +5,7 @@ use {
         pod::*,
     },
     bytemuck::{Pod, Zeroable},
-    safecoin_program::entrypoint::ProgramResult,
+    solana_program::entrypoint::ProgramResult,
     safe_zk_token_sdk::zk_token_elgamal::pod,
 };
 

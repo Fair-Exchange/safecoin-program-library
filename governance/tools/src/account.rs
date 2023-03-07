@@ -1,7 +1,7 @@
 //! General purpose account utility functions
 
 use borsh::{BorshDeserialize, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo,
     borsh::try_from_slice_unchecked,
     msg,

@@ -27,7 +27,7 @@ use safecoin_cli_output::{
 };
 use safecoin_client::rpc_request::TokenAccountsFilter;
 use safecoin_remote_wallet::remote_wallet::RemoteWalletManager;
-use safecoin_sdk::{
+use solana_sdk::{
     native_token::*,
     program_option::COption,
     pubkey::Pubkey,
@@ -4291,7 +4291,7 @@ mod tests {
     use {
         super::*,
         serial_test::serial,
-        safecoin_sdk::{
+        solana_sdk::{
             bpf_loader,
             hash::Hash,
             program_pack::Pack,
@@ -4395,7 +4395,7 @@ mod tests {
 
         let nonce_rent = config
             .rpc_client
-            .get_minimum_balance_for_rent_exemption(safecoin_sdk::nonce::State::size())
+            .get_minimum_balance_for_rent_exemption(solana_sdk::nonce::State::size())
             .await
             .unwrap();
         let instr = system_instruction::create_nonce_account(

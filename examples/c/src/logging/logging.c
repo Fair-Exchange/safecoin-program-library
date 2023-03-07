@@ -1,7 +1,7 @@
 /**
  * @brief A program demonstrating logging
  */
-#include <safecoin_sdk.h>
+#include <solana_sdk.h>
 
 extern uint64_t logging(SafeParameters *params) {
   // Log a string

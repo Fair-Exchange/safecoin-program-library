@@ -1,6 +1,6 @@
-use safecoin_program::program_option::COption;
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program::program_option::COption;
+use solana_program_test::*;
+use solana_sdk::{
     commitment_config::CommitmentLevel,
     instruction::Instruction,
     native_token::LAMPORTS_PER_SAFE,

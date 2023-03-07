@@ -2,8 +2,8 @@
 
 mod action;
 use {
-    safecoin_program_test::{processor, tokio, ProgramTest},
-    safecoin_sdk::{
+    solana_program_test::{processor, tokio, ProgramTest},
+    solana_sdk::{
         program_pack::Pack,
         pubkey::Pubkey,
         signature::{Keypair, Signer},
