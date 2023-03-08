@@ -1,6 +1,6 @@
 [package]
 name = "safe-memo"
-version = "3.0.7"
+version = "3.0.8"
 description = "Safecoin Program Library Memo"
 authors = ["Safecoin Labs Maintainers <maintainers@solanalabs.com>"]
 repository = "https://github.com/fair-exchange/safecoin-program-library"

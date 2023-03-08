@@ -1,6 +1,6 @@
 [package]
 name = "safe-token"
-version = "3.5.0"
+version = "3.5.1"
 description = "Safecoin Program Library Token"
 authors = ["Safecoin Labs Maintainers <maintainers@solanalabs.com>"]
 repository = "https://github.com/fair-exchange/safecoin-program-library"
