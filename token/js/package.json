@@ -1,7 +1,7 @@
 {
     "name": "@safecoin/safe-token",
     "description": "SPL Token Program JS API",
-    "version": "0.3.7",
+    "version": "0.3.5",
     "author": "Safecoin Labs Maintainers <maintainers@solanalabs.com>",
     "repository": "https://github.com/fair-exchange/safecoin-program-library",
     "license": "Apache-2.0",
@@ -50,16 +50,16 @@
         "deploy:docs": "npm run docs && gh-pages --dist token/js --dotfiles"
     },
     "peerDependencies": {
-        "@safecoin/web3.js": "^1.47.4"
+        "@safecoin/web3.js": "^1.49.9"
     },
     "dependencies": {
-        "@solana/buffer-layout": "^4.0.0",
-        "@safecoin/buffer-layout-utils": "^0.2.0",
+        "@safecoin/buffer-layout": "^4.0.4",
+        "@safecoin/buffer-layout-utils": "^0.2.2",
         "buffer": "^6.0.3"
     },
     "devDependencies": {
-        "@solana/safe-memo": "^0.2.2",
-        "@safecoin/web3.js": "^1.47.4",
+        "@safecoin/safe-memo": "^0.2.0",
+        "@safecoin/web3.js": "^1.49.9",
         "@types/chai-as-promised": "^7.1.4",
         "@types/chai": "^4.3.3",
         "@types/mocha": "^10.0.0",
