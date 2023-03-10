@@ -3,7 +3,7 @@
 use {
     crate::error::FarmClientError,
     safecoin_account_decoder::parse_token::{parse_token, TokenAccountType},
-    safecoin_sdk::{instruction::Instruction, pubkey::Pubkey, system_instruction, system_program},
+    solana_sdk::{instruction::Instruction, pubkey::Pubkey, system_instruction, system_program},
     safe_associated_token_account::create_associated_token_account,
     safe_token::instruction as safe_token_instruction,
 };

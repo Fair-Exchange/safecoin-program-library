@@ -6,7 +6,7 @@ use {
     num_enum::TryFromPrimitive,
     serde::{Deserialize, Serialize},
     serde_json::{to_string, Value},
-    safecoin_program::{program_error::ProgramError, pubkey::Pubkey},
+    solana_program::{program_error::ProgramError, pubkey::Pubkey},
     std::collections::HashMap,
 };
 

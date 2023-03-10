@@ -1,8 +1,8 @@
 // Program test does not support calling a raw program entrypoint, only `process_instruction`
 #![cfg(feature = "test-sbf")]
 
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program_test::*;
+use solana_sdk::{
     account::Account,
     instruction::InstructionError,
     instruction::{AccountMeta, Instruction},

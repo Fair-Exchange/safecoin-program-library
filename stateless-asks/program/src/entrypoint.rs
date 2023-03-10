@@ -1,6 +1,6 @@
 #![cfg(all(target_os = "solana", not(feature = "no-entrypoint")))]
 
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, entrypoint, entrypoint::ProgramResult, pubkey::Pubkey,
 };
 

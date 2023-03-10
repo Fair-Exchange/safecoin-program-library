@@ -4,7 +4,7 @@ use {
         pod::{OptionalNonZeroPubkey, PodI16, PodI64},
     },
     bytemuck::{Pod, Zeroable},
-    safecoin_program::program_error::ProgramError,
+    solana_program::program_error::ProgramError,
     std::convert::TryInto,
 };
 
@@ -88,7 +88,7 @@ impl InterestBearingConfig {
         Some(scaled_amount_with_interest.to_string())
     }
 
-    /// Try to convert a UI represenation of a token amount to its raw amount using the given decimals
+    /// Try to convert a UI representation of a token amount to its raw amount using the given decimals
     /// field
     pub fn try_ui_amount_into_amount(
         &self,

@@ -1,7 +1,7 @@
 //! Program state processor
 
 use crate::{instruction::*, state::*, *};
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     clock::Clock,
     entrypoint::ProgramResult,

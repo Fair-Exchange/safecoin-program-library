@@ -1,7 +1,7 @@
 //! Program state processor
 
 use borsh::BorshSerialize;
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     clock::Clock,
     entrypoint::ProgramResult,
@@ -52,6 +52,7 @@ pub fn process_update_program_metadata(
             program_id,
             system_info,
             &rent,
+            0,
         )?;
     } else {
         let mut program_metadata_data =

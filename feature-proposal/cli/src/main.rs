@@ -10,7 +10,7 @@ use {
         input_validators::{is_keypair, is_url, is_valid_percentage, is_valid_pubkey},
     },
     safecoin_client::rpc_client::RpcClient,
-    safecoin_sdk::{
+    solana_sdk::{
         clock::UnixTimestamp,
         commitment_config::CommitmentConfig,
         program_pack::Pack,

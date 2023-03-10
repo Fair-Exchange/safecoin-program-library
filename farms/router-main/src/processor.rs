@@ -17,7 +17,7 @@ use {
         log::sol_log_params_short,
         program::multisig,
     },
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         entrypoint::ProgramResult,
         //hash::Hasher,

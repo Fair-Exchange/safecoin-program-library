@@ -5,9 +5,9 @@ mod program_test;
 
 use {
     program_test::program_test_2022,
-    safecoin_program::{instruction::*, pubkey::Pubkey, system_instruction},
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program::{instruction::*, pubkey::Pubkey, system_instruction},
+    solana_program_test::*,
+    solana_sdk::{
         signature::Signer,
         signer::keypair::Keypair,
         transaction::{Transaction, TransactionError},
@@ -17,7 +17,9 @@ use {
     },
     safe_token_2022::{
         error::TokenError,
-        extension::{transfer_fee, ExtensionType, StateWithExtensionsOwned},
+        extension::{
+            transfer_fee, BaseStateWithExtensions, ExtensionType, StateWithExtensionsOwned,
+        },
         state::{Account, Mint},
     },
 };

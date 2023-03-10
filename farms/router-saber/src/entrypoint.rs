@@ -11,7 +11,7 @@ solana_security_txt::security_txt! {
     auditors: "Halborn"
 }
 
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, entrypoint, entrypoint::ProgramResult, pubkey::Pubkey,
 };
 

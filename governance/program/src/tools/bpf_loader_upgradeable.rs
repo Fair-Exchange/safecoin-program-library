@@ -1,6 +1,6 @@
 //! General purpose bpf_loader_upgradeable utility functions
 
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo,
     bpf_loader_upgradeable::{self, UpgradeableLoaderState},
     program::invoke,

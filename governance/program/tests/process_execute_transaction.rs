@@ -2,12 +2,12 @@
 
 mod program_test;
 
-use safecoin_program::{
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     program_error::ProgramError,
     sysvar::clock,
 };
-use safecoin_program_test::tokio;
+use solana_program_test::tokio;
 
 use program_test::*;
 use spl_governance::{
@@ -285,7 +285,7 @@ async fn test_execute_upgrade_program_transaction() {
         .err()
         .unwrap();
 
-    // solana_bpf_rust_upgradable returns CustomError == 42
+    // safecoin_bpf_rust_upgradable returns CustomError == 42
     assert_eq!(ProgramError::Custom(42), err);
 
     let clock = governance_test.bench.get_clock().await;
@@ -334,7 +334,7 @@ async fn test_execute_upgrade_program_transaction() {
         .err()
         .unwrap();
 
-    // solana_bpf_rust_upgraded returns CustomError == 43
+    // safecoin_bpf_rust_upgraded returns CustomError == 43
     assert_eq!(ProgramError::Custom(43), err);
 
     // --------------------------- !!! Voila  !!! -----------------------------

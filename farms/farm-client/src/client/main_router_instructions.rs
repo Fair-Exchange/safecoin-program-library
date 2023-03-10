@@ -15,7 +15,7 @@ use {
         vault::Vault,
         ProgramIDType,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         bpf_loader_upgradeable,
         instruction::{AccountMeta, Instruction},
         pubkey::Pubkey,

@@ -5,7 +5,7 @@
 use {
     crate::pack::check_data_len,
     arrayref::{array_mut_ref, mut_array_refs},
-    safecoin_program::program_error::ProgramError,
+    solana_program::program_error::ProgramError,
 };
 
 #[derive(Clone, Copy, Debug)]

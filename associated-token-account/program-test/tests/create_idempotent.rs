@@ -4,9 +4,9 @@ mod program_test;
 
 use {
     program_test::program_test_2022,
-    safecoin_program::{instruction::*, pubkey::Pubkey},
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program::{instruction::*, pubkey::Pubkey},
+    solana_program_test::*,
+    solana_sdk::{
         account::Account as SafecoinAccount,
         program_option::COption,
         program_pack::Pack,

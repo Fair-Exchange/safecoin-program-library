@@ -22,7 +22,7 @@ use {
         string::{str_to_as64, ArrayString64},
         token::{GitToken, OracleType, Token, TokenType},
     },
-    safecoin_sdk::pubkey::Pubkey,
+    solana_sdk::pubkey::Pubkey,
     std::collections::HashMap,
     std::str::FromStr,
 };

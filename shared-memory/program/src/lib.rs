@@ -7,9 +7,9 @@
 // This program is highly optimized for its particular use case and does not
 // implement the typical `process_instruction` entrypoint.
 
-extern crate safecoin_program;
+extern crate solana_program;
 use arrayref::{array_refs, mut_array_refs};
-use safecoin_program::{
+use solana_program::{
     declare_id, entrypoint::MAX_PERMITTED_DATA_INCREASE, entrypoint::SUCCESS,
     program_error::ProgramError, pubkey::Pubkey,
 };
@@ -19,7 +19,7 @@ use std::{
     slice::{from_raw_parts, from_raw_parts_mut},
 };
 
-declare_id!("shmem4EWT2sPdVGvTZCzXXRAURL9G5vpPxNwSeKhHUL");
+declare_id!("smEFqz4hvyyJSypL8FvqYdasHTLHXTvNBtY9vVzLM5S");
 
 /// A more efficient `copy_from_slice` implementation.
 fn fast_copy(mut src: &[u8], mut dst: &mut [u8]) {
@@ -39,7 +39,7 @@ fn fast_copy(mut src: &[u8], mut dst: &mut [u8]) {
 
 /// Deserializes only the particular input parameters that the shared memory
 /// program uses.  For more information about the format of the serialized input
-/// parameters see `safecoin_sdk::entrypoint::deserialize`
+/// parameters see `solana_sdk::entrypoint::deserialize`
 unsafe fn deserialize_input_parameters<'a>(
     input: *mut u8,
 ) -> Result<(&'a mut [u8], &'a [u8]), u64> {
@@ -88,7 +88,7 @@ unsafe fn deserialize_input_parameters<'a>(
 ///
 /// This program uses the raw Safecoin runtime's entrypoint which takes a pointer
 /// to serialized input parameters.  For more information about the format of
-/// the serialized input parameters see `safecoin_sdk::entrypoint::deserialize`
+/// the serialized input parameters see `solana_sdk::entrypoint::deserialize`
 ///
 /// # Safety
 #[no_mangle]

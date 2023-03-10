@@ -2,14 +2,14 @@
 #![cfg(feature = "test-sbf")]
 
 use {
-    safecoin_program::{
+    solana_program::{
         instruction::{AccountMeta, Instruction},
         pubkey::Pubkey,
         rent::Rent,
         system_program,
     },
-    safecoin_program_test::*,
-    safecoin_sdk::{account::Account, signature::Signer, transaction::Transaction},
+    solana_program_test::*,
+    solana_sdk::{account::Account, signature::Signer, transaction::Transaction},
     spl_example_cross_program_invocation::processor::{process_instruction, SIZE},
     std::str::FromStr,
 };

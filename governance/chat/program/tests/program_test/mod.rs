@@ -1,17 +1,19 @@
 use std::str::FromStr;
 
-use safecoin_program::{program_error::ProgramError, pubkey::Pubkey};
-use safecoin_program_test::{processor, ProgramTest};
+use solana_program::{program_error::ProgramError, pubkey::Pubkey};
+use solana_program_test::{processor, ProgramTest};
 
-use safecoin_sdk::{signature::Keypair, signer::Signer};
+use solana_sdk::{signature::Keypair, signer::Signer};
 use spl_governance::{
     instruction::{
         create_governance, create_proposal, create_realm, create_token_owner_record,
         deposit_governing_tokens,
     },
     state::{
-        enums::{MintMaxVoteWeightSource, VoteThreshold},
-        governance::{get_governance_address, GovernanceConfig},
+        enums::{MintMaxVoterWeightSource, VoteThreshold},
+        governance::{
+            get_governance_address, GovernanceConfig, DEFAULT_DEPOSIT_EXEMPT_PROPOSAL_COUNT,
+        },
         proposal::{get_proposal_address, VoteType},
         realm::{get_realm_address, GoverningTokenConfigAccountArgs},
         realm_config::GoverningTokenType,
@@ -125,7 +127,7 @@ impl GovernanceChatProgramTest {
             None,
             name.clone(),
             1,
-            MintMaxVoteWeightSource::FULL_SUPPLY_FRACTION,
+            MintMaxVoterWeightSource::FULL_SUPPLY_FRACTION,
         );
 
         self.bench
@@ -186,16 +188,18 @@ impl GovernanceChatProgramTest {
         let governed_account_address = Pubkey::new_unique();
 
         let governance_config = GovernanceConfig {
-            min_community_weight_to_create_proposal: 5,
-            min_council_weight_to_create_proposal: 2,
-            min_transaction_hold_up_time: 10,
-            max_voting_time: 10,
             community_vote_threshold: VoteThreshold::YesVotePercentage(60),
+            min_community_weight_to_create_proposal: 5,
+            min_transaction_hold_up_time: 10,
+            voting_base_time: 10,
             community_vote_tipping: spl_governance::state::enums::VoteTipping::Strict,
             council_vote_threshold: VoteThreshold::YesVotePercentage(10),
             council_veto_vote_threshold: VoteThreshold::YesVotePercentage(50),
+            min_council_weight_to_create_proposal: 2,
             council_vote_tipping: spl_governance::state::enums::VoteTipping::Strict,
             community_veto_vote_threshold: VoteThreshold::YesVotePercentage(55),
+            voting_cool_off_time: 1,
+            deposit_exempt_proposal_count: DEFAULT_DEPOSIT_EXEMPT_PROPOSAL_COUNT,
         };
 
         let token_owner_record_address = get_token_owner_record_address(
@@ -257,8 +261,9 @@ impl GovernanceChatProgramTest {
         let proposal_name = "Proposal #1".to_string();
         let description_link = "Proposal Description".to_string();
         let options = vec!["Yes".to_string()];
-        let proposal_index: u32 = 0;
+
         let use_deny_option = true;
+        let proposal_seed = Pubkey::new_unique();
 
         let create_proposal_ix = create_proposal(
             &self.governance_program_id,
@@ -274,7 +279,7 @@ impl GovernanceChatProgramTest {
             VoteType::SingleChoice,
             options,
             use_deny_option,
-            proposal_index,
+            &proposal_seed,
         );
 
         self.bench
@@ -286,7 +291,7 @@ impl GovernanceChatProgramTest {
             &self.governance_program_id,
             &governance_address,
             &governing_token_mint_keypair.pubkey(),
-            &proposal_index.to_le_bytes(),
+            &proposal_seed,
         );
 
         ProposalCookie {

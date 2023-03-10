@@ -2,7 +2,7 @@
 
 mod program_test;
 
-use safecoin_program_test::tokio;
+use solana_program_test::tokio;
 
 use program_test::*;
 

@@ -3,8 +3,8 @@
 mod program_test;
 use {
     program_test::{TestContext, TokenContext},
-    safecoin_program_test::tokio,
-    safecoin_sdk::{
+    solana_program_test::tokio,
+    solana_sdk::{
         instruction::InstructionError, signature::Signer, signer::keypair::Keypair,
         transaction::TransactionError, transport::TransportError,
     },
@@ -16,7 +16,7 @@ use {
 };
 
 #[tokio::test]
-async fn transfer_checked() {
+async fn transfer() {
     let test_transfer_amount = 100;
     let mut context = TestContext::new().await;
     context
@@ -25,9 +25,9 @@ async fn transfer_checked() {
         .unwrap();
 
     let TokenContext {
-        decimals,
         mint_authority,
         token,
+        token_unchecked,
         alice,
         bob,
         ..
@@ -56,8 +56,7 @@ async fn transfer_checked() {
             &alice_account,
             &mint_authority.pubkey(),
             test_transfer_amount,
-            Some(decimals),
-            &vec![&mint_authority],
+            &[&mint_authority],
         )
         .await
         .unwrap_err();
@@ -78,8 +77,7 @@ async fn transfer_checked() {
             &bob_account,
             &mint_authority.pubkey(),
             test_transfer_amount,
-            Some(decimals),
-            &vec![&mint_authority],
+            &[&mint_authority],
         )
         .await
         .unwrap();
@@ -91,8 +89,7 @@ async fn transfer_checked() {
             &bob_account,
             &bob.pubkey(),
             test_transfer_amount,
-            Some(decimals),
-            &vec![&bob],
+            &[&bob],
         )
         .await
         .unwrap_err();
@@ -114,8 +111,29 @@ async fn transfer_checked() {
             &alice_account,
             &bob.pubkey(),
             test_transfer_amount,
-            Some(decimals),
-            &vec![&bob],
+            &[&bob],
+        )
+        .await
+        .unwrap_err();
+
+    assert_eq!(
+        error,
+        TokenClientError::Client(Box::new(TransportError::TransactionError(
+            TransactionError::InstructionError(
+                0,
+                InstructionError::Custom(TokenError::NonTransferable as u32)
+            )
+        )))
+    );
+
+    // regular unchecked transfer fails
+    let error = token_unchecked
+        .transfer(
+            &bob_account,
+            &alice_account,
+            &bob.pubkey(),
+            test_transfer_amount,
+            &[&bob],
         )
         .await
         .unwrap_err();
@@ -161,9 +179,9 @@ async fn transfer_checked_with_fee() {
         .unwrap();
 
     let TokenContext {
-        decimals,
         mint_authority,
         token,
+        token_unchecked,
         alice,
         bob,
         ..
@@ -195,8 +213,7 @@ async fn transfer_checked_with_fee() {
             &alice_account,
             &mint_authority.pubkey(),
             test_transfer_amount,
-            Some(decimals),
-            &vec![&mint_authority],
+            &[&mint_authority],
         )
         .await
         .unwrap();
@@ -208,8 +225,7 @@ async fn transfer_checked_with_fee() {
             &alice_account,
             &alice.pubkey(),
             test_transfer_amount,
-            Some(decimals),
-            &vec![&alice],
+            &[&alice],
         )
         .await
         .unwrap_err();
@@ -231,8 +247,29 @@ async fn transfer_checked_with_fee() {
             &bob_account,
             &alice.pubkey(),
             test_transfer_amount,
-            Some(decimals),
-            &vec![&alice],
+            &[&alice],
+        )
+        .await
+        .unwrap_err();
+
+    assert_eq!(
+        error,
+        TokenClientError::Client(Box::new(TransportError::TransactionError(
+            TransactionError::InstructionError(
+                0,
+                InstructionError::Custom(TokenError::NonTransferable as u32)
+            )
+        )))
+    );
+
+    // unchecked transfer fails
+    let error = token_unchecked
+        .transfer(
+            &alice_account,
+            &bob_account,
+            &alice.pubkey(),
+            test_transfer_amount,
+            &[&alice],
         )
         .await
         .unwrap_err();
@@ -255,9 +292,8 @@ async fn transfer_checked_with_fee() {
             &alice_account,
             &alice.pubkey(),
             test_transfer_amount,
-            decimals,
             fee,
-            &vec![&alice],
+            &[&alice],
         )
         .await
         .unwrap_err();
@@ -280,9 +316,8 @@ async fn transfer_checked_with_fee() {
             &bob_account,
             &alice.pubkey(),
             test_transfer_amount,
-            decimals,
             fee,
-            &vec![&alice],
+            &[&alice],
         )
         .await
         .unwrap_err();

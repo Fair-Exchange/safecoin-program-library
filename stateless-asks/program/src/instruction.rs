@@ -2,7 +2,7 @@
 
 use {
     borsh::{BorshDeserialize, BorshSchema, BorshSerialize},
-    safecoin_program::{
+    solana_program::{
         instruction::{AccountMeta, Instruction},
         pubkey::Pubkey,
         system_program,

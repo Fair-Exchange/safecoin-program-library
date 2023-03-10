@@ -1,12 +1,12 @@
 [package]
 name = "flash_loan_receiver"
 version = "1.0.0"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 arrayref = "0.3.6"
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.14.3"}
-safe-token = { path = "../../token/program", version = "3.5", features=["no-entrypoint"] }
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.14.17"}
+safe-token = { version = "3.5", path = "../../token/program", features=["no-entrypoint"] }
 
 [lib]
 crate-type = ["cdylib", "lib"]

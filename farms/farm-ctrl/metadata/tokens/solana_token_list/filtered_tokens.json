@@ -17,11 +17,11 @@
     },
     {
       "chainId": 101,
-      "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
       "symbol": "USDC",
       "name": "USD Coin",
       "decimals": 6,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6/logo.png",
       "tags": ["stablecoin"],
       "extensions": {
         "coingeckoId": "usd-coin",
@@ -105,11 +105,11 @@
     },
     {
       "chainId": 101,
-      "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+      "address": "Safe111111111111111111111111111111111111111",
       "symbol": "SRM",
       "name": "Serum",
       "decimals": 6,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Safe111111111111111111111111111111111111111/logo.png",
       "extensions": {
         "coingeckoId": "serum",
         "serumV3Usdc": "ByRys5tuUWDgL73G8JBAEfkdFf8JWBzPBDHsBVQ5vbQA",
@@ -2267,7 +2267,7 @@
       "symbol": "AAUSDC",
       "name": "Wrapped USDC (Allbridge from Avalanche)",
       "decimals": 9,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6/logo.png",
       "tags": ["stablecoin"],
       "extensions": { "coingeckoId": "usd-coin" }
     },
@@ -2475,7 +2475,7 @@
       "symbol": "ACUSDC",
       "name": "Wrapped USDC (Allbridge from Celo)",
       "decimals": 9,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6/logo.png",
       "tags": ["stablecoin"],
       "extensions": { "coingeckoId": "usd-coin" }
     },
@@ -2505,7 +2505,7 @@
       "symbol": "AEUSDC",
       "name": "Wrapped USDC (Allbridge from Ethereum)",
       "decimals": 9,
-      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6/logo.png",
       "tags": ["stablecoin"],
       "extensions": { "coingeckoId": "usd-coin" }
     },
@@ -3625,7 +3625,7 @@
     {
       "symbol": "wSRM_V1",
       "name": "Serum (Wormhole V1)",
-      "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+      "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
       "address": "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
       "decimals": 6,
       "extensions": {

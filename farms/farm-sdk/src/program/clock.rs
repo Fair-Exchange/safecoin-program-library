@@ -2,7 +2,7 @@
 
 use {
     crate::math,
-    safecoin_program::{clock::UnixTimestamp, program_error::ProgramError, sysvar, sysvar::Sysvar},
+    solana_program::{clock::UnixTimestamp, program_error::ProgramError, sysvar, sysvar::Sysvar},
 };
 
 pub fn get_time() -> Result<UnixTimestamp, ProgramError> {

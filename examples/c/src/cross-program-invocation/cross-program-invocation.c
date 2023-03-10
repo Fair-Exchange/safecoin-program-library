@@ -1,7 +1,7 @@
 /**
  * @brief A program demonstrating cross program invocations
  */
-#include <safecoin_sdk.h>
+#include <solana_sdk.h>
 
 /// Amount of bytes of account data to allocate
 #define SIZE 42

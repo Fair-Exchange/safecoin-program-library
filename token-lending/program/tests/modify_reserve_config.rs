@@ -4,9 +4,9 @@
 mod helpers;
 
 use helpers::*;
-use safecoin_program::pubkey::Pubkey;
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program::pubkey::Pubkey;
+use solana_program_test::*;
+use solana_sdk::{
     instruction::InstructionError,
     signature::{read_keypair_file, Keypair, Signer},
     transaction::{Transaction, TransactionError},

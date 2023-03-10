@@ -13,12 +13,12 @@ mod remove;
 mod vault;
 
 use {
-    log::error, solana_farm_client::client::FarmClient, safecoin_sdk::pubkey::Pubkey,
+    log::error, solana_farm_client::client::FarmClient, solana_sdk::pubkey::Pubkey,
     std::str::FromStr,
 };
 
 fn main() {
-    let matches = config::get_clap_app(solana_version::version!()).get_matches();
+    let matches = config::get_clap_app(safecoin_version::version!()).get_matches();
 
     // set log verbosity level
     let log_level = "solana=".to_string() + matches.value_of("log_level").unwrap();

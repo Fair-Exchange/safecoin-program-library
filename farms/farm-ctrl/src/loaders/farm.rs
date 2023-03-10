@@ -14,7 +14,7 @@ use {
         string::str_to_as64,
         token::GitToken,
     },
-    safecoin_sdk::{hash::Hasher, pubkey::Pubkey},
+    solana_sdk::{hash::Hasher, pubkey::Pubkey},
     std::str::FromStr,
 };
 

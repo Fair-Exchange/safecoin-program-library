@@ -1,6 +1,6 @@
 use {
-    safecoin_program_test::BanksClient,
-    safecoin_sdk::{
+    solana_program_test::BanksClient,
+    solana_sdk::{
         hash::Hash,
         program_pack::Pack,
         pubkey::Pubkey,

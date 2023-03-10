@@ -1,5 +1,5 @@
 //! Error types
-use {safecoin_program::program_error::ProgramError, thiserror::Error};
+use {solana_program::program_error::ProgramError, thiserror::Error};
 
 /// General error
 #[derive(Copy, Clone, Debug, Eq, Error, PartialEq)]

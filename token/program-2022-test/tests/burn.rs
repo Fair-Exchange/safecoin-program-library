@@ -3,8 +3,8 @@
 mod program_test;
 use {
     program_test::{TestContext, TokenContext},
-    safecoin_program_test::tokio,
-    safecoin_sdk::{
+    solana_program_test::tokio,
+    solana_sdk::{
         instruction::InstructionError, pubkey::Pubkey, signature::Signer, signer::keypair::Keypair,
         transaction::TransactionError, transport::TransportError,
     },
@@ -14,9 +14,9 @@ use {
 
 async fn run_basic(context: TestContext) {
     let TokenContext {
-        decimals,
         mint_authority,
         token,
+        token_unchecked,
         alice,
         bob,
         ..
@@ -36,39 +36,26 @@ async fn run_basic(context: TestContext) {
             &alice_account,
             &mint_authority.pubkey(),
             amount,
-            Some(decimals),
-            &vec![&mint_authority],
+            &[&mint_authority],
         )
         .await
         .unwrap();
 
     // unchecked is ok
-    token
-        .burn(&alice_account, &alice.pubkey(), 1, None, &vec![&alice])
+    token_unchecked
+        .burn(&alice_account, &alice.pubkey(), 1, &[&alice])
         .await
         .unwrap();
 
     // checked is ok
     token
-        .burn(
-            &alice_account,
-            &alice.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .burn(&alice_account, &alice.pubkey(), 1, &[&alice])
         .await
         .unwrap();
 
     // burn too much is not ok
     let error = token
-        .burn(
-            &alice_account,
-            &alice.pubkey(),
-            amount,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .burn(&alice_account, &alice.pubkey(), amount, &[&alice])
         .await
         .unwrap_err();
     assert_eq!(
@@ -83,13 +70,7 @@ async fn run_basic(context: TestContext) {
 
     // wrong signer
     let error = token
-        .burn(
-            &alice_account,
-            &bob.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&bob],
-        )
+        .burn(&alice_account, &bob.pubkey(), 1, &[&bob])
         .await
         .unwrap_err();
     assert_eq!(
@@ -127,9 +108,9 @@ async fn basic_with_extension() {
 
 async fn run_self_owned(context: TestContext) {
     let TokenContext {
-        decimals,
         mint_authority,
         token,
+        token_unchecked,
         alice,
         ..
     } = context.token_context.unwrap();
@@ -147,27 +128,20 @@ async fn run_self_owned(context: TestContext) {
             &alice_account,
             &mint_authority.pubkey(),
             amount,
-            Some(decimals),
-            &vec![&mint_authority],
+            &[&mint_authority],
         )
         .await
         .unwrap();
 
     // unchecked is ok
-    token
-        .burn(&alice_account, &alice.pubkey(), 1, None, &vec![&alice])
+    token_unchecked
+        .burn(&alice_account, &alice.pubkey(), 1, &[&alice])
         .await
         .unwrap();
 
     // checked is ok
     token
-        .burn(
-            &alice_account,
-            &alice.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&alice],
-        )
+        .burn(&alice_account, &alice.pubkey(), 1, &[&alice])
         .await
         .unwrap();
 }
@@ -196,7 +170,6 @@ async fn self_owned_with_extension() {
 
 async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owner: &Pubkey) {
     let TokenContext {
-        decimals,
         mint_authority,
         token,
         alice,
@@ -216,8 +189,7 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
             &alice_account,
             &mint_authority.pubkey(),
             1,
-            Some(decimals),
-            &vec![&mint_authority],
+            &[&mint_authority],
         )
         .await
         .unwrap();
@@ -235,8 +207,7 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
             &non_owner_account,
             &alice.pubkey(),
             1,
-            Some(decimals),
-            &vec![&alice],
+            &[&alice],
         )
         .await
         .unwrap();
@@ -246,7 +217,7 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
     let error = token
         .close_account(
             &non_owner_account,
-            &safecoin_program::incinerator::id(),
+            &solana_program::incinerator::id(),
             &carlos.pubkey(),
             &[&carlos],
         )
@@ -264,13 +235,7 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
 
     // but anyone can burn it
     token
-        .burn(
-            &non_owner_account,
-            &carlos.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&carlos],
-        )
+        .burn(&non_owner_account, &carlos.pubkey(), 1, &[&carlos])
         .await
         .unwrap();
 
@@ -294,7 +259,7 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
     let error = token
         .close_account(
             &non_owner_account,
-            &safecoin_program::system_program::id(),
+            &solana_program::system_program::id(),
             &carlos.pubkey(),
             &[&carlos],
         )
@@ -312,7 +277,7 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
     token
         .close_account(
             &non_owner_account,
-            &safecoin_program::incinerator::id(),
+            &solana_program::incinerator::id(),
             &carlos.pubkey(),
             &[&carlos],
         )
@@ -324,12 +289,12 @@ async fn run_burn_and_close_system_or_incinerator(context: TestContext, non_owne
 async fn burn_and_close_incinerator_tokens() {
     let mut context = TestContext::new().await;
     context.init_token_with_mint(vec![]).await.unwrap();
-    run_burn_and_close_system_or_incinerator(context, &safecoin_program::incinerator::id()).await;
+    run_burn_and_close_system_or_incinerator(context, &solana_program::incinerator::id()).await;
 }
 
 #[tokio::test]
 async fn burn_and_close_system_tokens() {
     let mut context = TestContext::new().await;
     context.init_token_with_mint(vec![]).await.unwrap();
-    run_burn_and_close_system_or_incinerator(context, &safecoin_program::system_program::id()).await;
+    run_burn_and_close_system_or_incinerator(context, &solana_program::system_program::id()).await;
 }

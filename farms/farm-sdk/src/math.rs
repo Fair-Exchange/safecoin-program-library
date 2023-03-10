@@ -3,7 +3,7 @@
 use {
     crate::error::FarmError,
     arrayref::array_ref,
-    safecoin_program::{hash::Hasher, msg, program_error::ProgramError, pubkey::Pubkey},
+    solana_program::{hash::Hasher, msg, program_error::ProgramError, pubkey::Pubkey},
     std::fmt::Display,
 };
 

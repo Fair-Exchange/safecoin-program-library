@@ -7,7 +7,7 @@ use {
         user_init::user_init, wrap_token::wrap_token,
     },
     solana_farm_sdk::{instruction::amm::AmmInstruction, log::sol_log_params_short},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, log::sol_log_compute_units, msg,
         pubkey::Pubkey,
     },

@@ -1,7 +1,7 @@
 #![cfg(feature = "serde-traits")]
 
 use {
-    safecoin_program::program_option::COption, safecoin_sdk::pubkey::Pubkey,
+    solana_program::program_option::COption, solana_sdk::pubkey::Pubkey,
     safe_token_2022::instruction, std::str::FromStr,
 };
 

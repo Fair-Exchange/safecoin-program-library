@@ -25,7 +25,7 @@ Please note that only the lending program deployed to devnet is currently operat
 
 This is optional! You can skip these steps and use the [Token Lending CLI](./cli/README.md) with one of the on-chain programs listed above to create a lending market and add reserves to it.
 
-1. [Install the Safecoin CLI](https://docs.solana.com/cli/install-solana-cli-tools)
+1. [Install the Safecoin CLI](https://docs.solana.com/cli/install-safecoin-cli-tools)
 
 1. Install the Token and Token Lending CLIs:
    ```shell
@@ -73,7 +73,7 @@ This is optional! You can skip these steps and use the [Token Lending CLI](./cli
 
 1. Open `./token-lending/program/src/lib.rs` in your editor. In the line
    ```rust
-   safecoin_program::declare_id!("6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH");
+   solana_program::declare_id!("6TvznH3B2e3p2mbhufNBpgSrLx6UkgvxtVQvopEZ2kuH");
    ```
    replace the Program ID with yours.
 

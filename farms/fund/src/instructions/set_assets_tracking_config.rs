@@ -3,7 +3,7 @@
 use {
     crate::fund_info::FundInfo,
     solana_farm_sdk::fund::{Fund, FundAssetsTrackingConfig},
-    safecoin_program::{account_info::AccountInfo, entrypoint::ProgramResult, msg},
+    solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, msg},
 };
 
 pub fn set_assets_tracking_config(

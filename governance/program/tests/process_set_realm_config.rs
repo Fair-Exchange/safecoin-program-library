@@ -1,7 +1,7 @@
 #![cfg(feature = "test-sbf")]
 
-use safecoin_program::pubkey::Pubkey;
-use safecoin_program_test::*;
+use solana_program::pubkey::Pubkey;
+use solana_program_test::*;
 
 mod program_test;
 
@@ -231,7 +231,7 @@ async fn test_set_realm_config_with_liquid_community_token_cannot_be_changed_to_
     // Assert
     assert_eq!(
         err,
-        GovernanceError::CannotChangeCommunityTokenTypeToMemebership.into()
+        GovernanceError::CannotChangeCommunityTokenTypeToMembership.into()
     );
 }
 

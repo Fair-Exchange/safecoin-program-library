@@ -2,7 +2,7 @@
 
 use serde::{Deserialize, Serialize};
 use serde_json::to_string;
-use safecoin_program::program_error::ProgramError;
+use solana_program::program_error::ProgramError;
 
 pub mod error;
 pub mod farm;

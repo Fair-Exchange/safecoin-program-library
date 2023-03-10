@@ -9,13 +9,13 @@ use {
     num_enum::TryFromPrimitive,
     solana_farm_client::client::FarmClient,
     solana_farm_sdk::{fund::FundVaultType, id::DAO_CUSTODY_NAME, token::TokenSelector},
-    safecoin_sdk::{bpf_loader_upgradeable, instruction::Instruction, pubkey::Pubkey},
+    solana_sdk::{bpf_loader_upgradeable, instruction::Instruction, pubkey::Pubkey},
     safe_associated_token_account::create_associated_token_account,
     std::str::FromStr,
 };
 
 fn main() {
-    let matches = config::get_clap_app(solana_version::version!()).get_matches();
+    let matches = config::get_clap_app(safecoin_version::version!()).get_matches();
 
     // set log verbosity level
     let log_level = "solana=".to_string() + matches.value_of("log_level").unwrap();

@@ -3,7 +3,7 @@
 use {
     crate::common,
     solana_farm_sdk::{fund::Fund, instruction::vault::VaultInstruction, program::account},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         entrypoint::ProgramResult,
         instruction::{AccountMeta, Instruction},

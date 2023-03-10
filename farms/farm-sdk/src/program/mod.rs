@@ -4,7 +4,7 @@ pub mod multisig;
 pub mod pda;
 pub mod protocol;
 
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, program_error::ProgramError, sysvar::instructions,
 };
 

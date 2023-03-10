@@ -4,14 +4,14 @@
 mod helpers;
 
 use helpers::*;
-use safecoin_program::instruction::AccountMeta;
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program::instruction::AccountMeta;
+use solana_program_test::*;
+use solana_sdk::{
     pubkey::Pubkey,
     signature::{Keypair, Signer},
     transaction::{Transaction, TransactionError},
 };
-use safe_token::safecoin_program::instruction::InstructionError;
+use safe_token::solana_program::instruction::InstructionError;
 use safe_token_lending::{
     error::LendingError, instruction::flash_loan, processor::process_instruction,
 };

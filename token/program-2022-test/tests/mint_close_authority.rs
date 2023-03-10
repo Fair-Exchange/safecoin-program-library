@@ -3,13 +3,15 @@
 mod program_test;
 use {
     program_test::{TestContext, TokenContext},
-    safecoin_program_test::tokio,
-    safecoin_sdk::{
+    solana_program_test::tokio,
+    solana_sdk::{
         instruction::InstructionError, program_option::COption, pubkey::Pubkey, signature::Signer,
         signer::keypair::Keypair, transaction::TransactionError, transport::TransportError,
     },
     safe_token_2022::{
-        error::TokenError, extension::mint_close_authority::MintCloseAuthority, instruction,
+        error::TokenError,
+        extension::{mint_close_authority::MintCloseAuthority, BaseStateWithExtensions},
+        instruction,
     },
     safe_token_client::token::{ExtensionInitializationParams, TokenError as TokenClientError},
     std::convert::TryInto,
@@ -244,7 +246,6 @@ async fn fail_close_with_supply() {
         .await
         .unwrap();
     let TokenContext {
-        decimals,
         mint_authority,
         token,
         ..
@@ -259,13 +260,7 @@ async fn fail_close_with_supply() {
         .unwrap();
     let account = account.pubkey();
     token
-        .mint_to(
-            &account,
-            &mint_authority.pubkey(),
-            1,
-            Some(decimals),
-            &vec![&mint_authority],
-        )
+        .mint_to(&account, &mint_authority.pubkey(), 1, &[&mint_authority])
         .await
         .unwrap();
 

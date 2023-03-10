@@ -13,7 +13,7 @@ use {
         token::Token,
         traits::Packed,
     },
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, clock::UnixTimestamp, entrypoint::ProgramResult, msg,
         program_error::ProgramError, pubkey::Pubkey,
     },

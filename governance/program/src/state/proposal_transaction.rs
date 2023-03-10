@@ -13,16 +13,15 @@ use crate::{
     PROGRAM_AUTHORITY_SEED,
 };
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo,
-    borsh::try_from_slice_unchecked,
     clock::UnixTimestamp,
     instruction::{AccountMeta, Instruction},
     program_error::ProgramError,
     program_pack::IsInitialized,
     pubkey::Pubkey,
 };
-use spl_governance_tools::account::{get_account_data, AccountMaxSize};
+use spl_governance_tools::account::{get_account_data, get_account_type, AccountMaxSize};
 
 /// InstructionData wrapper. It can be removed once Borsh serialization for Instruction is supported in the SDK
 #[derive(Clone, Debug, PartialEq, Eq, BorshDeserialize, BorshSerialize, BorshSchema)]
@@ -113,7 +112,7 @@ pub struct ProposalTransactionV2 {
     pub execution_status: TransactionExecutionStatus,
 
     /// Reserved space for versions v2 and onwards
-    /// Note: This space won't be available to v1 accounts until runtime supports resizing
+    /// Note: V1 accounts must be resized before using this space
     pub reserved_v2: [u8; 8],
 }
 
@@ -207,7 +206,7 @@ pub fn get_proposal_transaction_data(
     proposal_transaction_info: &AccountInfo,
 ) -> Result<ProposalTransactionV2, ProgramError> {
     let account_type: GovernanceAccountType =
-        try_from_slice_unchecked(&proposal_transaction_info.data.borrow())?;
+        get_account_type(program_id, proposal_transaction_info)?;
 
     // If the account is V1 version then translate to V2
     if account_type == GovernanceAccountType::ProposalInstructionV1 {
@@ -251,7 +250,7 @@ mod test {
 
     use std::str::FromStr;
 
-    use safecoin_program::{bpf_loader_upgradeable, clock::Epoch};
+    use solana_program::{bpf_loader_upgradeable, clock::Epoch};
 
     use super::*;
 

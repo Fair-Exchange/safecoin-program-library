@@ -3,7 +3,7 @@
 use {
     crate::{id::zero, pack::check_data_len, program::account},
     arrayref::{array_ref, array_refs},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         entrypoint::ProgramResult,
         hash::Hasher,
@@ -19,15 +19,15 @@ use {
 pub const SABER_FEE: f64 = 0.1;
 
 pub mod saber_redeemer {
-    safecoin_program::declare_id!("RDM23yr8pr1kEAmhnFpaabPny6C9UVcEcok3Py5v86X");
+    solana_program::declare_id!("RDM23yr8pr1kEAmhnFpaabPny6C9UVcEcok3Py5v86X");
 }
 
 pub mod saber_decimal_wrapper {
-    safecoin_program::declare_id!("DecZY86MU5Gj7kppfUCEmd4LbXXuyZH1yHaP2NTqdiZB");
+    solana_program::declare_id!("DecZY86MU5Gj7kppfUCEmd4LbXXuyZH1yHaP2NTqdiZB");
 }
 
 pub mod saber_to_usdc_amm {
-    safecoin_program::declare_id!("5cmAS6Mj4pG2Vp9hhyu3kpK9yvC7P6ejh9HiobpTE6Jc");
+    solana_program::declare_id!("5cmAS6Mj4pG2Vp9hhyu3kpK9yvC7P6ejh9HiobpTE6Jc");
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

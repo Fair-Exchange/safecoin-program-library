@@ -7,7 +7,7 @@ use crate::{
 };
 use borsh::BorshDeserialize;
 
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     clock::Clock,
     entrypoint::ProgramResult,

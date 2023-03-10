@@ -29,7 +29,7 @@ $ pip install -r requirements.txt
 $ pip install -r optional-requirements.txt
 ```
 
-4. Install the Safecoin tool suite: https://docs.solana.com/cli/install-solana-cli-tools
+4. Install the Safecoin tool suite: https://docs.solana.com/cli/install-safecoin-cli-tools
 
 ### Test
 

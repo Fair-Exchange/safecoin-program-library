@@ -32,7 +32,7 @@ This document is intended for the main actors of the stake pool system:
 
 * manager: creates and manages the stake pool, earns fees, can update the fee, staker, and manager
 * staker: adds and removes validators to the pool, rebalances stake among validators
-* user: provides staked SAFE into an existing stake pool
+* user: provides liquid or staked SAFE into an existing stake pool
 
 In its current iteration, the stake pool accepts active stakes or SAFE, so
 deposits may come from either an active stake or SAFE wallet. Withdrawals
@@ -56,17 +56,16 @@ providers for direct SAFE deposits.
 
 ## Operation
 
-A stake pool manager creates a stake pool, and the staker includes validators that will
-receive delegations from the pool by adding "validator stake accounts" to the pool
-using the `add-validator` instruction. In this command, the stake pool creates
-a new stake account and delegates it to the desired validator.
+A stake pool manager creates a stake pool. At this point, users can immediately
+participate with SAFE deposits with the `deposit-sol` instruction, moving funds
+into the reserve in exchange for pool tokens.
 
-At this point, users can participate with deposits. They can directly deposit
-SAFE into the stake pool using the `deposit-sol` instruction. Within this instruction,
-the stake pool will move SAFE into the pool's reserve account, to be redistributed
-by the staker.
+Using those SAFE deposits, the staker includes validators that will receive
+delegations from the pool by adding "validator stake accounts" to the pool
+using the `add-validator` instruction. In this command, the stake pool uses
+reserve funds to create a new stake account and delegate it to the desired validator.
 
-Alternatively, users can deposit a stake account into the pool.  To do this,
+At this point, users can also deposit a stake account into the pool.  To do this,
 they must delegate a stake account to the one of the validators in the stake pool.
 If the stake pool has a preferred deposit validator, the user must delegate their
 stake to that validator's vote account.
@@ -101,10 +100,8 @@ The stake pool staker can add and remove validators, or rebalance the pool by
 decreasing the stake on a validator, waiting an epoch to move it into the stake
 pool's reserve account, then increasing the stake on another validator.
 
-The staker operation to add a new validator requires 0.00328288 SAFE to create
-the stake account on a validator, so the stake pool staker will need liquidity
-on hand to fully manage the pool stakes.  The SAFE used to add a new validator
-is recovered when removing the validator.
+The staker operation to add a new validator requires 1.00228288 SAFE to create
+the stake account on a validator, so the stake pool reserve needs liquidity.
 
 ### Funding restrictions
 
@@ -153,6 +150,7 @@ When processing withdrawals, the order of priority goes:
 * validator stake accounts
 * transient stake accounts
 * reserve stake account
+* removing validator stake accounts entirely
 
 If there is preferred withdraw validator, and that validator stake account has
 any SAFE, a user must withdraw from that account.
@@ -165,7 +163,7 @@ staker decreases the stake on all validators at once, then the user must withdra
 from any transient stake account.
 
 If all transient stake accounts are empty, then the user must withdraw from the
-reserve.
+reserve or completely remove a validator stake account.
 
 In this way, a user's funds are never at risk, and always redeemable.
 

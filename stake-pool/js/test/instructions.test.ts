@@ -15,6 +15,7 @@ import {
   depositSafe,
   withdrawSafe,
   withdrawStake,
+  redelegate,
   getStakeAccount,
 } from '../src';
 
@@ -36,7 +37,7 @@ describe('StakePoolProgram', () => {
 
   connection.getMinimumBalanceForRentExemption = jest.fn(async () => 10000);
 
-  const stakePoolAddress = new PublicKey('SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy');
+  const stakePoolAddress = new PublicKey('spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo');
 
   const data = Buffer.alloc(1024);
   StakePoolLayout.encode(stakePoolMock, data);
@@ -315,6 +316,32 @@ describe('StakePoolProgram', () => {
       const parsedStakeAccount = await getStakeAccount(connection, stakeAccount);
       expect((connection.getParsedAccountInfo as jest.Mock).mock.calls.length).toBe(1);
       expect(parsedStakeAccount).toEqual(uninitializedStakeAccount.parsed);
+    });
+  });
+
+  describe('redelegation', () => {
+    it.only('should call successfully', async () => {
+      const data = {
+        connection,
+        stakePoolAddress,
+        sourceVoteAccount: PublicKey.default,
+        sourceTransientStakeSeed: 10,
+        destinationVoteAccount: PublicKey.default,
+        destinationTransientStakeSeed: 20,
+        ephemeralStakeSeed: 100,
+        lamports: 100,
+      };
+      const res = await redelegate(data);
+
+      const decodedData = STAKE_POOL_INSTRUCTION_LAYOUTS.Redelegate.layout.decode(
+        res.instructions[0].data,
+      );
+
+      expect(decodedData.instruction).toBe(21);
+      expect(decodedData.lamports).toBe(data.lamports);
+      expect(decodedData.sourceTransientStakeSeed).toBe(data.sourceTransientStakeSeed);
+      expect(decodedData.destinationTransientStakeSeed).toBe(data.destinationTransientStakeSeed);
+      expect(decodedData.ephemeralStakeSeed).toBe(data.ephemeralStakeSeed);
     });
   });
 });

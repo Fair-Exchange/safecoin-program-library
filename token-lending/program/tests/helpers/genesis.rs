@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
-use safecoin_program::bpf_loader_upgradeable;
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program::bpf_loader_upgradeable;
+use solana_program_test::*;
+use solana_sdk::{
     account::Account,
     bpf_loader_upgradeable::UpgradeableLoaderState,
     pubkey::Pubkey,

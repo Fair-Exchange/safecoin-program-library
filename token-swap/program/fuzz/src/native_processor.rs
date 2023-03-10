@@ -1,6 +1,6 @@
 use crate::native_account_data::NativeAccountData;
 
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, instruction::Instruction,
     program_error::ProgramError, program_stubs, pubkey::Pubkey,
 };

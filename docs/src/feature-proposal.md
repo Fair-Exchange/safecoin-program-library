@@ -19,8 +19,8 @@ simultaneously across all validators to avoid divergent behavior that would
 cause hard forks or otherwise break consensus.
 
 The
-[feature](https://docs.rs/safecoin-program/latest/safecoin_program/feature/index.html)
-and [feature_set](https://docs.rs/safecoin-sdk/latest/safecoin_sdk/feature_set/index.html)
+[feature](https://docs.rs/safecoin-program/latest/solana_program/feature/index.html)
+and [feature_set](https://docs.rs/safecoin-sdk/latest/solana_sdk/feature_set/index.html)
 Rust modules are the primitives for this facility, and the `safecoin feature`
 command-line subcommands allow for easy feature status inspection and feature
 activation.

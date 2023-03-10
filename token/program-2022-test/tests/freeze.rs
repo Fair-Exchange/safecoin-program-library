@@ -3,8 +3,8 @@
 mod program_test;
 use {
     program_test::{TestContext, TokenContext},
-    safecoin_program_test::tokio,
-    safecoin_sdk::{signature::Signer, signer::keypair::Keypair},
+    solana_program_test::tokio,
+    solana_sdk::{signature::Signer, signer::keypair::Keypair},
     safe_token_2022::state::AccountState,
 };
 
@@ -30,22 +30,14 @@ async fn basic() {
     assert_eq!(state.base.state, AccountState::Initialized);
 
     token
-        .freeze(
-            &account,
-            &freeze_authority.pubkey(),
-            &vec![&freeze_authority],
-        )
+        .freeze(&account, &freeze_authority.pubkey(), &[&freeze_authority])
         .await
         .unwrap();
     let state = token.get_account_info(&account).await.unwrap();
     assert_eq!(state.base.state, AccountState::Frozen);
 
     token
-        .thaw(
-            &account,
-            &freeze_authority.pubkey(),
-            &vec![&freeze_authority],
-        )
+        .thaw(&account, &freeze_authority.pubkey(), &[&freeze_authority])
         .await
         .unwrap();
     let state = token.get_account_info(&account).await.unwrap();

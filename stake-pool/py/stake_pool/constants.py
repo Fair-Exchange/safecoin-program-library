@@ -1,11 +1,11 @@
 """SPL Stake Pool Constants."""
 
-from typing import Tuple
+from typing import Optional, Tuple
 
 from solana.publickey import PublicKey
 from stake.constants import MINIMUM_DELEGATION
 
-STAKE_POOL_PROGRAM_ID: PublicKey = PublicKey("SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy")
+STAKE_POOL_PROGRAM_ID: PublicKey = PublicKey("spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo")
 """Public key that identifies the SPL Stake Pool program."""
 
 MAX_VALIDATORS_TO_UPDATE: int = 5
@@ -44,12 +44,14 @@ def find_stake_program_address(
     program_id: PublicKey,
     vote_account_address: PublicKey,
     stake_pool_address: PublicKey,
+    seed: Optional[int]
 ) -> Tuple[PublicKey, int]:
     """Generates the stake program address for a validator's vote account"""
     return PublicKey.find_program_address(
         [
             bytes(vote_account_address),
             bytes(stake_pool_address),
+            seed.to_bytes(4, 'little') if seed else bytes(),
         ],
         program_id,
     )

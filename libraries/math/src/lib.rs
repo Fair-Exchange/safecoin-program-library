@@ -12,4 +12,4 @@ pub mod precise_number;
 pub mod processor;
 pub mod uint;
 
-safecoin_program::declare_id!("Math111111111111111111111111111111111111111");
+solana_program::declare_id!("Math111111111111111111111111111111111111111");

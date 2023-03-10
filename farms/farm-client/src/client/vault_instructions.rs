@@ -6,7 +6,7 @@ use {
         instruction::vault::VaultInstruction, pool::PoolRoute, program::multisig::Multisig,
         token::TokenSelector, vault::VaultStrategy,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         instruction::{AccountMeta, Instruction},
         program_error::ProgramError,
         pubkey::Pubkey,

@@ -4,7 +4,7 @@ use crate::{
     error::LendingError,
     state::{ReserveConfig, ReserveFees},
 };
-use safecoin_program::{
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     msg,
     program_error::ProgramError,

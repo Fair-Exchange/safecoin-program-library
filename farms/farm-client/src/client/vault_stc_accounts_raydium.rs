@@ -6,7 +6,7 @@ use {
         farm::FarmRoute, id::zero, instruction::vault::VaultInstruction, pool::PoolRoute,
         vault::VaultStrategy,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         instruction::AccountMeta, program_error::ProgramError, pubkey::Pubkey, system_program,
         sysvar,
     },

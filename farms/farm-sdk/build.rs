@@ -3,7 +3,7 @@
 //! Normally lazy_static! would work, but it is not supported with build-bpf.
 
 use {
-    safecoin_program::pubkey::Pubkey,
+    solana_program::pubkey::Pubkey,
     std::{env, fs::File, io::Write, path::Path, str::FromStr},
 };
 
@@ -53,28 +53,28 @@ fn main() {
 
     writeln!(
         &mut f,
-        "pub mod main_router {{safecoin_program::declare_id!(\"{}\"); }}",
+        "pub mod main_router {{solana_program::declare_id!(\"{}\"); }}",
         main_router_id
     )
     .expect(&write_error);
 
     writeln!(
         &mut f,
-        "pub mod main_router_admin {{safecoin_program::declare_id!(\"{}\"); }}",
+        "pub mod main_router_admin {{solana_program::declare_id!(\"{}\"); }}",
         main_router_admin
     )
     .expect(&write_error);
 
     writeln!(
         &mut f,
-        "pub mod main_router_multisig {{safecoin_program::declare_id!(\"{}\"); }}",
+        "pub mod main_router_multisig {{solana_program::declare_id!(\"{}\"); }}",
         main_router_multisig
     )
     .expect(&write_error);
 
     writeln!(
         &mut f,
-        "pub mod zero {{safecoin_program::declare_id!(\"{}\"); }}",
+        "pub mod zero {{solana_program::declare_id!(\"{}\"); }}",
         zero_id
     )
     .expect(&write_error);

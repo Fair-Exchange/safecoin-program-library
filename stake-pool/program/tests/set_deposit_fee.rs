@@ -5,8 +5,8 @@ mod helpers;
 
 use {
     helpers::*,
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program_test::*,
+    solana_sdk::{
         borsh::try_from_slice_unchecked,
         instruction::InstructionError,
         signature::{Keypair, Signer},
@@ -21,7 +21,7 @@ use {
 
 async fn setup(fee: Option<Fee>) -> (ProgramTestContext, StakePoolAccounts, Fee) {
     let mut context = program_test().start_with_context().await;
-    let mut stake_pool_accounts = StakePoolAccounts::new();
+    let mut stake_pool_accounts = StakePoolAccounts::default();
     if let Some(fee) = fee {
         stake_pool_accounts.deposit_fee = fee;
     }

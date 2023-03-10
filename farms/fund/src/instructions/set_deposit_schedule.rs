@@ -3,7 +3,7 @@
 use {
     crate::fund_info::FundInfo,
     solana_farm_sdk::fund::{Fund, FundSchedule},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, msg, program_error::ProgramError,
     },
 };

@@ -9,7 +9,7 @@ use {
         string::{str_to_as64, ArrayString64},
         vault::Vault,
     },
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, clock::UnixTimestamp, entrypoint::ProgramResult,
         program_error::ProgramError, pubkey::Pubkey,
     },

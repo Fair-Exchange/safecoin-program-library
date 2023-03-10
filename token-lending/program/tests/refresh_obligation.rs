@@ -4,8 +4,8 @@
 mod helpers;
 
 use helpers::*;
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program_test::*;
+use solana_sdk::{
     signature::{Keypair, Signer},
     transaction::Transaction,
 };

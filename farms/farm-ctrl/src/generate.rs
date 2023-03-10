@@ -16,7 +16,7 @@ use {
         vault::{Vault, VaultStrategy, VaultType},
         Protocol,
     },
-    safecoin_sdk::pubkey::Pubkey,
+    solana_sdk::pubkey::Pubkey,
     std::collections::HashMap,
     std::str::FromStr,
 };

@@ -16,6 +16,7 @@ mod process_execute_transaction;
 mod process_finalize_vote;
 mod process_flag_transaction_error;
 mod process_insert_transaction;
+mod process_refund_proposal_deposit;
 mod process_relinquish_vote;
 mod process_remove_signatory;
 mod process_remove_transaction;
@@ -46,6 +47,7 @@ use process_execute_transaction::*;
 use process_finalize_vote::*;
 use process_flag_transaction_error::*;
 use process_insert_transaction::*;
+use process_refund_proposal_deposit::*;
 use process_relinquish_vote::*;
 use process_remove_signatory::*;
 use process_remove_transaction::*;
@@ -58,7 +60,7 @@ use process_sign_off_proposal::*;
 use process_update_program_metadata::*;
 use process_withdraw_governing_tokens::*;
 
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, borsh::try_from_slice_unchecked, entrypoint::ProgramResult, msg,
     program_error::ProgramError, pubkey::Pubkey,
 };
@@ -146,6 +148,7 @@ pub fn process_instruction(
             vote_type: proposal_type,
             options,
             use_deny_option,
+            proposal_seed,
         } => process_create_proposal(
             program_id,
             accounts,
@@ -154,6 +157,7 @@ pub fn process_instruction(
             proposal_type,
             options,
             use_deny_option,
+            proposal_seed,
         ),
         GovernanceInstruction::AddSignatory { signatory } => {
             process_add_signatory(program_id, accounts, signatory)
@@ -218,6 +222,10 @@ pub fn process_instruction(
 
         GovernanceInstruction::RevokeGoverningTokens { amount } => {
             process_revoke_governing_tokens(program_id, accounts, amount)
+        }
+
+        GovernanceInstruction::RefundProposalDeposit {} => {
+            process_refund_proposal_deposit(program_id, accounts)
         }
     }
 }

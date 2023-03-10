@@ -1,7 +1,7 @@
 //! Instruction types
 
 use crate::{check_program_account, error::TokenError};
-use safecoin_program::{
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     program_error::ProgramError,
     program_option::COption,
@@ -466,7 +466,7 @@ pub enum TokenInstruction<'a> {
     },
     // Any new variants also need to be added to program-2022 `TokenInstruction`, so that the
     // latter remains a superset of this instruction set. New variants also need to be added to
-    // token/js/src/instructions/types.ts to maintain @safecoin/safe-token compatability
+    // token/js/src/instructions/types.ts to maintain @safecoin/safe-token compatibility
 }
 impl<'a> TokenInstruction<'a> {
     /// Unpacks a byte buffer into a [TokenInstruction](enum.TokenInstruction.html).

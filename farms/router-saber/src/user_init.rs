@@ -2,7 +2,7 @@
 
 use {
     solana_farm_sdk::program::account,
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         entrypoint::ProgramResult,
         hash::Hasher,

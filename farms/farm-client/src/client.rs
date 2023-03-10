@@ -20,7 +20,7 @@
 //! A few examples:
 //! #  use {
 //! #      solana_farm_client::client::FarmClient,
-//! #      safecoin_sdk::{pubkey::Pubkey, signer::Signer},
+//! #      solana_sdk::{pubkey::Pubkey, signer::Signer},
 //! #  };
 //! #
 //! #  let client = FarmClient::new("https://api.mainnet-beta.safecoin.org");
@@ -214,7 +214,7 @@ use {
         vault::{Vault, VaultInfo, VaultStrategy, VaultUserInfo},
         ProgramIDType, Protocol, ProtocolInfo,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         account::Account,
         borsh::try_from_slice_unchecked,
         bpf_loader_upgradeable,
@@ -4164,7 +4164,7 @@ impl FarmClient {
         if max_price_age_sec > 0 {
             let current_slot = self.rpc_client.get_slot()?;
             let last_update_age_sec = if current_slot > pyth_price.valid_slot {
-                (current_slot - pyth_price.valid_slot) * safecoin_sdk::clock::DEFAULT_MS_PER_SLOT
+                (current_slot - pyth_price.valid_slot) * solana_sdk::clock::DEFAULT_MS_PER_SLOT
                     / 1000
             } else {
                 0

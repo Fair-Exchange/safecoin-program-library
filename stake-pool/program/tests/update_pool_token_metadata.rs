@@ -8,9 +8,9 @@ use {
         state::{MAX_NAME_LENGTH, MAX_SYMBOL_LENGTH, MAX_URI_LENGTH},
         utils::puffed_out_string,
     },
-    safecoin_program::instruction::InstructionError,
-    safecoin_program_test::*,
-    safecoin_sdk::{
+    solana_program::instruction::InstructionError,
+    solana_program_test::*,
+    solana_sdk::{
         signature::{Keypair, Signer},
         transaction::{Transaction, TransactionError},
     },
@@ -24,7 +24,7 @@ async fn setup() -> (ProgramTestContext, StakePoolAccounts) {
     let mut context = program_test_with_metadata_program()
         .start_with_context()
         .await;
-    let stake_pool_accounts = StakePoolAccounts::new();
+    let stake_pool_accounts = StakePoolAccounts::default();
     stake_pool_accounts
         .initialize_stake_pool(
             &mut context.banks_client,

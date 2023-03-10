@@ -1,10 +1,10 @@
 #![cfg(feature = "test-sbf")]
 mod program_test;
 
-use safecoin_program_test::*;
+use solana_program_test::*;
 
 use program_test::*;
-use safecoin_sdk::{signature::Keypair, signer::Signer};
+use solana_sdk::{signature::Keypair, signer::Signer};
 use spl_governance::error::GovernanceError;
 use spl_governance_tools::error::GovernanceToolsError;
 use safe_token::error::TokenError;

@@ -1,11 +1,14 @@
 use {
     crate::{
         error::TokenError,
-        extension::{set_account_type, AccountType, ExtensionType, StateWithExtensions},
+        extension::{
+            set_account_type, AccountType, BaseStateWithExtensions, ExtensionType,
+            StateWithExtensions,
+        },
         processor::Processor,
         state::Account,
     },
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         entrypoint::ProgramResult,
         msg,

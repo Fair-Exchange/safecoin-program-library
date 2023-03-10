@@ -1,6 +1,6 @@
 use lazy_static::lazy_static;
 
-use safecoin_program_test::find_file;
+use solana_program_test::find_file;
 use std::{process::Command, sync::Mutex};
 
 lazy_static! {

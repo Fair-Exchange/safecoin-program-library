@@ -5,9 +5,9 @@ mod program_test;
 
 use {
     program_test::program_test,
-    safecoin_program::pubkey::Pubkey,
-    safecoin_program_test::*,
-    safecoin_sdk::{program_pack::Pack, signature::Signer, transaction::Transaction},
+    solana_program::pubkey::Pubkey,
+    solana_program_test::*,
+    solana_sdk::{program_pack::Pack, signature::Signer, transaction::Transaction},
     safe_associated_token_account::{
         get_associated_token_address, instruction::create_associated_token_account,
     },

@@ -1,11 +1,11 @@
 [package]
 name = "spl-governance-test-sdk"
-version = "0.1.2"
+version = "0.1.3"
 description = "Safecoin Program Library Governance Program Test SDK"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
+authors = ["Safecoin Labs Maintainers <maintainers@solanalabs.com>"]
 repository = "https://github.com/fair-exchange/safecoin-program-library"
 license = "Apache-2.0"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 arrayref = "0.3.6"
@@ -16,8 +16,8 @@ num-derive = "0.3"
 num-traits = "0.2"
 serde = "1.0.127"
 serde_derive = "1.0.103"
-safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.14.3"}
-safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.14.3"}
-safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.14.3"}
+safecoin-program = {path = "../../../Safecoin/sdk/program", version = "1.14.17"}
+safecoin-program-test = {path = "../../../Safecoin/program-test", version = "1.14.17"}
+safecoin-sdk = {path = "../../../Safecoin/sdk", version = "1.14.17"}
 safe-token = { version = "3.5", path = "../../token/program", features = [ "no-entrypoint" ] }
 thiserror = "1.0"

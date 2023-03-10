@@ -1,6 +1,6 @@
 use std::convert::TryInto;
 
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     msg,

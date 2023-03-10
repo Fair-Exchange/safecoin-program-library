@@ -2,7 +2,7 @@
 
 use {
     solana_farm_client::client::FarmClient,
-    safecoin_sdk::{
+    solana_sdk::{
         clock::UnixTimestamp, pubkey::Pubkey, signature::Keypair,
         signer::keypair::read_keypair_file,
     },

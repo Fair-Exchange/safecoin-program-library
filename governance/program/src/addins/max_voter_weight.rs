@@ -1,6 +1,6 @@
 //! MaxVoterWeight Addin interface
 
-use safecoin_program::{
+use solana_program::{
     account_info::AccountInfo, clock::Clock, program_error::ProgramError, pubkey::Pubkey,
     sysvar::Sysvar,
 };

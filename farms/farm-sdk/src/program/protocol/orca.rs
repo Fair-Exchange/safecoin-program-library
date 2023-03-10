@@ -9,7 +9,7 @@ use {
         program::account,
     },
     arrayref::{array_ref, array_refs},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         entrypoint::ProgramResult,
         instruction::{AccountMeta, Instruction},
@@ -22,11 +22,11 @@ use {
 };
 
 pub mod orca_swap {
-    safecoin_program::declare_id!("9W959DqEETiGZocYWCQPaJ6sBmUzgfxXfqGeTEdp3aQP");
+    solana_program::declare_id!("9W959DqEETiGZocYWCQPaJ6sBmUzgfxXfqGeTEdp3aQP");
 }
 
 pub mod orca_stake {
-    safecoin_program::declare_id!("82yxjeMsvaURa4MbZZ7WZZHfobirZYkH1zF8fmeGtyaQ");
+    solana_program::declare_id!("82yxjeMsvaURa4MbZZ7WZZHfobirZYkH1zF8fmeGtyaQ");
 }
 
 pub const ORCA_FEE: f64 = 0.003;

@@ -24,7 +24,7 @@ use {
         traits::Packed,
         vault::Vault,
     },
-    safecoin_program::{
+    solana_program::{
         account_info::{next_account_info, AccountInfo},
         entrypoint,
         entrypoint::ProgramResult,

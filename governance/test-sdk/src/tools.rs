@@ -1,7 +1,7 @@
 use std::convert::TryFrom;
 
-use safecoin_program::{instruction::InstructionError, program_error::ProgramError};
-use safecoin_sdk::{signature::Keypair, transaction::TransactionError, transport::TransportError};
+use solana_program::{instruction::InstructionError, program_error::ProgramError};
+use solana_sdk::{signature::Keypair, transaction::TransactionError, transport::TransportError};
 
 /// TODO: Add to Safecoin SDK
 /// Instruction errors not mapped in the sdk

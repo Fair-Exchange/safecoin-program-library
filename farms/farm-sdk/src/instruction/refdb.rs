@@ -12,7 +12,7 @@ use {
     arrayref::{array_mut_ref, array_ref, array_refs, mut_array_refs},
     num_enum::TryFromPrimitive,
     serde::{Deserialize, Serialize},
-    safecoin_program::program_error::ProgramError,
+    solana_program::program_error::ProgramError,
 };
 
 #[derive(Serialize, Deserialize, Clone, Copy, Debug, PartialEq)]

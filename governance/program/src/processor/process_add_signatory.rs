@@ -1,6 +1,6 @@
 //! Program state processor
 
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     pubkey::Pubkey,
@@ -62,6 +62,7 @@ pub fn process_add_signatory(
         program_id,
         system_info,
         &rent,
+        0,
     )?;
 
     proposal_data.signatories_count = proposal_data.signatories_count.checked_add(1).unwrap();

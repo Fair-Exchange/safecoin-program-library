@@ -144,7 +144,7 @@ For example this could be:
 
 ```rust
 use safe_token_2022::{extension::ExtensionType, instruction::*, state::Mint};
-use safecoin_sdk::{system_instruction, transaction::Transaction};
+use solana_sdk::{system_instruction, transaction::Transaction};
 
 // Calculate the space required using the `ExtensionType`
 let space = ExtensionType::get_account_len::<Mint>(&[ExtensionType::MintCloseAuthority]);
@@ -172,7 +172,7 @@ no-op.
 
 ```rust
 use safe_token_2022::{extension::ExtensionType, instruction::*, state::Account};
-use safecoin_sdk::{system_instruction, transaction::Transaction};
+use solana_sdk::{system_instruction, transaction::Transaction};
 
 // Calculate the space required using the `ExtensionType`
 let space = ExtensionType::get_account_len::<Account>(&[ExtensionType::ImmutableOwner]);
@@ -678,7 +678,7 @@ the desired type, and properly handle the valid error case.
 Roughly speaking that means changing the amount traded before calculation:
 
 ```rust
-use safecoin_program::{clock::Clock, sysvar::Sysvar};
+use solana_program::{clock::Clock, sysvar::Sysvar};
 use safe_token_2022::{extension::{StateWithExtensions, transfer_fee::TransferFeeConfig}, state::Mint};
 
 let mint_data = token_mint_info.data.borrow();
@@ -722,7 +722,7 @@ we'll do:
 
 ```rust
 use safe_token_2022::{extension::ExtensionType, instruction::*, state::Mint};
-use safecoin_sdk::{system_instruction, transaction::Transaction};
+use solana_sdk::{system_instruction, transaction::Transaction};
 
 // Calculate the space required using the `ExtensionType`
 let space = ExtensionType::get_account_len::<Mint>(&[ExtensionType::MintCloseAuthority]);

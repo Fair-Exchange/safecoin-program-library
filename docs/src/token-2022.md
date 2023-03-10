@@ -109,7 +109,7 @@ program, that creates new token accounts for either Token or Token-2022.
 
 To get started with Token-2022:
 
-- [Install the Safecoin Tools](https://docs.solana.com/cli/install-solana-cli-tools)
+- [Install the Safecoin Tools](https://docs.solana.com/cli/install-safecoin-cli-tools)
 - [Extension Guide](token-2022/extensions.mdx)
 - [Wallet Guide](token-2022/wallet.md)
 - [On-Chain Program Guide](token-2022/onchain.md)
@@ -129,3 +129,27 @@ For information about the types and instructions, the Rust docs are available at
 
 The Token-2022 Program is currently under multiple audits to ensure safety of
 funds. All audits will be published here as they are completed.
+
+Here are the completed audits as of 12 December 2022:
+
+* Halborn
+    - Review commit hash [`c3137a`](https://github.com/fair-exchange/safecoin-program-library/tree/c3137af9dfa2cc0873cc84c4418dea88ac542965/token/program-2022)
+    - Final report https://github.com/solana-labs/security-audits/blob/master/spl/HalbornToken2022Audit.pdf
+* Zellic
+    - Review commit hash [`54695b`](https://github.com/fair-exchange/safecoin-program-library/tree/54695b233484722458b18c0e26ebb8334f98422c/token/program-2022)
+    - Final report https://github.com/solana-labs/security-audits/blob/master/spl/ZellicToken2022Audit.pdf
+
+Here are the ongoing audits:
+
+* NCC Group
+* Trail of Bits
+
+## Status and Upgradability
+
+The Token-2022 program is still under audit and not meant for full production use.
+All clusters have the latest program deployed **for testing and development purposes
+ONLY**.
+
+To facilitate deploying updates and security fixes, the program deployment remains
+upgradable. Once audits are complete, the deployment will be marked final and no
+further upgrades will be possible. This is expected to happen sometime in Q1 2023.

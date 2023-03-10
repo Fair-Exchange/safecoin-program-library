@@ -4,9 +4,9 @@ pub mod flash_loan_receiver;
 pub mod genesis;
 
 use assert_matches::*;
-use safecoin_program::{program_option::COption, program_pack::Pack, pubkey::Pubkey};
-use safecoin_program_test::*;
-use safecoin_sdk::{
+use solana_program::{program_option::COption, program_pack::Pack, pubkey::Pubkey};
+use solana_program_test::*;
+use solana_sdk::{
     account::Account,
     signature::{read_keypair_file, Keypair, Signer},
     system_instruction::create_account,
@@ -61,7 +61,7 @@ pub const SAFE_PYTH_PRICE: &str = "J83w4HKfqxwcq3BEMMkPFSppX3gqekLyLJBexebFVkix"
 pub const SRM_PYTH_PRODUCT: &str = "6MEwdxe4g1NeAF9u6KDG14anJpFsVEa2cvr5H6iriFZ8";
 pub const SRM_PYTH_PRICE: &str = "992moaMQKs32GKZ9dxi8keyM2bUmbrwBZpK4p2K6X5Vs";
 
-pub const USDC_MINT: &str = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+pub const USDC_MINT: &str = "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6";
 
 pub trait AddPacked {
     fn add_packable_account<T: Pack>(

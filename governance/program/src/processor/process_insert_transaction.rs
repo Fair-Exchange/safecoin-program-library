@@ -2,7 +2,7 @@
 
 use std::cmp::Ordering;
 
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     pubkey::Pubkey,
@@ -109,6 +109,7 @@ pub fn process_insert_transaction(
         program_id,
         system_info,
         rent,
+        0,
     )?;
 
     Ok(())

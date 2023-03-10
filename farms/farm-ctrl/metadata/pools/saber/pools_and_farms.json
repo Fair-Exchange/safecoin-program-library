@@ -41,8 +41,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -75,8 +75,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -99,9 +99,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -218,8 +218,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -252,8 +252,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -276,9 +276,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -938,8 +938,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -972,8 +972,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -996,9 +996,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -1319,8 +1319,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -1353,8 +1353,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -1377,9 +1377,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -1893,8 +1893,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -1927,8 +1927,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -1951,9 +1951,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -2244,8 +2244,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         },
         {
@@ -2278,8 +2278,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         },
         {
@@ -2302,9 +2302,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -2442,8 +2442,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -2476,8 +2476,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -2500,9 +2500,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -2823,8 +2823,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -2857,8 +2857,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -2881,9 +2881,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -3360,8 +3360,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -3394,8 +3394,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -3418,9 +3418,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -3741,8 +3741,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -3775,8 +3775,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -3799,9 +3799,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -3918,8 +3918,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -3952,8 +3952,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -3976,9 +3976,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -4268,9 +4268,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -4300,9 +4300,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -4332,9 +4332,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -4358,7 +4358,7 @@
           "website": "https://app.saber.so/pools/apusdc",
           "underlyingTokens": [
             "eqKJTf1Do4MDPyKisMYqVaUFpkEFAs3riGF3ceDH2Ca",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -4386,7 +4386,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "EP7vfnJedUyTAVeUxDc64UFGFBupY11DWiTB3p846EfU",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "Cbm5gsQe3nSiCsFrvepVzMCD9xLK3ri9g3ypS2hdmVJ7"
           },
           "initialAmpFactor": "32",
@@ -5833,8 +5833,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -5870,8 +5870,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -5897,9 +5897,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -6021,8 +6021,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -6059,8 +6059,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -6087,9 +6087,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -6200,9 +6200,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -6236,9 +6236,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -6272,9 +6272,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -6298,7 +6298,7 @@
           "website": "https://app.saber.so/pools/cash",
           "underlyingTokens": [
             "CASHVDm2wsJXfhj6VWxb7GiMdoLc17Du7paH4bNr5woT",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -6326,7 +6326,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "8jga6BnwF9aNmv7FZ9dzVNZZZjBTLJMoJHRzqk77rQD5",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "FoL4JKwgaRUnf5c8wZDYdSam98NepnZ6oJDNFqPLuRvr"
           },
           "initialAmpFactor": "01f4",
@@ -6394,8 +6394,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -6431,8 +6431,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -6458,9 +6458,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -6748,8 +6748,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         },
         {
@@ -6786,8 +6786,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         },
         {
@@ -6814,9 +6814,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -7352,8 +7352,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -7389,8 +7389,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -7416,9 +7416,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -8359,8 +8359,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -8397,8 +8397,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -8425,9 +8425,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -9312,8 +9312,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -9349,8 +9349,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -9376,9 +9376,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -10472,9 +10472,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -10506,9 +10506,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -10540,9 +10540,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -10566,7 +10566,7 @@
           "website": "https://app.saber.so/pools/nirv_usdc",
           "underlyingTokens": [
             "NRVwhjBQiUPYtfDT5zRBVJajzFQHaBUNtC7SNVvqRFa",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -10594,7 +10594,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "FYyWVpGubSiCikigo5JQxDP83fbepGUKkyPxLdpx9HEH",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "6TuFuynuBoeskxyR2cz4wxyidk8dpDK7kAWw3UkjQGx"
           },
           "initialAmpFactor": "19",
@@ -13750,7 +13750,7 @@
         {
           "symbol": "wSRM_V1",
           "name": "Serum (Wormhole V1)",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "address": "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
           "decimals": 6,
           "extensions": {
@@ -13765,9 +13765,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -13784,7 +13784,7 @@
         {
           "symbol": "wSRM_V1",
           "name": "Serum (Wormhole V1)",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "address": "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
           "decimals": 6,
           "extensions": {
@@ -13799,9 +13799,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -13818,7 +13818,7 @@
         {
           "symbol": "wSRM_V1",
           "name": "Serum (Wormhole V1)",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "address": "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
           "decimals": 6,
           "extensions": {
@@ -13833,9 +13833,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -13861,7 +13861,7 @@
           "website": "https://app.saber.so/pools/srm",
           "underlyingTokens": [
             "2jXy799YnEcRXneFo2GEAB6SDRsAa767HpWmktRr1DaP",
-            "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt"
+            "Safe111111111111111111111111111111111111111"
           ],
           "source": "saber"
         }
@@ -13889,7 +13889,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "2MaiPeRjPZc9gqG3MzeKp9DUMabbJYfV2b9M7YkV8tue",
-            "mint": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+            "mint": "Safe111111111111111111111111111111111111111",
             "reserve": "3F5DPU5ScgHiFzePYUHZovvgh3uqmM5keNvbavx2ERqV"
           },
           "initialAmpFactor": "96",
@@ -14337,9 +14337,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14374,9 +14374,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14411,9 +14411,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14437,7 +14437,7 @@
           "website": "https://app.saber.so/pools/usdc_pai",
           "underlyingTokens": [
             "Ea5SjE2Y6yvCeW5dYTn7PYMuW5ikXkvbGdcmSnXeaLjS",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -14465,7 +14465,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "qRMfgjGkq7ribEdJtWm3FUCpzCkS2Mguh7WXshChttR",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "EXNW64GEf1ACC6xY9BtKRiunrs6GoJSXBdxWN2eTPmrF"
           },
           "initialAmpFactor": "96",
@@ -14505,9 +14505,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14533,9 +14533,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14561,9 +14561,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14597,7 +14597,7 @@
         "extensions": {
           "website": "https://app.saber.so/pools/usdc_secret",
           "underlyingTokens": [
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "Ez2zVjw85tZan1ycnJ5PywNNxR6Gm4jbXQtZKyQNu3Lv"
           ],
           "source": "saber"
@@ -14621,7 +14621,7 @@
           "adminAccount": "3f3ERfr8rxZWoP1DbiMVUEvT1DMQJcn27SsrHfuaGWfK",
           "tokenA": {
             "adminFeeAccount": "F6LK9xmbXXXYGp9fEutQ9pwNfCinQLeqq64tBn9orTLU",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "FVoNijdQ6k9FA5LPX1RWVe73YJJvz3Q48iYjd85Yz3Ln"
           },
           "tokenB": {
@@ -14666,9 +14666,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14713,9 +14713,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14745,9 +14745,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14770,7 +14770,7 @@
         "extensions": {
           "website": "https://app.saber.so/pools/usdc_usdt",
           "underlyingTokens": [
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"
           ],
           "source": "saber"
@@ -14794,7 +14794,7 @@
           "adminAccount": "7tpzQQEQFJTi32eo89yFuV4ST41NSC7c6xd9Sny36iXW",
           "tokenA": {
             "adminFeeAccount": "XZuQG7CQrAA6y6tHM9CLrDjDUWwuUU2SBoV7pLaGDQT",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "CfWX7o2TswwbxusJ4hCaPobu2jLCb1hfXuXJQjVq3jQF"
           },
           "tokenB": {
@@ -14857,9 +14857,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14892,9 +14892,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14927,9 +14927,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -14953,7 +14953,7 @@
           "website": "https://app.saber.so/pools/usdh",
           "underlyingTokens": [
             "USDH1SM1ojwWUga67PGrgFWUHibbjqMvuMaDkRJTgkX",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -14981,7 +14981,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "9fLmntYbe6E4CP1A23NMSZSpzfWx7HASybaNfAQ8GTXt",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "F8GSmi3vA8M8TsybLya1LQ4n1aFHCRbZ6k437PeTdXtg"
           },
           "initialAmpFactor": "03e8",
@@ -15449,8 +15449,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -15483,8 +15483,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -15507,9 +15507,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -15631,8 +15631,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -15669,8 +15669,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -15697,9 +15697,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -15814,8 +15814,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -15846,8 +15846,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -15868,9 +15868,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -15972,8 +15972,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         },
         {
@@ -16029,8 +16029,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -16057,9 +16057,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -16383,9 +16383,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -16419,9 +16419,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -16455,9 +16455,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -16481,7 +16481,7 @@
           "website": "https://app.saber.so/pools/uxd",
           "underlyingTokens": [
             "7kbnvuGBxxj8AG9qp8Scn56muWGaRaFqxg1FsRp3PaFT",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -16509,7 +16509,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "5BEZbHQMLGyLsVTG77UoJqNsuF7PJUfeNmxwDfe6v4jy",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "CwQDG1MWunn9cLNwcZLd8YBacweSR7ARo32w4mLua1Yr"
           },
           "initialAmpFactor": "c8",
@@ -16774,8 +16774,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -16811,8 +16811,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -16838,9 +16838,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -16960,8 +16960,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -16997,8 +16997,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -17024,9 +17024,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -17332,8 +17332,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -17369,8 +17369,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -17396,9 +17396,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -17518,8 +17518,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -17555,8 +17555,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -17582,9 +17582,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -17694,9 +17694,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -17729,9 +17729,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -17764,9 +17764,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -17790,7 +17790,7 @@
           "website": "https://app.saber.so/pools/weusdc",
           "underlyingTokens": [
             "A9mUU4qviSctJVPJdBJWkb28deg915LYJKrzQ19ji3FM",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -17818,7 +17818,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "A9oXiCQsNdaEe58STWvEEy9NQ1CyAW8WRT6ggwaYetA",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "4DPCj6Z1DsG6HUtwSogBGqXEUxdEV5a8YVrrFtcnz7UW"
           },
           "initialAmpFactor": "03e8",
@@ -18068,8 +18068,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -18105,8 +18105,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -18132,9 +18132,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -18859,8 +18859,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -18896,8 +18896,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -18923,9 +18923,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -19402,9 +19402,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -19437,9 +19437,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -19472,9 +19472,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -19498,7 +19498,7 @@
           "website": "https://app.saber.so/pools/wpusdc",
           "underlyingTokens": [
             "E2VmbootbVCBkMNNxKQgCLMS1X3NoGMaYAsufaAsf7M",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -19526,7 +19526,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "GMUhSqF5wSjH1YZpgF782ZW1rkjBKQTy8KwQ1ApxCe2V",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "GN7Yuet3UyiWS5YVkEHv6oQKi4HGBJc3XDPt9zQhAqZz"
           },
           "initialAmpFactor": "012c",
@@ -19766,9 +19766,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -19803,9 +19803,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -19840,9 +19840,9 @@
         {
           "name": "Serum",
           "symbol": "SRM",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Safe111111111111111111111111111111111111111.png",
           "decimals": 6,
-          "address": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+          "address": "Safe111111111111111111111111111111111111111",
           "chainId": 101,
           "tags": ["saber-mkt-srm"],
           "extensions": {
@@ -19868,7 +19868,7 @@
           "website": "https://app.saber.so/pools/wsrm",
           "underlyingTokens": [
             "xnorPhAzWXUczCP3KjU5yDxmKKZi5cSbxytQ1LgE3kG",
-            "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt"
+            "Safe111111111111111111111111111111111111111"
           ],
           "source": "saber"
         }
@@ -19896,7 +19896,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "FRv4oVoLA8hDfcwVvwtRY7bPPgGK4HcTdrmLmghmgMYG",
-            "mint": "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+            "mint": "Safe111111111111111111111111111111111111111",
             "reserve": "6aqJQ5wedqpUt4fFEDUqUmXhrdxCu4bEJsQdVPCADLko"
           },
           "initialAmpFactor": "01f4",
@@ -19964,8 +19964,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -20001,8 +20001,8 @@
             "serumV3Usdt": "77quYg4MGneUdjgXCunt9GgM1usmrxKY31twEy3WHwcS",
             "coingeckoId": "usd-coin",
             "currency": "USD",
-            "assetContract": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-            "underlyingTokens": ["EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"]
+            "assetContract": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
+            "underlyingTokens": ["Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"]
           }
         }
       ],
@@ -20028,9 +20028,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -20146,9 +20146,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -20187,9 +20187,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -20228,9 +20228,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -20254,7 +20254,7 @@
           "website": "https://app.saber.so/pools/wust",
           "underlyingTokens": [
             "9vMJfxuKxXBoEa7rM12mYLMwTacLMLDJqHozw96WQL8i",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -20282,7 +20282,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "G9nt2GazsDj3Ey3KdA49Sfaq9K95Dc72Ejps4NKTP2SR",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "BnKQtTdLw9qPCDgZkWX3sURkBAoKCUYL1yahh6Mw7mRK"
           },
           "initialAmpFactor": "c8",
@@ -21302,9 +21302,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -21336,9 +21336,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -21370,9 +21370,9 @@
         {
           "name": "USD Coin",
           "symbol": "USDC",
-          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png",
+          "logoURI": "https://cdn.jsdelivr.net/gh/saber-hq/safe-token-icons@master/icons/101/Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6.png",
           "decimals": 6,
-          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "address": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
           "chainId": 101,
           "tags": ["stablecoin", "saber-mkt-usd"],
           "extensions": {
@@ -21396,7 +21396,7 @@
           "website": "https://app.saber.so/pools/xusd",
           "underlyingTokens": [
             "83LGLCm7QKpYZbX8q4W2kYWbtt8NJBwbVwEepzkVnJ9y",
-            "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+            "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6"
           ],
           "source": "saber"
         }
@@ -21424,7 +21424,7 @@
           },
           "tokenB": {
             "adminFeeAccount": "87UVu2YZFmANEN7znTYVQVbZVtdE4CJnPWcfcLrnHR7u",
-            "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            "mint": "Cs15wVAmfVBSNP7uWEQpAepuXoVpYU655HHSAftzKbn6",
             "reserve": "3AZWBSze3ucsY3xSeuLne3b2pauVqiaJ1SZSV5T9WGWw"
           },
           "initialAmpFactor": "32",

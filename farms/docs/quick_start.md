@@ -3,7 +3,7 @@
 ## Setup Environment
 
 1. Clone the repository from https://github.com/fair-exchange/safecoin-program-library.git
-2. Install the latest Safecoin tools from https://docs.solana.com/cli/install-solana-cli-tools. If you already have Safecoin tools, run `safecoin-install update` to get the latest compatible version.
+2. Install the latest Safecoin tools from https://docs.solana.com/cli/install-safecoin-cli-tools. If you already have Safecoin tools, run `safecoin-install update` to get the latest compatible version.
 3. Install the latest Rust stable from https://rustup.rs/. If you already have Rust, run `rustup update` to get the latest version.
 4. Install the `libudev` development package for your distribution (`libudev-dev` on Debian-derived distros, `libudev-devel` on Redhat-derived).
 5. Install the `libsqlite3` development package for your distribution (`libsqlite3-dev` on Debian-derived distros, `sqlite-devel` on Redhat-derived).
@@ -55,7 +55,7 @@ done
 To build Vaults, specify an additional argument that tells the compiler which strategy needs to be built:
 
 ```sh
-pusdh vaults
+pushd vaults
 cargo build-bpf --no-default-features --features SBR-STAKE-LP-COMPOUND
 popd
 ```

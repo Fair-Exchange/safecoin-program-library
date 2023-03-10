@@ -74,7 +74,7 @@ exact problem.
 
 You can test the JavaScript bindings and on-chain interactions using
 `safecoin-test-validator`, included in the Safecoin Tool Suite.  See the
-[CLI installation instructions](https://docs.solana.com/cli/install-solana-cli-tools).
+[CLI installation instructions](https://docs.solana.com/cli/install-safecoin-cli-tools).
 
 From `./js`, install the required modules:
 

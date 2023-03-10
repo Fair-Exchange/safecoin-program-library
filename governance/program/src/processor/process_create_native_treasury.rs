@@ -1,6 +1,6 @@
 //! Program state processor
 
-use safecoin_program::{
+use solana_program::{
     account_info::{next_account_info, AccountInfo},
     entrypoint::ProgramResult,
     pubkey::Pubkey,
@@ -42,6 +42,7 @@ pub fn process_create_native_treasury(
         &system_program::id(), // System program as the PDA owner
         system_info,
         &rent,
+        0,
     )?;
 
     Ok(())

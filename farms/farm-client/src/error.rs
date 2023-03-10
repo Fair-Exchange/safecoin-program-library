@@ -2,7 +2,7 @@ use {
     pyth_client::PythError,
     safecoin_account_decoder::parse_account_data::ParseAccountError,
     safecoin_client::client_error::ClientError,
-    safecoin_sdk::{program_error::ProgramError, pubkey::PubkeyError},
+    solana_sdk::{program_error::ProgramError, pubkey::PubkeyError},
     thiserror::Error,
 };
 

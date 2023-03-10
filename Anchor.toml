@@ -1,5 +1,5 @@
 anchor_version = "0.24.2"
-solana_version = "1.14.3"
+safecoin_version = "1.14.17"
 
 [workspace]
 members = [
@@ -19,6 +19,6 @@ wallet = "~/.config/safecoin/id.json"
 
 [programs.mainnet]
 spl_governance = "GovER5Lthms3bLBqWub97yVrMmEogzX7xNjdXpPPCVZw"
-spl_stake_pool = "SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy"
+spl_stake_pool = "spNkUopdHp8YxSdsajeNuSKZm51w9kPt48SDDPSHFvo"
 safe_token = "ToKLx75MGim1d1jRusuVX8xvdvvbSDESVaNXpRA9PHN"
 safe_token_2022 = "ZToGWcF1Qh9H7te1MmABiGsFUKvj5zXPQ2QnTqoHpHN"

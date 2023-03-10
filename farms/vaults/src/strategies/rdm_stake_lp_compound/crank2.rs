@@ -8,7 +8,7 @@ use {
         program::{account, pda, protocol::raydium},
         vault::{Vault, VaultStrategy},
     },
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, msg, program_error::ProgramError,
     },
 };

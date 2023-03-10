@@ -1,11 +1,11 @@
 use {
-    safecoin_program::{
+    solana_program::{
         instruction::{AccountMeta, Instruction},
         pubkey::Pubkey,
         sysvar::{self},
     },
-    safecoin_program_test::*,
-    safecoin_sdk::{signature::Signer, transaction::Transaction},
+    solana_program_test::*,
+    solana_sdk::{signature::Signer, transaction::Transaction},
     spl_example_sysvar::processor::process_instruction,
     std::str::FromStr,
 };

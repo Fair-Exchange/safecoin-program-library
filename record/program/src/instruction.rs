@@ -2,7 +2,7 @@
 
 use crate::id;
 use borsh::{BorshDeserialize, BorshSerialize};
-use safecoin_program::{
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     pubkey::Pubkey,
 };
@@ -108,7 +108,7 @@ pub fn close_account(record_account: &Pubkey, signer: &Pubkey, receiver: &Pubkey
 mod tests {
     use super::*;
     use crate::state::tests::TEST_DATA;
-    use safecoin_program::program_error::ProgramError;
+    use solana_program::program_error::ProgramError;
 
     #[test]
     fn serialize_initialize() {

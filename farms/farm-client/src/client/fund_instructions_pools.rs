@@ -7,7 +7,7 @@ use {
         instruction::{amm::AmmInstruction, fund::FundInstruction, vault::VaultInstruction},
         Protocol,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         instruction::{AccountMeta, Instruction},
         pubkey::Pubkey,
         sysvar,

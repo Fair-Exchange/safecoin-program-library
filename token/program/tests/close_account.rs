@@ -1,8 +1,8 @@
 #![cfg(feature = "test-sbf")]
 
 use {
-    safecoin_program_test::{processor, tokio, ProgramTest, ProgramTestContext},
-    safecoin_sdk::{
+    solana_program_test::{processor, tokio, ProgramTest, ProgramTestContext},
+    solana_sdk::{
         instruction::InstructionError,
         program_pack::Pack,
         pubkey::Pubkey,
@@ -181,14 +181,12 @@ async fn fail_init_after_close_account() {
         &[&context.payer, &owner],
         context.last_blockhash,
     );
-    #[allow(clippy::useless_conversion)]
-    let error: TransactionError = context
+    let error = context
         .banks_client
         .process_transaction(tx)
         .await
         .unwrap_err()
-        .unwrap()
-        .into();
+        .unwrap();
     assert_eq!(
         error,
         TransactionError::InstructionError(2, InstructionError::InvalidAccountData)

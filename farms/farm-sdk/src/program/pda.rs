@@ -2,7 +2,7 @@
 
 use {
     crate::program::account,
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, program, program_error::ProgramError,
         program_pack::Pack, pubkey::Pubkey, rent::Rent, system_instruction, sysvar, sysvar::Sysvar,
     },
@@ -277,7 +277,7 @@ pub fn mint_to_with_seeds<'a, 'b>(
     seeds: &[&[&[u8]]],
     amount: u64,
 ) -> ProgramResult {
-    safecoin_program::program::invoke_signed(
+    solana_program::program::invoke_signed(
         &safe_token::instruction::mint_to(
             &safe_token::id(),
             mint_account.key,
@@ -323,7 +323,7 @@ pub fn burn_tokens_with_seeds<'a, 'b>(
     seeds: &[&[&[u8]]],
     amount: u64,
 ) -> ProgramResult {
-    safecoin_program::program::invoke_signed(
+    solana_program::program::invoke_signed(
         &safe_token::instruction::burn(
             &safe_token::id(),
             from_token_account.key,
@@ -369,7 +369,7 @@ pub fn approve_delegate_with_seeds<'a, 'b>(
     seeds: &[&[&[u8]]],
     amount: u64,
 ) -> ProgramResult {
-    safecoin_program::program::invoke_signed(
+    solana_program::program::invoke_signed(
         &safe_token::instruction::approve(
             &safe_token::id(),
             source_account.key,
@@ -413,7 +413,7 @@ pub fn revoke_delegate_with_seeds<'a, 'b>(
     authority_account: &'a AccountInfo<'b>,
     seeds: &[&[&[u8]]],
 ) -> ProgramResult {
-    safecoin_program::program::invoke_signed(
+    solana_program::program::invoke_signed(
         &safe_token::instruction::revoke(
             &safe_token::id(),
             source_account.key,

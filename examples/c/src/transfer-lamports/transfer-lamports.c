@@ -1,7 +1,7 @@
 /**
  * @brief A program demonstrating the transfer of lamports
  */
-#include <safecoin_sdk.h>
+#include <solana_sdk.h>
 
 extern uint64_t transfer(SafeParameters *params) {
   // As part of the program specification the first account is the source

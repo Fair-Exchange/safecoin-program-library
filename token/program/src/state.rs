@@ -3,7 +3,7 @@
 use crate::instruction::MAX_SIGNERS;
 use arrayref::{array_mut_ref, array_ref, array_refs, mut_array_refs};
 use num_enum::TryFromPrimitive;
-use safecoin_program::{
+use solana_program::{
     program_error::ProgramError,
     program_option::COption,
     program_pack::{IsInitialized, Pack, Sealed},
@@ -115,8 +115,8 @@ impl Account {
     }
     /// Checks if a token Account's owner is the system_program or the incinerator
     pub fn is_owned_by_system_program_or_incinerator(&self) -> bool {
-        safecoin_program::system_program::check_id(&self.owner)
-            || safecoin_program::incinerator::check_id(&self.owner)
+        solana_program::system_program::check_id(&self.owner)
+            || solana_program::incinerator::check_id(&self.owner)
     }
 }
 impl Sealed for Account {}
@@ -435,7 +435,7 @@ mod tests {
         let result = Account::unpack_account_owner(&src);
         assert_eq!(result, Option::None);
 
-        // The right account data size and intialized, unpack will return some key
+        // The right account data size and initialized, unpack will return some key
         let mut src: [u8; Account::LEN] = [0; Account::LEN];
         src[ACCOUNT_INITIALIZED_INDEX] = AccountState::Initialized as u8;
         let result = Account::unpack_account_owner(&src);

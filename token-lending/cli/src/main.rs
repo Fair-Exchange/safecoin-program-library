@@ -11,8 +11,8 @@ use {
         keypair::signer_from_path,
     },
     safecoin_client::rpc_client::RpcClient,
-    safecoin_program::{native_token::lamports_to_sol, program_pack::Pack, pubkey::Pubkey},
-    safecoin_sdk::{
+    solana_program::{native_token::lamports_to_sol, program_pack::Pack, pubkey::Pubkey},
+    solana_sdk::{
         commitment_config::CommitmentConfig,
         message::Message,
         signature::{Keypair, Signer},

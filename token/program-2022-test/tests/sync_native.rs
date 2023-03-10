@@ -3,11 +3,11 @@
 mod program_test;
 use {
     program_test::{TestContext, TokenContext},
-    safecoin_program_test::{
+    solana_program_test::{
         tokio::{self, sync::Mutex},
         ProgramTestContext,
     },
-    safecoin_sdk::{
+    solana_sdk::{
         pubkey::Pubkey, signature::Signer, signer::keypair::Keypair, system_instruction,
         transaction::Transaction,
     },

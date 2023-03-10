@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-use safecoin_program::program_error::ProgramError;
+use solana_program::program_error::ProgramError;
 
 #[derive(Error, Debug, Copy, Clone)]
 pub enum BinaryOptionError {
@@ -28,6 +28,8 @@ pub enum BinaryOptionError {
     PublicKeysShouldBeUnique,
     #[error("TradePricesIncorrect")]
     TradePricesIncorrect,
+    #[error("AmountOverflow")]
+    AmountOverflow,
 }
 
 impl From<BinaryOptionError> for ProgramError {

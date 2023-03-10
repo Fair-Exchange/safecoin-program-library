@@ -11,7 +11,7 @@ tested.
 1. Install `make`
 2. Install gcc
 3. Install Safecoin v1.4.6 or later from
-   https://docs.solana.com/cli/install-solana-cli-tools
+   https://docs.solana.com/cli/install-safecoin-cli-tools
 
 ## Build and Test
 

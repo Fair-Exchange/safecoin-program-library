@@ -3,7 +3,7 @@
 use {
     crate::error::FarmClientError,
     solana_farm_sdk::{farm::FarmRoute, id::zero},
-    safecoin_sdk::{
+    solana_sdk::{
         instruction::AccountMeta, program_error::ProgramError, pubkey::Pubkey, system_program,
         sysvar,
     },

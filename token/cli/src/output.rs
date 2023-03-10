@@ -4,8 +4,8 @@ use serde::{Deserialize, Serialize, Serializer};
 use safecoin_account_decoder::{
     parse_token::{UiAccountState, UiMint, UiMultisig, UiTokenAccount, UiTokenAmount},
     parse_token_extension::{
-        UiDefaultAccountState, UiExtension, UiInterestBearingConfig, UiMemoTransfer,
-        UiMintCloseAuthority, UiTransferFeeAmount, UiTransferFeeConfig,
+        UiCpiGuard, UiDefaultAccountState, UiExtension, UiInterestBearingConfig, UiMemoTransfer,
+        UiMintCloseAuthority, UiPermanentDelegate, UiTransferFeeAmount, UiTransferFeeConfig,
     },
 };
 use safecoin_cli_output::{display::writeln_name_value, OutputFormat, QuietDisplay, VerboseDisplay};
@@ -183,15 +183,16 @@ impl fmt::Display for CliMultisig {
     }
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct CliTokenAccount {
     pub(crate) address: String,
     pub(crate) program_id: String,
-    pub(crate) decimals: Option<u8>,
     pub(crate) is_associated: bool,
     #[serde(flatten)]
     pub(crate) account: UiTokenAccount,
+    #[serde(skip_serializing)]
+    pub(crate) has_permanent_delegate: bool,
 }
 
 impl QuietDisplay for CliTokenAccount {}
@@ -215,12 +216,7 @@ impl fmt::Display for CliTokenAccount {
         writeln_name_value(
             f,
             "  Decimals:",
-            if self.decimals.is_some() {
-                self.decimals.unwrap().to_string()
-            } else {
-                String::new()
-            }
-            .as_ref(),
+            self.account.token_amount.decimals.to_string().as_ref(),
         )?;
         let mint = format!(
             "{}{}",
@@ -261,6 +257,22 @@ impl fmt::Display for CliTokenAccount {
         if !self.is_associated {
             writeln!(f)?;
             writeln!(f, "* Please run `safe-token gc` to clean up Aux accounts")?;
+        }
+
+        if self.has_permanent_delegate {
+            writeln!(f)?;
+            writeln!(
+                f,
+                "* {} ",
+                style("This token has a permanent delegate!").bold()
+            )?;
+            writeln!(
+                f,
+                "  This means the mint may withdraw {} funds from this account at {} time.",
+                style("all").bold(),
+                style("any").bold(),
+            )?;
+            writeln!(f, "  If this was not adequately disclosed to you, you may be dealing with a malicious mint.")?;
         }
 
         Ok(())
@@ -327,31 +339,65 @@ pub(crate) struct CliTokenAccounts {
     #[serde(skip_serializing)]
     pub(crate) aux_len: usize,
     #[serde(skip_serializing)]
-    pub(crate) token_is_some: bool,
+    pub(crate) explicit_token: bool,
 }
 
 impl QuietDisplay for CliTokenAccounts {}
 impl VerboseDisplay for CliTokenAccounts {
     fn write_str(&self, w: &mut dyn fmt::Write) -> fmt::Result {
         let mut gc_alert = false;
-        if self.token_is_some {
-            writeln!(
-                w,
-                "{:<44}  {:<2$}",
-                "Account", "Balance", self.max_len_balance
-            )?;
-            writeln!(
-                w,
-                "-------------------------------------------------------------"
-            )?;
-        } else {
-            writeln!(
-                w,
-                "{:<44}  {:<44}  {:<3$}",
-                "Token", "Account", "Balance", self.max_len_balance
-            )?;
-            writeln!(w, "----------------------------------------------------------------------------------------------------------")?;
+
+        let mut delegate_padding = 9;
+        let mut close_authority_padding = 15;
+        for accounts_list in self.accounts.iter() {
+            for account in accounts_list {
+                if account.account.delegated_amount.is_some() {
+                    delegate_padding = delegate_padding.max(
+                        account
+                            .account
+                            .delegated_amount
+                            .as_ref()
+                            .unwrap()
+                            .amount
+                            .len(),
+                    );
+                }
+
+                if account.account.close_authority.is_some() {
+                    close_authority_padding = 44;
+                }
+            }
         }
+
+        let header = if self.explicit_token {
+            format!(
+                "{:<44}  {:<44}  {:<5$}  {:<6$}  {:<7$}",
+                "Program",
+                "Account",
+                "Delegated",
+                "Close Authority",
+                "Balance",
+                delegate_padding,
+                close_authority_padding,
+                self.max_len_balance
+            )
+        } else {
+            format!(
+                "{:<44}  {:<44}  {:<44}  {:<6$}  {:<7$}  {:<8$}",
+                "Program",
+                "Token",
+                "Account",
+                "Delegated",
+                "Close Authority",
+                "Balance",
+                delegate_padding,
+                close_authority_padding,
+                self.max_len_balance
+            )
+        };
+        writeln!(w, "{}", header)?;
+        writeln!(w, "{}", "-".repeat(header.len() + self.aux_len))?;
+
         for accounts_list in self.accounts.iter() {
             let mut aux_counter = 1;
             for account in accounts_list {
@@ -363,31 +409,56 @@ impl VerboseDisplay for CliTokenAccounts {
                 } else {
                     "".to_string()
                 };
+
                 let maybe_frozen = if let UiAccountState::Frozen = account.account.state {
                     format!(" {}  Frozen", WARNING)
                 } else {
                     "".to_string()
                 };
-                if self.token_is_some {
+
+                let maybe_delegated = account
+                    .account
+                    .delegated_amount
+                    .clone()
+                    .map(|d| d.amount)
+                    .unwrap_or_else(|| "".to_string());
+
+                let maybe_close_authority = account
+                    .account
+                    .close_authority
+                    .clone()
+                    .unwrap_or_else(|| "".to_string());
+
+                if self.explicit_token {
                     writeln!(
                         w,
-                        "{:<44}  {:<4$}{:<5$}{}",
+                        "{:<44}  {:<44}  {:<7$}  {:<8$}  {:<9$}{:<10$}{}",
+                        account.program_id,
                         account.address,
+                        maybe_delegated,
+                        maybe_close_authority,
                         account.account.token_amount.real_number_string_trimmed(),
                         maybe_aux,
                         maybe_frozen,
+                        delegate_padding,
+                        close_authority_padding,
                         self.max_len_balance,
                         self.aux_len,
                     )?;
                 } else {
                     writeln!(
                         w,
-                        "{:<44}  {:<44}  {:<5$}{:<6$}{}",
+                        "{:<44}  {:<44}  {:<44}  {:<8$}  {:<9$}  {:<10$}{:<11$}{}",
+                        account.program_id,
                         account.account.mint,
                         account.address,
+                        maybe_delegated,
+                        maybe_close_authority,
                         account.account.token_amount.real_number_string_trimmed(),
                         maybe_aux,
                         maybe_frozen,
+                        delegate_padding,
+                        close_authority_padding,
                         self.max_len_balance,
                         self.aux_len,
                     )?;
@@ -412,20 +483,14 @@ impl VerboseDisplay for CliTokenAccounts {
 impl fmt::Display for CliTokenAccounts {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let mut gc_alert = false;
-        if self.token_is_some {
-            writeln!(f, "{:<1$}", "Balance", self.max_len_balance)?;
-            writeln!(f, "-------------")?;
+        let header = if self.explicit_token {
+            format!("{:<1$}", "Balance", self.max_len_balance)
         } else {
-            writeln!(
-                f,
-                "{:<44}  {:<2$}",
-                "Token", "Balance", self.max_len_balance
-            )?;
-            writeln!(
-                f,
-                "---------------------------------------------------------------"
-            )?;
-        }
+            format!("{:<44}  {:<2$}", "Token", "Balance", self.max_len_balance)
+        };
+        writeln!(f, "{}", header)?;
+        writeln!(f, "{}", "-".repeat(header.len() + self.aux_len))?;
+
         for accounts_list in self.accounts.iter() {
             let mut aux_counter = 1;
             for account in accounts_list {
@@ -442,7 +507,7 @@ impl fmt::Display for CliTokenAccounts {
                 } else {
                     "".to_string()
                 };
-                if self.token_is_some {
+                if self.explicit_token {
                     writeln!(
                         f,
                         "{:<3$}{:<4$}{}",
@@ -560,11 +625,11 @@ fn display_ui_extension(
             writeln_name_value(f, "  Transfer fees withheld:", &withheld_amount.to_string())
         }
         UiExtension::MintCloseAuthority(UiMintCloseAuthority { close_authority }) => {
-            writeln_name_value(
-                f,
-                "  Close authority:",
-                close_authority.as_ref().unwrap_or(&String::new()),
-            )
+            if let Some(close_authority) = close_authority {
+                writeln_name_value(f, "  Close authority:", close_authority)
+            } else {
+                Ok(())
+            }
         }
         UiExtension::ConfidentialTransferMint(_) => unimplemented!(),
         UiExtension::ConfidentialTransferAccount(_) => unimplemented!(),
@@ -608,6 +673,18 @@ fn display_ui_extension(
                 "    Rate authority:",
                 rate_authority.as_ref().unwrap_or(&String::new()),
             )
+        }
+        UiExtension::CpiGuard(UiCpiGuard { lock_cpi }) => writeln_name_value(
+            f,
+            "  CPI Guard:",
+            if *lock_cpi { "Enabled" } else { "Disabled" },
+        ),
+        UiExtension::PermanentDelegate(UiPermanentDelegate { delegate }) => {
+            if let Some(delegate) = delegate {
+                writeln_name_value(f, "  Permanent delegate:", delegate)
+            } else {
+                Ok(())
+            }
         }
         // ExtensionType::Uninitialized is a hack to ensure a mint/account is never the same length as a multisig
         UiExtension::Uninitialized => Ok(()),

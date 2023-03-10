@@ -3,7 +3,7 @@
 use {
     clap::{crate_description, crate_name, App, AppSettings, Arg, ArgMatches, SubCommand},
     safecoin_clap_utils::{input_validators::is_url, keypair::signer_from_path},
-    safecoin_sdk::{commitment_config::CommitmentConfig, pubkey::Pubkey, signature::Signer},
+    solana_sdk::{commitment_config::CommitmentConfig, pubkey::Pubkey, signature::Signer},
     std::str::FromStr,
 };
 

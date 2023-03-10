@@ -1,5 +1,5 @@
 use crate::error::LendingError;
-use safecoin_program::{clock::Slot, program_error::ProgramError};
+use solana_program::{clock::Slot, program_error::ProgramError};
 use std::cmp::Ordering;
 
 /// Number of slots to consider stale after

@@ -8,22 +8,22 @@
 #   $ source ci/safecoin-version.sh install
 
 # Then to access the safecoin version:
-#   $ echo "$solana_version"
+#   $ echo "$safecoin_version"
 #
 
 if [[ -n $SAFECOIN_VERSION ]]; then
-  solana_version="$SAFECOIN_VERSION"
+  safecoin_version="$SAFECOIN_VERSION"
 else
-  solana_version=v1.11.6
+  safecoin_version=v1.14.17
 fi
 
-export solana_version="$solana_version"
+export safecoin_version="$safecoin_version"
 export PATH="$HOME"/.local/share/solana/install/active_release/bin:"$PATH"
 
 if [[ -n $1 ]]; then
   case $1 in
   install)
-    sh -c "$(curl -sSfL https://release.solana.com/$solana_version/install)"
+    sh -c "$(curl -sSfL https://release.solana.com/$safecoin_version/install)"
     safecoin --version
     ;;
   *)

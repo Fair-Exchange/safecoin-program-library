@@ -11,7 +11,7 @@ use {
         program::{account, protocol::raydium},
         vault::Vault,
     },
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo, entrypoint::ProgramResult, msg, program_error::ProgramError,
         pubkey::Pubkey,
     },

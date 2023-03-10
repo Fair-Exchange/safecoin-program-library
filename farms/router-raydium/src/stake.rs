@@ -6,7 +6,7 @@ use {
         instruction::raydium::RaydiumStake,
         program::{account, protocol::raydium},
     },
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         entrypoint::ProgramResult,
         instruction::{AccountMeta, Instruction},

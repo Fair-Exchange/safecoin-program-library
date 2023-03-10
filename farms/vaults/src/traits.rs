@@ -3,7 +3,7 @@
 use {
     crate::vault_info::VaultInfo,
     solana_farm_sdk::vault::Vault,
-    safecoin_program::{account_info::AccountInfo, entrypoint::ProgramResult},
+    solana_program::{account_info::AccountInfo, entrypoint::ProgramResult},
 };
 
 pub trait VaultParams {

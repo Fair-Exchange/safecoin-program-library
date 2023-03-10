@@ -16,7 +16,7 @@ use crate::{
     error::LendingError,
     math::{common::*, Rate},
 };
-use safecoin_program::program_error::ProgramError;
+use solana_program::program_error::ProgramError;
 use std::{convert::TryFrom, fmt};
 use uint::construct_uint;
 

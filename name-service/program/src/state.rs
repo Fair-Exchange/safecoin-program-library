@@ -1,6 +1,6 @@
 use {
     borsh::{BorshDeserialize, BorshSerialize},
-    safecoin_program::{
+    solana_program::{
         account_info::AccountInfo,
         msg,
         program_error::ProgramError,

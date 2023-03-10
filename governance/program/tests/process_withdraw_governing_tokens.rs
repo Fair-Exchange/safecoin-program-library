@@ -1,12 +1,12 @@
 #![cfg(feature = "test-sbf")]
 
-use safecoin_program::{instruction::AccountMeta, pubkey::Pubkey};
-use safecoin_program_test::*;
+use solana_program::{instruction::AccountMeta, pubkey::Pubkey};
+use solana_program_test::*;
 
 mod program_test;
 
 use program_test::*;
-use safecoin_sdk::signature::Signer;
+use solana_sdk::signature::Signer;
 
 use spl_governance::{
     error::GovernanceError,
